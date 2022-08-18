@@ -1,0 +1,75 @@
+﻿<div class="card" id="monthlyPlanner">
+    <div class="card-header bgm-orange">
+        <h2>Monthly Planner</h2>
+    </div>
+    <div class="p-15">
+        <div id='calendarMonthly'></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var sourceFullView = { url: '/CRMSaleDashboard/GetMonthStatusByEmployee/' };
+        var sourceSummaryView = { url: '/CRMSaleDashboard/GetMonthStatusByEmployee/' };
+        var CalLoading = true;
+
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+        $('#calendarMonthly').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                //    right: 'month,agendaWeek,agendaDay',
+                right: ''
+            },
+            defaultView: 'month',
+            //editable: true,
+            //allDaySlot: false,
+            //selectable: true,
+            // slotMinutes: 15,
+
+            events: {
+                url: '/CRMSaleDashboard/GetMonthStatusByEmployee/',
+                dataType: 'json',
+                lazyFetching: true,
+                data: {
+                    //  employeeID: $("#EmployeeID").val(),
+                },
+                ignoreTimezone: false,
+                error: function () {
+                    alert('there was an error while fetching events!');
+                },
+                success: function (doc) {
+                    var events = [];
+                    for (var i = 0; i < doc.length; i++) {
+                        events.push({
+                            title: doc[i].title,
+                            allDay: true,
+                            editable: false,
+                            textColor: 'white',
+                            color: 'yellow',
+                            backgroundColor: doc[i].backgroundColor,
+                            start: new Date(parseInt(doc[i].start.split('(')[1].split(')')[0])),
+                        });
+                    }
+                    // $("[data-date=" + $.fullCalendar.formatDate(new Date(parseInt(doc[i].start.split('(')[1].split(')')[0])), "yyyy-MM-dd") + "]").css("background-color", "#faa732");
+
+                    $(".fc-border-separate").removeClass('fc-event');
+                    return events;   //<------- events render in view by returning it.
+
+                },
+                //color: 'yellow',   // a non-ajax option
+                //textColor: 'black' // a non-ajax option
+            },
+
+        });
+
+        CalLoading = false;
+
+
+    });
+
+</script>

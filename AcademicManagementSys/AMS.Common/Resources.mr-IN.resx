@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abbrevation" xml:space="preserve">
+    <value>संक्षेप</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>अकॅडेमिक मॅनेज़मेंट सिस्टिम</value>
+  </data>
+  <data name="ButtonAction_Delete" xml:space="preserve">
+    <value>हटवा</value>
+  </data>
+  <data name="ButtonAction_Reset" xml:space="preserve">
+    <value>रीसेट</value>
+  </data>
+  <data name="ButtonAction_Submit" xml:space="preserve">
+    <value>जतन करा</value>
+  </data>
+  <data name="ContryCode" xml:space="preserve">
+    <value>देश कोड</value>
+  </data>
+  <data name="CountryName" xml:space="preserve">
+    <value>देश</value>
+  </data>
+  <data name="CreateCountry" xml:space="preserve">
+    <value>देश निर्माण करा</value>
+  </data>
+  <data name="DefaultFlag" xml:space="preserve">
+    <value>तो डीफॉल्ट बनवा</value>
+  </data>
+  <data name="DeleteCountry" xml:space="preserve">
+    <value>देश काढून टाका</value>
+  </data>
+  <data name="DisplayName_Actions" xml:space="preserve">
+    <value>क्रिया</value>
+  </data>
+  <data name="DisplayName_AddNew" xml:space="preserve">
+    <value>नवीन जोडा</value>
+  </data>
+  <data name="DisplayName_AdminRoleCode" xml:space="preserve">
+    <value>Role Code</value>
+  </data>
+  <data name="DisplayName_CasteName" xml:space="preserve">
+    <value>जाती नाव</value>
+  </data>
+  <data name="DisplayName_CategoryCode" xml:space="preserve">
+    <value>वर्ग कोड</value>
+  </data>
+  <data name="DisplayName_CategoryName" xml:space="preserve">
+    <value>वर्गवारी नाव</value>
+  </data>
+  <data name="DisplayName_CategoryType" xml:space="preserve">
+    <value>श्रेणीमार्गाचा प्रकार</value>
+  </data>
+  <data name="DisplayName_CountryCode" xml:space="preserve">
+    <value>देश कोड</value>
+  </data>
+  <data name="DisplayName_CountryName" xml:space="preserve">
+    <value>देश नाव</value>
+  </data>
+  <data name="DisplayName_CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="DisplayName_CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="DisplayName_CurrentFlag" xml:space="preserve">
+    <value>वर्तमान ध्वजांकित करा</value>
+  </data>
+  <data name="DisplayName_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DisplayName_DeletedBy" xml:space="preserve">
+    <value>Deleted By</value>
+  </data>
+  <data name="DisplayName_DeletedDate" xml:space="preserve">
+    <value>Deleted Date</value>
+  </data>
+  <data name="DisplayName_Description" xml:space="preserve">
+    <value>वर्णन</value>
+  </data>
+  <data name="DisplayName_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DisplayName_IsActive" xml:space="preserve">
+    <value>Active?</value>
+  </data>
+  <data name="DisplayName_IsDeleted" xml:space="preserve">
+    <value>Deleted?</value>
+  </data>
+  <data name="DisplayName_MakeitDefault" xml:space="preserve">
+    <value>तो डीफॉल्ट बनवा</value>
+  </data>
+  <data name="DisplayName_ModifiedBy" xml:space="preserve">
+    <value>Modified By</value>
+  </data>
+  <data name="DisplayName_ModifiedDate" xml:space="preserve">
+    <value>Modified Date</value>
+  </data>
+  <data name="DisplayName_RegionName" xml:space="preserve">
+    <value>प्रदेश नाव</value>
+  </data>
+  <data name="DisplayName_SeqNo" xml:space="preserve">
+    <value>क्रम नाही</value>
+  </data>
+  <data name="DisplayName_SessionFrom" xml:space="preserve">
+    <value>सत्र</value>
+  </data>
+  <data name="DisplayName_SessionOrder" xml:space="preserve">
+    <value>सत्र आदेश</value>
+  </data>
+  <data name="DisplayName_SessionUpto" xml:space="preserve">
+    <value>सत्र पर्यंत</value>
+  </data>
+  <data name="EmailID" xml:space="preserve">
+    <value>ईमैल आईडी</value>
+  </data>
+  <data name="Error_NullReference" xml:space="preserve">
+    <value>Null Reference Exception</value>
+  </data>
+  <data name="FormCreate_AcademicSession" xml:space="preserve">
+    <value>शैक्षणिक सत्र तयार करा</value>
+  </data>
+  <data name="FormCreate_CasteName" xml:space="preserve">
+    <value>जाती नाव तयार करा</value>
+  </data>
+  <data name="FormCreate_Category" xml:space="preserve">
+    <value>वर्ग तयार करा</value>
+  </data>
+  <data name="FormCreate_City" xml:space="preserve">
+    <value>सिटी तयार करा</value>
+  </data>
+  <data name="FormCreate_Country" xml:space="preserve">
+    <value>देश तयार करा</value>
+  </data>
+  <data name="FormDelete_AcademicSession" xml:space="preserve">
+    <value>शैक्षणिक सत्र हटवा</value>
+  </data>
+  <data name="FormDelete_CasteName" xml:space="preserve">
+    <value>जाती नाव हटवा</value>
+  </data>
+  <data name="FormDelete_Category" xml:space="preserve">
+    <value>वर्ग हटवा</value>
+  </data>
+  <data name="FormDelete_City" xml:space="preserve">
+    <value>शहर हटवा</value>
+  </data>
+  <data name="FormDelete_Country" xml:space="preserve">
+    <value>देश हटवा</value>
+  </data>
+  <data name="FormEdit_AcademicSession" xml:space="preserve">
+    <value>संपादित करा शैक्षणिक सत्र</value>
+  </data>
+  <data name="FormEdit_Country" xml:space="preserve">
+    <value>संपादित करा देश</value>
+  </data>
+  <data name="FormName_AcademicSession" xml:space="preserve">
+    <value>शैक्षणिक सत्र</value>
+  </data>
+  <data name="FormName_Caste" xml:space="preserve">
+    <value>जात</value>
+  </data>
+  <data name="FormName_Category" xml:space="preserve">
+    <value>वर्ग</value>
+  </data>
+  <data name="FormName_City" xml:space="preserve">
+    <value>शहर</value>
+  </data>
+  <data name="FormName_Country" xml:space="preserve">
+    <value>देश</value>
+  </data>
+  <data name="FormUpdate_CasteName" xml:space="preserve">
+    <value>अद्यतन जाती नाव</value>
+  </data>
+  <data name="FormUpdate_Category" xml:space="preserve">
+    <value>अद्यतन श्रेणी</value>
+  </data>
+  <data name="FormUpdate_City" xml:space="preserve">
+    <value>अद्यतन सिटी</value>
+  </data>
+  <data name="GlobalProperties_Search" xml:space="preserve">
+    <value>शोध</value>
+  </data>
+  <data name="GlobalProperties_ShowRecords" xml:space="preserve">
+    <value>दर्शवा रेकॉर्ड</value>
+  </data>
+  <data name="InvalidArgumentsError" xml:space="preserve">
+    <value>InvalidArgumentsError</value>
+  </data>
+  <data name="JsValidationMessages_SelectLicenseRule" xml:space="preserve">
+    <value>परवाना नियम प्रकार निवडा.</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>लॉगिन</value>
+  </data>
+  <data name="Mainheading_GeneralParameters" xml:space="preserve">
+    <value>सामान्य बाबी</value>
+  </data>
+  <data name="MainMenu_LicenseRule" xml:space="preserve">
+    <value>परवाना नियम</value>
+  </data>
+  <data name="Message_DeleteAll" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="Message_DeleteAllDataConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete all log histories for the current filter?</value>
+  </data>
+  <data name="Message_RecordAlreadyExists" xml:space="preserve">
+    <value>रेकॉर्ड आधीपासून विद्यमान आहे</value>
+  </data>
+  <data name="Message_RecordCreatedSuccessfully" xml:space="preserve">
+    <value>रेकॉर्ड यशस्वीरित्या तयार केला गेला</value>
+  </data>
+  <data name="Message_RecordDeletedSuccessfully" xml:space="preserve">
+    <value>रेकॉर्ड यशस्वीरित्या हटविला</value>
+  </data>
+  <data name="Message_RecordNotCreatedSuccessfully" xml:space="preserve">
+    <value>रेकॉर्ड यशस्वीपणे तयार केला नाहीत</value>
+  </data>
+  <data name="Message_RecordNotDeletedSuccessfully" xml:space="preserve">
+    <value>रेकॉर्ड यशस्वीरित्या हटविला नाही</value>
+  </data>
+  <data name="Message_RecordNotUpdatedSuccessfully" xml:space="preserve">
+    <value>रेकॉर्ड यशस्वीरित्या अद्यतनित झाली नाही</value>
+  </data>
+  <data name="Message_RecordUpdatedSuccessfully" xml:space="preserve">
+    <value>रेकॉर्ड यशस्वीरित्या अद्यतनित केला</value>
+  </data>
+  <data name="Null_Object_Exception" xml:space="preserve">
+    <value>Object is not found</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>पासवर्ड</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>लक्षात ठेवा ?</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>भाषा निवडा</value>
+  </data>
+  <data name="SeqNo" xml:space="preserve">
+    <value>क्रम संख्या</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>साइन ईन</value>
+  </data>
+  <data name="Tableheaders_Abbrevation" xml:space="preserve">
+    <value>संक्षेपात</value>
+  </data>
+  <data name="Tableheaders_CasteName" xml:space="preserve">
+    <value>जाती नाव</value>
+  </data>
+  <data name="Tableheaders_Category" xml:space="preserve">
+    <value>वर्ग</value>
+  </data>
+  <data name="Tableheaders_CategoryCode" xml:space="preserve">
+    <value>वर्ग कोड</value>
+  </data>
+  <data name="Tableheaders_CategoryName" xml:space="preserve">
+    <value>वर्गवारी नाव</value>
+  </data>
+  <data name="Tableheaders_CategoryType" xml:space="preserve">
+    <value>श्रेणीमार्गाचा प्रकार</value>
+  </data>
+  <data name="Tableheaders_City" xml:space="preserve">
+    <value>शहर</value>
+  </data>
+  <data name="Tableheaders_Country" xml:space="preserve">
+    <value>देश</value>
+  </data>
+  <data name="Tableheaders_ManageAcademicSession" xml:space="preserve">
+    <value>शैक्षणिक सत्र व्यवस्थापित करा</value>
+  </data>
+  <data name="Tableheaders_ManageCaste" xml:space="preserve">
+    <value>जात</value>
+  </data>
+  <data name="Tableheaders_ManageCategory" xml:space="preserve">
+    <value>वर्ग व्यवस्थापित करा</value>
+  </data>
+  <data name="Tableheaders_ManageCity" xml:space="preserve">
+    <value>शहर व्यवस्थापित करा</value>
+  </data>
+  <data name="Tableheaders_ManageCountry" xml:space="preserve">
+    <value>देश व्यवस्थापित</value>
+  </data>
+  <data name="Tableheaders_Region" xml:space="preserve">
+    <value>प्रदेश नाव</value>
+  </data>
+  <data name="Tableheaders_Session" xml:space="preserve">
+    <value>सत्र</value>
+  </data>
+  <data name="Tableheaders_SessionOrder" xml:space="preserve">
+    <value>सत्र आदेश</value>
+  </data>
+  <data name="Title_AdminRoleDetailIndex" xml:space="preserve">
+    <value>Manage Admin Role Details</value>
+  </data>
+  <data name="ToolTip_Delete" xml:space="preserve">
+    <value>हटवा</value>
+  </data>
+  <data name="ToolTip_Edit" xml:space="preserve">
+    <value>संपादित करा</value>
+  </data>
+  <data name="UpdateCountry" xml:space="preserve">
+    <value>देश अद्यतनित करा</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>युसर</value>
+  </data>
+  <data name="ValidationMessage_CategoryCodeRequired" xml:space="preserve">
+    <value>वर्ग कोड रिक्त असू नये</value>
+  </data>
+  <data name="ValidationMessage_CategoryNameRequired" xml:space="preserve">
+    <value>वर्ग नाव रिक्त असू नये</value>
+  </data>
+  <data name="ValidationMessage_CategoryTypeRequired" xml:space="preserve">
+    <value>वर्ग प्रकार रिक्त असू नये</value>
+  </data>
+  <data name="ValidationMessage_ContryCodeRequired" xml:space="preserve">
+    <value>देश कोड  रिक्त असू शकत नाही</value>
+  </data>
+  <data name="ValidationMessage_CountryNameRequired" xml:space="preserve">
+    <value>देशाचे नाव रिक्त असू शकत नाही</value>
+  </data>
+  <data name="ValidationMessage_DescriptionRequired" xml:space="preserve">
+    <value>वर्णन रिक्त असू शकत नाही</value>
+  </data>
+  <data name="ValidationMessage_RegionNameRequired" xml:space="preserve">
+    <value>प्रदेश नाव रिक्त असू नये</value>
+  </data>
+  <data name="ValidationMessage_SeqNoRequired" xml:space="preserve">
+    <value>क्रम संख्या रिक्त असू शकत नाही</value>
+  </data>
+  <data name="ValidationMessage_SessionFromRequired" xml:space="preserve">
+    <value>सत्र रिक्त असू नये</value>
+  </data>
+  <data name="ValidationMessage_SessionOrderRequired" xml:space="preserve">
+    <value>सत्र ऑर्डर रिक्त असू नये</value>
+  </data>
+  <data name="ValidationMessage_SessionUptoRequired" xml:space="preserve">
+    <value>सत्र पर्यंत रिक्त असू नये</value>
+  </data>
+  <data name="DisplayErrorMessage_ApplicableFromDateShouldNotBlank" xml:space="preserve">
+    <value>तारखेपासून लागू रिक्त नये.</value>
+  </data>
+  <data name="DisplayErrorMessage_ApplicableToAllShouldNotBlank" xml:space="preserve">
+    <value>Applicable to all should not blank.</value>
+  </data>
+  <data name="DisplayErrorMessage_ApplicableUptoDateShouldNotBlank" xml:space="preserve">
+    <value>लागू तारीख पर्यंत रिक्त नये.</value>
+  </data>
+  <data name="DisplayErrorMessage_IncreaseDecreaseFlagShouldNotBeBlank" xml:space="preserve">
+    <value>वाढ कमी वर्णन रिक्त असू नये.</value>
+  </data>
+  <data name="DisplayErrorMessage_PercentageShouldNotBeBlank" xml:space="preserve">
+    <value>टक्केवारी रिक्त असू नये.</value>
+  </data>
+  <data name="DisplayErrorMessage_RuleCodeShouldNotBlank" xml:space="preserve">
+    <value>नियम कोड रिक्त असू नये.</value>
+  </data>
+  <data name="DisplayErrorMessage_RuleNameShouldNotBeBlank" xml:space="preserve">
+    <value>नियम नाव रिक्त असू नये.</value>
+  </data>
+  <data name="DisplayName_AddFishLicenseRule" xml:space="preserve">
+    <value>मासे परवाना नियम जोडा</value>
+  </data>
+  <data name="DisplayName_ApplicableFromData" xml:space="preserve">
+    <value>तारखेपासून लागू.</value>
+  </data>
+  <data name="DisplayName_ApplicableToAll" xml:space="preserve">
+    <value>सर्व लागू</value>
+  </data>
+  <data name="DisplayName_ApplicableUptoDate" xml:space="preserve">
+    <value>लागू तारीख पर्यंत</value>
+  </data>
+  <data name="DisplayName_DeleteFishLicenseRule" xml:space="preserve">
+    <value>मासे परवाना नियम हटवा</value>
+  </data>
+  <data name="DisplayName_FishLicenseRuleMaster" xml:space="preserve">
+    <value>मासे परवाना नियम मास्टर</value>
+  </data>
+  <data name="DisplayName_Increase_Decrease" xml:space="preserve">
+    <value>वाढ / कमी</value>
+  </data>
+  <data name="DisplayName_LicenseType" xml:space="preserve">
+    <value>परवाना प्रकार</value>
+  </data>
+  <data name="DropdownMessage_LicenseType" xml:space="preserve">
+    <value>------------ परवाना प्रकार -----------</value>
+  </data>
+  <data name="TableHeader_IsAplicableToAllCentre" xml:space="preserve">
+    <value>सर्व केंद्र लागू आहे काय</value>
+  </data>
+  <data name="TableHeader_Percentage" xml:space="preserve">
+    <value>टक्केवारी</value>
+  </data>
+  <data name="TableHeader_RuleCode" xml:space="preserve">
+    <value>नियम कोड</value>
+  </data>
+  <data name="TableHeader_RuleName" xml:space="preserve">
+    <value>नियम नाव</value>
+  </data>
+  <data name="DisplayName_LicenseFeeAmount" xml:space="preserve">
+    <value>परवाना फी रक्कम</value>
+  </data>
+  <data name="ValidationMessage_LicenseFeeAmountShouldNotBlank" xml:space="preserve">
+    <value>परवाना फी रक्कम रिक्त असू नये.</value>
+  </data>
+  <data name="JsValidationMessages_SelectCenter" xml:space="preserve">
+    <value>केंद्र कोड निवडा.</value>
+  </data>
+  <data name="JsValidationMessages_SelectLicenseType" xml:space="preserve">
+    <value>परवाना प्रकार निवडा.</value>
+  </data>
+  <data name="JsValidationMessages_SelectValidModuleAndMenu" xml:space="preserve">
+    <value>वैध विभाग आणि मेनू निवडा.</value>
+  </data>
+  <data name="JsValidationMessages_SelectFailedToRetrieveData" xml:space="preserve">
+    <value>माहिती पुनर्प्राप्त करण्यात अयशस्वी .</value>
+  </data>
+  <data name="JsValidationMessages_PleaseSelectExamination" xml:space="preserve">
+    <value>परीक्षा निवडा.</value>
+  </data>
+  <data name="ProjectEnvoirnment_College" xml:space="preserve">
+    <value>शिक्षण माहिती प्रणाली</value>
+  </data>
+  <data name="ProjectEnvoirnment_Fishery" xml:space="preserve">
+    <value>मासे फेडरेशन ऑनलाइन</value>
+  </data>
+  <data name="ProjectEnvoirnment_School" xml:space="preserve">
+    <value>शिक्षण माहिती प्रणाली</value>
+  </data>
+  <data name="ProjectEnvoirnment_University" xml:space="preserve">
+    <value>शिक्षण माहिती प्रणाली</value>
+  </data>
+</root>

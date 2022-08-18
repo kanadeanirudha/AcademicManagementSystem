@@ -1,0 +1,341 @@
+﻿<!-- left, vertical navbar -->
+<script src="@Url.Content("~/Scripts/AMS_Scripts/General_Script/_Header.js")" type="text/javascript"></script>
+
+    @{
+        List<AMS.ViewModel.UserMainMenuMasterViewModel> menuList;
+        menuList = new List<AMS.ViewModel.UserMainMenuMasterViewModel>();
+        menuList.Clear();
+        menuList = ViewBag.MenuList;
+        var pathName = ViewBag.path;
+    }
+
+ @Html.Partial("_LoginPartialV2")
+    @*<div class="profile-menu">
+            <a href="">
+                <div class="profile-pic">
+                    <img src="img/profile-pics/1.jpg" alt="">
+                </div>
+
+                <div class="profile-info">
+                    Malinda Hollaway
+
+                    <i class="zmdi zmdi-caret-down"></i>
+                </div>
+            </a>
+
+            <ul class="main-menu">
+                <li>
+                    <a href="profile-about.html"><i class="zmdi zmdi-account"></i> View Profile</a>
+                </li>
+                <li>
+                    <a href=""><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
+                </li>
+                <li>
+                    <a href=""><i class="zmdi zmdi-settings"></i> Settings</a>
+                </li>
+                <li>
+                    <a href=""><i class="zmdi zmdi-time-restore"></i> Logout</a>
+                </li>
+            </ul>
+        </div>*@
+
+    @if (ViewBag.MenuList != null || ViewBag.path != null)
+    {
+        <ul class="main-menu">
+            <li><a href="@Url.Action("Index", "Home")"><i class="zmdi zmdi-home"></i>&nbsp;@Resources.MainMenu_Home</a></li> 
+            @foreach (var mp in menuList.Where(p => p.ParentMenuID == 0))
+            {
+
+                <li class="sub-menu">
+                    @if (mp.MenuLink == null)
+                    {
+                        <a href="#"><i class="zmdi zmdi-view-compact"></i> @Resources.ResourceManager.GetString(string.Concat("ParentMenu_", @mp.MenuCode.Trim().Replace(" ", string.Empty)))</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", mp.MenuLink)"><i class="zmdi zmdi-view-compact"></i> @Resources.ResourceManager.GetString(string.Concat("ParentMenu_", @mp.MenuCode.Trim().Replace(" ", string.Empty)))</a>
+                    }
+
+                    @RenderMenuItem(menuList, mp)
+
+
+                </li>
+            }
+        </ul>
+        @helper RenderMenuItem(List<AMS.ViewModel.UserMainMenuMasterViewModel> menuList, AMS.ViewModel.UserMainMenuMasterViewModel mi)
+{
+        <ul>
+            @foreach (var cp in menuList.Where(p => p.ParentMenuID == mi.ID))
+            {
+                <li>
+                    <a id="@cp.ModuleCode" class="@cp.ModuleID" href="@Url.Action("Index", @cp.MenuLink)"><span class="@cp.MenuIconName"><span class="sidenav-link-color"></span></span>@Resources.ResourceManager.GetString(string.Concat("SubMenu_", @cp.MenuCode.Trim().Replace(" ", string.Empty)))</a>
+                </li>
+
+            }
+        </ul>
+}
+
+        <input type="hidden" id="personId" value=" @HttpContext.Current.Session["PersonId"] " />
+
+
+    }
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".main-menu li ul li a").click(function () {
+                //debugger;
+                var roleName = "";
+                var moduleName = "";
+                var balsheetName = "";
+                $('ul#ddlRoles li').each(function (i) {                  
+                    var cls = $(this).closest("li").find("a i").attr("class");
+                    
+                    if (cls.split(' ')[1] == "zmdi-check-all") {
+                         roleName = $(this).closest("li").find("a").text().trim();
+                    }
+                });
+
+                $('ul#ModuleList li').each(function (i) {                   
+                    var cls = $(this).closest("li").find("a i").attr("class");                    
+                    if (cls.split(' ')[1] == "zmdi-check-all") {
+                        moduleName = $(this).closest("li").find("a").text().trim();
+                    }
+                });
+               
+                $('ul#balsheetList li').each(function (i) {
+                    var cls = $(this).closest("li").find("a i").attr("class");
+                    if (cls.split(' ')[1] == "zmdi-check-all") {
+                         balsheetName = $(this).closest("li").find("a").text().trim();
+                    }
+                });
+                
+               
+                //var roleName = $('#roleName').text();
+                //$('#roleName').html(roleName);
+
+                //var moduleName = $('#moduleName').text();
+                //$('#moduleName').html('<i class="nav-icon list"></i>' + moduleName);
+
+                var moduleCode = $(this).attr('id');
+
+                var moduleID = $(this).attr('class').split(' ')[0];
+                var personID = $("#personId").val();
+
+             
+                var balsheetID = $("#selectedBalsheetID").val();
+                //debugger;
+                //alert(moduleCode + "---" + roleName + "---" + moduleName)
+                $.post('/_Header/_RoleListV2',
+                  { PersonID: personID, ModuleID: moduleID, ModuleCode: moduleCode, RoleCode: roleName, ModuleName: moduleName, BalancesheetName: balsheetName, BalancesheetID: balsheetID }, function (data) {
+                      // alert("Success " + data.success);
+                  });
+
+                // _Header.LoadMenuListByModuleID(moduleID, moduleName);
+            });
+        });
+        $('#NotificationsID').click(function () {
+            $.ajax(
+           {
+               cache: false,
+               type: "POST",
+               dataType: "html",
+               url: '/Home/NotificationList',
+               success: function (data) {
+                   //Rebind Grid Data
+                   $('.container').html(data);
+               }
+           });
+        });
+
+        //$("#Logout").on("click", function (e) {
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: '/Account/LogOff',
+        //        data: { latitude: $('#latitude').val(), longitude: $('#longitude').val() },
+        //    });
+        //});
+
+    </script>
+    @*<script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            //$("#cboxClose").css("display", "none");
+
+            $("#sync").on("click", function () {
+                debugger;
+                if ($("#selectedBalsheetID").val() != "" && $("#selectedBalsheetID").val() !== undefined) {
+                    var _isValid;
+
+                    $.ajax(
+                        {
+                            cache: false,
+                            type: "GET",
+                            dataType: "html",
+                            url: '/Sync/CheckForInternetConnection',
+                            success: function (result) {
+                                if (result == "True") {
+                                    $.ajax(
+                                       {
+                                           cache: false,
+                                           type: "GET",
+                                           dataType: "html",
+                                           url: '/Sync/CheckLoginUser',
+                                           success: function (result1) {
+                                               _isValid = result1;
+                                               if (_isValid == "True") {
+                                                   $('#confirmationDiv').show();
+                                                   $.colorbox({ 'href': '#confirmationDiv', 'inline': true, 'width': '350px', 'height': '250px' });
+                                                   $(document).bind('cbox_closed', function () {
+                                                       $('#confirmationDiv').hide();
+                                                   });
+                                               }
+                                               else {
+                                                   $('#SuccessMessage').html("In order to start sync process other users must log out.");
+                                                   $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                                               }
+                                           }
+                                       });
+                                }
+                                else {
+                                    $('#SuccessMessage').html("No internet connection");
+                                    $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                                }
+                            },
+                            timeout: 10000,
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $('#SuccessMessage').html("No internet connection");
+                                $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                            },
+                        });
+                }
+                else {
+                    $('#SuccessMessage').html("Please select balancesheet to proceed");
+                    $('#SuccessMessage').delay(400).slideDown(400).delay(3000).slideUp(400).css('background-color', "#FFCC80");
+                }
+
+            });
+
+
+            $("#btnNo").on("click", function () {
+                parent.$.colorbox.close();
+            });
+
+            $("#btnYes").on("click", function () {
+                //$.fn.colorbox.close = function () {
+                //    return false;
+                //};
+                var currentRequest = null;
+                $('#dialog').show();
+                $.colorbox({ 'href': '#dialog', 'inline': true, 'width': '350px', 'height': '220px' });
+                $(document).bind('cbox_closed', function () {
+                    $('#dialog').hide();
+                });
+                currentRequest = $.ajax(
+                    {
+                        cache: false,
+                        type: "POST",
+                        dataType: "html",
+                        url: '/Sync/SyncInventoryData',
+                        data: {
+                            "balancesheetID": $("#selectedBalsheetID").val()
+                        },
+                        beforeSend: function () {
+                            if (currentRequest != null) {
+                                currentRequest.abort();
+                            }
+                        },
+                        complete: function () { },
+                        success: function (data) {
+                            var splitData = data.split(',');
+                            parent.$.colorbox.close();
+                            // alert(splitData[0])
+                            $('#SuccessMessage').html(splitData[0]);
+                            $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', splitData[1]);
+                        },
+                        timeout: 4000000,
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            parent.$.colorbox.close();
+                            $('#SuccessMessage').html("Sync process aborted");
+                            $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                        },
+                        // async: false
+                    });
+            });
+
+            $("#closeSync").on("click", function () {
+                debugger;
+                currentRequest.abort;
+            });
+
+            $("#DayEndJob").on("click", function () {
+                debugger;
+                $('#confirmationDivForEndJob').show();
+                $.colorbox({ 'href': '#confirmationDivForEndJob', 'inline': true, 'width': '350px', 'height': '250px' });
+                $(document).bind('cbox_closed', function () {
+                    $('#confirmationDivForEndJob').hide();
+                });
+            });
+
+            $("#btnYesEndJob").on("click", function () {
+                $.ajax(
+                    {
+                        cache: false,
+                        type: "POST",
+                        dataType: "html",
+                        url: '/InventoryDayEndJob/GetDayEndJob',
+                        data: {
+                            "balancesheetID": $("#selectedBalsheetID").val()
+                        },
+                        success: function (data) {
+                            debugger;
+                            var splitData = data.split(',');
+                            parent.$.colorbox.close();
+                            // alert(splitData[0])
+                            $('#SuccessMessage').html(splitData[0]);
+                            $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', splitData[1]);
+                        },
+                        timeout: 4000000,
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            parent.$.colorbox.close();
+                            $('#SuccessMessage').html("Unexpected Error Occured");
+                            $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                        },
+                        // async: false
+                    });
+            });
+
+            $("#btnNoEndJob").on("click", function () {
+                parent.$.colorbox.close();
+            });
+
+            $("#Logout").on("click", function (e) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/LogOff',
+                    data: { latitude: $('#latitude').val(), longitude: $('#longitude').val() },
+                });
+            });
+        });
+
+        $('#NotificationsID').click(function () {
+            $.ajax(
+           {
+               cache: false,
+               type: "POST",
+               dataType: "html",
+               url: '/Home/NotificationList',
+               success: function (data) {
+                   //Rebind Grid Data
+                   $('#main-content').html(data);
+               }
+           });
+        });
+
+
+    </script>*@
+
+ 

@@ -1,0 +1,219 @@
+﻿@model AMS.ViewModel.SalaryEmployeePayFixationMasterViewModel
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Create Salary Employee Pay Fixation </h2>
+    </div>
+    <div class="card">
+        @Html.HiddenFor(model => model.EmployeeID)
+     
+        <div id="custom-content">
+            <div id="card-body card-padding">
+                <div id="displayErrorMessage" role="alert" hidden class="alert">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <p id="messageContent"></p>
+                </div>
+                <form id="FormCreateSalaryEmployeePayFixationMaster">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            @Html.LabelFor(m => m.EmployeeName, new { style = "" })
+                            <span style="color:red">*</span>
+                            <div class="form-group  fg-line">
+                                @Html.TextBoxFor(model => model.EmployeeName, new { maxlength = "50", @class = "form-control input-sm typeahead" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EmployeeName)
+                        </div>
+                        <div class="col-sm-6">
+
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.Basic, new { })
+                                <span style="color:red">*</span>
+                                @Html.TextBoxFor(model => model.Basic, new { maxlength = "45", @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Basic)
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.PayScaleRange, new { })
+                                <span style="color:red">*</span>
+                                @Html.DropDownListFor(model => model.SalaryPayScaleMasterID, (SelectList)ViewBag.SalaryPayScaleMasterIDsList, "---Select Pay Scale Range ---", new { @class = "form-control input-sm" })
+                              
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PayScaleRange)
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.SalaryGradePayMasterID , new { })
+                                <span style="color:red">*</span>
+                                @Html.DropDownListFor(model => model.SalaryGradePayMasterID, (SelectList)ViewBag.SalaryGradePayMasterIDsList,"---Select Grade Pay  Range ---", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Store Type*" })
+                               
+                            </div>
+                            @Html.ValidationMessageFor(model => model.SalaryGradePayMasterID)
+                        </div>
+                    </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line" >
+                            @Html.LabelFor(model => model.BandPay, new { })
+                            <span style="color:red">*</span>
+
+                             @Html.TextBoxFor(model => model.BandPay, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.BandPay)
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <div class="form-group fg-line">
+                        <div class="checkbox m-b-15">
+                            <label>
+                                <input type="checkbox" id="IsCurrent" />
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsCurrent)
+                            </label>
+                        </div>
+                    </div>
+                 </div>
+                </div>
+                   <div class="col-sm-12">
+                     <div class="col-sm-6">
+                        <div class="form-group fg-line" >
+                            @Html.LabelFor(model => model.OrderDate, new { })
+                            <span style="color:red">*</span>
+
+                             @Html.TextBoxFor(model => model.OrderDate, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.OrderDate)
+                    </div>
+                       <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.OrderNumber, new { })
+                            <span style="color:red">*</span>
+
+                           @Html.TextBoxFor(model => model.OrderNumber, new { maxlength = "45", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.OrderNumber)
+                   </div>
+                 </div>
+                 <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line" >
+                            @Html.LabelFor(model => model.EffectiveFrom, new { })
+                            <span style="color:red">*</span>
+
+                             @Html.TextBoxFor(model => model.EffectiveFrom, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EffectiveFrom)
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <div class="form-group fg-line">
+                        <div class="checkbox m-b-15">
+                            <label>
+                                <input type="checkbox" id="IsNeedGenerateArriers" />
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsNeedGenerateArriers)
+                            </label>
+                        </div>
+                    </div>
+                  </div>
+                 </div>
+                  <div class="col-sm-12">
+                  <div class="col-sm-6" id="ArriersGenerationStatus" style="display: none;">
+                        <div class="form-group fg-line" >
+                            @Html.LabelFor(model => model.ArriersGenerationStatus, new { })
+                            @Html.DropDownList("ArriersGenerationStatus", ViewData["ArriersGenerationStatus"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ArriersGenerationStatus)
+                    </div>
+                 </div>
+                    <div class="col-sm-12 m-t-30">
+                        <input class=" btn btn-primary btn-sm m-t-12 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateSalaryEmployeePayFixationMasterRecord" type="button" />
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+
+
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var map = {};
+        ///////////////new search functionality///////////////////////////////////
+
+    
+        var getData = function () {
+            return function findMatches(q, cb) {
+
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+                //var valuCentreCode = $('#SelectedCentreCode :selected').val();
+                //var valuStudentType = $('#IsCurrentYearStudent').val();
+                $.ajax({
+                    url: "/SalaryEmployeePayFixationMaster/GetEmployeeName",
+                    type: "POST",
+                    data: { term: q, },
+                    //data: { term: request.term, centreCode: $("#CentreCode").val() },
+                    dataType: "json",
+                    success: function (data) {
+
+                        // iterate through the pool of strings and for any string that
+                        // contains the substring `q`, add it to the `matches` array
+
+                        //alert(data);
+
+                        $.each(data, function (i, response) {
+                            //alert(response.id);
+                            if (substrRegex.test(response.name)) {
+
+                                map[response.name] = response;
+                                matches.push(response.name);
+                                //console.log(response.name);
+
+                            }
+                        });
+
+                    },
+                    async: false
+                })
+                cb(matches);
+            };
+
+        };
+
+        $("#EmployeeName").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+            source: getData()
+        }).on("typeahead:selected", function (obj, item) {
+
+            $("#EmployeeID").val(map[item].id);
+       
+            $('#EmployeeName').on("keydown", function (e) {
+                if (e.keyCode == 8 || e.keyCode == 46) {
+                    //$("#PurchaseGrnNumber").val("");
+                    $('#EmployeeName').typeahead('val', '');
+                }
+            });
+           // console.log(OnlineExamAllocateSupportStaff.map[item].id);
+        });
+       // end new search functionality
+         
+
+
+        SalaryEmployeePayFixationMaster.Initialize();
+
+    })
+</script>
+

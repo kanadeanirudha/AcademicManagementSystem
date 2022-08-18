@@ -1,0 +1,79 @@
+﻿@model AMS.ViewModel.InventorySalesMasterAndTransactionViewModel
+@{
+
+    Layout = null;
+}
+
+
+<div class="widget-block">
+    @if (Model.InventoryOperatorSaleReportList.Count > 0)
+    {
+
+        <div class="widget-head">
+            <h5>  Today's sale [<b>@Html.DisplayFor(model => model.InventoryOperatorSaleReportList[0].TransactionDate, new { style = "font-Weight:Bold;" })</b>]</h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+
+                <div class="row control-group">
+                    <center><h2> Daily Sale Report </h2></center>
+                    <center><h6>@Html.DisplayFor(model => model.InventoryOperatorSaleReportList[0].EmployeeName, new { style = "font-Weight:Bold;" })</h6></center>
+                </div>
+                <fieldset>
+                    <div class="row">
+                        <div class="span8">
+                            <div id="DivAddRowTable">
+
+                                @*<b>Employee</b>
+                                    <b>@Html.DisplayFor(model => model.InventoryOperatorSaleReportList[0].EmployeeName, new { style = "font-Weight:Bold;" })</b>*@
+
+
+                                <table id="tblData" class="table user-tbl" style="  border: 1px solid #dddddd">
+
+
+
+
+                                    <thead>
+                                        <tr >
+                                            <th style="text-transform:none">Location</th>
+                                            <th style="text-transform:none">Total Sale</th>
+                                            <th style="text-transform:none">Total Sale Return</th>
+                                            <th style="text-transform:none">Gross Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.InventoryOperatorSaleReportList)
+                                        {
+                                            <tr>
+
+                                                <td style="font-size:13px">
+                                                    <b> @item.Location </b>
+                                                </td>
+                                                <td>
+                                                    <b> @Math.Round(@item.LocationWiseSale, 2) </b>
+                                                </td>
+                                                <td>
+                                                    <b> @Math.Round(@item.TotalSaleReturnAmount, 2) </b>
+                                                </td>
+                                                <td>
+                                                    <b> @Math.Round(@item.TodaysTotalSale, 2) </b>
+                                                </td>
+                                            </tr>
+                                        }
+                                        @*<tr>
+                                                <td style="font-size:13px;background-color:#dddddd"><b> Total </b></td>
+                                                <td style="font-size:13px;background-color:#dddddd"><b>@Html.DisplayFor(model => model.TodaySale, new { style = "font-Weight:Bold;" })</b></td>
+
+                                            </tr>*@
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    }
+</div>
+

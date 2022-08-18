@@ -1,0 +1,45 @@
+﻿@model AMS.Web.UI.Models.Division.Division
+@{
+    ViewBag.Title = "Details";
+}
+
+<div id="update-message" class="error invisible"></div>
+
+@using (Ajax.BeginForm("Details", "Division", null,
+        new AjaxOptions
+        {
+            UpdateTargetId = "update-message",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @Id = "detailsDivisionForm" }))
+   {
+
+
+  
+
+    @Html.HiddenFor(model => model.Id)  
+
+    <div class="editor-label">
+       <b>Name</b>
+    </div>
+    <div class="editor-field">
+      @Html.DisplayFor(model => model.DivisionName)      
+    </div>
+
+    <div class="editor-label">
+       <b>Short Code</b>
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.DivisionShortCode)
+      
+    </div>
+     <div class="editor-label">
+     <b> Print Code</b>
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.DivisionPrintCode)
+       
+    </div>
+
+}

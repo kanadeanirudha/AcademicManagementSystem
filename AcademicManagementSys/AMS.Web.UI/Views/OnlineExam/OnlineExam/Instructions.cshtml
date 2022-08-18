@@ -1,0 +1,243 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+@model AMS.ViewModel.OnlineExamViewModel
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instructions</title>
+    <link rel="shortcut icon" type="image/x-icon" href="..//Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectFaviconIcon"])">
+
+    <!-- Start added from layout -->
+    <!-- animate css -->
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/animate.css/animate.min.css")" rel="stylesheet" type="text/css" />
+    <!-- font material -->
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css")" rel="stylesheet" type="text/css" />
+    <!-- animate.css -->
+
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css")" rel="stylesheet" type="text/css" />
+    <!-- CSS -->
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.1.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.2.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/materialtheme/dist/css/style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/jquery/dist/jquery.min.js")" type="text/javascript"></script>
+
+    <!-- custom -->
+    <!--End added from layout -->
+    <!--old script-->
+    <script src="@Url.Content("~/Scripts/jquery/jquery-2.1.1.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+    <!--old script-->
+
+</head>
+
+<body>
+
+    <style>
+        body {
+            font-size: 14px;
+        }
+    </style>
+
+    <header id="header" class="clearfix" data-current-skin="blue" style="text-align: center; font-size: x-large; color: #FFF; font-weight: BOLD; font-size: 28px; padding-top: 1%;">
+        @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Name")
+        {
+            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+        }
+        else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Image")
+        {
+            <span>
+                <img src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" />
+            </span>
+        }
+        else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Both")
+        {
+            <span>
+                <img src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" />
+            </span>
+            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+        }
+    </header>
+    <form id="FormCreateStudentAggreement" method="post">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <section id="main">
+            <div class="container">
+                <div class="block-header">
+                    <h2></h2>
+                </div>
+                <div class="card bs-item z-depth-5">
+                    <div class="card-header ch-alt">
+                        <h2>Instructions for Online Examination<small> </small></h2>
+                    </div>
+
+                    <div class="card-body card-padding">
+                        <p class="c-black f-500 m-b-20" style="color:red;">Please read the Instructions carefully before starting the Examination.</p>
+
+                        <div class="checkbox m-b-15" style="height: 400px; overflow: auto;">
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Click <b>Start</b> Exam on bottom of your screen to begin the Examination.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    The clock has been set at server and count down timer at the top Left side of the screen will display left out time to closure from where you can monitor time you have to complete the exam.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Click one of the answer, simply click the desired option button.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Candidate can change their response of attempted answer any time during examination slot time by clicking another answer which candidates want to change an answer. Click to remove Incorrect answer, click the desire option button.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Click on Next to Save the answer and moving to the next question. The next question will automatically be displayed.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Click on Mark for Review to review your answer at later stage.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    To select a question, click on the question number on the Left side of the screen.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    The color coded diagram on the Left side of the screen shows the status of the question.
+                                </label>
+                            </p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td><span class="NotAnsweredQuestion btn btn-default">&nbsp;</span></td>
+                                    <td>You have not answered the question</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="AnsweredQuestion btn btn-default">&nbsp;</span></td>
+                                    <td>You have answered the question</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="AnsweredQuestionButReview btn btn-default">&nbsp;</span></td>
+                                    <td>You have NOT answered the question, but have marked the question for review</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="AnsweredQuestionButReview btn btn-default">&nbsp;</span></td>
+                                    <td>You have answered the question, but marked it for review</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="NotVisitedQuestion btn btn-default">&nbsp;</span></td>
+                                    <td>You have not visited the question yet</td>
+                                </tr>
+                            </table>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Candidate will be allowed to Shuffle between questions anytime during the examination as per their convenience.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    All the answered questions will be counter for calculating the final score.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Do not click final <b>Submit</b> on the Left side of the screen unless you have completed the exam. In case you click final <b>Submit</b> you will not be permitted to continue.
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" checked value="" disabled="">
+                                    <i class="input-helper"></i>
+                                    Score obtained will be displayed on Portal after the exam.
+                                </label>
+                            </p>
+                        </div>
+
+                        <br />
+
+                        <div class="checkbox disabled" id="enbldisbl">
+                            <label>
+                                <input type="checkbox" id="confirmCheck1">
+                                <i class="input-helper"></i>
+                                I have read and understood the Instructions given above.
+                            </label>
+                        </div>
+
+                        <br />
+
+                        <div id="divagreementpage" class="" style="text-align: center; display: none;">
+                            <a href="/OnlineExam/OnlineExam?OnlineExamIndStudentExamInfoID=@Model.OnlineExamIndStudentExamInfoID" target="_parent">
+                                <input type="button" id="CreateAgreementPageRecord" value="Start Exam" class="btn btn-lg btn-primary" />
+                                @*<i class="zmdi zmdi-arrow-forward"></i>*@
+
+                            </a>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </form>
+
+
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#confirmCheck1').change(function () {
+            if (this.checked) {
+                $('#divagreementpage').show(true);
+            }
+            else {
+                $('#divagreementpage').hide(true);
+            }
+        });
+    });
+
+</script>

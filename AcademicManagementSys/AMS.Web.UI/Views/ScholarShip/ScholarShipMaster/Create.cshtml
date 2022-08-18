@@ -1,0 +1,157 @@
+﻿@model AMS.ViewModel.ScholarShipMasterViewModel
+<script src="@Url.Content("~/Scripts/AMS_Scripts/ScholarShip/ScholarShipMaster.js")" type="text/javascript"></script>
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Create ScholarShip</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateScholarShipMaster" role="form">
+                <div class="col-sm-12">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.ScholarShipDescription, new { })
+                        @Html.TextBoxFor(model => model.ScholarShipDescription, new { maxlength = "100", @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ScholarShipDescription)
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line select">
+                        @Html.LabelFor(model => model.ScholarShipType, new { })
+                        @Html.DropDownListFor(model => model.ScholarShipType, ViewData["SchoalarShipTypeList"] as List<SelectListItem>, "--------- Select ScholarShip Type--------------", new { @class = "form-control input-sm " })
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.ScholarShipType)
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line select">
+                        @Html.LabelFor(model => model.ScholarShipImplementType, new { })
+                        @Html.DropDownListFor(model => model.ScholarShipImplementType, ViewData["ImplementationTypeList"] as List<SelectListItem>, "--------- Select Implementation Type--------------", new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ScholarShipImplementType)
+                </div>
+
+                <div class="col-sm-12 " style="padding-bottom:0%;padding-top:3%">
+                    <div class="form-group  checkbox">
+                       
+                        <input type="checkbox" value="" class="form-control" checked id="IsCalulatedAmountFix">
+                        <i class="input-helper"></i>
+                        @Html.LabelFor(model => model.IsCalulatedAmountFix, new { })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.FixAmount, new { })
+                        @Html.TextBoxFor(model => model.FixAmount, new { maxlength = "10", @class = "form-control input-sm", @name = "fname" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FixAmount)
+                </div>
+               
+                <div class="col-sm-6" >
+                    <div class=" form-group fg-line">
+                        @Html.LabelFor(model => model.Percentage, new { })
+                        @Html.TextBoxFor(model => model.Percentage, new { maxlength = "10", @class = "form-control input-sm", @disabled = "disabled", @name = "lname" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Percentage)
+                </div>  
+                
+                <div id="divSlabDetails" style="">
+                    <div class="row">
+                        <div class="col-sm-12 m-b-20">
+                            
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label style="margin-top:10%" id="lblStudentReceivable" >Student Receivable</label> 
+                                </div>
+                            </div>
+                            <div style="display:none">
+                                @Html.DropDownListFor(m=>m.FeeAccountTypeMasterIDForStudentReceivable,Model.AccountTypeListItems)
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line">
+                                    @Html.LabelFor(model => model.FeeAccountSubTypeDescForStudentReceivable, new { })
+                                    @Html.TextBoxFor(model => model.FeeAccountSubTypeDescForStudentReceivable, new { @class = "form-control input-sm", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.FeeAccountSubTypeDescForStudentReceivable)
+                            </div>
+                            <div class="col-sm-3">
+                                <div class=" form-group fg-line">
+                                    @Html.LabelFor(model => model.FeeAccountSubTypeCodeForStudentReceivable, new { })
+                                    @Html.TextBoxFor(model => model.FeeAccountSubTypeCodeForStudentReceivable, new { @class = "form-control input-sm", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.FeeAccountSubTypeCodeForStudentReceivable)
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="select form-group fg-line">
+                                    @Html.LabelFor(model => model.AccountIDForStudentReceivable, new { })
+                                    @Html.DropDownListFor(model => model.AccountIDForStudentReceivable, Model.AccountMasterListItems, "------Select Account------", new { @class = "form-control input-sm", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AccountIDForStudentReceivable)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 m-b-20">
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line">
+                                    <label style="margin-top:10%" id="lblFeeSubTypeAccount"></label> 
+                                </div>
+                            </div>
+                            <div style="display:none">
+                                @Html.DropDownListFor(m => m.FeeAccountTypeMasterID, Model.AccountTypeListItems)
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line">
+                                    @Html.LabelFor(model => model.FeeAccountSubTypeDesc, new { })
+                                    @Html.TextBoxFor(model => model.FeeAccountSubTypeDesc, new { @class = "form-control input-sm", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.FeeAccountSubTypeDesc)
+                            </div>
+                            <div class="col-sm-3">
+                                <div class=" form-group fg-line">
+                                    @Html.LabelFor(model => model.FeeAccountSubTypeCode, new { })
+                                    @Html.TextBoxFor(model => model.FeeAccountSubTypeCode, new { @class = "form-control input-sm", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.FeeAccountSubTypeCode)
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="select form-group fg-line">
+                                    @Html.LabelFor(model => model.AccountID, new { })
+                                    @Html.DropDownListFor(model => model.AccountID, Model.AccountMasterListItems, "------Select Account------", new { @class = "form-control input-sm", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AccountID)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  
+                    <div class="form-group" style="margin-left: 2%; ">
+                        <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateScholarShipMasterRecord" type="button" />
+                    </div>
+</form >
+            <br />
+          
+        </div>
+    </div>
+    
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        ScholarShipMaster.Initialize();
+      
+    });
+</script>

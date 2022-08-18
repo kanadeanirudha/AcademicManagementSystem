@@ -1,0 +1,26 @@
+﻿@model AMS.ViewModel.CRMSaleEnquiryMasterAndAccountDetailsViewModel
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_LayoutV2.cshtml";
+    }
+    <style type="text/css">
+        .mfp-content {
+            width: 70%;
+        }
+    </style>
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/CRMSales/CRMSaleEnquiryAccountMaster.js")" type="text/javascript"></script>
+    <input type="text" id="ProgressTypeCheck" value="@Model.ProgressType" style="display: none;" />
+    <div id="ListViewModel" class="container"> </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            var ProgressTypeCheck = $('#ProgressTypeCheck').val();
+            if (ProgressTypeCheck == 'Hot' || ProgressTypeCheck == 'Cold' || ProgressTypeCheck == 'Existing') {
+                CRMSaleEnquiryAccountMaster.LoadAllAccountList(ProgressTypeCheck);
+            } else {
+                CRMSaleEnquiryAccountMaster.LoadList();
+            }
+        });
+    </script>
+
+

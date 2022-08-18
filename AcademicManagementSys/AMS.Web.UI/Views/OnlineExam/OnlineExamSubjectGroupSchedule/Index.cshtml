@@ -1,0 +1,50 @@
+﻿@model AMS.ViewModel. OnlineExamSubjectGroupScheduleViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<style type="text/css">
+    .mfp-content {
+        width: 70%;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/AMS_Scripts/OnlineExam/OnlineExamSubjectGroupSchedule.js")" type="text/javascript"></script>
+<div class="container">
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Create Schedule For Examination</h2>
+    </div>
+    <div class="card" style="margin-bottom: 0px;">
+        <div class="card-body card-padding">
+            <form class="row" role="form">
+                <div class="col-sm-5">
+                    @Html.HiddenFor(m => m.SessionID)
+                    
+                    <div class="form-group fg-line select">
+                       @Html.LabelFor(model => model.SelectedCentreCode, new { })
+                        @Html.DropDownListFor(model => model.SelectedCentreCode, (SelectList)ViewBag.listAdminRoleApplicableDetails, "---Select Centre ---", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Centre Name*" })
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="select form-group fg-line">
+                         @Html.LabelFor(model => model.SelectedExam, new { })
+                         @Html.DropDownListFor(model => model.SelectedExam, Enumerable.Empty<SelectListItem>(), "---Select Exam ---", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Examination Name*" })
+                    </div>
+                  </div>
+                <div class="col-sm-2">
+                    <button type="button" style="margin-top:27px" class="btn btn-primary" id="btnShowList">@Resources.GlobalProperties_ShowList</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="ListViewModel" > </div>
+</div>
+  
+    <script type="text/javascript">
+        $(document).ready(function () {
+            OnlineExamSubjectGroupSchedule.Initialize();
+        });
+    </script>

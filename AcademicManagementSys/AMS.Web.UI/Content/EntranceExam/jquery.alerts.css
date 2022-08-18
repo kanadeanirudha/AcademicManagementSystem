@@ -1,0 +1,158 @@
+﻿
+#popup_container {
+    background: #fff none repeat scroll 0 0;
+    border: 5px solid #999;
+    color: #000;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    max-width: 410px;
+    min-width: 400px;
+    position: absolute;
+    z-index: 1999;
+}
+#popup_container.success {
+    border: 5px solid #c2da9c;
+    color: #000;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    max-width: 410px;
+    min-width: 400px;
+}
+#popup_container.info {
+    border: 5px solid #79a8c6;
+    color: #000;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    max-width: 410px;
+    min-width: 400px;
+}
+#popup_container.warning {
+    border: 5px solid #e1cb76;
+    color: #000;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    max-width: 410px;
+    min-width: 400px;
+}
+#popup_container.error {
+    border: 5px solid #f0b4b4;
+    color: #000;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    max-width: 410px;
+    min-width: 400px;
+}
+#popup_title {
+    background: #ccc url("../images/sprite.png") repeat-x scroll center top;
+    border: 1px solid #999;
+    color: #666;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 1.75em;
+    margin: 0;
+    padding: 0 0 0 10px;
+    text-align: center;
+}
+#popup_title.success {
+    background: #c2da9c none repeat scroll 0 0;
+    border: 0 none;
+    color: #666;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 1.75em;
+    margin: 0;
+    padding: 0 0 0 10px;
+    text-align: center;
+}
+#popup_title.info {
+    background: #79a8c6 none repeat scroll 0 0;
+    border: 0 none;
+    color: #666;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 1.75em;
+    margin: 0;
+    padding: 0 0 0 10px;
+    text-align: center;
+}
+#popup_title.warning {
+    background: #e1cb76 none repeat scroll 0 0;
+    border: 0 none;
+    color: #666;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 1.75em;
+    margin: 0;
+    padding: 0 0 0 10px;
+    text-align: center;
+}
+#popup_title.error {
+    background: #f0b4b4 none repeat scroll 0 0;
+    border: 0 none;
+    color: #666;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 1.75em;
+    margin: 0;
+    padding: 0 0 0 10px;
+    text-align: center;
+}
+#popup_content {
+    background: rgba(0, 0, 0, 0) url("../images/info.gif") no-repeat scroll 16px 16px;
+    margin: 0;
+    padding: 1em 0.75em 1em 1.75em;
+}
+#popup_content.info {
+    background-color: #bde5f8;
+    background-image: url("../images/info.gif");
+}
+#popup_content.success {
+    background-color: #f3fde4;
+    background-image: url("../images/success.gif");
+}
+#popup_content.warning {
+    background-color: #fff8de;
+    background-image: url("../images/alert.gif");
+}
+#popup_content.error {
+    background-color: #ffefef;
+    background-image: url("../images/error.gif");
+}
+#popup_content.confirm {
+    background-image: url("../images/important.gif");
+}
+#popup_content.prompt {
+    background-image: url("../images/help.gif");
+}
+#popup_message {
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-top: 10px;
+}
+#popup_message p {
+    margin: 0;
+    padding: 0;
+}
+#popup_panel {
+    margin: 1em 0 0 1em;
+    text-align: center;
+}
+#popup_prompt {
+    margin: 0.5em 0;
+}
+#popup_ok {
+    margin-right: 10px;
+}
+.close {
+    padding-top: 3px;
+}

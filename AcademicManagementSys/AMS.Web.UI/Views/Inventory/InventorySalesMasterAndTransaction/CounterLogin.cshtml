@@ -1,0 +1,49 @@
+﻿@model AMS.ViewModel.InventorySalesMasterAndTransactionViewModel
+<div class="container-fluid">
+    <div id="CounterLoginDiv" style="display: none">
+        <form id="FormCreateInventoryCounterLogin">
+            @Html.HiddenFor(model => model.LoginUserCount)
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="widget-block" style="width: auto; height: auto;">
+                        <div class="widget-head">
+                            <h5>Counter Login</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="widget-box" style="padding: 15px">
+
+                                <div class="control-group control-label">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CounterName, new { style = "font-Weight:Bold;" })
+                                    <div class="controls input-xlarge text-tip">
+                                        @Html.DropDownListFor(m => m.SelectedCounterID, Model.InventoryCounterMasterListItems, "-----Select Counter-----", new { style = "width:210px;font-Weight:Bold" })
+                                    </div>
+                                </div>
+                                <div class="control-group control-label">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CounterOpeningCash, new { style = "font-Weight:Bold;" })
+                                    <div class="controls input-xlarge text-tip">
+                                        @Html.TextBoxFor(model => model.CounterOpeningCash, new { maxlength = "12", style = "font-Weight:Bold; Text-align:right;" })
+                                    </div>
+                                </div>
+                                <div class="control-group control-label">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CounterClosingCash, new { style = "font-Weight:Bold;" })
+
+                                    <div class="controls input-xlarge text-tip">
+                                        @Html.TextBoxFor(model => model.CounterClosingCash, new { ReadOnly = "True", style = "font-Weight:Bold;Text-align:right" })
+
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+                                    <input type="button" id="CounterLogin" value="Login" class="btn btn-primary" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>

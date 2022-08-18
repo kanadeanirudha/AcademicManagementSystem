@@ -1,0 +1,56 @@
+﻿@model AMS.ViewModel.CRMSaleReportViewModel
+
+<div class="col-sm-6">    
+    <div class="card">
+        <div class="card-header ch-alt m-b-15 bgm-teal">
+            <h2>Today's Calls</h2>           
+        </div>
+
+        <div class="card-body m-t-0">
+            <table class="table table-inner table-vmiddle">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 15px;">Description</th>
+                        @*<th>Date</th>*@
+                        <th>Time</th>
+                        <th>Status</th>
+                        @*<th>Action</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if (ViewBag.GetCRMSaleSalesCallDetails.Count > 0)
+                        {
+                            foreach (var item in ViewBag.GetCRMSaleSalesCallDetails)
+                            {
+                                <td style="padding-left: 15px;">@item.ScheduleDescription</td>
+                                <td class="f-500 c-cyan">@item.FromTime - @item.UptoTime</td>
+                                if (@item.CallerJobStatus == 1)
+                                {
+                                    <td class="f-500 c-cyan"><button class='btn bgm-green btn-xs'>Completed</button></td>
+                                }
+                                else if (@item.CallerJobStatus == 2)
+                                {
+                                    <td class="f-500 c-cyan"><button class='btn bgm-cyan btn-xs'>Cancel</button></td>
+                                }
+                                else if (@item.CallerJobStatus == 3)
+                                {
+                                    <td class="f-500 c-cyan"><button class='btn bgm-orange btn-xs'>Pending</button></td>
+                                }
+                                else if (@item.CallerJobStatus == 4)
+                                {
+                                    <td class="f-500 c-cyan"><button class='btn bgm-teal btn-xs'>ReSchedule</button></td>
+                                }
+                            }
+                        }else
+                        {
+                            <td style="padding-left: 15px;"></td>
+                            <td class="f-500 c-cyan">!Sorry.. There Is No Call.</td>
+                        }
+                    </tr>                   
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

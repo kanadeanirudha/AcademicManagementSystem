@@ -1,0 +1,302 @@
+﻿@model AMS.ViewModel.OnlineExamSubjectGroupScheduleViewModel
+<div id="custom-content">
+    <div class="block-header">
+        <h4>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp;Create Schedule for @Model.SubjectGroupDescription</h4>
+    </div>
+    @* <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormCreate_OnlineExamSubjectGroupSchedule</h2>
+    </div>*@
+    <div class="card">
+        @Html.HiddenFor(model => model.OnlineExamExaminationCourseApplicableID)
+        @Html.HiddenFor(model => model.SubjectID)
+        @Html.HiddenFor(model => model.SubjectGroupID)
+        @Html.HiddenFor(model => model.SubjectGroupDescription)
+        @Html.HiddenFor(model => model.CourseYearID)
+        @Html.HiddenFor(model => model.CentreCode)
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateOnlineExamSubjectGroupSchedule" role="form" class="row">
+                 <div class="col-sm-12">
+                    <div class="form-group col-sm-4"></div>
+                     <div class="form-group col-sm-4"></div>
+                  <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        <div class="checkbox m-b-15">
+                            <label>
+                                <input type="checkbox" id="IsTimeFlexible" />
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsTimeFlexible)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.ExaminationStartDate, new { })
+                            @Html.TextBoxFor(model => model.ExaminationStartDate, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ExaminationStartDate)
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.ExaminationEndDate, new { })
+                            @Html.TextBoxFor(model => model.ExaminationEndDate, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ExaminationEndDate)
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.ExaminationStartTime, new { })
+                            @Html.TextBoxFor(model => model.ExaminationStartTime, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ExaminationStartTime)
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.ExaminationEndTime, new { })
+                            @Html.TextBoxFor(model => model.ExaminationEndTime, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ExaminationEndTime)
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.TotalQuestions, new { })
+                            @Html.TextBoxFor(model => model.TotalQuestions, new { @class = "form-control input-sm ", Value = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.TotalQuestions)
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.TotalMarks, new { })
+                            @Html.TextBoxFor(model => model.TotalMarks, new { @class = "form-control input-sm ", Value = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.TotalMarks)
+                    </div>
+                </div>
+              
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.PassingMarks, new { })
+                            @Html.TextBoxFor(model => model.PassingMarks, new { @class = "form-control input-sm ", Value = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PassingMarks)
+                    </div>
+                    <div class="form-group col-sm-4" style="display:none;">          @*display none*@
+                        <div class="form-group fg-line">
+                             <span style="color:red">*</span>
+                            @Html.LabelFor(model => model.MarksForEachQues, new { })
+                            @Html.TextBoxFor(model => model.MarksForEachQues, new { @class = "form-control input-sm ", Value = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MarksForEachQues)
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.IsNegavieMarking, new { })
+                            @Html.DropDownList("IsNegavieMarking", ViewData["IsNegavieMarking"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.IsNegavieMarking)
+                    </div>
+                <div class="form-group col-sm-4" id="MarksToBeDeductediv" style="display: none;">         @*display none*@
+                    <div class="form-group fg-line">
+                         <span style="color:red">*</span>
+                        @Html.LabelFor(model => model.MarksToBeDeducted, new { })
+                        @Html.TextBoxFor(model => model.MarksToBeDeducted, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.MarksToBeDeducted)
+                </div>
+                 
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Level1Marks, new { })
+                        @Html.TextBoxFor(model => model.Level1Marks, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Level1Marks)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Level2Marks, new { })
+                        @Html.TextBoxFor(model => model.Level2Marks, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Level2Marks)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Level3Marks, new { })
+                        @Html.TextBoxFor(model => model.Level3Marks, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Level3Marks)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Level1TimeInMinutes, new { })
+                        @Html.TextBoxFor(model => model.Level1TimeInMinutes, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Level1TimeInMinutes)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Level2TimeInMinutes, new { })
+                        @Html.TextBoxFor(model => model.Level2TimeInMinutes, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Level2TimeInMinutes)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Level3TimeInMinutes, new { })
+                        @Html.TextBoxFor(model => model.Level3TimeInMinutes, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Level3TimeInMinutes)
+                </div>
+             
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Level4TimeInMinutes, new { })
+                        @Html.TextBoxFor(model => model.Level4TimeInMinutes, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Level4TimeInMinutes)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.FixedFlexibleTime, new { })
+                        @Html.TextBoxFor(model => model.FixedFlexibleTime, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FixedFlexibleTime)
+                </div>
+
+                <div class="form-group col-sm-4" style="display: none;">             @*display none*@
+                    @* Backned level Calculate*@
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.ExamDuration, new { })
+                        @Html.TextBoxFor(model => model.ExamDuration, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ExamDuration)
+                </div>
+             
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.DayOpenTime, new { })
+                        @Html.TextBoxFor(model => model.DayOpenTime, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DayOpenTime)
+                </div>
+               
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.DayCloseTime, new { })
+                        @Html.TextBoxFor(model => model.DayCloseTime, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DayCloseTime)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.ExaminationStatus, new { })
+                        @Html.TextBoxFor(model => model.ExaminationStatus, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ExaminationStatus)
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.TotalPaperSet, new { })
+                        @Html.TextBoxFor(model => model.TotalPaperSet, new { @class = "form-control input-sm " })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.TotalPaperSet)
+                </div>
+                 <div class="form-group col-sm-4">
+                    <div class="form-group fg-line">
+                        <div class="checkbox m-b-15">
+                            <label>
+                                <input type="checkbox" id="IsScheduleForAllSections" checked />
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsScheduleForAllSections)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row" id="SectionDetails" style="display: none;">
+                    <div class="col-sm-12">
+                        <div id="DisplaySectionErrorMessage" role="alert" hidden class="alert">
+                            <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                            <p id="SectionErrorMessage"></p>
+                        </div>
+
+                        <div id="DivAddRowTable" style="overflow: auto;">
+                            <table id="tblData" class="table user-tbl " style="border: 1px solid #dddddd">
+                                <thead>
+                                    <tr>
+                                        <th>Section Detail</th>
+                                        <th>Examination Start Date</th>
+                                        <th>Examination End Date</th>
+                                        <th>Examination Start Time</th>
+                                        <th>Examination End Time</th>
+                                        @*<th>Action</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              
+                <div class="form-group col-sm-12">
+                    <input class="btn btn-primary" style="margin-left:1%" value="@Resources.ButtonAction_Submit" id="CreateOnlineExamSubjectGroupScheduleRecord" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ExaminationStartDate").datetimepicker({
+                format: 'DD MMMM YYYY',
+                minDate: moment(),
+            });
+
+            $("#ExaminationEndDate").datetimepicker({
+                format: 'DD MMMM YYYY',
+                minDate: moment(),
+            });
+            $('#ExaminationStartDate').on('dp.hide', function (e) {
+                var minDate = new Date(e.date.valueOf());
+                minDate.setDate(minDate.getDate());
+                $("#ExaminationEndDate").val($('#ExaminationStartDate').val());
+                $("#ExaminationEndDate").data("DateTimePicker").minDate(minDate);
+
+            });
+            $('#ExaminationEndDate').on('dp.hide', function (e) {
+                var maxDate = new Date(e.date.valueOf());
+                maxDate.setDate(maxDate.getDate());
+                $("#ExaminationStartDate").data("DateTimePicker").maxDate(maxDate);
+
+            });
+            $("#ExaminationStartTime").datetimepicker({
+                format: 'LT'
+            });
+
+            $("#ExaminationEndTime").datetimepicker({
+                format: 'LT'
+            });
+            OnlineExamSubjectGroupSchedule.Initialize();
+        });
+    </script>

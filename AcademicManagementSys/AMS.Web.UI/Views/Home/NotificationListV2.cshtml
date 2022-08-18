@@ -1,0 +1,235 @@
+﻿@model AMS.ViewModel.DashboardViewModel
+@{
+
+    Layout = null;
+}
+<script src="~/Scripts/AMS_Scripts/General_Script/_HeaderV2.js"></script>
+<script src="~/Scripts/AMS_Scripts/General_Script/EmployeeDashboardV2.js"></script>
+@Html.HiddenFor(m => m.TaskCode)
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Notification</h2>
+        </div>
+        <div class="card-body card-padding">
+            <div>
+                <ul class="tab-nav" id="TaskList">
+                    <li class="active" id="infoNotifications"><a href="#infoNotifications" aria-controls="#infoNotifications" role="tab" data-toggle="tab">Notifications</a></li>
+                    @foreach (var item in Model.TaskCodeList)
+                    {
+                        @*if (Model.TaskCodeList[0].TaskCode == item.TaskCode)
+                        {
+                            <li class="active" id="@item.TaskCode">
+                                <a href="#@item.TaskCode" aria-controls="#@item.TaskCode" role="tab" data-toggle="tab">@item.Description</a>
+                            </li>
+                        }
+                        else
+                        {*@
+                            <li class="" id="@item.TaskCode"><a href="#@item.TaskCode" aria-controls="#@item.TaskCode" role="tab" data-toggle="tab">@item.Description</a></li>
+                        @*}*@
+                    }
+                    @*@if (Model.TaskCodeList.Count > 0)
+                    {*@
+                        <li class="" id="RequestsTab"><a href="#RequestsTab" aria-controls="#RequestsTab" role="tab" data-toggle="tab">Requests Approval</a></li>
+                    @*}
+                    else
+                    {
+                        <li class="active" id="RequestsTab"><a href="#RequestsTab" aria-controls="#RequestsTab" role="tab" data-toggle="tab">Requests Approval</a></li>
+                    }*@
+                    
+                </ul>
+
+                <div class="tab-content">
+                    <div id="infoNotifications" class="tab-pane active">
+                        @Html.Partial("InformativeNotifications")
+                    </div>
+                    @foreach (var item1 in Model.TaskCodeList)
+                    {
+                        @*if (Model.TaskCodeList[0].TaskCode == item1.TaskCode)
+                        {
+                            <div id="@item1.TaskCode" class="tab-pane active">
+                                @if (item1.TaskCode == "LA")
+                                {
+                                    //Html.RenderAction("PendingLeaveRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    @Html.Partial("PendingLeaveRequestV2")
+                                }
+                                else if (item1.TaskCode == "MA")
+                                {
+                                    //Html.RenderAction("PendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    @Html.Partial("PendingManualAttendanceRequestV2")
+                                }
+                                else if (item1.TaskCode == "ASA")
+                                {
+                                    //Html.RenderAction("SPAttendancePendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    @Html.Partial("SPAttendancePendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "CODA")
+                                {
+                                    //Html.RenderAction("CODAPendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    @Html.Partial("CODAPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "DAST")
+                                {
+                                    //Html.RenderAction("DASTPendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    @Html.Partial("DASTPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "INWARD")
+                                {
+                                    //Html.RenderAction("INWARDPendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    @Html.Partial("INWARDPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "FSAA")
+                                {
+                                    @Html.Partial("FSAAPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "SRAA")
+                                {
+                                    @Html.Partial("StudentRegistrationAcademicApprovalListV2")
+                                }
+                                else if (item1.TaskCode == "SSA")
+                                {
+                                    @Html.Partial("SSAPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "PR")
+                                {
+                                    @Html.Partial("PurchaseRequirementPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "AVAR")
+	                            {
+		                             @Html.Partial("AVARPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "ATRA")
+                                {
+                                    @Html.Partial("ATRAPendingRequest")
+                                }
+                            </div>
+                        }
+                        else
+                        {*@
+                            <div id="@item1.TaskCode" class="tab-pane">
+                                @if (item1.TaskCode == "LA")
+                                {
+                                    @Html.Partial("PendingLeaveRequestV2", Model)
+                                }
+                                else if (item1.TaskCode == "MA")
+                                {
+                                    @Html.Partial("PendingManualAttendanceRequestV2")
+                                    @*@Html.Partial("PendingRequest")*@
+                                }
+                                else if (item1.TaskCode == "ASA")
+                                {
+                                    @Html.Partial("SPAttendancePendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "CODA")
+                                {
+                                    @Html.Partial("CODAPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "DAST")
+                                {
+                                    @Html.Partial("DASTPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "INWARD")
+                                {
+                                    @Html.Partial("INWARDPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "FSAA")
+                                {
+                                    @Html.Partial("FSAAPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "SRAA")
+                                {
+                                    @Html.Partial("StudentRegistrationAcademicApprovalListV2")
+                                }
+                                else if (item1.TaskCode == "SSA")
+                                {
+                                    @Html.Partial("SSAPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "PR")
+                                {
+                                    @Html.Partial("PurchaseRequirementPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "AVAR")
+                                {
+                                    @Html.Partial("AVARPendingRequestV2")
+                                }
+                                else if (item1.TaskCode == "ATRA")
+                                {
+                                    @Html.Partial("ATRAPendingRequest")
+                                }
+                                else if (item1.TaskCode == "PO")
+                                {
+                                    @Html.Partial("PurchaseOrderPendingRequest")
+                                }
+                            </div>
+                        @*}*@
+                    }
+                    @*@if (Model.TaskCodeList.Count > 0)
+                    {*@
+                        <div id="RequestsTab" class="tab-pane">
+                            @Html.Partial("GeneralRequest")
+                        </div>
+                    @*}
+                    else
+                    {
+                        <div id="RequestsTab" class="tab-pane active">
+                            @Html.Partial("GeneralRequest")
+                        </div>
+                    }*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        EmployeeDashboardV2.Initialize();
+
+        if ($('#ModuleCountFlag').val() == '0') {
+            $.ajax(
+               {
+                   cache: false,
+                   type: "GET",
+                   dataType: "html",
+                   data: { "LogoutType": 'Successfully', "Command": '' },
+                   url: 'Account/LogOff',
+                   success: function (result) {
+                       debugger;
+                       // Menus are not assigned to role,please contact administrator
+                       location.reload(true);
+                   }
+               });
+        }
+
+        $('.dashboard-wid-content').click(function () {
+            debugger;
+            //var ModuleID = $(this).attr('id');
+            var ModuleCode = $(this).attr('id');
+            var ModuleName = $(this).text().trim();
+            $.ajax(
+                {
+                    cache: false,
+                    type: "GET",
+                    dataType: "html",
+                    url: 'Base/CheckSessionStatus',
+                    success: function (result) {
+                        sessionStatus = result;
+                        if (sessionStatus == "1") {
+                            // _HeaderV2.LoadMenuListByModuleID(ModuleID, ModuleName);
+                            _HeaderV2.LoadMenuListByMod-uleCode(ModuleCode, ModuleName);
+
+                        }
+                        else if (sessionStatus != "1") {
+                            location.reload();
+                        }
+
+                    }
+                });
+        });
+    });
+</script>
+

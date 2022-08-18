@@ -1,0 +1,486 @@
+﻿@*
+    @model AMS.ViewModel.AccountCentreOpeningBalanceViewModel
+
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnGetColumnData.js")" type="text/javascript"></script>
+<div id="update-message" class="error invisible"></div>
+<div class="widget-block" style="height: 500px">
+    <div class="widget-head">
+        <h5>@Resources.FormName_IndividualOpeningBalance</h5>
+    </div>
+    <div class="widget-box">
+        <form id="FormCreateAccIndividualOpeningBalance" method="post" class="form-horizontal well">
+            <fieldset>
+                <legend style="display: none;"></legend>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(m => m.AccBalsheetMstID)
+                @Html.HiddenFor(m => m.AccountID)
+                @Html.HiddenFor(m => m.PersonType)
+                @Html.HiddenFor(m => m.SessionID)
+                <div class="nonboxy-widget">
+                    <div class="row">
+                        <div class="span11">
+                            <ul class="breadcrumb" style="height: 20px; padding-top: 10px;">
+                                <li style="width: 100px">
+                                    <b>@Html.LabelFor(m => m.BalancesheetName, new { style = "font-weight: bold;" })</b>
+                                </li>
+                                <li style="width: 200px">
+                                    <b>@Html.DisplayFor(model => model.BalancesheetName)</b>
+                                </li>
+                                <li style="width: 70px">
+                                    <b>@Html.LabelFor(m => m.AccountName, new { style = "font-weight: bold;" })</b>
+                                </li>
+                                <li style="width: 400px">
+                                    <b>@Html.DisplayFor(model => model.AccountName)</b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-block">
+                                <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+                                <div class="widget-head">
+                                    <script src="~/Scripts/fnGetColumnData.js"></script>
+                                    <h5 id="hFive" style="line-height: 20px"><i class="black-icons users"></i>&nbsp; @Resources.FormName_IndividualOpeningBalance</h5>
+                                    <div class="pull-right" style="margin: -26px 8px 0px 10px;">
+                                        <div class="input-append" id="" style="float: right;">
+                                            <div style="display: none;">
+                                                <input type="hidden" name="_method" value="POST">
+                                            </div>
+                                            <div>
+                                                <select name="data[User][searchby]" class="" id="showrecord1" tabindex="16">
+                                                    <option value="10">@Resources.GlobalProperties_ShowRecords</option>
+                                                    <option value="10">@Resources.GlobalProperties_10</option>
+                                                    <option value="50">@Resources.GlobalProperties_50</option>
+                                                    <option value="100">@Resources.GlobalProperties_100</option>
+                                                    <option value="500">@Resources.GlobalProperties_500</option>
+                                                    <option value="1000">@Resources.GlobalProperties_1000</option>
+                                                </select>
+                                                &nbsp;&nbsp;
+                                                <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearch1">
+                                                <button class="btn" type="button" id="searchBtn1"><i class="icon-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="widget-box">
+                                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                                            <div class="table_content">
+                                                <table id="aa" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align: center; width: 150px">@Resources.TableHeaders_PersonName</th>
+                                                            <th style="text-align: center; width: 150px; line-height: 40px">@Resources.TableHeaders_OpeningBalance</th>
+                                                            <th style="text-align: center; width: 150px; line-height: 40px">@Resources.TableHeaders_DebitCredit</th>
+                                                            <th style="text-align: center; display: none; width: 0px">@Resources.TableHeaders_ID</th>
+                                                            <th style="text-align: center">@Resources.TableHeaders_TotalDebit </th>
+                                                            <th style="text-align: center;">@Resources.TableHeaders_TotalCredit</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                            <div class="widget-bottom">
+                                                <br>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divSubmit">
+                        <ul class="breadcrumb" style="text-align: right">
+                            <li>
+                                <input type="button" id="CreateAccIndividualOpeningBalanceRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                            </li>
+                        </ul>
+                       
+                    </div>                  
+                </div>                
+            </fieldset>
+        </form>       
+    </div>
+</div>
+<br />
+<br />
+<script type="text/javascript">
+
+    var oTable;
+    $(document).ready(function () {
+
+        AccountCentreOpeningBalance.Initialize();
+        oTable = $('#aa').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "AccountCentreOpeningBalance/AjaxHandlerIndividualOpeningBalance",
+            "bJQueryUI": true,
+            //"sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "AccBalsheetMstID", "value": $("#selectedBalsheetID").val() }),
+                aoData.push({ "name": "AccountID", "value": $('#AccountID').val() }),
+                aoData.push({ "name": "PersonType", "value": $('#PersonType').val() });
+                aoData.push({ "name": "SelectedSessionID", "value": $('#SessionID').val() });
+            },
+            "columnDefs": [
+                {
+                    "visible": true, "targets": 0,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[0] + "</p>";
+                        return result;
+                    }
+                },
+
+                {
+                    "targets": 1,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        if (data[1] > 0) {
+                            var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<input type='text' value=" + data[1] + "  style=' font-weight: bold;text-align:right;'   />";
+                        }
+                        else {
+                            var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<input type='text'  value=" + data[1] + "  style=' font-weight: bold;text-align:right;'  />";
+                        }
+
+                        return result;
+                    }
+                },
+                {
+                    "targets": 2,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        if (data[6] < 0) {
+                            var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" style="width:90px"><option selected="selected" value="0">Cr</option><option value="1">Dr</option></select>';
+                        }
+                        else if (data[6] > 0) {
+                            var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" style="width:90px"><option value="0">Cr</option><option selected="selected" value="1">Dr</option></select>';
+                        }
+                        else {
+                            var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" style="width:90px"><option value="0">Cr</option><option value="1">Dr</option></select>';
+                        }
+
+                        return result;
+
+
+                    }
+                },
+                 {
+
+                     "visible": true, "targets": 3,
+                     "sClass": "columnDisplay", "aTargets": [3],
+                     "targets": 3,
+                     "data": null,
+                     "render": function (data, type, full, meta) {
+                         if (data[6] >= 0) {
+                             var result = "<input type='checkbox' style='display:none;width:-8000px'   value=" + data[2] + '~' + data[3] + '~' + data[1] + '~' + 1 + " id='txtOpeningBal' />";
+                         }
+                         else if (data[6] < 0) {
+                             var result = "<input type='checkbox' style='display:none;width:-8000px'   value=" + data[2] + '~' + data[3] + '~' + data[1] + '~' + 0 + " id='txtOpeningBal' />";
+                         }
+                         return result;
+
+                     }
+                 },
+                  {
+                      "visible": false, "targets": 4,
+                  },
+                  {
+                      "visible": false, "targets": 5,
+                  }
+            ],
+        });
+    });
+
+</script>
+
+
+
+<style type="text/css">
+    .columnDisplay {
+        display: none;
+    }
+</style>*@
+
+
+
+
+@model AMS.ViewModel.AccountCentreOpeningBalanceViewModel
+
+<style type="text/css">
+    /*.columnDisplay {
+        display: none;
+    }*/
+    /*.card .card-header:not(.ch-alt) {
+        padding: 21px 25px;
+    }*/
+</style>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormName_IndividualOpeningBalance</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 style="">@Html.DisplayFor(model => model.AccountName)</h2>
+        </div>
+
+        <div id="displayErrorMessage" role="alert" hidden class="alert">
+            <button class="close" type="button"><span aria-hidden="true">×</span></button>
+            <p id="messageContent"></p>
+        </div>
+
+        <form id="FormCreateAccIndividualOpeningBalance" method="post" class="">
+
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(m => m.AccBalsheetMstID)
+            @Html.HiddenFor(m => m.AccountID)
+            @Html.HiddenFor(m => m.PersonType)
+            @Html.HiddenFor(m => m.SessionID)
+
+            <div class="bootgrid-header container-fluid" id="data-table-command-header">
+
+                <div class="row">
+                    <div class="col-sm-12 actionBar">
+                        <div class="search form-group">
+                            <div class="input-group">
+                                <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                            </div>
+                        </div>
+                        <div class="actions btn-group">
+                            <div class="dropdown btn-group">
+                                <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                                    <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                                </button>
+                                <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                                    <li class="active" aria-selected="true">
+                                        <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                                    </li>
+                                    <li aria-selected="false">
+                                        <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                                    </li>
+                                    <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown btn-group">
+                                <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                                    <span class="dropdown-text">
+                                        <span class="zmdi icon zmdi-view-module"></span>
+                                    </span><span class="caret"></span>
+                                </button>
+                                <ul role="menu" id="toggleTableColumn1" class="dropdown-menu pull-right">
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <label class="dropdown-item" aria-disabled="false">
+                                                <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="PersonName">
+                                                @Resources.TableHeaders_PersonName<i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </li>
+
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <label class="dropdown-item" aria-disabled="false">
+                                                <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="OpeningBalance">
+                                                @Resources.TableHeaders_OpeningBalance<i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="checkbox">
+                                            <label class="dropdown-item" aria-disabled="false">
+                                                <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name="DebitCredit">
+                                                @Resources.TableHeaders_DebitCredit<i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+
+                            <ul class="header-inner" style="margin-left: 20%; padding-top: 2%;">
+                                <li>
+                                    @Html.LabelFor(m => m.BalancesheetName, new { style = "font-weight: bold;" }) &nbsp;&nbsp;
+                                </li>
+                                <li>
+                                    @Html.DisplayFor(model => model.BalancesheetName) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </li>
+                                <li>
+                                    @Html.LabelFor(m => m.AccountName, new { style = "font-weight: bold;" }) &nbsp;&nbsp;
+                                </li>
+                                <li>
+                                    @Html.DisplayFor(model => model.AccountName) 
+                                </li>
+                            </ul>
+
+                        </div>
+
+                       
+                            
+                        
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <table id="aa" class="table table-striped table-condensed table-vmiddle table-responsive">
+                <thead>
+                    <tr>
+                        <th>@Resources.TableHeaders_PersonName</th>
+                        <th style="width: 250px;">@Resources.TableHeaders_OpeningBalance</th>
+                        <th>@Resources.TableHeaders_DebitCredit</th>
+                        <th>@Resources.TableHeaders_ID</th>
+                        @*<th style="display: none;">@Resources.TableHeaders_ID</th>*@
+                        <th>@Resources.TableHeaders_TotalDebit </th>
+                        <th>@Resources.TableHeaders_TotalCredit</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div class="card-header pull-left" @*id="divSubmit"*@>
+                <ul class="header-inner">
+                    <li>
+                        <div class="form-group  fg-line">
+                            <input type="button" id="CreateAccIndividualOpeningBalanceRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnGetColumnData.js")" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+    var oTable;
+    $(document).ready(function () {
+
+        AccountCentreOpeningBalance.Initialize();
+        oTable = $('#aa').DataTable({
+            "bServerSide": true,
+            "sAjaxSource": "AccountCentreOpeningBalance/AjaxHandlerIndividualOpeningBalance",
+            "bJQueryUI": true,
+            //"sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "AccBalsheetMstID", "value": $("#selectedBalsheetID").val() }),
+                aoData.push({ "name": "AccountID", "value": $('#AccountID').val() }),
+                aoData.push({ "name": "PersonType", "value": $('#PersonType').val() });
+                aoData.push({ "name": "SelectedSessionID", "value": $('#SessionID').val() });
+            },
+            "columnDefs": [
+                {
+                    "visible": true, "targets": 0,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        var result = "<p style='width: 350px'>" + "" + data[0] + "</p>";
+                        return result;
+                    }
+                },
+
+                {
+                    "targets": 1,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        if (data[1] > 0) {
+                            var result = "" + "<div class='form-group  fg-line ' ><input class='form-control fg-line' type='text' value=" + data[1] + "  style=' font-weight: bold;text-align:right;width:270px;'   /></div>";
+                        }
+                        else {
+                            var result = "" + "<div class='form-group  fg-line'><input class='form-control' type='text'  value=" + data[1] + "  style=' font-weight: bold;text-align:right;width:270px;'  /></div>";
+                        }
+
+                        return result;
+                    }
+                },
+                {
+                    "targets": 2,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        if (data[6] < 0) {
+                            var result = "" + '<div class="form-group fg-line select" style="width: 150px" ><select class="form-control" id="combobox"><option selected="selected" value="0">Cr</option><option value="1">Dr</option></select></div>';
+                        }
+                        else if (data[6] > 0) {
+                            var result = "" + '<div class="form-group fg-line select" style="width: 150px" ><select class="form-control" id="combobox"><option value="0">Cr</option><option selected="selected" value="1">Dr</option></select></div>';
+                        }
+                        else {
+                            var result = "" + '<div class="form-group fg-line select" style="width: 150px" ><select class="form-control" id="combobox"><option value="0">Cr</option><option value="1">Dr</option></select></div>';
+                        }
+
+                        return result;
+
+
+                    }
+                },
+                 {
+
+                     "visible": true, "targets": 3,
+                     "sClass": "columnDisplay", "aTargets": [3],
+                     "targets": 3,
+                     "data": null,
+                     "render": function (data, type, full, meta) {
+                         if (data[6] >= 0) {
+                             var result = "<input type='checkbox' style='display:none;'   value=" + data[2] + '~' + data[3] + '~' + data[1] + '~' + 1 + " id='txtOpeningBal' />";
+                         }
+                         else if (data[6] < 0) {
+                             var result = "<input type='checkbox' style='display:none;'   value=" + data[2] + '~' + data[3] + '~' + data[1] + '~' + 0 + " id='txtOpeningBal' />";
+                         }
+                         return result;
+
+                     }
+                 },
+                  {
+                      "visible": false, "targets": 4,
+                  },
+                  {
+                      "visible": false, "targets": 5,
+                  }
+            ],
+        });
+
+        DataTableSettings(oTable, "aa", "toggleTableColumn1");
+
+    });
+
+</script>
+
+
+@*<style type="text/css">
+    .columnDisplay {
+        display: none;
+    }
+</style>*@

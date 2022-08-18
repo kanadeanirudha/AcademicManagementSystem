@@ -1,0 +1,21 @@
+﻿@model AMS.ViewModel.CRMSaleReportViewModel
+@Html.HiddenFor(m => m.ReportList, new { @id = "ReportListHotAccounts" })  
+<div class="col-sm-6 col-md-3">
+    <a href="@Url.Action("Index", "CRMSaleEnquiryAccountMaster", new {SearchQuery="Hot"})">
+        <div class="mini-charts-item bgm-teal">
+            <div class="clearfix">
+                <div class="chart myBarClassHotAccounts col-sm-6 text-center"></div>
+                <div class="count text-center">
+                    <small>Hot Account</small>
+                    <h2>@Html.DisplayFor(m => m.ReportCount)</h2>
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+<script>
+    $(document).ready(function () {
+        sparklineBar('myBarClassHotAccounts', $("#ReportListHotAccounts").val().split(','), '45px', 3, '#fff', 2);
+    });
+</script>

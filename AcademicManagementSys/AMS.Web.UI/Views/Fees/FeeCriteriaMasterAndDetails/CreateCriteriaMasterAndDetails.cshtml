@@ -1,0 +1,185 @@
+﻿@*@model AMS.ViewModel.FeeCriteriaMasterAndDetailsViewModel
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5 id="hFive"> @Resources.FormCreate_FeeCriteriaMasterAndDetails   </h5>
+        </div>
+        <div class="widget-content">
+            <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+            <form id="FormCreateFeeCriteriaMasterAndDetails" method="post" class="form-horizontal well">
+
+                @Html.HiddenFor(m => m.AccBalanceSheetID)
+                <div class="row">
+                    <div class="span10">
+                        <div class="row control-group">
+
+                            <div class="spanFullName span2" style="padding-left: 15px;">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                                @Html.LabelFor(model => model.AccBalanceSheetName, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span3">
+                                <b>@Html.DisplayFor(model => model.AccBalanceSheetName, new { @class = "txtbox" })</b>
+                            </div>
+                            <div class="spanFullName span2">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                                @Html.LabelFor(model => model.FeeTypeID, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span2">
+                                @Html.DropDownListFor(model => model.FeeTypeID, @Model.FeeTypeListItems, new { style = "font-weight:bold;width:210px;", disabled = "disabled" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        <div class="row control-group">
+
+                            <div class="spanFullName span2" style="padding-left: 15px; ">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.FeeCriteriaDescription, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(model => model.FeeCriteriaDescription, new { @class = "txtbox", style = "font-Weight:Bold;", maxlength = "50" })
+                                <br />
+                                @Html.ValidationMessageFor(m => m.FeeCriteriaDescription)
+
+
+                            </div>
+                            <div class="spanFullName span2">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.FeeCriteriaCode, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(model => model.FeeCriteriaCode, new { @class = "txtbox", style = "font-Weight:Bold;", maxlength = "10" })
+                                <br />
+                                @Html.ValidationMessageFor(m => m.FeeCriteriaCode)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        <div class="row control-group">
+
+                            <div class="spanFullName span2" style="padding-left: 15px; ">
+                                <span style="color: red; float: left;  font-weight: bold">*</span>
+                                @Html.LabelFor(m => m.FeeCriteriaParametersName, new { style = "font-weight:bold;" })
+                            </div>
+                            <div class="span3" >
+                                <div id="checkboxlistFeeCriteriaParameters" class="controls input-xlarge text-tip" style="float: right">
+                                    <p id="e5_f">
+
+                                        <select id="checkboxlist1" class="w500" multiple="multiple" style="width: 264%; height: 170px;">
+                                            @foreach (var item in Model.FeeCriteriaParametersAndValuesList)
+                                            {
+                                                <option id="@item.FeeCriteriaParametersID" value="@item.FeeCriteriaParametersID">@item.FeeCriteriaParametersDescription</option>
+                                            }
+                                        </select>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions" style="padding-left: 0px; padding-bottom: 0px; text-align: right">
+                    <button type="button" id="CreateFeeCriteriaMasterAndDetailsRecord" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                    <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            FeeCriteriaMasterAndDetails.Initialize();
+            $('#checkboxlist1').multipleSelect();
+        });
+    </script>*@
+
+@model AMS.ViewModel.FeeCriteriaMasterAndDetailsViewModel
+@*<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>*@
+<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp;@Resources.FormCreate_FeeCriteriaMasterAndDetails</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+
+            <form id="FormCreateFeeCriteriaMasterAndDetails" method="post" class="row">
+                @Html.HiddenFor(m => m.AccBalanceSheetID)
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.AccBalanceSheetName)</label>
+                            @Html.TextBoxFor(model => model.AccBalanceSheetName, new { @class = "form-control input-sm", disabled = "disabled", style="background-color:white;" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            <label>@Html.LabelFor(model => model.FeeTypeID)</label>
+                            @Html.DropDownListFor(model => model.FeeTypeID, @Model.FeeTypeListItems, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label><span style="color:red">*</span>@Html.LabelFor(model => model.FeeCriteriaDescription)</label>
+                            @Html.TextBoxFor(model => model.FeeCriteriaDescription, new { @class = "form-control input-sm", maxlength = "50" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.FeeCriteriaDescription)
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label><span style="color:red">*</span>@Html.LabelFor(model => model.FeeCriteriaCode)</label>
+                            @Html.TextBoxFor(model => model.FeeCriteriaCode, new { @class = "form-control input-sm", maxlength = "10" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.FeeCriteriaCode)
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group fg-line" id="checkboxlistFeeCriteriaParameters">
+                        <label>@Html.LabelFor(m => m.FeeCriteriaParametersName, new { style = "margin-left:12%;" })</label>
+                        <select id="selectCriteriaParam" class="form-group selectpicker col-sm-12" multiple name="selCriteriaParam">
+                            @foreach (var item in Model.FeeCriteriaParametersAndValuesList)
+                            {
+                                <option id="@item.FeeCriteriaParametersID" value="@item.FeeCriteriaParametersID">@item.FeeCriteriaParametersDescription</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-sm-12" style="margin-left:2%;">
+                    <button id="CreateFeeCriteriaMasterAndDetailsRecord" type="button" class="btn btn-primary">@Resources.ButtonAction_Submit</button>&nbsp;
+                    <input name="" id="reset" type="submit" class="btn" value="@Resources.ButtonAction_Reset" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        FeeCriteriaMasterAndDetails.Initialize();
+        $('.selectpicker').selectpicker();
+    });
+</script>
+
+
+

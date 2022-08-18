@@ -1,0 +1,167 @@
+﻿@model AMS.ViewModel.CRMCallEnquiryDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+ 
+<script src="@Url.Content("~/Scripts/AMS_Scripts/CRM/CRMCallEnquiryDetailsMannualMode.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
+<style>
+    .dropdown-menu {
+        margin: 2px 0 0;
+        min-width: 250px;
+        padding: 5px 10px;
+    }
+</style>
+<div class="container">
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Create Call Enquiry Manually</h2>
+    </div>
+
+    <div class="card">
+          <div class="" id="divContent">
+                <form id="FormCRMCallEnquiryDetailsMannualMode">
+                  
+                    <div class="card-body card-padding">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                 
+                                <div class="col-sm-4">
+                                    <div class="form-group fg-line select" style="margin-left:-15px">
+                                        
+                                         @Html.DropDownList("CallTypeDescription", ViewData["CallTypeDescription"] as List<SelectListItem>, new { @class = "form-control", style = "background-color:#fff", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "CallType"  })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.StudentFirstName, new { })
+                                @Html.TextBoxFor(model => model.StudentFirstName, new { @class = "form-control input-sm typeahead" })
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.StudentMiddelName, new { })
+                                @Html.TextBoxFor(model => model.StudentMiddelName, new { maxlength = "8", @class = "form-control input-sm typeahead" })
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.StudentLastName, new { })
+                                @Html.TextBoxFor(model => model.StudentLastName, new { maxlength = "8", @class = "form-control input-sm typeahead" })
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.StudentMobileNo, new { })
+                                @Html.TextBoxFor(model => model.StudentMobileNo, new { maxlength = "12",@class = "form-control input-sm typeahead" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line" style="margin-left:13px">
+                                    @Html.LabelFor(model => model.StudentEmailID, new { })
+                                    @Html.TextBoxFor(model => model.StudentEmailID, new { @class = "form-control input-sm typeahead" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line" style="margin-left:9px;">
+                                   
+                                    @Html.LabelFor(model => model.Source, new { })
+                                    @Html.DropDownList("Source", ViewData["Source"] as List<SelectListItem>, new {@class = "form-control input-sm" })
+
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line">
+                                    @Html.LabelFor(model => model.SourceContactPerson, new { })
+                                    @Html.TextBoxFor(model => model.SourceContactPerson, new { maxlength = "8", @class = "form-control input-sm typeahead" })
+                                </div>
+                            </div>
+                            <div class="col-sm-2" id="btnAdd1" >
+                                <!-- <button type="button" class="btn btn-primary" id="btnAdd">Add Row</button> -->
+                                <button type="button" title="Add row" style="border-radius: 54px;height: 47px;width: 43px;"class="btn bgm-cyan btn-float waves-effect waves-circle waves-float" id="btnAdd"><i class="zmdi zmdi-plus"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="DivAddRowTable">
+                            <div class="card-body table-responsive">
+                                <table id="tblData" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Middle Name</th>
+                                            <th>Last Name</th>
+                                            <th>Mobile No</th>
+                                            <th style="width:166px;text-align:center;">Email ID</th>
+                                            <th style="width:96px">Source</th>
+                                            <th>Source Contact Person</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-3 pull-left">
+                             
+                            </div>
+                            <div class="col-sm-3 pull-right" style="margin-right:-80px">
+                                <button type="button" id="CreateCRMCallEnquiryDetails" value="@Resources.ButtonAction_Submit" class="btn btn-primary">Submit</button>
+                                 <button type="button" id="ResetCRMCallEnquiryDetails" value="@Resources.ButtonAction_Reset" class="btn btn-primary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMCallEnquiryDetailsMannualMode.Initialize();
+    });
+</script>
+
+

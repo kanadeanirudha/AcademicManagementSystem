@@ -1,0 +1,40 @@
+﻿@model AMS.Web.UI.Models.SyllabusMaster
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Syllabus Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <h4>Are you sure you want to delete this?</h4>
+                        <fieldset>
+                              <legend>Syllabus Details</legend>
+                                
+                                <div class="display-label">SyllabusCode</div>
+                                <div class="display-field">@Model.SyllabusCode</div>
+                                <br />
+                                <div class="display-label">SyllabusDescription</div> 
+                                <div class="display-field">@Model.SyllabusDescription</div>
+                                 <br />
+                            </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

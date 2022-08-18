@@ -1,0 +1,265 @@
+﻿@*@model AMS.ViewModel.GeneralEducationMasterViewModel
+
+<form id="FormEditGeneralEducationMaster" method="post">
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="update-message" class="error invisible"></div>
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+
+
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>@Resources.FormUpdate_EducationMaster</h5>
+        </div>
+        @if (Model.IsUserDefined == true)
+        {
+            <div class="widget-content">
+                <div class="widget-box" style="padding: 15px">
+
+                    <div class="control-group control-label">
+
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>      
+                        @Html.LabelFor(m => m.EducationTypeID, new { style = "font-Weight:Bold;" })
+                        <div class="controls input-xlarge text-tip">
+                            @Html.DropDownListFor(model => model.EducationTypeID, (SelectList)ViewBag.GeneralEducationTypeMaster, Resources.ddlHeaders_EducationLevelName, new { style = "font-Weight:Bold;" })
+
+                            <br />
+                            @Html.ValidationMessageFor(model => model.SelectedEducationTypeID)
+                        </div>
+                    </div>
+                    <div class="control-group control-label">
+
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                        @Html.LabelFor(model => model.Description, new { style = "font-Weight:Bold;" })
+                        <div class="controls input-xlarge text-tip">
+                            @Html.TextBoxFor(model => model.Description, new { style = "font-Weight:Bold;", maxlength = "60" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                    </div>
+
+                    <div class="control-group control-label">
+
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>       
+                        @Html.LabelFor(m => m.NumberOfYears, new { style = "font-Weight:Bold;" })
+
+                        <div class="controls input-xlarge text-tip">
+                            @Html.TextBoxFor(model => model.NumberOfYears, new { style = "font-Weight:Bold; width:80px; text-align:right;", maxlength = "2", minlength = "1" })
+                            @Html.DropDownListFor(m => m.Unit, (SelectList)ViewBag.GeneralUnitMaster, @Resources.ddlHeaders_UnitName, new { style = "width:120px;font-Weight:Bold;" })
+
+                            <br />
+                            @Html.ValidationMessageFor(model => model.NumberOfYears)
+                            @Html.ValidationMessageFor(model => model.Unit)
+                        </div>
+                    </div>
+
+                    <div class="control-group control-label">
+
+                        <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+
+                            <input id="EditGeneralEducationMasterRecord" type="button" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+        else
+        {
+            <div class="widget-content">
+                <div class="widget-box" style="padding: 15px">
+
+                    <div class="control-group control-label">
+                        @Html.LabelFor(m => m.EducationTypeID, new { style = "font-Weight:Bold;" })
+                        <div class="controls input-xlarge text-tip">
+                            @Html.DropDownListFor(model => model.EducationTypeID, (SelectList)ViewBag.GeneralEducationTypeMaster, Resources.ddlHeaders_EducationLevelName, new { ReadOnly = "True", style = "font-Weight:Bold;" })
+
+                            <br />
+                            @Html.ValidationMessageFor(model => model.SelectedEducationTypeID)
+                        </div>
+                    </div>
+                    <div class="control-group control-label">
+                        @Html.LabelFor(model => model.Description, new { style = "font-Weight:Bold;" })
+                        <div class="controls input-xlarge text-tip">
+                            @Html.TextBoxFor(model => model.Description, new { style = "font-Weight:Bold;", ReadOnly = "True", maxlength = "60" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                    </div>
+
+                    <div class="control-group control-label">
+
+
+                        <div class="control-group control-label">
+                            @Html.LabelFor(m => m.NumberOfYears, new { style = "font-Weight:Bold;" })
+
+                            <div class="controls input-xlarge text-tip">
+                                @Html.TextBoxFor(model => model.NumberOfYears, new { ReadOnly = "true", style = "font-Weight:Bold; width:80px; text-align:right;", maxlength = "2", minlength = "1", Value = "" })
+                                @Html.DropDownListFor(m => m.Unit, (SelectList)ViewBag.GeneralUnitMaster, Resources.ddlHeaders_UnitName, new { ReadOnly = "true", style = "width:120px" })
+
+                                <br />
+                                @Html.ValidationMessageFor(model => model.NumberOfYears)
+                                @Html.ValidationMessageFor(model => model.Unit)
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+                
+        }
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GeneralEducationMaster.Initialize();
+    });
+</script>*@
+
+@*------------new code-------------*@
+
+@model AMS.ViewModel.GeneralEducationMasterViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+@if (Model.IsUserDefined == true) { 
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormUpdate_EducationMaster</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormEditGeneralEducationMaster">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.ID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.EducationTypeID, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.EducationTypeID, (SelectList)ViewBag.GeneralEducationTypeMaster, Resources.ddlHeaders_EducationLevelName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EducationTypeID)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Description, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.Description, new { @class = "form-control", style = "", maxlength = "60" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.NumberOfYears, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.NumberOfYears, new { @class = "form-control", style = "", maxlength = "2", minlength = "1" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.NumberOfYears)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.NumberOfYears, new { style = "" })
+                        <div class="form-group fg-line select">
+                            @Html.DropDownListFor(m => m.Unit, (SelectList)ViewBag.GeneralUnitMaster, @Resources.ddlHeaders_UnitName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Unit)
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="EditGeneralEducationMasterRecord" type="button" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    } 
+    else { 
+    
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;View</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.ID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.EducationTypeID, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.EducationTypeID, (SelectList)ViewBag.GeneralEducationTypeMaster, Resources.ddlHeaders_EducationLevelName, new { @class = "form-control", style = "background-color:#fff;", ReadOnly = "True", })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EducationTypeID)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Description, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.Description, new { @class = "form-control",  maxlength = "60",style = "background-color:#fff;", ReadOnly = "True" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.NumberOfYears, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.NumberOfYears, new { @class = "form-control",  maxlength = "2", minlength = "1", style = "background-color:#fff;", ReadOnly = "True" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.NumberOfYears)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.NumberOfYears, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(m => m.Unit, (SelectList)ViewBag.GeneralUnitMaster, @Resources.ddlHeaders_UnitName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Unit)
+                    </div>
+                </div>
+
+                
+            </form>
+
+        </div>
+    </div>
+    }
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GeneralEducationMaster.Initialize();
+    });
+</script>

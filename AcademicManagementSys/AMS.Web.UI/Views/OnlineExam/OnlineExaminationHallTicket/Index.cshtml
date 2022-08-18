@@ -1,0 +1,209 @@
+﻿@model AMS.ViewModel.OnlineExaminationHallTicketViewModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@*<link href="@Url.Content("~/Content/Progressbar.css")" rel="stylesheet" type="text/css" />*@
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+</style>
+
+
+
+@*<div id="content">
+        <span class="expand"></span>
+    </div>*@
+
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>Online Exam<span class="divider">»</span></li>
+        <li> Online Examination Hall Ticket</li>
+    </ul>
+    <div id="SuccessMessage" style="display:none;color:#000;" class="alert"></div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5>Online Examination Hall Ticket </h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <form class="form-horizontal well" id="FormOnlineExaminationHallTicket">
+                            <div id="printablediv">
+                                <table style="width:850px;border:1px solid #808080">
+
+                                    <tr style=" height:70px; font-size:15px;  border:1px solid #808080">
+                                        <th colspan="3">
+                                            <b>
+                                                G.H.Raisoni College of Engineering
+                                                <br />Nagpur
+                                            </b>
+                                        </th>
+                                    </tr>
+
+                                    <tr style=" width:110px; font-size:13px; height:40px; border:1px solid #808080">
+                                        <th colspan="3"> Admit Card For Entrance Exam @Html.DisplayFor(model => model.ExaminationName, new { style = "font-Weight:Bold;" })</th>
+                                    </tr>
+                                    <tr style="border:1px solid #000000">
+                                        <td style="width: 150px; height:23px;"><b>Registration No:</b></td>
+                                        <td style="width:550px"><b>@Html.DisplayFor(model => model.RegistrationNumber, new { style = "font-Weight:Bold;" })</b></td>
+                                        <td style="width: 150px;" rowspan="5" align="center">
+                                            <span class="btn-file" style="">
+                                                @if (Model.StudentPhoto != null)
+                                                {
+                                                    <img alt="Photo" style="height: 127px; width: 120px; border: 1px solid black" id="previewStudentPhoto" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.StudentPhoto, 0, Convert.ToInt32(Model.StudentPhotoFileSize))" />
+                                                }
+                                                else
+                                                {
+                                                    <img alt="Photo" style="height: 127px; width: 120px; border: 1px solid black; " id="previewStudentPhoto" src="~/Content/images/Avatar.png" />
+                                                }
+
+                                                @*@Html.FileFor(model => model.StudentPhotoFile)*@
+                                                <br />
+                                                @if (Model.StudentSignature != null)
+                                                {
+                                                    <img alt="Photo" style="height: 40px; width: 120px; border: 1px solid black; " id="previewStudentSignature" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.StudentSignature, 0, Convert.ToInt32(Model.StudentSignatureFileSize))" />
+                                                }
+                                                else
+                                                {
+                                                    <img alt="StudentSignatureFile" style="height: 40px; width: 120px; border: 1px solid black;" id="previewStudentSignature" src="~/Content/images/signature_scan.gif" />
+                                                }
+
+                                            </span>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr style="border:1px solid #808080">
+                                        <td style="height:23px;"><b>Roll No:</b></td>
+                                        <td> <b>@Html.DisplayFor(model => model.RollNumber, new { style = "font-Weight:Bold;" })</b></td>
+
+                                    </tr>
+                                    <tr style="border:1px solid #808080">
+                                        <td style="height:23px;"><b>Student Name:</b></td>
+                                        <td>
+                                            <b>@Html.DisplayFor(model => model.StudentFullName, new { style = "font-Weight:Bold;" })</b>
+                                        </td>
+
+                                    </tr>
+                                    <tr style="border:1px solid #808080">
+                                        <td style="height:23px;"><b>Gender:</b></td>
+                                        <td> <b>@Html.DisplayFor(model => model.Gender, new { style = "font-Weight:Bold;" })</b></td>
+
+                                    </tr>
+                                    <tr style="border:1px solid #808080">
+                                        <td style="height:23px;"><b>Exam Date:</b></td>
+                                        <td><b>@Html.DisplayFor(model => model.ExamDate, new { style = "font-Weight:Bold;" })</b> </td>
+
+
+                                    </tr>
+                                    <tr style="border:1px solid #808080">
+                                        <td style="height:23px;"><b>Exam Time:</b></td>
+                                        <td><b>@Html.DisplayFor(model => model.ExamTime, new { style = "font-Weight:Bold;" })</b> </td>
+                                        <td rowspan="2">
+                                            <center>
+                                                <img src="~/Content/images/signature_scan.gif" style="height: 40px; width: 120px;" />
+
+                                            </center>
+                                            <center> G.H.Raisoni College Of Enginnering nagpur</center>
+                                        </td>
+
+                                    </tr>
+                                    <tr style="border:1px solid #808080">
+                                        <td style="height:23px;"><b>Exam Address:</b></td>
+                                        <td>
+                                            <b>@Html.DisplayFor(model => model.Venue, new { style = "font-Weight:Bold;" })</b>
+                                            <br /><b>@Html.DisplayFor(model => model.Venue1, new { style = "font-Weight:Bold;" })</b>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr style="border:1px solid #808080 ">
+                                        <td colspan="3">
+                                            <br /><center><b>INSTRUCTION-</b></center><br />
+                                            i. Ration Card and E-Aadhar Card will not be accepted as valid ID proof.<br />
+                                            ii. In case of candidates who have changed their name, will be allowed only if they produce original Gazette notification / their original marriage certificate / affidavit in original.</p>
+                                        </td>
+
+                                    </tr>
+
+
+                                </table>
+                            </div>
+                            <br /><br />
+                            <center>
+                                @*<input type="button" id="Print" value="Print" onclick="window.print()" class="btn btn-primary" />*@
+                                <input type="button" id="Print" value="Print" onclick="javascript: printDiv('printablediv')" class="btn btn-primary" />
+                            </center>
+                            <br /><br />
+                            <br /><br />
+
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*@Html.Partial("StudentDetails")*@
+</div>
+
+@*<script language="JavaScript">
+        if (window.print) {
+            document.write('<form><input type=button name=print value="Print" onClick="window.print()"></form>');
+        }
+    </script>*@
+
+<script language="javascript" type="text/javascript">
+    function printDiv(divID) {
+        //Get the HTML of div
+        var divElements = document.getElementById(divID).innerHTML;
+        //Get the HTML of whole page
+        var oldPage = document.body.innerHTML;
+
+        //Reset the page's HTML with div's HTML only
+        document.body.innerHTML =
+          "<html><head><title></title></head><body>" +
+          divElements + "</body>";
+
+        //Print Page
+        window.print();
+
+        //Restore orignal HTML
+        document.body.innerHTML = oldPage;
+
+
+    }
+</script>
+
+
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            OnlineExaminationHallTicket.Initialize();
+        });
+
+
+    </script>*@
+
+
+
+
+
+
+
+
+
+

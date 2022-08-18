@@ -1,0 +1,35 @@
+﻿@model AMS.ViewModel.AdminSnPostsViewModel
+<form id="FormDeleteAdminSnPosts" method="post" style="height:170px;width:235px;">
+
+    @Html.HiddenFor(model => model.ID)
+
+    <div class="widget-block" style="width: 230px;">
+        <div class="widget-head">
+            <h5>@Resources.FormDelete_AdminSnPosts</h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+             
+                <div class="control-group" style="padding: 10px;">
+                    &nbsp;&nbsp;<img src="~/Content/images/warning.png" />&nbsp;&nbsp;@Resources.DisplayName_DeleteMessage                       
+                </div>
+
+                <div class="control-group" style="padding: 10px; text-align: right; margin-bottom: 0px; border: 1px solid #e5e5e5;">                  
+                    <input type="button" id="DeleteAdminSnPostsRecord" value="Delete" class="btn btn-primary" />                  
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</form>
+<div id="update-message" class="error invisible"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        AdminSnPosts.Initialize();
+    });
+</script>
+<script type="text/javascript">
+    $("#closeBtn").on("click", function () {
+        $ColorBox.close();
+    });
+</script>

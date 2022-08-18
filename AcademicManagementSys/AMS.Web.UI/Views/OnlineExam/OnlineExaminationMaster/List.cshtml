@@ -1,0 +1,108 @@
+﻿@model AMS.ViewModel.OnlineExaminationMasterViewModel
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>Online Exam<span class="divider">»</span></li>
+        <li class="active">Exam</li>
+    </ul>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-block">
+                <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+                <div class="widget-head">
+                    <h5 id="hFive"><i class="black-icons users"></i>&nbsp; Exam</h5>
+                    <div class="pull-right" style="margin: -24px 60px 0px 10px;">
+                        <div class="input-append" id="" style="float: right;">
+                            <div style="display: none;">
+                                <input type="hidden" name="_method" value="POST">
+                            </div>
+                            <div>
+                                <select name="data[User][searchby]" class="" id="showrecord" tabindex="16" style="float: left;">
+                                    <option value="10">@Resources.GlobalProperties_ShowRecords</option>
+                                    <option value="10">@Resources.GlobalProperties_10</option>
+                                    <option value="50">@Resources.GlobalProperties_50</option>
+                                    <option value="100">@Resources.GlobalProperties_100</option>
+                                </select>
+                                &nbsp;&nbsp;
+                                <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearch">
+                                <button class="btn" type="button" id="searchBtn"><i class="icon-search"></i></button>
+                            </div>
+                            <div class="widget-control pull-right">
+                                <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="ajax cboxElement" href="@Url.Action("Create", "OnlineExaminationMaster")">
+                                            <h6 style="color: #000;"><i class="icon-plus" style="padding-left: 7px;"></i>@Resources.DisplayName_AddNew</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table table-striped table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center; width: 25%;">    Exam Name</th>
+                                            <th style="text-align: center; width: 25%;">    Purpose</th>
+                                            <th style="text-align: center; width: 10px;">   Questions</th>
+                                            <th style="text-align: center; width: 10px;">   Marks</th>
+                                            <th style="text-align: center; width: 10%;">    Time</th>
+                                            <th style="text-align: center; width: 10%;">    PaperSet</th>
+                                            <th style="text-align: center; width: 10%; line-height: 40px">  @Resources.DisplayName_Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OnlineExaminationMaster.Initialize();
+        var oTable = $('#myDataTable').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "OnlineExaminationMaster/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "columnDefs": [
+                        {
+                            "targets": 6,
+                            "bSortable": false,
+                            "data": null,
+                            "render": function (data, type, full, meta) {
+                                debugger;
+                                var result1 = '@Html.ActionLink("Edit1", "Edit", new { ID = "ID1" }, new { @class = "ajax  cboxElement" })';
+                                result1 = result1.replace('ID1', data[6]);
+                                result1 = result1.replace("Edit1", '<i class="icon-edit" title="@Resources.ToolTip_Edit"></i>');
+
+                                var result2 = '@Html.ActionLink("Delete1", "Delete", new { ID = "ID1" }, new { @class = "ajax  cboxElement" })';
+                                result2 = result2.replace('ID1', data[6]);
+                                result2 = result2.replace("Delete1", '<i class="icon-trash" title="@Resources.ToolTip_Delete"></i>');
+
+                                var result = "<p  style='text-align: center; height:5px;'>" + result2 + "</p>";
+                                return result;
+                            }
+                        }
+            ]
+        });
+    });
+</script>
+

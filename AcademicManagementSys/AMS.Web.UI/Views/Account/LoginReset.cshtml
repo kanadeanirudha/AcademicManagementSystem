@@ -1,0 +1,119 @@
+﻿@model AMS.ViewModel.UserMasterViewModel
+@{
+    ViewBag.Title = "LoginReset";
+}
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "" && Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ISProjectEnvoirnmentLengthLong"]) == "1")
+    {
+        <title>
+            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+        </title>
+    }
+    else
+    {
+        <title>
+            @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "")
+            {
+                @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+            }
+            else
+            {
+                @Resources.ProjectEnvoirnment_BCS
+            }
+        </title>
+
+    }
+    <!-- Vendor CSS -->
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/animate.css/animate.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- CSS -->
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.1.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.2.css")" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .four-zero h2 {
+            line-height: 70%;
+        }
+        .four-zero small {
+            font-size: 19px;
+        }
+    </style>
+</head>
+
+<body class="four-zero-content">
+    <div class="four-zero">
+        <h2>
+            @if (@Model.Status == 100 || @Model.Status == 400)
+            {
+                <button class="btn bgm-cyan btn-icon waves-effect waves-circle waves-float"><i class="zmdi zmdi-close"></i></button>
+            }
+            else if (@Model.Status == 200)
+            {
+                <button class="btn bgm-cyan btn-icon waves-effect waves-circle waves-float"><i class="zmdi zmdi-check"></i></button>
+            }
+            else if (@Model.Status == 300)
+            {
+                <button class="btn bgm-cyan btn-icon waves-effect waves-circle waves-float"><i class="zmdi zmdi-check-all"></i></button>
+            }
+        </h2>
+        <small>@Model.ErrorMessage</small>
+
+        <footer>
+            @*<a href="@Url.Action("Login", "Account")"><i class="zmdi zmdi-arrow-back"></i></a>*@
+            <a href="@Url.Action("Login", "Account")"><i class="zmdi zmdi-home"></i></a>
+        </footer>
+    </div>
+    <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+        <div class="ie-warning">
+            <h1 class="c-white">Warning!!</h1>
+            <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+            <div class="iew-container">
+                <ul class="iew-download">
+                    <li>
+                        <a href="http://www.google.com/chrome/">
+                            <img src="img/browsers/chrome.png" alt="">
+                            <div>Chrome</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/">
+                            <img src="img/browsers/firefox.png" alt="">
+                            <div>Firefox</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.opera.com">
+                            <img src="img/browsers/opera.png" alt="">
+                            <div>Opera</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.apple.com/safari/">
+                            <img src="img/browsers/safari.png" alt="">
+                            <div>Safari</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                            <img src="img/browsers/ie.png" alt="">
+                            <div>IE (New)</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Sorry for the inconvenience!</p>
+        </div>
+    <![endif]-->
+</body>
+</html>

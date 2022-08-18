@@ -1,0 +1,118 @@
+﻿@model AMS.ViewModel.CRMSaleEnquiryMasterAndAccountDetailsViewModel
+
+@*<script src="@Url.Content("~/Scripts/AMS_Scripts/CRMSales/CRMSaleEnquiryAccountMaster.js")" type="text/javascript"></script>*@
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Edit Contact Person</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormUpdateCRMSaleEnquiryAccountContactPerson" role="form">
+                @Html.HiddenFor(m => m.CRMSaleEnquiryAccountContactPersonID)
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.FirstName)
+                        </label>                        
+                        @Html.TextBoxFor(model => model.FirstName, new { maxlength = "20", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.LastName)
+                        </label>  
+                        @Html.TextBoxFor(model => model.LastName, new { maxlength = "20", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.Designation)
+                        </label>
+                        @Html.TextBoxFor(model => model.Designation, new { maxlength = "40", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Designation)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.MobileNumber)
+                        </label>
+                        @Html.TextBoxFor(model => model.MobileNumber, new { maxlength = "20", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.MobileNumber)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.EmailId)
+                        </label>  
+                        @Html.TextBoxFor(model => model.EmailId, new { maxlength = "80", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EmailId)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.EnquiryAccountContactPersonAddress)
+                        </label>
+                        @Html.TextBoxFor(model => model.EnquiryAccountContactPersonAddress, new { maxlength = "200", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryAccountContactPersonAddress)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.EnquiryAccountContactPersonCity)
+                        </label> 
+                        @Html.TextBoxFor(model => model.EnquiryAccountContactPersonCity, new { maxlength = "30", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryAccountContactPersonCity)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.EnquiryAccountContactPersonCountry)
+                        </label>
+                        @Html.TextBoxFor(model => model.EnquiryAccountContactPersonCountry, new { maxlength = "30", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryAccountContactPersonCountry)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.Pin)
+                        </label>
+                        @Html.TextBoxFor(model => model.Pin, new { maxlength = "10", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Pin)
+                </div>
+                <br /><br />
+
+                <div class="form-group" style="margin-left:2%;">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="UpdateCRMSaleEnquiryAccountContactPersonRecord" type="button" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMSaleEnquiryAccountMaster.Initialize();
+    });
+</script>

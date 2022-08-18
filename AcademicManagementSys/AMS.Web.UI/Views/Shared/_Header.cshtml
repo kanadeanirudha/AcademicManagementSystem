@@ -1,0 +1,183 @@
+﻿<script src="@Url.Content("~/Scripts/AMS_Scripts/General_Script/_Header.js")" type="text/javascript"></script>
+
+<style type="text/css">
+    a {
+        text-decoration: none;
+    }
+
+    .FormStatusMessages {
+        background: none repeat scroll 0 0 #fff;
+        border-bottom: 1px solid #ddd;
+        color: #000;
+        display: none;
+        font-size: 15px;
+        margin-left: 8%;
+        height: 40px;
+        left: 0;
+        line-height: 40px;
+        opacity: 1.99;
+        position: fixed;
+        text-align: center;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+    }
+</style>
+
+<!-- left, vertical navbar -->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner top-nav">
+        <div id="SuccessMessage" class="FormStatusMessages"></div>
+        <div class="container-fluid">
+            <div class="branding">
+                @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "" && Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ISProjectEnvoirnmentLengthLong"]) == "1")
+                {
+                    <div class="logo" style="font-size: 15px; line-height: 36px; color: #ffffff; font-weight: bold">
+                        @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+                    </div>
+                }
+                else
+                {
+                    <div class="logo" style="font-size: 20px; line-height: 36px; color: #ffffff; font-weight: bold">
+                        @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "")
+                        { 
+                            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))  
+                        }
+                        else
+                        {
+                            @Resources.ProjectEnvoirnment_BCS
+                        }
+                    </div>
+
+                }
+            </div>
+
+            <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            <div class="nav-collapse collapse">
+                <ul class="nav" id="navSideBar">
+
+                    @*-------------------Jump to _RoleList action method of _Header Controller for fetching roles--------------------*@
+
+                    @{ Html.RenderAction("_RoleList", "_Header", new { PersonID = @HttpContext.Current.Session["PersonId"] }); }
+
+
+
+                    @*-------------------Jump to _ModuleList action method of _Header Controller for fetching modules--------------------*@
+
+                    <li id="ddlModule" class="dropdown">
+                        @{ Html.RenderAction("_ModuleList", "_Header", new { AdminRoleMasterID = @HttpContext.Current.Session["RoleID"] != null ? @HttpContext.Current.Session["RoleID"] : @HttpContext.Current.Session["DefaultRoleID"] }); }
+                    </li>
+
+
+                    @*-------------------Jump to _MenuList action method of _Header Controller for fetching menus--------------------*@
+                    <div tabindex="5000" style="overflow-y: hidden; cursor: -moz-grab;" id="sidebar">
+                        @if (HttpContext.Current.Session["UserType"] != null)
+                        {
+                            if (HttpContext.Current.Session["UserType"].ToString() == "E" || HttpContext.Current.Session["UserType"].ToString() == "A")
+                            {
+                                if (HttpContext.Current.Session["DefaultModuleCode"] != null)
+                                {
+                                    //{ Html.RenderAction("_MenuList", "_Header", new { ModuleID = @HttpContext.Current.Session["DefaultModuleID"], ModuleName = @HttpContext.Current.Session["ModuleName"] }); }
+                                    { Html.RenderAction("_MenuList", "_Header", new { ModuleCode = @HttpContext.Current.Session["DefaultModuleCode"], ModuleName = @HttpContext.Current.Session["ModuleName"] }); }
+                                }
+                            }
+                            else if (HttpContext.Current.Session["UserType"].ToString() == "S")
+                            {
+                                { Html.RenderAction("_MenuList", "_Header", new { ModuleID = 5, ModuleName = "Student" }); }
+                            }
+                        }
+
+                    </div>
+
+
+                    @*-------------------Jump to _BalancesheetList action method of _Header Controller for fetching Balancesheet List--------------------*@
+                    @if (HttpContext.Current.Session["UserType"] != null)
+                    {
+                        if (HttpContext.Current.Session["UserType"].ToString() == "E")
+                        {
+                        <li id="ddlMfdsodule" class="dropdown dropdown-toggle">
+                            @{Html.RenderAction("_BalancesheetList", "_Header", new { ModuleName = @HttpContext.Current.Session["ModuleName"] });}
+                        </li>
+                        }
+                    }
+                </ul>
+            </div>
+
+            <!-- Multiligual/country list -->
+            <ul class="nav pull-right">
+                <li id="ddlLang" class="dropdown">
+                @*<a id="SelectLanguage" href="#" class="dropdown-toggle" data-toggle="dropdown">@Resources.SelectLanguage<b class="caret"></b></a>*@
+                <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="lang-icons">
+
+                    <img src="~/img/us.png" alt="language" height="11" width="16"></i><b class="caret"></b></a>
+                    <ul id="ddlLang" class="dropdown-menu">
+                        <li>
+                            <a href='@Url.Action("SetCulture", "Home", new { culture = "en-US" })' style="text-decoration:none">
+                                <img src='@Url.Content("~/Content/flags/United%20States%20of%20America.png")' />&nbsp;&nbsp;<span class="">English</span>
+                            </a>
+                        </li>
+                        @* <li>
+                            <a href='@Url.Action("SetCulture", "Home", new { culture = "hi-IN" })' style="text-decoration:none">
+                                <img src='@Url.Content("~/Content/flags/India.png")' />&nbsp;&nbsp;<span>हिंदी</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("SetCulture", "Home", new { culture = "mr-IN" })' style="text-decoration:none">
+                                <img src='@Url.Content("~/Content/flags/India.png")' />&nbsp;&nbsp;<span class="">मराठी</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("SetCulture", "Home", new { culture = "mr-IN" })'>
+                                <img src='@Url.Content("~/Content/flags/India.png")' />
+                            </a>
+                        </li>*@
+                    </ul>
+                </li>
+
+
+                <li class="dropdown" id="LoginPartialID">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">@Resources.User <i class="white-icons admin_user"></i><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.Partial("_LoginPartial")</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#selectRole').on("load", function () {
+            _Header.LoadRole();
+        });
+        $('#ModuleList').on("change", function () {
+            debugger;
+            var ModuleCode = $(this).val();
+            alert(ModuleCode);
+            var ModuleName = $(this).text;
+            // _Header.LoadMenuListByModuleID(ModuleID);
+            _Header.LoadMenuListByModuleCode(ModuleCode);
+            $('#btnCreate').show();
+        });
+       
+    });
+   
+    function getLocation() {
+        debugger;
+       
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                Latitude.innerHTML = "Geolocation is not supported by this browser.";
+            }      
+    };
+
+    function showPosition(position) {
+        debugger;
+        latitude.value = position.coords.longitude;
+        longitude.value = position.coords.latitude;      
+    };
+</script>
+

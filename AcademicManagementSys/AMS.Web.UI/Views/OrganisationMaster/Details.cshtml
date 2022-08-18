@@ -1,0 +1,353 @@
+﻿@*@model AMS.Web.UI.Models.OrganisationMaster.OrganisationMaster
+@{
+    ViewBag.Title = "Details";
+}
+@Styles.Render("~/Content/")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Organisation Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Details</legend>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.OrganisationName)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+
+                                        <span class="form-University">@Model.OrganisationName</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.EstablishmentCode)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.EstablishmentCode</span>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.FounderMembers)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+
+                                        <span class="form-University">@Model.FounderMembers</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.FoundationDate)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.FoundationDate</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.PlotNo)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.PlotNo</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.StreetNumber)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.StreetNumber</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.Address1)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.Address1</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.PinCode)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.PinCode</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                               <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.Address2)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.Address2</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.FaxNo)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.FaxNo</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.Location)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.Location</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.OfficeContactNo)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.OfficeContactNo</span>
+
+                                    </div>
+                                </div>
+                              
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CellPhone)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.CellPhone</span>
+
+                                    </div>
+                                </div>
+                                  <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.URL)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.URL</span>
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.EmailID)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.EmailID</span>
+
+                                    </div>
+                                </div>
+                               <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.MissionStatement)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.MissionStatement</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                           
+                      
+                            <br />
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+
+@*------new code---------*@
+
+@model AMS.Web.UI.Models.OrganisationMaster.OrganisationMaster
+@{
+    ViewBag.Title = "Details";
+}
+@Styles.Render("~/Content/")
+@Html.Partial("_LeftMenu")
+
+<div id="dlgEdit">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Organisation Master : Details</h2>
+    </div>
+        
+<form id="">
+    <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.OrganisationName, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.OrganisationName
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.EstablishmentCode, new { style = "" })
+                <div class="form-group  fg-line">
+                   @Model.EstablishmentCode 
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.FounderMembers, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.FounderMembers
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.FoundationDate, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.FoundationDate
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.PlotNo, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.PlotNo
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.StreetNumber, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.StreetNumber
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.Address1, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.Address1
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.PinCode, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.PinCode
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.Address2, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.Address2
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.FaxNo, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.FaxNo
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.Location, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.Location
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.OfficeContactNo, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.OfficeContactNo
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.CellPhone, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.CellPhone
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.URL, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.URL
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.EmailID, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.EmailID
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.MissionStatement, new { style = "" })
+                <div class="form-group  fg-line">
+                    @Model.MissionStatement
+                </div>
+            </div>
+        </div>
+ 
+    </div>
+</form>
+
+            
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

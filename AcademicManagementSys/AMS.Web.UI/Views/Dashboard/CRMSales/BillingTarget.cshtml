@@ -1,0 +1,19 @@
+﻿@model AMS.ViewModel.CRMSaleReportViewModel
+@Html.HiddenFor(m => m.ReportList, new { @id = "ReportListBilling" })  
+<div class="col-sm-6 col-md-3">
+    <div class="mini-charts-item bgm-orange">
+        <div class="clearfix">
+            <div class="chart myBarClassBilling col-sm-6 text-center"></div>
+            <div class="count text-center">
+                <small>@Html.DisplayFor(m => m.PeriodType) Billing</small>
+                <small>Target</small>
+                <h2>@Html.DisplayFor(m => m.ReportCount)</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        sparklineLine('myBarClassBilling', $("#ReportListBilling").val().split(','), '85px', '45px', '#fff', 'rgba(0,0,0,0)', 1.25, 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0.4)', 3, '#fff', 'rgba(255,255,255,0.4)');
+    });
+</script>

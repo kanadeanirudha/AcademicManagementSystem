@@ -1,0 +1,25 @@
+﻿@model AMS.ViewModel.CRMCallerRoleAllocationViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<style type="text/css">
+    .mfp-content {
+        width: 50%;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/AMS_Scripts/CRM/CRMCallerRoleAllocation.js")" type="text/javascript"></script>
+@Html.HiddenFor(m => m.errorMessage)
+
+<div id="ListViewModel" class="container">
+    @{Html.RenderAction("List", "CRMCallerRoleAllocation");}
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMCallerRoleAllocation.Initialize();
+    });
+</script>
+
+
+
+

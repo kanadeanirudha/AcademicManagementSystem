@@ -1,0 +1,142 @@
+﻿@*
+
+    @model AMS.ViewModel.AccountTransactionMasterViewModel
+
+
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+    <style>
+        .ui-front {
+            /*z-index:10000;*/
+            z-index: 9999;
+        }
+
+        .ui-datepicker {
+            font-size: 9pt !important;
+        }
+    </style>
+    @Html.HiddenFor(m => m.AccSessionID)
+    <div class="row-fluid">
+        <div class="widget-content" id="DivPostVoucher">
+            <div class="widget-box">
+                <form id="FormCreateAccountTransactionMaster" method="post" style="height: auto" class="form-horizontal well">
+
+                    <fieldset>
+                        <legend style="display: none;"></legend>
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="row" style="padding-left: 10px;">
+                            <div class="span10">
+
+                                <div id="DivAddRowTable">
+                                    <table id="example" class="table user-tbl " style="border: 1px solid #dddddd">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center; width: 20%;">@Resources.TableHeaders_Account </th>
+                                                <th style="text-align: center; width: 20%;">@Resources.TableHeaders_Narration</th>
+                                                <th style="text-align: center; width: 15%;">@Resources.TableHeaders_Debit</th>
+                                                <th style="text-align: center; width: 15%;">@Resources.TableHeaders_Credit</th>
+                                                <th style="text-align: center;">@Resources.DisplayName_Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot id="tableDebitCredit" style="display: none">
+                                            <tr>
+                                                <th style="text-align: center; width: 20%; padding: 0px;">&nbsp;&nbsp;</th>
+                                                <th style="text-align: center; width: 20%; padding: 0px;">&nbsp;</th>
+                                                <th style="text-align: center; width: 15%; padding: 0px;">
+                                                    <input type="text" id="debitBal" value="0" style="width: 100px; text-align: right" disabled="disabled" /></th>
+                                                <th style="text-align: center; width: 15%; padding: 0px;">
+                                                    <input type="text" id="creditBal" disabled="disabled" style="width: 100px; text-align: right" value="0" /></th>
+                                                <th style="text-align: center; padding: 3px;">&nbsp;</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+
+                                <ul class="breadcrumb" style="text-align: right">
+                                    <li>
+                                        <input type="button" id="ResetAccountTransactionMasterRecord" value="@Resources.ButtonAction_Reset" class="btn btn-secondary" />
+                                    </li>
+                                    <li>
+                                        <input type="button" id="CreateAccountTransactionMasterRecord" disabled="disabled" value="@Resources.ButtonAction_ProcessEntry" class="btn btn-primary" />
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // AccountTransactionMaster.Initialize();
+        });
+
+    </script>
+
+*@
+
+
+@model AMS.ViewModel.AccountTransactionMasterViewModel
+
+@Html.HiddenFor(m => m.AccSessionID)
+<div class="card-body card-padding" id="DivPostVoucher">
+    <form id="FormCreateAccountTransactionMaster" method="post">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="table-responsive" id="DivAddRowTable" style="overflow:visible;">
+            <table id="example" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Resources.TableHeaders_Account </th>
+                        <th>@Resources.TableHeaders_Narration</th>
+                        <th>@Resources.TableHeaders_Debit</th>
+                        <th>@Resources.TableHeaders_Credit</th>
+                        <th>@Resources.DisplayName_Actions</th>
+                    </tr>
+                </thead>
+             <tbody></tbody>
+               <tfoot id="tableDebitCredit" style="display: none">
+                    <tr>
+                        <th>&nbsp;&nbsp;</th>
+                        <th>&nbsp;</th>
+                        <th>
+                            <input type="text" id="debitBal" class="input-sm form-control" value="0" style="text-align: right; background-color:white;" disabled="disabled" />
+                        </th>
+                        <th>
+                            <input type="text" id="creditBal" class="input-sm form-control" disabled="disabled" style="text-align: right; background-color: white" value="0" />
+                        </th>
+                     </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="btn-demo pull-right">
+           <button type="button" id="ResetAccountTransactionMasterRecord" value="@Resources.ButtonAction_Reset" class="btn btn-secondary">@Resources.ButtonAction_Reset</button>&nbsp;&nbsp;
+           <button type="button" id="CreateAccountTransactionMasterRecord" disabled="disabled" value="@Resources.ButtonAction_ProcessEntry" class="btn btn-primary">@Resources.ButtonAction_ProcessEntry</button>
+        </div>
+
+    </form>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // AccountTransactionMaster.Initialize();
+        });
+
+    </script>

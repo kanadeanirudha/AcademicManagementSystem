@@ -1,0 +1,19 @@
+﻿@model AMS.ViewModel.CRMReportViewModel
+@Html.HiddenFor(m => m.MapArray, new { id="TotalAllocatedCallMapArray"})
+<div class="col-sm-6 col-md-3">
+    <div class="mini-charts-item bgm-red">
+        <div class="clearfix">
+            <div class="chart myBarClass-2"></div>
+            <div class="count text-center">
+                <small>Total Allocated</small>
+                <h2>@Html.DisplayFor(m => m.TotalAllocatedCall)</h2>
+                <small>&nbsp;</small>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        sparklineBar('myBarClass-2', $("#TotalAllocatedCallMapArray").val().split(','), '45px', 3, '#fff', 2);
+    });
+</script>

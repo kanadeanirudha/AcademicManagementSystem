@@ -1,0 +1,161 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AcademicManagementSys", "AcademicManagementSys", "{9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{21195BE6-7111-43BD-A857-C9850E561F7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{15B419EE-61FF-44FA-B88E-73745686C580}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vender", "Vender", "{126FC950-CF61-48EA-8003-4005E4CFC43C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{0CE7DE49-38A8-41D8-9B05-6CEF7E0B5FA7}"
+	ProjectSection(SolutionItems) = preProject
+		\\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Excel\Excel.dll = \\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Excel\Excel.dll
+		\\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Excel\ICSharpCode.SharpZipLib.dll = \\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Excel\ICSharpCode.SharpZipLib.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Log4Net", "Log4Net", "{9EE39FBC-F295-4B74-9D50-ADB01BAC6F3B}"
+	ProjectSection(SolutionItems) = preProject
+		\\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Log4Net\log4net.dll = \\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Log4Net\log4net.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft", "Microsoft", "{29D1B0B7-5622-4E56-800C-F0D51E04C3AD}"
+	ProjectSection(SolutionItems) = preProject
+		\\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Microsoft\Microsoft.Practices.Unity.dll = \\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Microsoft\Microsoft.Practices.Unity.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rhino", "Rhino", "{FC611FE5-4B01-4264-972B-4BF0430A267A}"
+	ProjectSection(SolutionItems) = preProject
+		\\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Rhino\Rhino.Mocks.dll = \\BHUMATISRV\dustbeen\ANIRUDHA\2016-02-08\MVCProject\AcademicManagementSys\External\Vender\Rhino\Rhino.Mocks.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.Base.DTO", "Infrastructure\AMS.Base.DTO\AMS.Base.DTO.csproj", "{A574A086-4B01-4DCB-9A06-74B29B8C0B5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.ExceptionManager", "Infrastructure\AMS.ExceptionManager\AMS.ExceptionManager.csproj", "{94F0AA67-C554-463B-B0BC-932BCB80810C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.Infrastructure", "Infrastructure\AMS.Infrastructure\AMS.Infrastructure.csproj", "{41DEAE01-B488-4D73-8302-79F5A544FBA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.Web.UI", "AcademicManagementSys\AMS.Web.UI\AMS.Web.UI.csproj", "{56CB289E-B415-40E0-BAA7-B7C80782E1DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.ViewModel", "AcademicManagementSys\AMS.ViewModel\AMS.ViewModel.csproj", "{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.ServiceHost", "AcademicManagementSys\AMS.ServiceHost\AMS.ServiceHost.csproj", "{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.ServiceAccess", "AcademicManagementSys\AMS.ServiceAccess\AMS.ServiceAccess.csproj", "{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.Service", "AcademicManagementSys\AMS.Service\AMS.Service.csproj", "{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.DTO", "AcademicManagementSys\AMS.DTO\AMS.DTO.csproj", "{4C258527-E8C6-476D-BADE-C5B5211067F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.DataProvider", "AcademicManagementSys\AMS.DataProvider\AMS.DataProvider.csproj", "{0A72DA51-0530-4115-96F6-F48FF6616920}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.Common", "AcademicManagementSys\AMS.Common\AMS.Common.csproj", "{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.Business", "AcademicManagementSys\AMS.Business\AMS.Business.csproj", "{294BCAB4-D5F4-4533-B510-03FF5729A7B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AcademicManagementSys|Any CPU = AcademicManagementSys|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A574A086-4B01-4DCB-9A06-74B29B8C0B5C}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{A574A086-4B01-4DCB-9A06-74B29B8C0B5C}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{A574A086-4B01-4DCB-9A06-74B29B8C0B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A574A086-4B01-4DCB-9A06-74B29B8C0B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A574A086-4B01-4DCB-9A06-74B29B8C0B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A574A086-4B01-4DCB-9A06-74B29B8C0B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F0AA67-C554-463B-B0BC-932BCB80810C}.AcademicManagementSys|Any CPU.ActiveCfg = Release|Any CPU
+		{94F0AA67-C554-463B-B0BC-932BCB80810C}.AcademicManagementSys|Any CPU.Build.0 = Release|Any CPU
+		{94F0AA67-C554-463B-B0BC-932BCB80810C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F0AA67-C554-463B-B0BC-932BCB80810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F0AA67-C554-463B-B0BC-932BCB80810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F0AA67-C554-463B-B0BC-932BCB80810C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41DEAE01-B488-4D73-8302-79F5A544FBA7}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{41DEAE01-B488-4D73-8302-79F5A544FBA7}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{41DEAE01-B488-4D73-8302-79F5A544FBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41DEAE01-B488-4D73-8302-79F5A544FBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41DEAE01-B488-4D73-8302-79F5A544FBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41DEAE01-B488-4D73-8302-79F5A544FBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56CB289E-B415-40E0-BAA7-B7C80782E1DE}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{56CB289E-B415-40E0-BAA7-B7C80782E1DE}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{56CB289E-B415-40E0-BAA7-B7C80782E1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56CB289E-B415-40E0-BAA7-B7C80782E1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56CB289E-B415-40E0-BAA7-B7C80782E1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56CB289E-B415-40E0-BAA7-B7C80782E1DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C258527-E8C6-476D-BADE-C5B5211067F2}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{4C258527-E8C6-476D-BADE-C5B5211067F2}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{4C258527-E8C6-476D-BADE-C5B5211067F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C258527-E8C6-476D-BADE-C5B5211067F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C258527-E8C6-476D-BADE-C5B5211067F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C258527-E8C6-476D-BADE-C5B5211067F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A72DA51-0530-4115-96F6-F48FF6616920}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{0A72DA51-0530-4115-96F6-F48FF6616920}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{0A72DA51-0530-4115-96F6-F48FF6616920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A72DA51-0530-4115-96F6-F48FF6616920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A72DA51-0530-4115-96F6-F48FF6616920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A72DA51-0530-4115-96F6-F48FF6616920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{294BCAB4-D5F4-4533-B510-03FF5729A7B9}.AcademicManagementSys|Any CPU.ActiveCfg = AcademicManagementSys|Any CPU
+		{294BCAB4-D5F4-4533-B510-03FF5729A7B9}.AcademicManagementSys|Any CPU.Build.0 = AcademicManagementSys|Any CPU
+		{294BCAB4-D5F4-4533-B510-03FF5729A7B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{294BCAB4-D5F4-4533-B510-03FF5729A7B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{294BCAB4-D5F4-4533-B510-03FF5729A7B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{294BCAB4-D5F4-4533-B510-03FF5729A7B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{126FC950-CF61-48EA-8003-4005E4CFC43C} = {21195BE6-7111-43BD-A857-C9850E561F7E}
+		{0CE7DE49-38A8-41D8-9B05-6CEF7E0B5FA7} = {126FC950-CF61-48EA-8003-4005E4CFC43C}
+		{9EE39FBC-F295-4B74-9D50-ADB01BAC6F3B} = {126FC950-CF61-48EA-8003-4005E4CFC43C}
+		{29D1B0B7-5622-4E56-800C-F0D51E04C3AD} = {126FC950-CF61-48EA-8003-4005E4CFC43C}
+		{FC611FE5-4B01-4264-972B-4BF0430A267A} = {126FC950-CF61-48EA-8003-4005E4CFC43C}
+		{A574A086-4B01-4DCB-9A06-74B29B8C0B5C} = {15B419EE-61FF-44FA-B88E-73745686C580}
+		{94F0AA67-C554-463B-B0BC-932BCB80810C} = {15B419EE-61FF-44FA-B88E-73745686C580}
+		{41DEAE01-B488-4D73-8302-79F5A544FBA7} = {15B419EE-61FF-44FA-B88E-73745686C580}
+		{56CB289E-B415-40E0-BAA7-B7C80782E1DE} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{9E374571-B9A5-486D-B0F7-F8EE0D24E16D} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{AC9A293D-C334-4E92-9F7F-EB0E0F4A5261} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{B8F01E73-C8E9-483D-97C9-B63B7EB1CB9F} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{4C258527-E8C6-476D-BADE-C5B5211067F2} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{0A72DA51-0530-4115-96F6-F48FF6616920} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{2AC1CA2B-819E-4F08-8B8A-D748AB81C5CA} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+		{294BCAB4-D5F4-4533-B510-03FF5729A7B9} = {9D304A61-9FDA-4F8C-9F12-9E1B78B1401E}
+	EndGlobalSection
+EndGlobal

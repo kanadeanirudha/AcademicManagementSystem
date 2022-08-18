@@ -1,0 +1,29 @@
+﻿@model AMS.ViewModel.AccountGroupMasterViewModel
+
+<form id="FormDeleteAccountGroupMaster" method="post">
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.GroupCode)
+    @Html.HiddenFor(model => model.GroupDescription)
+    <div class="widget-block" style="width:230px;height:144px">
+        <div class="widget-head">
+            <h5>@Resources.FormDelete_AccountGroupMaster</h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+                <div class="control-group" style="padding: 10px;">
+                    &nbsp;&nbsp;<img src="~/Content/images/warning.png" />&nbsp;&nbsp;@Resources.DisplayName_DeleteMessage 
+                        <div class="controls">
+                        </div>
+                </div>
+                <div class="control-group" style="padding:10px;text-align:right;margin-bottom:0px;border: 1px solid #e5e5e5;">
+                    <input type="button" id="DeleteAccountGroupMasterRecord" value="@Resources.ButtonAction_Delete" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        AccountGroupMaster.Initialize();
+    });
+</script>

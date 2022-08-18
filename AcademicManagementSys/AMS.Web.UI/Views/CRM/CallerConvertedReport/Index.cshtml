@@ -1,0 +1,219 @@
+﻿@model AMS.ViewModel.CRMCallMasterAndDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<script src="~/Scripts/plugin/GraphAndChart/highcharts.js"></script>
+<script src="~/Scripts/plugin/GraphAndChart/exporting.js"></script>
+<div class="container">
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;No of Calls Vs Students Converted</h2>
+        <input type="hidden" id="Hidden_Table_Chart" value="Table" />
+                    <ul class="actions">
+                            <li>
+                                <button id="PieGraph" class="btn btn-danger waves-effect" title="Pie Graph"><i class="zmdi zmdi-chart zmdi-hc-fw" style=" font-size: 18px;"></i></button>
+                            </li>
+                            <li>
+                                <button style="display: none;" id="BarGraph" class="btn btn-success waves-effect" title="Bar Graph"><i class="zmdi zmdi-grid zmdi-hc-fw" style=" font-size: 18px;"></i></button>
+                            </li>
+                            <li>
+                              
+                                    <button id="Table" class="btn bgm-orange waves-effect" title="Bar Graph"><i class="zmdi zmdi-grid zmdi-hc-fw" style=" font-size: 18px;"></i></button>
+                                
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 0px;">
+                        @Html.HiddenFor(m => m.errorMessage)
+                        <form class="row" role="form">
+                            <div class="card-body card-padding">
+                                <div class="col-sm-4">
+                                    <div class="form-group fg-line">
+                                        @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "From Date*" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group fg-line">
+                                      @Html.TextBoxFor(model => model.UptoDate, new { Value = "" + DateTime.Now.ToString("dd MMM yyyy") + "",  @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Upto Date*" })
+
+                                    </div>
+                                </div>
+                               <div class="col-sm-3" style="margin-bottom:0px;">
+                                    <button type="button" class="btn btn-primary" id="btnShowList">@Resources.GlobalProperties_ShowList</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div id="ListViewModel">
+                        @{Html.RenderAction("CallerConvertedTable", "CallerConvertedReport");}
+                    </div>
+    </div>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#FromDate').datetimepicker({
+            format: 'DD MMMM YYYY',
+            //ignoreReadonly: true
+            maxDate: moment(),
+        });
+        $('#UptoDate').datetimepicker({
+            format: 'DD MMMM YYYY',
+            useCurrent: false,
+            ignoreReadonly: true
+        });
+        $("#FromDate").on("dp.change", function (e) {
+            $('#UptoDate').data("DateTimePicker").minDate(e.date);
+        });
+        $("#UptoDate").on("dp.change", function (e) {
+            $('#FromDate').data("DateTimePicker").maxDate(e.date);
+        });
+         $('#PieGraph').click(function () {
+            $('#Hidden_Table_Chart').val("PieGraph");
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            if (valuFromDate != "" && ValuUptoDate != "") {
+                $.ajax(
+                       {
+                           cache: false,
+                           type: "POST",
+                           data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                           dataType: "html",
+                           url: '/CallerConvertedReport/CallerConvertedPieChart',
+                           success: function (data) {
+                              
+                               $('#ListViewModel').html(data);
+                           }
+                       });
+            }
+            else if (valuFromDate == "") {
+                notify("Please select from date.", "danger");
+                return false;
+            }
+            else if (ValuUptoDate == "") {
+                notify("Please select upto date.", "danger");
+                return false;
+            }
+        });
+
+        $('#BarGraph').click(function () {
+            $('#Hidden_Table_Chart').val("BarGraph");
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            if (valuFromDate != "" && ValuUptoDate != "") {
+                $.ajax(
+                       {
+                           cache: false,
+                           type: "POST",
+                           data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                           dataType: "html",
+                           url: '/CallerConvertedReport/CallerConvertedBarChart',
+                           success: function (data) {
+                               //Rebind Grid Data
+                               $('#ListViewModel').html(data);
+                           }
+                       });
+            }
+            else if (valuFromDate == "") {
+                notify("Please select from date.", "danger");
+                return false;
+            }
+            else if (ValuUptoDate == "") {
+                notify("Please select upto date.", "danger");
+                return false;
+            }
+        });
+        $('#Table').click(function () {
+            $('#Hidden_Table_Chart').val("Table");
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            if (valuFromDate != "" && ValuUptoDate != "") {
+                $.ajax(
+                         {
+                             cache: false,
+                             type: "POST",
+                             data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                             dataType: "html",
+                             url: '/CallerConvertedReport/CallerConvertedTable',
+                             success: function (data) {
+                                 //Rebind Grid Data
+                                 $('#ListViewModel').html(data);
+                             }
+                         });
+            }
+            else if (valuFromDate == "") {
+                notify("Please select from date.", "danger");
+                return false;
+            }
+            else if (ValuUptoDate == "") {
+                notify("Please select upto date.", "danger");
+                return false;
+            }
+        });
+        $('#btnShowList').click(function () {
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            var ValuHidden_Table_Chart = $('#Hidden_Table_Chart').val();
+            if (valuFromDate != "" && ValuUptoDate != "") {
+                if (ValuHidden_Table_Chart == "Table") {
+                    $.ajax(
+                        {
+                            cache: false,
+                            type: "POST",
+                            data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                            dataType: "html",
+                            url: '/CallerConvertedReport/CallerConvertedTable',
+                            success: function (data) {
+                                //Rebind Grid Data
+                                $('#ListViewModel').html(data);
+                            }
+                        });
+                }
+                else if (ValuHidden_Table_Chart == "PieGraph") {
+                    $.ajax(
+                      {
+                          cache: false,
+                          type: "POST",
+                          data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                          dataType: "html",
+                          url: '/CallerConvertedReport/CallerConvertedPieChart',
+                          success: function (data) {
+                              //Rebind Grid Data
+                              $('#ListViewModel').html(data);
+                          }
+                      });
+                }
+                else if (ValuHidden_Table_Chart == "BarGraph") {
+                    $.ajax(
+                      {
+                          cache: false,
+                          type: "POST",
+                          data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                          dataType: "html",
+                          url: '/CallerConvertedReport/CallerConvertedBarChart',
+                          success: function (data) {
+                              //Rebind Grid Data
+                              $('#ListViewModel').html(data);
+                          }
+                      });
+                }
+
+            }
+            else if (valuFromDate == "") {
+                notify("Please select from date.", "danger");
+                return false;
+            }
+            else if (ValuUptoDate == "") {
+                notify("Please select upto date.", "danger");
+                return false;
+            }
+
+        });
+    });
+</script>

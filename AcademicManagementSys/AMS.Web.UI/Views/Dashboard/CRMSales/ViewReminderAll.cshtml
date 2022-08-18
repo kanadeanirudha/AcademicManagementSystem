@@ -1,0 +1,37 @@
+﻿
+@model AMS.ViewModel.CRMSaleReportViewModel
+<div class="card">
+    <div class="card-header ch-alt m-b-15 bgm-amber">
+        <h2>All Reminders</h2>
+    </div>
+
+    <div class="card-body">
+        <div class="listview">
+            @if (ViewBag.GetCRMSaleRemindersAllList.Count > 0)
+            {
+                foreach (var item in ViewBag.GetCRMSaleRemindersAllList)
+                {
+                    <div class="lv-item">
+                        <div class="media">
+                            <div class="media-body">
+                                <div class="lv-title">@item.BodyDescription</div>
+                                <small class="lv-small">By-@item.FromUserName</small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="lv-item">
+                    <div class="media">
+                        <div class="media-body">
+                            <small class="p-l-20" style="color: #a9a9a9; font-size:14px;">!Sorry.. There Is No Reminder.</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

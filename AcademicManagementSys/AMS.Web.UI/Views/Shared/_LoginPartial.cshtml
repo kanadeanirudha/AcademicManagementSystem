@@ -1,0 +1,342 @@
+@if (Request.IsAuthenticated)
+{
+    <text>
+    <li style="padding-left: 6%;">@HttpContext.Current.Session["UserName"].ToString() </li>
+    @* <li> @Html.ActionLink(Session["UserName"].ToString()/*User.Identity.Name*/, "PersonalInformationHome", "EmployeeInformation", routeValues: null, htmlAttributes: new {ID=@HttpContext.Current.Session["PersonID"].ToString(), @class = "username", title = "Manage" })</li>*@
+    @*  <li><a href="#"><i class="icon-inbox"></i> Messages <span class="alert-noty">10</span></a></li>*@
+
+    <li><a id="NotificationsID" href="#"><i class="icon-envelope"></i>Notifications<span class="alert-noty" id="NotiCount"></span> </a></li>
+    @*<li><a href="@Url.Action("NotificationList", "Home")"><i class="icon-envelope"></i>Notifications <span class="alert-noty">@Convert.ToString(HttpContext.Current.Session["TotalRendingNotification"])</span></a></li>*@
+    <li><a href="/EmployeeInformation/PersonalInformationHome/@HttpContext.Current.Session["PersonID"].ToString()"><i class="icon-file"></i>@Resources.DisplayName_ViewProfile</a></li>
+
+    <li><a class="ajax cboxElement" href="@Url.Action("_ChangePassword", "EmployeeInformation", new { ID = Convert.ToInt32(HttpContext.Current.Session["UserID"]) })"><span class="black-icons unlocked"></span>Change Password</a></li>
+
+    @if (Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["IsOffLineApp"]) == 1)
+    {
+        <li>
+            <a href="#" id="sync">
+                <img src="~/Content/images/Sync-Cloud-icon1.png" style="width: 23px; height: 22px" /><i class=""></i> Sync
+            </a>
+        </li>
+    }
+    @if (Convert.ToInt32(HttpContext.Current.Session["AdmMgr"]) >= 1 && System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"] == "ProjectEnvoirnment_Inventory")
+    {
+        <li><a href="#" id="DayEndJob"><i class="icon-file"></i>Day End Job</a></li>
+    }
+
+    <li class="divider" style="margin-bottom: 0"></li>
+    <li>
+
+        @*<a id="Logout" href=""><i class=" icon-off"></i><strong>@Resources.DisplayName_Logout</strong></a>*@
+        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="icon-off"></i><strong>@Resources.DisplayName_Logout</strong></a>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "margin: 0px;background-color:#808080; color:#fff;" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="latitude" value="" />
+            <input type="hidden" id="longitude" value="" />
+        }
+    </li>
+
+    </text>
+}
+else
+{
+        
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+}
+<div id="dialog" title="" style="display: none">
+    <div class="widget-block" style="width: auto; height: auto;">
+        <div class="widget-head">
+            <h5>Sync </h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+
+                <div class="control-group" style="padding: 10px;">
+                    &nbsp;&nbsp;<img src="~/Content/images/sync-loader.gif" style="width: 23px; height: 22px" />&nbsp;&nbsp;<b>Sync is in progress....</b>
+                    <div class="controls">
+                    </div>
+                </div>
+
+                <div class="control-group" style="padding: 10px; text-align: right; margin-bottom: 0px;">
+                    @*<input type="button" id="closeSync" style="" value="Close" class="btn btn-primary" />*@
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirmationDiv" title="" style="display: none">
+    <div class="widget-block" style="width: auto; height: auto;">
+        <div class="widget-head">
+            <h5>Sync </h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+
+                <div class="control-group" style="padding: 10px;">
+                    &nbsp;&nbsp;<img src="~/Content/images/warning.png" />&nbsp;&nbsp;<b>Are you sure to sync data ?</b>
+                    <div class="controls">
+                    </div>
+                </div>
+
+                <div class="control-group" style="padding: 10px; text-align: right; margin-bottom: 0px;">
+                    <input type="button" id="btnNo" style="" value="No" class="btn btn-primary" />
+                    <input type="button" id="btnYes" style="" value="Yes" class="btn btn-primary" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmationDivForEndJob" title="" style="display: none">
+    <div class="widget-block" style="width: auto; height: auto;">
+        <div class="widget-head">
+            <h5>Day End Job </h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+
+                <div class="control-group" style="padding: 10px;">
+                    &nbsp;&nbsp;<img src="~/Content/images/warning.png" />&nbsp;&nbsp;<b>Are you sure to Fire Day End Job?</b>
+                    <div class="controls">
+                    </div>
+                </div>
+
+                <div class="control-group" style="padding: 10px; text-align: right; margin-bottom: 0px;">
+                    <input type="button" id="btnNoEndJob" style="" value="No" class="btn btn-primary" />
+                    <input type="button" id="btnYesEndJob" style="" value="Yes" class="btn btn-primary" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        //$("#cboxClose").css("display", "none");
+
+        $("#sync").on("click", function () {
+            debugger;
+            if ($("#selectedBalsheetID").val() != "" && $("#selectedBalsheetID").val() !== undefined) {
+                var _isValid;
+
+                $.ajax(
+                    {
+                        cache: false,
+                        type: "GET",
+                        dataType: "html",
+                        url: '/Sync/CheckForInternetConnection',
+                        success: function (result) {
+                            if (result == "True") {
+                                $.ajax(
+                                   {
+                                       cache: false,
+                                       type: "GET",
+                                       dataType: "html",
+                                       url: '/Sync/CheckLoginUser',
+                                       success: function (result1) {
+                                           _isValid = result1;
+                                           if (_isValid == "True") {
+                                               $('#confirmationDiv').show();
+                                               $.colorbox({ 'href': '#confirmationDiv', 'inline': true, 'width': '350px', 'height': '250px' });
+                                               $(document).bind('cbox_closed', function () {
+                                                   $('#confirmationDiv').hide();
+                                               });
+                                           }
+                                           else {
+                                               $('#SuccessMessage').html("In order to start sync process other users must log out.");
+                                               $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                                           }
+                                       }
+                                   });
+                            }
+                            else {
+                                $('#SuccessMessage').html("No internet connection");
+                                $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                            }
+                        },
+                        timeout: 10000,
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $('#SuccessMessage').html("No internet connection");
+                            $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                        },
+                    });
+            }
+            else {
+                $('#SuccessMessage').html("Please select balancesheet to proceed");
+                $('#SuccessMessage').delay(400).slideDown(400).delay(3000).slideUp(400).css('background-color', "#FFCC80");
+            }
+
+        });
+
+
+        $("#btnNo").on("click", function () {
+            parent.$.colorbox.close();
+        });
+
+        $("#btnYes").on("click", function () {
+            //$.fn.colorbox.close = function () {
+            //    return false;
+            //};
+            var currentRequest = null;
+            $('#dialog').show();
+            $.colorbox({ 'href': '#dialog', 'inline': true, 'width': '350px', 'height': '220px' });
+            $(document).bind('cbox_closed', function () {
+                $('#dialog').hide();
+            });
+            currentRequest = $.ajax(
+                {
+                    cache: false,
+                    type: "POST",
+                    dataType: "html",
+                    url: '/Sync/SyncInventoryData',
+                    data: {
+                        "balancesheetID": $("#selectedBalsheetID").val()
+                    },
+                    beforeSend: function () {
+                        if (currentRequest != null) {
+                            currentRequest.abort();
+                        }
+                    },
+                    complete: function () { },
+                    success: function (data) {
+                        var splitData = data.split(',');
+                        parent.$.colorbox.close();
+                        // alert(splitData[0])
+                        $('#SuccessMessage').html(splitData[0]);
+                        $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', splitData[1]);
+                    },
+                    timeout: 4000000,
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        parent.$.colorbox.close();
+                        $('#SuccessMessage').html("Sync process aborted");
+                        $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                    },
+                    // async: false
+                });
+        });
+
+        $("#closeSync").on("click", function () {
+            debugger;
+            currentRequest.abort;
+        });
+        $("#DayEndJob").on("click", function () {
+            debugger;
+            $('#confirmationDivForEndJob').show();
+            $.colorbox({ 'href': '#confirmationDivForEndJob', 'inline': true, 'width': '350px', 'height': '250px' });
+            $(document).bind('cbox_closed', function () {
+                $('#confirmationDivForEndJob').hide();
+            });
+        });
+
+        $("#btnYesEndJob").on("click", function () {
+            $.ajax(
+                {
+                    cache: false,
+                    type: "POST",
+                    dataType: "html",
+                    url: '/InventoryDayEndJob/GetDayEndJob',
+                    data: {
+                        "balancesheetID": $("#selectedBalsheetID").val()
+                    },
+                    success: function (data) {
+                        debugger;
+                        var splitData = data.split(',');
+                        parent.$.colorbox.close();
+                        // alert(splitData[0])
+                        $('#SuccessMessage').html(splitData[0]);
+                        $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', splitData[1]);
+                    },
+                    timeout: 4000000,
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        parent.$.colorbox.close();
+                        $('#SuccessMessage').html("Unexpected Error Occured");
+                        $('#SuccessMessage').delay(400).slideDown(400).delay(4000).slideUp(400).css('background-color', "#FFCC80");
+                    },
+                    // async: false
+                });
+        });
+        $("#btnNoEndJob").on("click", function () {
+            parent.$.colorbox.close();
+        });
+
+        //$("#Logout").on("click", function (e) { 
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: '/Account/LogOff',
+        //        data: { latitude: $('#latitude').val(), longitude: $('#longitude').val() },
+        //    });
+        //});
+    });
+
+    $('#NotificationsID').click(function () {
+        $.ajax(
+       {
+           cache: false,
+           type: "POST",
+           dataType: "html",
+           url: '/Home/NotificationList',
+           success: function (data) {
+               //Rebind Grid Data
+               $('#main-content').html(data);
+           }
+       });
+    });
+
+
+</script>
+<style>
+    .backbtn {
+        float: left;
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none;
+    }
+
+    .logout {
+        clear: both;
+        color: #333333;
+        display: block;
+        font-weight: normal;
+        line-height: 18px;
+        padding: 3px 10px;
+        white-space: nowrap;
+    }
+
+    .dropdown-menu li > button:hover,
+    .dropdown-menu li > button:focus,
+    .dropdown-submenu:hover > button {
+        background-color: #0081c2;
+        background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+        background-repeat: repeat-x;
+        color: #ffffff;
+        text-decoration: none;
+        padding-right: 147px;
+    }
+
+    #overlay {
+        position: fixed;
+        z-index: 99990;
+        background: black;
+        display: block;
+        opacity: .75;
+        filter: alpha(opacity=75);
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+
+
+@* <a href="javascript:document.getElementById('logoutForm').@*submit()" id="MarkAttendance" style=" background-color:#808080; color:#fff;"><i class="icon-off"></i><strong>Record the time for attendance</strong></a>*@

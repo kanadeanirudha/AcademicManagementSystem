@@ -1,0 +1,56 @@
+﻿@model AMS.Web.UI.Models.SessionMaster.SessionMaster
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Session Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <h4>Are you sure you want to delete this?</h4>
+                        <fieldset>
+                            <legend>Session Details</legend>
+
+                            <div class="form-group">
+                             <label class="col-lg-2 control-label" for="disabledInput">Session Name</label>
+                            <div class="col-lg-2">
+                            <div class="display-field"><span class="form-control">@Model.Session</span></div></div></div>
+                           
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" for="disabledInput">Session Order</label>
+                          <div class="col-lg-2">
+                            <div class="display-field"><span class="form-control">@Model.SessionOrder</span></div>  </div></div>
+                           
+                             <div class="form-group">
+                            <label class="col-lg-2 control-label" for="disabledInput">Current Flag</label>
+                            <div class="col-lg-2">
+                            <div class="display-field"><span class="form-control">@Model.CurrentFlag</span></div></div></div>
+                          
+                             <div class="form-group">
+                            <label class="col-lg-2 control-label" for="disabledInput"></label>
+                            <div class="display-field"> <input type="submit" class="btn btn-sm btn-primary" value="Delete"/>
+                               </div></div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    <p>
+    
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

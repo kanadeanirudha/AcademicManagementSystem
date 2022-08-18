@@ -1,0 +1,39 @@
+﻿@model AMS.ViewModel.HMOPDHealthCentreViewModel
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Edit Salary Deduction</h2>
+    </div>
+    <div class="card">
+        <div id="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormEditHMOPDHealthCentre">
+                @Html.HiddenFor(m => m.ID)
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.OPDName, new { })
+                        @Html.TextBoxFor(model => model.OPDName, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.OPDName)
+                </div>
+               
+
+                <div class="col-sm-12 m-t-30">
+                    <input class=" btn btn-primary btn-sm m-t-12 waves-effect" value="@Resources.ButtonAction_Submit" id="EditHMOPDHealthCentreRecord" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        HMOPDHealthCentre.Initialize();
+    })
+</script>

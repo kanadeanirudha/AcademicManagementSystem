@@ -1,0 +1,12 @@
+﻿@model IEnumerable<AMS.ViewModel.OnlineExaminationMasterViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/AMS_Scripts/OnlineExam/OnlineExaminationMaster.js")" type="text/javascript"></script>
+<div id="ListViewModel"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OnlineExaminationMaster.LoadList();
+    });
+</script>

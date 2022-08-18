@@ -1,0 +1,149 @@
+﻿
+@model AMS.ViewModel.FishReservoirMasterViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div id="update-message" class="error invisible"></div>
+<div class="widget-block">
+    <div class="widget-head">
+        <h5>Edit Fish Reservior Master</h5>
+    </div>
+    <div class="widget-content">
+        <form id="FormEditFishReservoirMaster" method="post" class="form-horizontal well">
+            @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.LocationId)
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.ReservoirName, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.ReservoirName, new { maxlength = "40", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.ReservoirName)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.ReservoirCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.ReservoirCode, new { maxlength = "10", disabled = "disabled", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.ReservoirCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.Address, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.Address, new { maxlength = "200", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Address)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.Latitude, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.Latitude, new { maxlength = "14", disabled = "disabled", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Latitude)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.Logitude, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.Logitude, new { maxlength = "14", disabled = "disabled", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Logitude)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.Capacity, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.Capacity, new { maxlength = "14", disabled = "disabled", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Capacity)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.MinProductCapacity, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.MinProductCapacity, new { maxlength = "14", disabled = "disabled", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.MinProductCapacity)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.Area, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.Area, new { maxlength = "10", disabled = "disabled", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Area)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+                <input type="button" id="EditFishReservoirMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        FishReservoirMaster.Initialize();
+    });
+</script>
+
+<style>
+    .span1 {
+        width: 115px;
+    }
+
+    .span2 {
+        width: 100px;
+    }
+</style>

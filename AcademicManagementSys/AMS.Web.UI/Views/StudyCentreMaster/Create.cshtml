@@ -1,0 +1,312 @@
+﻿@model AMS.Web.UI.Models.StudyCentreMaster.StudyCentreMaster
+@{
+    ViewBag.Title = "Create";
+}
+<div id='dlgLogin'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Study Center Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <legend>Create</legend>
+                                <div class="editor-label">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CentreName)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CentreName)
+                                                @Html.ValidationMessageFor(model => model.CentreName)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CentreCode)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CentreCode)
+                                                @Html.ValidationMessageFor(model => model.CentreCode)
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.HoCoRoScFlag)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.HoCoRoScFlag)
+                                                @Html.ValidationMessageFor(model => model.HoCoRoScFlag)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.HoID)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.HoID)
+                                                @Html.ValidationMessageFor(model => model.HoID)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CoID)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CoID)
+                                                @Html.ValidationMessageFor(model => model.CoID)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.RoID)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.RoID)
+                                                @Html.ValidationMessageFor(model => model.RoID)
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CentreSpecialization)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CentreSpecialization)
+                                                @Html.ValidationMessageFor(model => model.CentreSpecialization)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CentreAddress)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CentreAddress)
+                                                @Html.ValidationMessageFor(model => model.CentreAddress)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.PlotNo)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.PlotNo)
+                                                @Html.ValidationMessageFor(model => model.PlotNo)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.StreetName)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.StreetName)
+                                                @Html.ValidationMessageFor(model => model.StreetName)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CityID)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CityID)
+                                                @Html.ValidationMessageFor(model => model.CityID)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.Pincode)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.Pincode)
+                                                @Html.ValidationMessageFor(model => model.Pincode)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.EmailID)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.EmailID)
+                                                @Html.ValidationMessageFor(model => model.EmailID)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CellPhone)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CellPhone)
+                                                @Html.ValidationMessageFor(model => model.CellPhone)
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.FaxNumber)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.FaxNumber)
+                                                @Html.ValidationMessageFor(model => model.FaxNumber)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.PhoneNumberOffice)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.PhoneNumberOffice)
+                                                @Html.ValidationMessageFor(model => model.PhoneNumberOffice)
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CentreEstablishmentDatetime)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CentreEstablishmentDatetime)
+                                                @Html.ValidationMessageFor(model => model.CentreEstablishmentDatetime)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.OrganisationID)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.OrganisationID)
+                                                @Html.ValidationMessageFor(model => model.OrganisationID)
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.UniversityID)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.UniversityID)
+                                                @Html.ValidationMessageFor(model => model.UniversityID)
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.CentreLoginNumber)
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.CentreLoginNumber)
+                                                @Html.ValidationMessageFor(model => model.CentreLoginNumber)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            @Html.LabelFor(model => model.InstituteCode)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class=""><i class=""></i></span>
+                                                @Html.EditorFor(model => model.InstituteCode)
+                                                @Html.ValidationMessageFor(model => model.InstituteCode)
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                    <br />
+
+
+                                    <br />
+                                    <br />
+                                    <div class="form-group">
+                                        <label class="col-lg-5 control-label">&nbsp;</label>
+                                        <div class="col-lg-4">
+                                            <span class="">
+                                                <button class="btn btn-sm btn-default">Create</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*script for popup*@
+<script type="text/javascript">
+    $(function () {
+        $("#dlgLogin").dialog({
+            modal: true,
+            autoOpen: true,
+            resizable: false,
+            buttons: {
+                Create: function () {
+                    // perform login
+                    $.post("@Url.Action("Login", "StudyCenterMaster")",
+				    {
+
+				    },
+				    function (data, status, xhr) {
+				        if (data.Success) {
+				            alert('great'); // do something
+				            $('#dlgLogin').dialog("close");
+				            $('#divLoginButton').load("@Url.Action("GetLoginButton", "StudyCenterMaster")");
+                        } else {
+				            // do something else
+                        }
+				    });
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+</script>
+
+@* End othe Script*@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,285 @@
+﻿@model AMS.ViewModel.OnlineExamAllocateSupportStaffViewModel
+@*<div class="block-header">
+    <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Manage Support Staff</h2>
+</div>*@
+<div class="card">
+    <div class="card-header">
+        <ul class="actions" style="display: none;">
+            <li class="dropdown">
+                <a href="" data-toggle="dropdown">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="mfpAjaxModal" title="Add New" href="/OnlineExamAllocateSupportStaff/CreateEmployeeForExam?CentreCode=@Model.CentreCode&OnlineExamExaminationMasterID=@Model.OnlineExamExaminationMasterID">
+                           <i class="zmdi zmdi-plus-square"></i>&nbsp;Add New
+                         </a>
+                            
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    @*   <button title="Refresh" type="button" class="btn btn-default">
+                            <span class="zmdi icon zmdi zmdi-refresh zmdi-hc-fw"></span>
+                        </button>*@
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                            @*<li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="-1">All</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            @*<li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="EmployeeId">
+                                        Employee<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>*@
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="AllotedJobName">
+                                        AllotedJobName<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                    <div class="checkbox">
+                                        <label class="dropdown-item" aria-disabled="false">
+                                            <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name="AllotedJobCode">
+                                            AllotedJobCode<i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </li>
+                            <li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="JobStartDate">
+                                        JobStartDate<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="4" name="JobEndDate">
+                                        JobEndDate<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="5" name="Action">
+                                        @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <a class="mfpAjaxModal btn btn-primary" title="Add New" href="/OnlineExamAllocateSupportStaff/CreateEmployeeForExam?CentreCode=@Model.CentreCode&OnlineExamExaminationMasterID=@Model.OnlineExamExaminationMasterID">
+                    Allocate Staff To Examination
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Job Name</th>
+                <th>Job Code</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th width="15%" align="center">@Resources.TableHeaders_Action</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var oTable;
+        OnlineExamAllocateSupportStaff.Initialize();
+
+        oTable = $('#myDataTable').DataTable({
+
+            "bServerSide": true,
+            "sAjaxSource": "OnlineExamAllocateSupportStaff/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "SessionID", "value": $("#SessionID").val() });
+                aoData.push({ "name": "SelectedExam", "value": $("#SelectedExam").val() });
+            },
+            "columnDefs": [
+
+                              {
+                                  "targets": 0, "visible": false
+                              },
+
+                               {
+                                   "targets": 1,
+                                   "bSortable": true,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       if (data[1] != "") {
+                                           var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[2] + "</p>";
+                                           return result;
+                                       }
+                                       else {
+                                           return null;
+                                       }
+                                   }
+                               },
+
+                                {
+                                    "targets": 2,
+                                    "bSortable": true,
+                                    "data": null,
+                                    "render": function (data, type, full, meta) {
+                                        if (data[1] != "") {
+                                            var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[3] + "</p>";
+                                            return result;
+                                        }
+                                        else {
+                                            return null;
+                                        }
+                                    }
+                                },
+                                {
+                                    "targets": 3,
+                                    "bSortable": true,
+                                    "data": null,
+                                    "render": function (data, type, full, meta) {
+                                        if (data[4] != "" || data[4] != null) {
+                                            var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[4] + "</p>";
+                                            return result;
+                                        }
+                                        else {
+                                            return null;
+                                        }
+                                    }
+                                },
+                                 {
+                                     "targets": 4,
+                                     "bSortable": true,
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         if (data[5] != "" || data[5] != null) {
+                                             var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[5] + "</p>";
+                                             return result;
+                                         }
+                                         else {
+                                             return null;
+                                         }
+                                     }
+                                 },
+
+
+                               {
+                                   "targets": 5,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = null; var result1 = "";//For View Button
+
+                                       if (data[12] != null && data[12] != 0) {
+                                           result1 = '@Html.ActionLink("ViewDetails1", "ViewDetails", new { OnlineExamAllocateJobSupportStaffID = "ID1", EmployeeFullName = "C1", AllotedJobName ="AJN"}, new { @class = "mfpAjaxModal btn btn-default waves-effect" })';
+                                           result1 = result1.replace('ID1', data[12]);
+                                           result1 = result1.replace('C1', data[0]);
+                                           result1 = result1.replace('AJN', data[2]);
+
+                                           result1 = result1.replace("ViewDetails1", '<span class=\"zmdi zmdi-view-toc\" title =\"@Resources.ToolTip_View\"></span>');
+                                           
+
+                                       }
+                                       return result1;
+                                       @*else
+                                       {   result1 = '@Html.ActionLink("Create1", "Create", new { OnlineExamAllocateSupportStaffID = "ID1", EmployeeFullName = "EFN" }, new { @class = "mfpAjaxModal" })';
+                                           result1 = result1.replace('ID1', data[11]);
+                                           result1 = result1.replace('EFN', data[0]);
+                                           result1 = result1.replace("Create1", '<button title =\"@Resources.ToolTip_Create\" class="btn btn-default"><i class="zmdi zmdi-plus"></i></button>');
+
+                                           return result1
+                                       }*@
+
+                                   }
+
+
+                               }
+
+
+                               ],
+
+            //For showing [+] button on list
+            "drawCallback": function (settings) {
+                debugger;
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                var groupArray = '';
+                api.column(1, { page: 'current' }).data().each(function (group, i) {
+
+                    var array = String(group).split(',');
+
+                    if (last !== array[11]) {
+
+                        $(rows).eq(i).before(
+
+                            '<tr class="group"><td colspan="4"  style="font-weight:bold;font-size:12px;font-family: verdana;" >' + array[0] +'</td>'
+                           + '<td><a href="/OnlineExamAllocateSupportStaff/Create?OnlineExamAllocateSupportStaffID=' + array[11] + '&EmployeeFullName=' + array[0] + '" class="mfpAjaxModal btn btn-default waves-effect""><span class=\"zmdi zmdi-plus\" title =\"@Resources.ToolTip_View\"></span></a></td></tr>'
+                        );
+                        last = array[11];
+                    }
+                });
+            }
+        });
+
+        DataTableSettings(oTable, 'myDataTable', 'toggleTableColumn');
+    });
+
+</script>
+
+

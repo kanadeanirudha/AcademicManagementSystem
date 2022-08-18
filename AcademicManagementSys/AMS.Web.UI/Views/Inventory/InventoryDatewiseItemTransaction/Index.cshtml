@@ -1,0 +1,15 @@
+﻿@model IEnumerable<AMS.ViewModel.InventoryDatewiseItemTransactionViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/Vendors")
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Inventory/InventoryDatewiseItemTransaction.js")" type="text/javascript"></script>
+
+<div id="ListViewModel"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       InventoryDatewiseItemTransaction.LoadList();
+    });
+</script>

@@ -1,0 +1,1369 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/admin/styles.css" rel="stylesheet" />
+@*<script type="text/javascript" src=""></script>*@
+<script src="~/Scripts/plugin/GraphAndChart/canvasjs.min.js"></script>
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+</style>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>Insurance<span class="divider">»</span></li>
+        <li class="active">Conversion Report</li>
+    </ul>
+    <ul class="breadcrumb" style="height: 30px;">
+
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">Branch &nbsp;</span>
+            <select class="form-control chosen-select" id="ddlBranch" style="font-weight: bold;">
+                <option value="All">All</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+
+        </li>
+
+        @*<li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">From&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">UpTo&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>*@
+
+        <li style="float: right">
+            <a href="@Url.Action("InsuranceGraph", "Dashboard")" style="cursor: pointer" id="Graph">
+                <span class="color-icons chart_bar_co"></span>Graph
+            </a> &nbsp;&nbsp;
+            <a href="@Url.Action("InsuranceTable", "Dashboard")" style="cursor: pointer" id="Table"><span class="color-icons table_co"></span>Table</a>
+        </li>
+        @* <li>
+                <input type="button" value="@Resources.GlobalProperties_ShowList" style="margin-bottom:9px" class="btn btn-primary"  id="btnShowList" />
+            </li>*@
+    </ul>
+    <div id="SuccessMessage" style="display: none; color: #000;" class="alert"></div>
+    <div class="row-fluid" id="DivBranchWiseInsurance">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report</h5>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000" rowspan="2">Branch</th>
+                                            <th class="center" style="font-weight:bold;color:#000;border-right:1px solid #eeeeee" colspan="3">Enquiry</th>
+                                            <th class="center" style="font-weight:bold;color:#000;border-right:1px solid #eeeeee" colspan="2">Insurance Type</th>
+                                            <th class="center" style="font-weight:bold;color:#000" colspan="2">Sum Assured</th>
+                                            <th class="center" style="font-weight:bold;color:#000" rowspan="2">Permium Paid</th>
+                                            <th class="center" style="font-weight:bold;color:#000" rowspan="2">Policy Received</th>
+                                            <th class="center" style="font-weight:bold;color:#000" rowspan="2">Policy Pending</th>
+                                        </tr>
+                                        <tr>
+                                             <th class="center" style="font-weight:bold;color:#000">Requested</th>
+                                            <th class="center" style="font-weight:bold;color:#000">Issued</th>
+                                            <th class="center" style="font-weight:bold;color:#000;border-right:1px solid #eeeeee" >Cancelled</th>
+                                            <th class="center" style="font-weight:bold;color:#000">Domestic</th>
+                                            <th class="center" style="font-weight:bold;color:#000;border-right:1px solid #eeeeee">International</th>
+                                            <th class="center" style="font-weight:bold;color:#000">Domestic</th>
+                                            <th class="center" style="font-weight:bold;color:#000">International</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr id="trDelhi">
+                                            <td id="BranchDelhi" style="text-align: left; font-weight: bold">
+                                                <a style="cursor: pointer">Delhi</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                10
+                                            </td>
+                                            <td id="BranchDelhiIssuedInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer"> 6</a>
+                                            </td>
+                                            <td id="BranchDelhiCancelledInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer">  4</a>
+                                            </td>
+                                            <td id="BranchDelhiDomesticInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer">  4</a>
+                                            </td>
+                                            <td id="BranchDelhiInternationalInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer"> 2</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                2000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                3000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                1500
+                                            </td>
+                                            <td id="BranchDelhiJobDone" style="text-align: center; font-weight: bold;">
+                                                5
+                                            </td>
+                                            <td id="BranchDelhiJobProgress" style="text-align: center; font-weight: bold;">
+                                                1
+                                            </td>
+
+                                        </tr>
+                                        <tr id="trMumbai">
+                                            <td id="BranchMumbai" style="text-align: left; font-weight: bold">
+                                                <a style="cursor: pointer">Mumbai</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                15
+                                            </td>
+                                            <td id="BranchMumbaiIssuedInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer"> 10</a>
+                                            </td>
+                                            <td id="BranchMumbaiCancelledInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer">  5</a>
+                                            </td>
+                                            <td id="BranchMumbaiDomesticInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer">  7</a>
+                                            </td>
+                                            <td id="BranchMumbaiInternationalInsurance" style="text-align: center; font-weight: bold">
+                                                <a style="cursor: pointer"> 3</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                3500
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                4500
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">
+                                                2400
+                                            </td>
+                                            <td id="BranchMumbaiJobDone" style="text-align: center; font-weight: bold;">
+                                                9
+                                            </td>
+                                            <td id="BranchMumbaiJobProgress" style="text-align: center; font-weight: bold;">
+                                                1
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiWiseInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivDelhiWiseInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Delhi)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client1</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-1</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">	Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	110	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client2</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-2</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled	</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client3</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-3</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label">Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled	</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client4</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-4</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label">Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client5</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-5</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	1500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	300	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client6</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-6</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">	Domestic	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	130	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client7</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-7</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label">Domestic	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client8</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-8</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	1500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	360	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client9</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-9</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	 </span></td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client10</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-10</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	100	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span></td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiDomesticInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivDelhiDomesticInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Delhi)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client1</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-1</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">	Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	110	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client4</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-4</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label">Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client6</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-6</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">	Domestic	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	130	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client10</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-10</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	100	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span></td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiInternationalInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivDelhiInternationalInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Delhi)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client5</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-5</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	1500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	300	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client8</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-8</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	1500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	360	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiIssuedInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivDelhiIssuedInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Delhi)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client1</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-1</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">	Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	110	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client4</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-4</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label">Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client5</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-5</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	1500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	300	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client6</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-6</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">	Domestic	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	130	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client8</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-8</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	1500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	360	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client10</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-10</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-success">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	500	 </td>
+                                            <td style="text-align: center; font-weight: bold">	100	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiCancelledInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivDelhiCancelledInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Delhi)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client2</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-2</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled	</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client3</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-3</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label">Domestic</span></td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold">0</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled	</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client7</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-7</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label">Domestic	</span> </td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span>	</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client9</td>
+                                            <td style="text-align: center; font-weight: bold">DEL-IR-9</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-important">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold">	<span class="label label-warning">International	 </span></td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	0	 </td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <div class="row-fluid" id="DivMumbaiWiseInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivMumbaiWiseInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Mumbai)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client1	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-1</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500  </td>
+                                            <td style="text-align: center; font-weight: bold">40	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	  </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client2	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-2</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">1500</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span>  </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client3	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-3</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">0    </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client4	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-4</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">500	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span>  </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client5	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-5</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">60</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client6	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-6</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">70	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client7	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-7</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client8	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-8</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">120</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client9	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-9</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client10</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-10</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client11</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-11</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client12</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-12</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client13</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-13</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	     </td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">60	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client14</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-14</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client15</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-15</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	 </td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">50	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivMumbaiDomesticInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivMumbaiDomesticInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Mumbai)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client1	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-1</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500  </td>
+                                            <td style="text-align: center; font-weight: bold">40	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	  </td>
+                                        </tr>                                        
+                                        
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client4	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-4</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">500	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span>  </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client6	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-6</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">70	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                       
+                                        
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client10</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-10</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client11</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-11</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client13</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-13</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	     </td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">60	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client15</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-15</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	 </td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">50	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivMumbaiInternationalInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivMumbaiInternationalInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Mumbai)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client2	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-2</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">1500</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span>  </td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client5	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-5</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">60</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client8	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-8</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">120</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">Pending</span></td>
+                                        </tr>                                      
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivMumbaiIssuedInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivMumbaiIssuedInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Mumbai)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client1	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-1</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500  </td>
+                                            <td style="text-align: center; font-weight: bold">40	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>	  </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client2	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-2</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">1500</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span>  </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client4	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-4</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">500	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-success">Received</span>  </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client5	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-5</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">60</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client6	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-6</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">70	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client8	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-8</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">1500 </td>
+                                            <td style="text-align: center; font-weight: bold">120</td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">Pending</span></td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client10</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-10</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client11</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-11</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client13</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-13</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	     </td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">60	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client15</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-15</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Issued</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	 </td>
+                                            <td style="text-align: center; font-weight: bold">500	 </td>
+                                            <td style="text-align: center; font-weight: bold">50	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-warning">Pending</span>   </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivMumbaiCancelledInsurance" style="display:none;">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head" id="DivMumbaiCancelledInsuranceBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Conversion Report(Mumbai)</h5>
+                    </a>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Client Name</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Code</th>
+                                            @*<th class="center" style="font-weight: bold; color: #000">Enquiry</th>*@
+                                            <th class="center" style="font-weight: bold; color: #000">Insurance Type</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Sum Assured</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Premium Paid</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Policy Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client3	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-3</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span></td>
+                                            <td style="text-align: center; font-weight: bold">0    </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client7	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-7</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>                                       
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client9	</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-9</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>     
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client12</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-12</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label">Domestic </span>	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">Client14</td>
+                                            <td style="text-align: center; font-weight: bold">MUM-IR-14</td>
+                                            @*<td style="text-align: center; font-weight: bold"><span class="label label-warning">Cancelled</span></td>*@
+                                            <td id="Faculty" style="text-align: center; font-weight: bold"><span class="label label-warning">International</span></td>
+                                            <td style="text-align: center; font-weight: bold">0	 </td>
+                                            <td style="text-align: center; font-weight: bold">0	</td>
+                                            <td style="text-align: center; font-weight: bold">	<span class="label label-important">Cancelled	</span> </td>
+                                        </tr>                                       
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('#ddlBranch').on("change", function () {
+                var selectedItem = $(this).val();
+                if (selectedItem == "All") {
+                    $("#trDelhi").show(true);
+                    $("#trMumbai").show(true);
+                    $("#DivBranchWiseInsurance").show(true);
+
+                    $("#DivDelhiWiseInsurance").hide(true);
+                    $("#DivDelhiDomesticInsurance").hide(true);
+                    $("#DivDelhiInternationalInsurance").hide(true);
+                    $("#DivDelhiIssuedInsurance").hide(true);
+                    $("#DivDelhiCancelledInsurance").hide(true);
+
+                    $("#DivMumbaiWiseInsurance").hide(true);
+                    $("#DivMumbaiDomesticInsurance").hide(true);
+                    $("#DivMumbaiInternationalInsurance").hide(true);
+                    $("#DivMumbaiIssuedInsurance").hide(true);
+                    $("#DivMumbaiCancelledInsurance").hide(true);
+                }
+                else if (selectedItem == "Delhi") {
+                    $("#trMumbai").hide(true);
+                    $("#trDelhi").show(true);
+                    $("#DivBranchWiseInsurance").show(true);
+
+                    $("#DivDelhiWiseInsurance").hide(true);
+                    $("#DivDelhiDomesticInsurance").hide(true);
+                    $("#DivDelhiInternationalInsurance").hide(true);
+                    $("#DivDelhiIssuedInsurance").hide(true);
+                    $("#DivDelhiCancelledInsurance").hide(true);
+
+                    $("#DivMumbaiWiseInsurance").hide(true);
+                    $("#DivMumbaiDomesticInsurance").hide(true);
+                    $("#DivMumbaiInternationalInsurance").hide(true);
+                    $("#DivMumbaiIssuedInsurance").hide(true);
+                    $("#DivMumbaiCancelledInsurance").hide(true);
+                }
+                else {
+                    $("#trMumbai").show(true);
+                    $("#trDelhi").hide(true);
+                    $("#DivBranchWiseInsurance").show(true);
+
+                    $("#DivDelhiWiseInsurance").hide(true);
+                    $("#DivDelhiDomesticInsurance").hide(true);
+                    $("#DivDelhiInternationalInsurance").hide(true);
+                    $("#DivDelhiIssuedInsurance").hide(true);
+                    $("#DivDelhiCancelledInsurance").hide(true);
+
+                    $("#DivMumbaiWiseInsurance").hide(true);
+                    $("#DivMumbaiDomesticInsurance").hide(true);
+                    $("#DivMumbaiInternationalInsurance").hide(true);
+                    $("#DivMumbaiIssuedInsurance").hide(true);
+                    $("#DivMumbaiCancelledInsurance").hide(true);
+
+                }
+            });
+            //--For Delhi
+            $('#BranchDelhi').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivDelhiWiseInsurance").show(true);
+            });
+
+            $('#DivDelhiWiseInsuranceBack').on('click', function () {
+                $("#DivDelhiWiseInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#BranchDelhiDomesticInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivDelhiDomesticInsurance").show(true);
+            });
+
+            $('#BranchDelhiInternationalInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivDelhiInternationalInsurance").show(true);
+            });
+
+            $('#DivDelhiDomesticInsuranceBack').on('click', function () {
+                $("#DivDelhiDomesticInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#DivDelhiInternationalInsuranceBack').on('click', function () {
+                $("#DivDelhiInternationalInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#BranchDelhiIssuedInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivDelhiIssuedInsurance").show(true);
+            });
+
+            $('#BranchDelhiCancelledInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivDelhiCancelledInsurance").show(true);
+            });
+
+            $('#DivDelhiCancelledInsuranceBack').on('click', function () {
+                $("#DivDelhiCancelledInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#DivDelhiIssuedInsuranceBack').on('click', function () {
+                $("#DivDelhiIssuedInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            //--For Mumbai
+            $('#BranchMumbai').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivMumbaiWiseInsurance").show(true);
+            });
+
+            $('#DivMumbaiWiseInsuranceBack').on('click', function () {
+                $("#DivMumbaiWiseInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#BranchMumbaiDomesticInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivMumbaiDomesticInsurance").show(true);
+            });
+
+            $('#BranchMumbaiInternationalInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivMumbaiInternationalInsurance").show(true);
+            });
+
+            $('#DivMumbaiDomesticInsuranceBack').on('click', function () {
+                $("#DivMumbaiDomesticInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#DivMumbaiInternationalInsuranceBack').on('click', function () {
+                $("#DivMumbaiInternationalInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#BranchMumbaiIssuedInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivMumbaiIssuedInsurance").show(true);
+            });
+
+            $('#BranchMumbaiCancelledInsurance').on('click', function () {
+                $("#DivBranchWiseInsurance").hide(true);
+                $("#DivMumbaiCancelledInsurance").show(true);
+            });
+
+            $('#DivMumbaiCancelledInsuranceBack').on('click', function () {
+                $("#DivMumbaiCancelledInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+
+            $('#DivMumbaiIssuedInsuranceBack').on('click', function () {
+                $("#DivMumbaiIssuedInsurance").hide(true);
+                $("#DivBranchWiseInsurance").show(true);
+            });
+        });
+    </script>
+

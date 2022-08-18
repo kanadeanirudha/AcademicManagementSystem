@@ -1,0 +1,408 @@
+﻿@*@model AMS.ViewModel.EmployeeQualificationViewModel
+
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+</style>
+@{
+    Layout = null;
+}
+
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Employee/EmployeeQualification.js")" type="text/javascript"></script>
+  <script src="~/Scripts/fnGetColumnData.js"></script>
+
+        <form id="FormEditEmployeeQualificationDetails" method="post" class="form-horizontal well">
+            @Html.HiddenFor(model => model.EmployeeID)
+               <div class="nonboxy-widget">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="widget-block">
+                            <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+                            <div class="widget-head">
+                              
+                                <h5 id="hhFive"><i class="black-icons users"></i>&nbsp; @Resources.FormName_QualificationDetails</h5>
+                                <div class="pull-right" style="margin: -4.3% 40px 0px 5px;">
+                                    <div class="input-append" id="" style="float: right;">
+                                        <div style="display: none;">
+                                            <input type="hidden" name="_method" value="POST">
+                                        </div>
+                                       
+                                        
+
+                                 <div class="widget-control pull-right">
+                                <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="ajax cboxElement" href="@Url.Action("EmployeeQualificationCreate", "EmployeeQualification",new {EmployeeID=@Model.EmployeeID })"> <h6 style="color:#000;"><i class="icon-plus" style="padding-left:7px;"></i>@Resources.DisplayName_AddNew</h6></a></li>
+                                </ul>
+                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-content">
+                                <div class="widget-box">
+                                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                                        <div class="table_content">
+                                            <table id="myDataTableEmployeeQualificationDetails" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                       
+                                                        <th style="text-align: center; width: 250px">@Resources.TableHeaders_EducationType</th>                                                        
+                                                        <th style="text-align: center; width: 150px">@Resources.TableHeaders_Education</th>      
+                                                        <th style="text-align: center; width: 300px">@Resources.TableHeaders_Specialization</th>                                                  
+                                                        <th style="text-align: center; width: 150px">@Resources.TableHeaders_NameOfInstitution</th>   
+                                                        <th style="text-align: center; width: 150px">@Resources.TableHeaders_Univarsity</th>                                                                                                   
+                                                        <th style="text-align: center; width: 50px">@Resources.TableHeaders_Action</th>
+                                                        <th style="display:none">EmployeeID</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="widget-bottom">
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+
+        debugger;
+        oTable = $('#myDataTableEmployeeQualificationDetails').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "/EmployeeQualification/AjaxHandlerEmployeeQualification",
+            "bProcessing": true,
+            //"pagingType": "full_numbers",
+            "scrollY": "300x",
+            "dom": "frtiS",
+            "deferRender": true,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "EmployeeID", "value": $('input[name=EmployeeID]').val() });
+                //aoData.push({ "name": "SelectedAccountType", "value": $('#AccountType').val() });
+            },
+            "columnDefs": [
+                              //{
+                              //    "targets": 0,
+
+                              //    "data": null,
+                              //    "render": function (data, type, full, meta) {
+                              //        // var chkStatus = '';
+
+                              //        //if (data[0] == "PERMANANT") {
+                              //        //    //   chkStatus = 'Bank';                                           
+                              //        //    var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-warning">PERMANANT</span>' + "</p>";
+                              //        //}
+                              //        //else if (data[0] == "CORRESPONDENCE") {
+                              //            var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-inverse">CORRESPONDENCE</span>' + "</p>";
+                              //        //}
+
+                              //        return result;
+                              //    }
+                              //},
+                                {
+                                    "targets": 0,
+                                    "bSearchable": true,
+                                },
+                             {
+                                 "targets": 1,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 2,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 3,
+                                 "bSearchable": true,
+                             },
+                              //{
+                              //    "targets": 4,
+
+                              //    "data": null,
+                              //    "render": function (data, type, full, meta) {
+                              //        // var chkStatus = '';
+
+                              //        //if (data[4] == "True") {
+                              //        //    //   chkStatus = 'Bank';                                           
+                              //        //    var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-success">Current</span>' + "</p>";
+
+                              //        //}
+                              //        //else {
+                              //            var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label">Previous</span>' + "</p>";
+                              //        //}
+
+                              //        return result;
+                              //   }
+                              //},
+                              {
+                                  "targets": 4,
+                                  "bSearchable": true,
+                              },
+                            {
+                                "targets": 5,
+                                "bSortable": false,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                   
+                                        var result1 = '@Html.ActionLink("Edit1", "EmployeeQualificationEdit",new { ID = '1'}, new { @class = "ajax  cboxElement" })';
+                                        result1 = result1.replace('1', data[5]);
+                                        result1 = result1.replace("Edit1", '<i class="icon-edit" title="@Resources.ToolTip_Edit"></i>');
+                                  
+
+                                    var result = "<p  style='text-align: center; height:5px;'>" + result1 + "</p>";
+                                    return result;
+
+                                }
+
+                            },
+                             {
+                                 "targets": 6,
+                                 "visible": false,
+                             },
+            ],
+            "order": [[0, 'asc']],
+
+        });
+        EmployeeQualification.Initialize();
+    });
+
+
+</script>*@
+
+
+<!--------------------new code----------------------->
+
+
+@model AMS.ViewModel.EmployeeQualificationViewModel
+@{
+    Layout = null;
+}
+
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Employee/EmployeeQualification.js")" type="text/javascript"></script>
+<script src="~/Scripts/fnGetColumnData.js"></script>
+
+<form id="FormEditEmployeeQualificationDetails" method="post" class="">
+    @Html.HiddenFor(model => model.EmployeeID)
+    @*<div class="container">*@
+
+
+    @*<div class="card">*@
+    <div class="card-header">
+        <div id="">
+            <ul class="actions">
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown" title="Add New">
+                        <i class="zmdi zmdi-more-vert"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a class="mfpAjaxModal" href="@Url.Action("EmployeeQualificationCreate", "EmployeeQualification", new { EmployeeID = @Model.EmployeeID })">
+                                <i class="zmdi zmdi-plus-square"></i> &nbsp; @Resources.DisplayName_AddNew
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumnQualification" class="dropdown-menu pull-right">
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="EducationType">
+                                        @Resources.TableHeaders_EducationType<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="Education">
+                                        @Resources.TableHeaders_Education<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name="Specialization">
+                                        @Resources.TableHeaders_Specialization<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="NameOfInstitution">
+                                        @Resources.TableHeaders_NameOfInstitution<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="4" name="Univarsity">
+                                        @Resources.TableHeaders_Univarsity<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="5" name="Action">
+                                        @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTableEmployeeQualificationDetails" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>@Resources.TableHeaders_EducationType</th>
+                <th>@Resources.TableHeaders_Education</th>
+                <th>@Resources.TableHeaders_Specialization</th>
+                <th>@Resources.TableHeaders_NameOfInstitution</th>
+                <th>@Resources.TableHeaders_Univarsity</th>
+                <th>@Resources.TableHeaders_Action</th>
+                <th style="display:none">EmployeeID</th>
+
+            </tr>
+        </thead>
+    </table>
+
+    @*</div>*@
+    @*</div>*@
+</form>
+
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+
+        
+        oTable = $('#myDataTableEmployeeQualificationDetails').DataTable({
+            "bServerSide": true,
+            "sAjaxSource": "/EmployeeQualification/AjaxHandlerEmployeeQualification",
+            "bProcessing": true,
+            //"pagingType": "full_numbers",
+            "scrollY": "300x",
+            "dom": "frtiS",
+            "deferRender": true,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "EmployeeID", "value": $('input[name=EmployeeID]').val() });
+                //aoData.push({ "name": "SelectedAccountType", "value": $('#AccountType').val() });
+            },
+            "columnDefs": [
+                              
+                                {
+                                    "targets": 0,
+                                    "bSearchable": true,
+                                },
+                             {
+                                 "targets": 1,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 2,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 3,
+                                 "bSearchable": true,
+                             },
+                              
+                              {
+                                  "targets": 4,
+                                  "bSearchable": true,
+                              },
+                            {
+                                "targets": 5,
+                                "bSortable": false,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+
+                                        var result1 = '@Html.ActionLink("Edit1", "EmployeeQualificationEdit", new { ID = '1' }, new { @class = "mfpAjaxModal" })';
+                                        result1 = result1.replace('1', data[5]);
+                                        //result1 = result1.replace("Edit1", '<i class="icon-edit" title="@Resources.ToolTip_Edit"></i>');
+                                        result1 = result1.replace("Edit1", '<button title="@Resources.ToolTip_Edit" class="btn btn-default"><i class="zmdi zmdi-edit"></i></button>');
+
+
+                                    var result = "<p  style=''>" + result1 + "</p>";
+                                    return result;
+
+                                }
+
+                            },
+                             {
+                                 "targets": 6,
+                                 "visible": false,
+                             },
+            ],
+            "order": [[0, 'asc']],
+
+        });
+        EmployeeQualification.Initialize();
+        DataTableSettings(oTable, "myDataTableEmployeeQualificationDetails", "toggleTableColumnQualification");
+    });
+
+
+</script>

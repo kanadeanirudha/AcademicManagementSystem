@@ -1,0 +1,79 @@
+﻿@model AMS.ViewModel.CRMJobCreationMasterAndAllocationViewModel
+@*<script src="@Url.Content("~/Scripts/AMS_Scripts/CRM/CRMJobCreationMasterAndAllocation.js")" type="text/javascript"></script>*@
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp; Job Create And Allocation Details</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding" style="padding-top:0px;">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormViewDetailsCRMJobCreationMasterAndAllocation" class="row">
+                <h2 style="border-bottom: 2px solid #eaeaea; font-size: 18px; margin-left:1.5%">Job</h2>
+                <div class="row col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="fg-line dtp-container">
+                            @Html.TextBoxFor(model => model.JobStartDate, new { maxlength = "50", @disabled = "disabled", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="fg-line dtp-container">
+                            @Html.TextBoxFor(model => model.JobEndDate, new { @class = "form-control", @placeholder = Resources.DisplayName_JobEndDate, @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="select form-group fg-line">
+                            @Html.DropDownListFor(m => m.CallTypeID, Model.ListCallTypeItems, Resources.DropdownMessage_CallType, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="margin-bottom:2%">
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(model => model.JobName, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <h2 style="border-bottom: 2px solid #eaeaea; font-size: 18px; margin-left:1.5%; margin-top:2%; margin-bottom:2%">Allocate Job</h2>
+
+                
+
+                <div class="row col-sm-12">
+                    <div id="ListViewModel" class="card-body table-responsive">
+                        <div id="DivAddRowTable">
+                            <table id="tblData" class="table table-striped">
+                                <thead style="background-color: #ff0000">
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        <th>@Resources.TableHeader_Target</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.CRMJobAllocationList)
+                                    {
+                                        <tr>
+                                            <td><input id="roleID" type="text" value="@item.AdminRoleMasterID" style='display:none' /><input id="empID" type="text" value="@item.EmployeeID" style="display:none" /><input type="text" value="@item.PerDayCallTarget " style="display:none" />@item.EmployeeName </td>
+                                            <td>@item.PerDayCallTarget</td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+         </div>
+    </div>
+</div>
+@*<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMJobCreationMasterAndAllocation.Initialize();
+    });
+</script>*@
+

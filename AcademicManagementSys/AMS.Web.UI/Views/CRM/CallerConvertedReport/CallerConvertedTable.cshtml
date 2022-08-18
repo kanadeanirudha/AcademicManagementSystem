@@ -1,0 +1,103 @@
+﻿@model AMS.ViewModel.CRMCallMasterAndDetailsViewModel
+
+<div class="card" id="DivBranchWiseJobOrder">
+    <div class="table-responsive">
+        <table class="table table-striped" id="myDataTable">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Employee</th>
+                    <th>No of calls</th>
+                    <th>Pending</th>
+                    <th>In progress</th>
+                    <th>Completed</th>
+                    <th>Converted</th>
+                    <th>Conversion</th>
+                </tr>
+            </thead>
+            @if (Model.ListCRMCalleeCallDetails != null)
+            {
+                <tbody style="overflow: auto" id="tbodyID">
+
+                    @for (int i = 0; i < Model.ListCRMCalleeCallDetails.Count; i++)
+                    {
+
+                        <tr role="row" class="odd">
+                            <td>@Convert.ToInt32(i + 1)</td>
+                            <td>@Model.ListCRMCalleeCallDetails[i].CallerFullName</td>
+                            <td style="text-align: center;">
+                                @if (@Model.ListCRMCalleeCallDetails[i].TotalCallCount > 0)
+                                {
+                                    <a href="#" class="@Model.ListCRMCalleeCallDetails[i].CallerID~0~@Model.ListCRMCalleeCallDetails[i].CallerFullName~0">@Model.ListCRMCalleeCallDetails[i].TotalCallCount</a>
+                                }
+                                else
+                                {@Model.ListCRMCalleeCallDetails[i].TotalCallCount}
+                            </td>
+                            <td style="text-align: center;">
+                                @if (@Model.ListCRMCalleeCallDetails[i].PendingCount > 0)
+                                {
+                                    <a href="#" class="@Model.ListCRMCalleeCallDetails[i].CallerID~3~@Model.ListCRMCalleeCallDetails[i].CallerFullName~0">@Model.ListCRMCalleeCallDetails[i].PendingCount</a>
+                                }
+                                else
+                                {@Model.ListCRMCalleeCallDetails[i].PendingCount}
+                            </td>
+                            <td style="text-align: center;">
+                                @if (@Model.ListCRMCalleeCallDetails[i].InprogressCount > 0)
+                                {
+                                    <a href="#" class="@Model.ListCRMCalleeCallDetails[i].CallerID~2~@Model.ListCRMCalleeCallDetails[i].CallerFullName~0">@Model.ListCRMCalleeCallDetails[i].InprogressCount</a>
+                                }
+                                else
+                                {@Model.ListCRMCalleeCallDetails[i].InprogressCount}
+                            </td>
+                            <td style="text-align: center;">
+                                @if (@Model.ListCRMCalleeCallDetails[i].CompletedCount > 0)
+                                {
+                                    <a href="#" class="@Model.ListCRMCalleeCallDetails[i].CallerID~1~@Model.ListCRMCalleeCallDetails[i].CallerFullName~0">@Model.ListCRMCalleeCallDetails[i].CompletedCount</a>
+                                }
+                                else
+                                {@Model.ListCRMCalleeCallDetails[i].CompletedCount}
+                            </td>
+                            <td style="text-align: center;">
+                                @if (@Model.ListCRMCalleeCallDetails[i].ConvertedCount > 0)
+                                {
+                                    <a href="#" class="@Model.ListCRMCalleeCallDetails[i].CallerID~1~@Model.ListCRMCalleeCallDetails[i].CallerFullName~1">@Model.ListCRMCalleeCallDetails[i].ConvertedCount</a>
+                                }
+                                else
+                                {@Model.ListCRMCalleeCallDetails[i].ConvertedCount}
+                            </td>
+                            <td style="text-align: center;">@Model.ListCRMCalleeCallDetails[i].ConvertedCallPercentage %</td>
+                        </tr>
+                    }
+
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myDataTable tbody').on('click', 'tr td a', function () {
+            var aaa = $(this).attr("class");
+            var splitData = aaa.split('~');
+            $('#Hidden_Table_Chart').val("Table");
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            $.ajax(
+                     {
+                         cache: false,
+                         type: "POST",
+                         data: { FromDate: valuFromDate, UptoDate: ValuUptoDate, employeeID: splitData[0], callerJobStatus: splitData[1], callerName: splitData[2], callStatus: splitData[3] },
+                         dataType: "html",
+                         url: '/CallerConvertedReport/CallerJobStatusEmployeewiseTable',
+                         success: function (data) {
+                             //Rebind Grid Data
+                             $('#ListViewModel').html(data);
+                         }
+                     });
+
+        });
+    });
+
+
+</script>

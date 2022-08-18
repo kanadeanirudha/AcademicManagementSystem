@@ -1,0 +1,933 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C258527-E8C6-476D-BADE-C5B5211067F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMS.DTO</RootNamespace>
+    <AssemblyName>AMS.DTO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AcademicManagementSys|AnyCPU'">
+    <OutputPath>bin\AcademicManagementSys\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntityDTO\Account\AccountBalancesheetMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountBalancesheetTypeMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountBankDetails.cs" />
+    <Compile Include="EntityDTO\Account\AccountBankTransaction.cs" />
+    <Compile Include="EntityDTO\Account\AccountCategoryMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountCentreOpeningBalance.cs" />
+    <Compile Include="EntityDTO\Account\AccountCentrewise.cs" />
+    <Compile Include="EntityDTO\Account\AccountChequeBookDetails.cs" />
+    <Compile Include="EntityDTO\Account\AccountChequeBookMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountFeeCentreWorkingDate.cs" />
+    <Compile Include="EntityDTO\Account\AccountGroupMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountHeadMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountIndividualOpeningBalance.cs" />
+    <Compile Include="EntityDTO\Account\AccountMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountNarrationMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountPersonalDetails.cs" />
+    <Compile Include="EntityDTO\Account\AccountPersonalMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountSessionMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountTransactionDetails.cs" />
+    <Compile Include="EntityDTO\Account\AccountTransactionMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountTransactionTypeMaster.cs" />
+    <Compile Include="EntityDTO\Account\AccountVoucherSettingMaster.cs" />
+    <Compile Include="EntityDTO\Account\GeneralMapTypeOfAccount.cs" />
+    <Compile Include="EntityDTO\Account\GeneralTypeOfAccount.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountBalancesheetReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountBalancesheetTypeReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountCategoryMasterReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountCentreWiseBalanceSheetReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountDayBookReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountExclusiveToCentreReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountGeneralLedgerReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountGroupMasterReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountHeadMasterReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountMasterReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountProfitAndLossReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountSessionMasterReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountSupplierMasterReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountTradingReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountTrialBalanceReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\AccountVoucherSettingMasterReport.cs" />
+    <Compile Include="EntityDTO\Account\Report\EnterpriseDrillThroughReport.cs" />
+    <Compile Include="EntityDTO\Admin\AdminMenuApplicable.cs" />
+    <Compile Include="EntityDTO\Admin\AdminRoleApplicableDetails.cs" />
+    <Compile Include="EntityDTO\Admin\AdminRoleCentreRights.cs" />
+    <Compile Include="EntityDTO\Admin\AdminRoleDetails.cs" />
+    <Compile Include="EntityDTO\Admin\AdminRoleMaster.cs" />
+    <Compile Include="EntityDTO\Admin\AdminRoleMenuDetails.cs" />
+    <Compile Include="EntityDTO\Admin\AdminRoleModuleAccess.cs" />
+    <Compile Include="EntityDTO\Admin\AdminSnPosts.cs" />
+    <Compile Include="EntityDTO\Admin\AdminSnPostsTransaction.cs" />
+    <Compile Include="EntityDTO\API\APIInventory.cs" />
+    <Compile Include="EntityDTO\API\InventoryStoreBillingPrintingInfo.cs" />
+    <Compile Include="EntityDTO\API\PhysicalInventory\PhysicalInventory.cs" />
+    <Compile Include="EntityDTO\API\PhysicalInventory\PurchaseGRN.cs" />
+    <Compile Include="EntityDTO\API\POSCounter.cs" />
+    <Compile Include="EntityDTO\API\POS\GeneralCounterPOSApllicable.cs" />
+    <Compile Include="EntityDTO\API\POS\GeneralTimeZoneMaster.cs" />
+    <Compile Include="EntityDTO\API\POS\RegisterPOSAPI.cs" />
+    <Compile Include="EntityDTO\API\POS\StudyCentreMaster.cs" />
+    <Compile Include="EntityDTO\API\POS\UserMasterAPI.cs" />
+    <Compile Include="EntityDTO\API\Restaurant\InventoryRecipeDetails.cs" />
+    <Compile Include="EntityDTO\API\Restaurant\RestaurantCategoryAndMenu.cs" />
+    <Compile Include="EntityDTO\API\Restaurant\RestaurantKOTOrderDetails.cs" />
+    <Compile Include="EntityDTO\API\Restaurant\RestaurantSettleAndPrintBill.cs" />
+    <Compile Include="EntityDTO\API\Restaurant\RestaurantSettleBill.cs" />
+    <Compile Include="EntityDTO\API\Restaurant\RestaurantTableMaster.cs" />
+    <Compile Include="EntityDTO\API\Restaurant\RestaurantTableOrder.cs" />
+    <Compile Include="EntityDTO\API\SalePromotion\SalePromotionGetOffline.cs" />
+    <Compile Include="EntityDTO\API\SalePromotion\SalePromotionOnFixAmountPlan.cs" />
+    <Compile Include="EntityDTO\API\SelfServiceQiso\CheckTabRegistration.cs" />
+    <Compile Include="EntityDTO\API\SelfServiceQiso\GetIngredientsList.cs" />
+    <Compile Include="EntityDTO\API\SelfServiceQiso\SelfServiceQiso.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleAccountProgressTypeMasterAndRule.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleBillingTransaction.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleEnquiryMasterAndAccountDetails.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleGroupMasterAndAllocateEmployeeInGroup.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleJobCreationMasterAndJobAllocationDetails.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleJobUserJobScheduleSheet.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleReport.cs" />
+    <Compile Include="EntityDTO\CRMSales\CRMSaleTargetDetails.cs" />
+    <Compile Include="EntityDTO\CRMSales\NotificationTypeMasterAndNotificationTransaction.cs" />
+    <Compile Include="EntityDTO\CRMSales\Report\CRMSalesCustomerInformationReport .cs" />
+    <Compile Include="EntityDTO\CRM\CRMCallEnquiryDetails.cs" />
+    <Compile Include="EntityDTO\CRM\CRMCallerRoleAllocation.cs" />
+    <Compile Include="EntityDTO\CRM\CRMCallMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\CRM\CRMCallType.cs" />
+    <Compile Include="EntityDTO\CRM\CRMJobCreationMasterAndAllocation.cs" />
+    <Compile Include="EntityDTO\CRM\CRMReport.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeAttendanceReport.cs" />
+    <Compile Include="EntityDTO\EntranceExam\EntranceExamValidationParameter .cs" />
+    <Compile Include="EntityDTO\EntranceExam\EntranceExamValidationParameterApplicable.cs" />
+    <Compile Include="EntityDTO\ExcelUpload\InventoryExcelUpload.cs" />
+    <Compile Include="EntityDTO\Fees\FeeAccountTypeMaster.cs" />
+    <Compile Include="EntityDTO\Fees\FeeLateFeesMaster.cs" />
+    <Compile Include="EntityDTO\Fees\FeePredefinedCriteriaParameters.cs" />
+    <Compile Include="EntityDTO\Fees\FeeReceiptMaster.cs" />
+    <Compile Include="EntityDTO\Fees\FeeRefundMaster.cs" />
+    <Compile Include="EntityDTO\Fees\FeeStructureApplicable.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralIndustryMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralPeriodTypeMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralPolicyDetails.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralPolicyMaster .cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralPolicyRules .cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralRunningNumbersForAccount.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralServiceMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralTimeSlotMaster.cs" />
+    <Compile Include="EntityDTO\Dashboard\Dashboard.cs" />
+    <Compile Include="EntityDTO\Employee\EmpDesignationMaster.cs" />
+    <Compile Include="EntityDTO\Employee\EmpEmployeeMaster.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeAssociatesProfessionalBodies .cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeChildrenDetails .cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeConsultancyMaster.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeContactDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeCourseSubjectTaught .cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeDependents .cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeDocumentRequired.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeElectionNomineeBody.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeEnterpriseReport.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeExperience.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeLanguageDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeOtherCollegeFinancialAssistanceDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeOtherCollegeSpecialLectureDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeePaperPresent.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeePatentReceivedDetails .cs" />
+    <Compile Include="EntityDTO\Employee\EmployeePersonalDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeePHdGuideRecognisationDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeePictureDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeePrizesWonDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeProjectWorksMaster.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeQualification.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeServiceDetails.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeShiftApplicableMaster.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeShiftMaster.cs" />
+    <Compile Include="EntityDTO\Employee\EmployeeSpecializationResearchAreaDetails.cs" />
+    <Compile Include="EntityDTO\Employee\GeneralExperienceTypeMaster.cs" />
+    <Compile Include="EntityDTO\Employee\GeneralJobProfile.cs" />
+    <Compile Include="EntityDTO\Employee\GeneralJobStatus.cs" />
+    <Compile Include="EntityDTO\Employee\GeneralLevelMaster.cs" />
+    <Compile Include="EntityDTO\EntranceExam\EntranceExam.cs" />
+    <Compile Include="EntityDTO\EntranceExam\EntranceExamApplicableExamToCourse.cs" />
+    <Compile Include="EntityDTO\EntranceExam\EntranceExamInfrastructureDetail.cs" />
+    <Compile Include="EntityDTO\EntranceExam\EntranceExamPaymentDetails.cs" />
+    <Compile Include="EntityDTO\EntranceExam\EntranceExamScheduleAndScheduleDetail.cs" />
+    <Compile Include="EntityDTO\Fees\FeeCriteriaCombinationParameterValue.cs" />
+    <Compile Include="EntityDTO\Fees\FeeCriteriaMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Fees\FeeCriteriaParametersAndValues.cs" />
+    <Compile Include="EntityDTO\Fees\FeeStructureMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Fees\FeeTypeAndSubType.cs" />
+    <Compile Include="EntityDTO\Fisheries\FishFishermenMaster.cs" />
+    <Compile Include="EntityDTO\Fisheries\FishItemLicenseAllocation.cs" />
+    <Compile Include="EntityDTO\Fisheries\FishItemLicenseRateMaster.cs" />
+    <Compile Include="EntityDTO\Fisheries\FishLicenceTypeMaster.cs" />
+    <Compile Include="EntityDTO\Fisheries\FishLicenseRuleMaster.cs" />
+    <Compile Include="EntityDTO\Fisheries\FishReservoirMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralBoardUniversityMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralCasteMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralCategoryMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralCityMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralCountryMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralCurrencyMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralEducationMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralEducationTypeMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralGroupMaster .cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralHolidays.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralLanguageMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralLocationMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralMainTypeMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralNationalityMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralPreTablesForMainTypeMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralQuestionTypeMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralRegionMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralRelationshipTypeMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralReligionMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralSessionMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralSupplierMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralTaxGroupMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralTaxMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralUnitType.cs" />
+    <Compile Include="EntityDTO\HealthCare\HMOPDHealthCentre.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryCounterApplicableDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryCounterLogAndLockDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryCounterMaster.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryCustomerMaster.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryDatewiseItemTransaction.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryDayEndJob.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryDumpAndShrinkMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryEstimationMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryInWardMasterAndInWardDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryIssueMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryIssueMasterAndIssueDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryItemCategoryMaster.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryItemMaster.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryItemSaleReturnMaster.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryLocationMaster.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryMachineMaster.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryOpeningBalance.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryPurchaseMasterAndTransaction.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryRateMarkDownMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Inventory\InventorySalesMasterAndTransaction.cs" />
+    <Compile Include="EntityDTO\Inventory\InventoryWeighingData.cs" />
+    <Compile Include="EntityDTO\Inventory\Report\InventoryDailySaleReport.cs" />
+    <Compile Include="EntityDTO\Inventory\Report\InventoryReportMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\BOMAndRecipeDetails.cs" />
+    <Compile Include="EntityDTO\Inventory_1\ECommerceSystemSettings.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralAllocateSaleProcessUnit.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralCounterMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralItemCategoryMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralItemMarchandiseBaseCategory.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralItemMarchandiseGroup.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralItemMarchandiseSubCategory.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralItemMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralItemMerchantiseCategory.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralItemMerchantiseDepartment.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralMovementType.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralOperatorRelatedRole.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralPackageType.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralPackingTypeInfo.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralPriceGroup.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralPriceListAndListLine.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralPurchaseGroupMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralTemperatureMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralTransactionMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralCounterPOSAndPosOperator.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralUnits.cs" />
+    <Compile Include="EntityDTO\Inventory_1\GeneralUnitsStorageLocation.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryAttributeMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryBrandMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryDashboardReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryDimensionUnitMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryLablePrintingFormat.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryLocationMaster_1.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryPhysicalStockMasterAndTransaction.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryProductionMasterAndTransaction.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryRecipeFormulaDetails.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryRecipeMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryRecipeMenuCategory.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryStockAdjustment.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryUoMGroupAndDetails.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryUoMMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\InventoryVariationMaster.cs" />
+    <Compile Include="EntityDTO\Inventory_1\OrderingAndDeliveryDay.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\ArticlesAvailabilityReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\InventoryConsumptionDetailDrillReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\InventoryCurrentStockPriceDrillReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\InventoryReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\RetailDrillDownReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\SaleSummaryDrillReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\RetailSalesAndMarginDrillDownReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\SalesPromotion\SalePromotionActivityMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Inventory_1\SalesPromotion\SalePromotionPlanAndDetails.cs" />
+    <Compile Include="EntityDTO\Inventory_1\TillReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\RetailReports.cs" />
+    <Compile Include="EntityDTO\Inventory_1\Report\VendorMasterReport.cs" />
+    <Compile Include="EntityDTO\Inventory_1\VendorMaster.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveCompensatoryWorkDay.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveDeductRuleExceptionForCentre.cs" />
+    <Compile Include="EntityDTO\OnlineEntranceExam\OnlineEntranceExamQuestionBankMaster.cs" />
+    <Compile Include="EntityDTO\OnlineEntranceExam\OnlineExaminationMasterAndCourseApplicable.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamAssignPaperChecker.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamAssignpapersetter.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamExaminationQuePaperDetails.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamStudentApplicable.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExam.cs" />
+    <Compile Include="EntityDTO\OnlineExam\GeneralPaperSetMaster.cs" />
+    <Compile Include="EntityDTO\OnlineExam\GeneralQuestionLevelMaster.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamAllocateSupportStaff.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamExaminationCourseApplicable.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamExaminationMaster.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExaminationHallTicket.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExaminationMaster.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExaminationQuestionPaperSetMaster.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamQuestionBankMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamStudentQuePaperCheckDetails.cs" />
+    <Compile Include="EntityDTO\OnlineExam\OnlineExamSubjectGroupSchedule.cs" />
+    <Compile Include="EntityDTO\OnlineExam\Report\OnlineExamResult.cs" />
+    <Compile Include="EntityDTO\OnlineExam\Report\StudentReportCard.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationDirectorMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationMemberMaster.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseGRNMaster.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseInvoice.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseOrderMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseReplenishment.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseReport.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseRequirementMaster.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseRequisitionMaster.cs" />
+    <Compile Include="EntityDTO\Purchase\PurchaseReturn.cs" />
+    <Compile Include="EntityDTO\Purchase\Report\PurchaseReportMaster.cs" />
+    <Compile Include="EntityDTO\Salary\SalaryAllowanceMaster.cs" />
+    <Compile Include="EntityDTO\Salary\SalaryGradePayMaster.cs" />
+    <Compile Include="EntityDTO\Salary\SalaryPayRules.cs" />
+    <Compile Include="EntityDTO\Salary\SalaryPayScaleMaster.cs" />
+    <Compile Include="EntityDTO\ScholarShip\ScholarShipAllocation.cs" />
+    <Compile Include="EntityDTO\ScholarShip\ScholarShipMaster.cs" />
+    <Compile Include="EntityDTO\StudentAttendance\TimeTableAttendanceMasterAndDetails.cs" />
+    <Compile Include="EntityDTO\Sync\Sync.cs" />
+    <Compile Include="EntityDTO\TaskModel\GeneralRequestMaster.cs" />
+    <Compile Include="EntityDTO\TaskModel\GeneralTaskModel.cs" />
+    <Compile Include="EntityDTO\TaskModel\RequestApprovalFormFieldNameMaster.cs" />
+    <Compile Include="EntityDTO\TaskModel\TaskApprovalFormFieldNameMaster.cs" />
+    <Compile Include="EntityDTO\Utility\GeneralCronJob.cs" />
+    <Compile Include="EntityDTO\Utility\GeneralVerification.cs" />
+    <Compile Include="SearchRequestDTO\Account\GeneralMapTypeOfAccountSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\GeneralTypeOfAccountSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountTradingReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\EnterpriseDrillThroughReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\APIInventorySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\InventoryStoreBillingPrintingInfoSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\PhysicalInventory\PhysicalInventorySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\PhysicalInventory\PurchaseGRNSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\POSCounterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\POS\GeneralCounterPOSApllicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\POS\GeneralTimeZoneMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\POS\RegisterPOSAPISearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\POS\StudyCentreMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\POS\UserMasterAPISearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\Restaurant\InventoryRecipeDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\Restaurant\RestaurantCategoryAndMenuSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\Restaurant\RestaurantKOTOrderDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\Restaurant\RestaurantSettleAndPrintBillSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\Restaurant\RestaurantSettleBillSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\Restaurant\RestaurantTableMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\Restaurant\RestaurantTableOrderSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\SalePromotion\SalePromotionGetOfflineSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\SalePromotion\SalePromotionOnFixAmountPlanSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\SelfServiceQiso\CheckTabRegistrationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\API\SelfServiceQiso\GetIngredientsListSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleAccountProgressTypeMasterAndRuleSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleBillingTransactionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleEnquiryMasterAndAccountDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleGroupMasterAndAllocateEmployeeInGroupSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleJobCreationMasterAndJobAllocationDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleJobUserJobScheduleSheetSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\CRMSaleTargetDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\NotificationTypeMasterAndNotificationTransactionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRMSales\Report\CRMSalesCustomerInformationReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRM\CRMCallEnquiryDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRM\CRMCallerRoleAllocationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRM\CRMCallMasterAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRM\CRMCallTypeSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRM\CRMJobCreationMasterAndAllocationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\CRM\CRMReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeAttendanceReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\EntranceExam\EntranceExamApplicableExamToCourseSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\EntranceExam\EntranceExamInfrastructureDetailSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\EntranceExam\EntranceExamPaymentDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\EntranceExam\EntranceExamScheduleAndScheduleDetailSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\EntranceExam\EntranceExamSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\EntranceExam\EntranceExamValidationParameterApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\EntranceExam\EntranceExamValidationParameterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeAccountTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeLateFeesMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeePredefinedCriteriaParametersSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeReceiptMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeRefundMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeStructureApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeStructureMasterAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fisheries\FishFishermenMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fisheries\FishItemLicenseAllocationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fisheries\FishItemLicenseRateSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fisheries\FishLicenceTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fisheries\FishLicenseRuleMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fisheries\FishReservoirMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralCurrencyMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralHolidaysSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralIndustryMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralMainTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralPeriodTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralPolicyDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralPolicyMaster SearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralPolicyRules SearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralPreTablesForMainTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralQuestionTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralRunningNumbersForAccountSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralServiceMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralTaxGroupMasterSearchRequest.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralTitleMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralUnitMaster.cs" />
+    <Compile Include="EntityDTO\GeneralMaster\GeneralWeekDays.cs" />
+    <Compile Include="EntityDTO\Leave\GeneralLeaveDocument.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveApplication.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveAttendanceExemption.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveAttendanceSpanLock.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveAttendanceSpecialRequest.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveAvailed.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveEmployeeApplicationStatusReport.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveLateMarkRulesDetails.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveManualAttendance.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveMaster.cs" />
+    <Compile Include="EntityDTO\Leave\LeavePost.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveRuleApplicableDetails.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveRuleExemptedEmployee.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveRuleMaster.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveSession.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveShiftAllocateToCentre.cs" />
+    <Compile Include="EntityDTO\Leave\LeaveSummary.cs" />
+    <Compile Include="EntityDTO\MonitoringSystem\AttendenceMonitoringSystem.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationAdmissionTypeMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationAllotAdmissionMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationBranchDetails .cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationBranchMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationCentrewiseDepartment.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationCentrewiseSession.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationCourseYearDetails.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationCourseYearSemester.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationDepartmentBranch.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationDepartmentMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationDivisionMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationElectiveGrpMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationMediumMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSectionDetails.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSectionMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSemesterMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSessionCryrAllocation.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationStandardMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationStreamMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationStudyCentreMaster .cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationStudyCentrePrintingFormat .cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSubElectiveGrpMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSubGrpRuleSessionwise.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSubjectGroupDetails .cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSubjectGrpCombination.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSubjectGrpRule.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSubjectMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSubjectTypeMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationSyllabusGroupMaster.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationUniversityMaster.cs" />
+    <Compile Include="EntityDTO\Student\BranchPromotion.cs" />
+    <Compile Include="EntityDTO\Student\GenerateStudentRollNumber.cs" />
+    <Compile Include="EntityDTO\Student\StudentIdentityCard.cs" />
+    <Compile Include="EntityDTO\Student\StudentMaster.cs" />
+    <Compile Include="EntityDTO\Student\StudentQuickRegistration.cs" />
+    <Compile Include="EntityDTO\Student\StudentReadmission.cs" />
+    <Compile Include="EntityDTO\Student\StudentReport.cs" />
+    <Compile Include="EntityDTO\Student\StudentSectionChangeRequest.cs" />
+    <Compile Include="EntityDTO\StudentRegistration\StudentLogin.cs" />
+    <Compile Include="EntityDTO\StudentRegistration\StudentRegistrationForm.cs" />
+    <Compile Include="EntityDTO\StudentRegistration\StudentRegistrationAcademicApproval.cs" />
+    <Compile Include="EntityDTO\StudentRegistration\StudentSelfRegistration.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolQualificationApplicable.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolQualificationExamMaster.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolQualificationMasterSubject.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolQualifyingExamApplicable.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolQualifyingExamMaster.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolQualifyingExamSubject.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolTemplateApplicable.cs" />
+    <Compile Include="EntityDTO\StudentToolMaster\ToolTemplateRegistration.cs" />
+    <Compile Include="EntityDTO\TaskModel\GeneralTaskReportingDetails.cs" />
+    <Compile Include="EntityDTO\UserMaster\UserMainMenuMaster.cs" />
+    <Compile Include="EntityDTO\UserMaster\UserMaster.cs" />
+    <Compile Include="EntityDTO\UserMaster\UserModuleMaster.cs" />
+    <Compile Include="Enum\ActionModeEnum.cs" />
+    <Compile Include="Enum\ErrorEnum.cs" />
+    <Compile Include="Enum\MonthEnum.cs" />
+    <Compile Include="Enum\RoleEnum.cs" />
+    <Compile Include="Enum\WeekDaysEnum.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountBalancesheetMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountBalancesheetTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountBankDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountBankTransactionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountCategoryMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountCentreOpeningBalanceSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountCentrewiseSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountChequeBookDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountChequeBookMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountFeeCentreWorkingDateSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountGroupMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountHeadMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountIndividualOpeningBalanceSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountNarrationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountPersonalDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountPersonalMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountSessionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountTransactionDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountTransactionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountTransactionTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\AccountVoucherSettingMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountBalancesheetReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountBalancesheetTypeReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountCategoryMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountCentreWiseBalanceSheetReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountDayBookReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountExclusiveToCentreReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountGeneralLedgerReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountGroupMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountHeadMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountProfitAndLossReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountSessionMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountSupplierMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountTrialBalanceReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Account\Report\AccountVoucherSettingMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminMenuApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminRoleApplicableDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminRoleDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminRoleMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminRoleMenuDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminRoleModuleAccessSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminRoleCentreRightsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminSnPostsTransactionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Admin\AdminSnPostsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Dashboard\DashboardSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmpDesignationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmpEmployeeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeAssociatesProfessionalBodiesSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeChildrenDetailsSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeConsultancyMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeContactDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeCourseSubjectTaughtSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeDependentsSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeDocumentRequiredSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeElectionNomineeBodySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeEnterpriseReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeExperienceSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeLanguageDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeOtherCollegeFinancialAssistanceDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeOtherCollegeSpecialLectureDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeePaperPresentSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeePatentReceivedDetailsSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeePersonalDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeePHdGuideRecognisationDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeePictureDetailsSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeePrizesWonDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeProjectWorksMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeQualificationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeServiceDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeShiftApplicableMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeShiftMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\EmployeeSpecializationResearchAreaDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\GeneralExperienceTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\GeneralJobProfileSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\GeneralJobStatusSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Employee\GeneralLevelMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeCriteriaCombinationParameterValueSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeCriteriaMasterAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeCriteriaParametersAndValuesSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Fees\FeeTypeAndSubTypeSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralBoardUniversityMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralCasteMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralCategoryMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralCityMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralCountryMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralEducationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralEducationTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralGroupMasterSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralLanguageMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralLocationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralNationalityMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralRegionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralRelationshipTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralReligionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralSessionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralSupplierMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralTaxMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralTimeSlotMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralTitleMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralUnitMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralUnitTypeSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\GeneralMaster\GeneralWeekDaysSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\HealthCare\HMOPDHealthCentreSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory\InventoryCounterApplicableDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryCounterLogAndLockDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryCounterMasterSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryCustomerMasterSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryDatewiseItemTransactionSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryDayEndJobSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory\InventoryDumpAndShrinkMasterAndDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryEstimationMasterAndDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryInWardMasterAndInWardDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryIssueMasterAndDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryIssueMasterAndIssueDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryItemCategoryMasterSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryItemMasterSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryItemSaleReturnMasterSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryLocationMasterSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryMachineMasterSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryOpeningBalanceSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryPurchaseMasterAndTransactionSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryRateMarkDownMasterAndDetailsSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventorySalesMasterAndTransactionSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\InventoryWeighingDataSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SearchRequestDTO\Inventory\Report\InventoryDailySaleReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory\Report\InventoryReportMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\BOMAndRecipeDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\ECommerceSystemSettingsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralAllocateSaleProcessUnitSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralCounterMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralItemCategoryMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralItemMarchandiseBaseCategorySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralItemMarchandiseGroupSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralItemMarchandiseSubCategorySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralItemMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralItemMerchantiseCategorySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralItemMerchantiseDepartmentSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralMovementTypeSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralOperatorRelatedRoleSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralPackageTypeSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralPackingTypeInfoSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralPriceGroupSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralPriceListAndListLineSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralPurchaseGroupMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralTemperatureMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralTransactionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralCounterPOSAndPosOperatorSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralUnitsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\GeneralUnitsStorageLocationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryAttributeMaster.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryBrandMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryDashboardReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryDimensionUnitMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryLablePrintingFormatSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryLocationMaster_1SearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryPhysicalStockMasterAndTransactionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryProductionMasterAndTransactionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryRecipeFormulaDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryRecipeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryRecipeMenuCategorySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryStockAdjustmentSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryUoMGroupAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryUoMMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\InventoryVariationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\OrderingAndDeliveryDaySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\ArticlesAvailabilityReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\InventoryConsumptionDetailDrillReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\InventoryCurrentStockPriceDrillReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\InventoryReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\RetailDrillDownReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\SaleSummaryDrillReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\RetailSalesAndMarginDrillDownReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\SalesPromotion\SalePromotionActivityMasterAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\SalesPromotion\SalePromotionPlanAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\TillReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\RetailReportsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\Report\VendorMasterReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Inventory_1\VendorMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\DiscrepancySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\GeneralLeaveDocumentSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveApplicationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveAttendanceExemptionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveAttendanceSpanLockSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveAttendanceSpecialRequestSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveAvailedSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveCompensatoryWorkDaySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveDeductRuleExceptionForCentreSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveEmployeeApplicationStatusReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveLateMarkRulesDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveManualAttendanceSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeavePostSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveRuleApplicableDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveRuleExemptedEmployeeSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveRuleMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveSessionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveShiftAllocateToCentreSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Leave\LeaveSummarySearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\MonitoringSystem\AttendenceMonitoringSystemSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineEntranceExam\OnlineEntranceExamQuestionBankMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineEntranceExam\OnlineExaminationMasterAndCourseApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamAssignPaperCheckerSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamAssignpapersetterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamExaminationQuePaperDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamStudentApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\GeneralPaperSetMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\GeneralQuestionLevelMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamAllocateSupportStaffSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamExaminationCourseApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamExaminationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExaminationHallTicketSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExaminationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExaminationQuestionPaperSetMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamQuestionBankMasterAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamStudentQuePaperCheckDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\OnlineExamSubjectGroupScheduleSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\Report\OnlineExamResultSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\OnlineExam\Report\StudentReportCardSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationAdmissionTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationAllotAdmissionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationBranchDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationBranchMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationCentrewiseDepartmentSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationCentrewiseSessionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationCourseYearDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationCourseYearSemesterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationDepartmentBranchSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationDepartmentMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationDirectorMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationDivisionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationElectiveGrpMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationMediumMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationMemberMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSectionDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSectionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSemesterMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSessionCryrAllocationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationStandardMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationStreamMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationStudyCentreMasterSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationStudyCentrePrintingFormatSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSubElectiveGrpMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSubGrpRuleSessionwiseSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSubjectGroupDetailsSearchRequest .cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSubjectGrpCombinationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSubjectGrpRuleSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSubjectMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSubjectTypeMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationSyllabusGroupMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Organisation\OrganisationUniversityMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseGRNMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseInvoiceSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseOrderMasterAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseReplenishmentSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseRequirementMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseRequisitionMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\PurchaseReturnSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Purchase\Report\PurchaseReportMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Salary\SalaryAllowanceMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Salary\SalaryGradePayMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Salary\SalaryPayRulesSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Salary\SalaryPayScaleMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\ScholarShip\ScholarShipAllocationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\ScholarShip\ScholarshipMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentAttendance\TimeTableAttendanceMasterAndDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentRegistration\StudentRegistrationFormDateSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentRegistration\StudentRegistrationAcademicApprovalSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\BranchPromotionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\GenerateStudentRollNumberSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\StudentIdentityCardSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\StudentMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\StudentQuickRegistrationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\StudentReadmissionSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\StudentReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Student\StudentSectionChangeRequestSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentRegistration\StudentSelfRegistrationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolQualificationApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolQualificationExamMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolQualificationMasterSubjectSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolQualifyingExamApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolQualifyingExamMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolQualifyingExamSubjectSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolTemplateApplicableSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\StudentToolMaster\ToolTemplateRegistrationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Sync\SyncSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\TaskModel\GeneralRequestMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\TaskModel\GeneralTaskModelSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\TaskModel\GeneralTaskReportingDetailsSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\TaskModel\RequestApprovalFormFieldNameMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\TaskModel\TaskApprovalFormFieldNameMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Utility\GeneralCronJobSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Utility\GeneralVerificationSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\UserMaster\UserDetailSearchRequest.cs" />
+    <Compile Include="EntityDTO\UserMaster\UserDetail.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchRequestDTO\UserMaster\UserMainMenuMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\UserMaster\UserMasterSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\UserMaster\UserModuleMasterSearchRequest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\AMS.Base.DTO\AMS.Base.DTO.csproj">
+      <Project>{a574a086-4b01-4dcb-9a06-74b29b8c0b5c}</Project>
+      <Name>AMS.Base.DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EntityDTO\Account\Report\vssver.scc" />
+    <None Include="EntityDTO\API\PhysicalInventory\vssver.scc" />
+    <None Include="EntityDTO\API\POS\vssver.scc" />
+    <None Include="EntityDTO\API\Restaurant\vssver.scc" />
+    <None Include="EntityDTO\API\SalePromotion\vssver.scc" />
+    <None Include="EntityDTO\API\SelfServiceQiso\vssver.scc" />
+    <None Include="EntityDTO\API\vssver.scc" />
+    <None Include="EntityDTO\CRMSales\Report\vssver.scc" />
+    <None Include="EntityDTO\CRMSales\vssver.scc" />
+    <None Include="EntityDTO\Dashboard\vssver.scc" />
+    <None Include="EntityDTO\Employee\vssver.scc" />
+    <None Include="EntityDTO\EntranceExam\vssver.scc" />
+    <None Include="EntityDTO\Fisheries\vssver.scc" />
+    <None Include="EntityDTO\HealthCare\vssver.scc" />
+    <None Include="EntityDTO\Inventory\Report\InventoryDailySaleReport\vssver.scc" />
+    <None Include="EntityDTO\Inventory\Report\vssver.scc" />
+    <None Include="EntityDTO\Inventory\vssver.scc" />
+    <None Include="EntityDTO\Inventory_1\Report\vssver.scc" />
+    <None Include="EntityDTO\Inventory_1\SalesPromotion\vssver.scc" />
+    <None Include="EntityDTO\Inventory_1\vssver.scc" />
+    <None Include="EntityDTO\Leave\vssver.scc" />
+    <None Include="EntityDTO\MonitoringSystem\vssver.scc" />
+    <None Include="EntityDTO\OnlineEntranceExam\vssver.scc" />
+    <None Include="EntityDTO\OnlineExam\Report\vssver.scc" />
+    <None Include="EntityDTO\OnlineExam\vssver.scc" />
+    <None Include="EntityDTO\Purchase\Report\vssver.scc" />
+    <None Include="EntityDTO\Purchase\vssver.scc" />
+    <None Include="EntityDTO\Salary\vssver.scc" />
+    <None Include="EntityDTO\ScholarShip\vssver.scc" />
+    <None Include="EntityDTO\Student\vssver.scc" />
+    <None Include="EntityDTO\Sync\vssver.scc" />
+    <None Include="EntityDTO\TaskModel\vssver.scc" />
+    <None Include="EntityDTO\vssver.scc" />
+    <None Include="Enum\vssver.scc" />
+    <None Include="SearchRequestDTO\Account\Report\vssver.scc" />
+    <None Include="SearchRequestDTO\API\PhysicalInventory\vssver.scc" />
+    <None Include="SearchRequestDTO\API\POS\vssver.scc" />
+    <None Include="SearchRequestDTO\API\Restaurant\vssver.scc" />
+    <None Include="SearchRequestDTO\API\SalePromotion\vssver.scc" />
+    <None Include="SearchRequestDTO\API\SelfServiceQiso\vssver.scc" />
+    <None Include="SearchRequestDTO\API\vssver.scc" />
+    <None Include="SearchRequestDTO\CRMSales\Report\vssver.scc" />
+    <None Include="SearchRequestDTO\CRMSales\vssver.scc" />
+    <None Include="SearchRequestDTO\Dashboard\vssver.scc" />
+    <None Include="SearchRequestDTO\Employee\vssver.scc" />
+    <None Include="SearchRequestDTO\EntranceExam\vssver.scc" />
+    <None Include="SearchRequestDTO\Fisheries\vssver.scc" />
+    <None Include="SearchRequestDTO\HealthCare\vssver.scc" />
+    <None Include="SearchRequestDTO\Inventory\Report\InventoryDailySaleReport\vssver.scc" />
+    <None Include="SearchRequestDTO\Inventory\Report\vssver.scc" />
+    <None Include="SearchRequestDTO\Inventory\vssver.scc" />
+    <None Include="SearchRequestDTO\Inventory_1\Report\vssver.scc" />
+    <None Include="SearchRequestDTO\Inventory_1\SalesPromotion\vssver.scc" />
+    <None Include="SearchRequestDTO\Inventory_1\vssver.scc" />
+    <None Include="SearchRequestDTO\Leave\vssver.scc" />
+    <None Include="SearchRequestDTO\MonitoringSystem\vssver.scc" />
+    <None Include="SearchRequestDTO\OnlineEntranceExam\vssver.scc" />
+    <None Include="SearchRequestDTO\OnlineExam\Report\vssver.scc" />
+    <None Include="SearchRequestDTO\OnlineExam\vssver.scc" />
+    <None Include="SearchRequestDTO\Purchase\Report\vssver.scc" />
+    <None Include="SearchRequestDTO\Purchase\vssver.scc" />
+    <None Include="SearchRequestDTO\Salary\vssver.scc" />
+    <None Include="SearchRequestDTO\ScholarShip\vssver.scc" />
+    <None Include="SearchRequestDTO\Student\vssver.scc" />
+    <None Include="SearchRequestDTO\Sync\vssver.scc" />
+    <None Include="SearchRequestDTO\TaskModel\vssver.scc" />
+    <None Include="SearchRequestDTO\vssver.scc" />
+    <None Include="vssver.scc" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

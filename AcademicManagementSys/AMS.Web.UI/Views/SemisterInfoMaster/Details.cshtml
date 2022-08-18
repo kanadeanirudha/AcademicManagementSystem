@@ -1,0 +1,54 @@
+﻿@model AMS.Web.UI.Models.SemisterInfoMaster.SemisterInfoMaster
+@{
+    ViewBag.Title = "Details";
+}
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Semister Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                              <legend>Details</legend>
+                                                            
+                                  <div class="form-group">
+                            <label class="col-lg-2 control-label" for="disabledInput">Semister Name</label>
+                            <div class="col-lg-2">
+                                 <div class="display-field"><span class="form-control">@Model.SemisterName</span></div>
+                            </div>
+                        </div>
+                                 <br />
+
+                             <div class="form-group">
+                            <label class="col-lg-2 control-label" for="disabledInput">Semister Code</label>
+                            <div class="col-lg-2">
+                               <div class="display-field"><span class="form-control">@Model.SemisterCode</span></div>
+                            </div>
+                        </div>
+
+                               <div class="form-group">
+                            <label class="col-lg-2 control-label" for="disabledInput">Semister Type</label>
+                            <div class="col-lg-2">
+                               <div class="display-field"><span class="form-control">@Model.SemisterType</span></div>
+                            </div>
+                        </div>
+
+                            
+                                 <br />
+                            </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

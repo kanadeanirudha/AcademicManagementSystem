@@ -1,0 +1,30 @@
+﻿@model AMS.ViewModel.GeneralSessionMasterViewModel
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<div id="update-message" class="error invisible"></div>
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.ID)
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.SessionName)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.SessionName)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.SessionOrder)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.SessionOrder)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.CurrentFlag)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.CurrentFlag)
+</div>
+
+

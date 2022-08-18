@@ -1,0 +1,124 @@
+﻿@model AMS.Web.UI.Models.SubjectMaster.SubjectMaster
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+             <div class="navbar navbar-default bootstrap-admin-navbar-thin">
+            <ol class="breadcrumb bootstrap-admin-breadcrumb">
+                <li>
+                    <a href="#">Course Planning</a>
+                </li>
+                <li>
+                    <a href="#">Add Subject List</a>
+                </li>
+                @*<li><a href="#">Add General Course Details</a></li>*@
+                 <li class="active">Subject Master</li>
+            </ol>
+        </div>
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="University-muted bootstrap-admin-box-title">Subject Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <h4>Are you sure you want to delete this?</h4>
+                        <fieldset>
+                            <legend>Subject Details</legend>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.UniversityID)</label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+
+                                        <span class="form-University">@Model.UniversityID</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.Description)
+                                </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.Description</span>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.SubjectCode)</label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+
+                                        <span class="form-University">@Model.SubjectCode</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.SubjectIntroYear)
+                                </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.SubjectIntroYear</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.LanguageID)</label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.LanguageID</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.PaperCode)
+                                </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <span class="form-University">@Model.PaperCode</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                           <div class="form-group">
+                               <div class="editor-label col-lg-2 control-label">
+                                   
+                                </div>
+                            <div>
+                                    <p>
+                                        <input type="submit"  class="btn btn-sm btn-primary" value="Delete" />
+                                    </p>
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    <p>
+      @*  <input type="submit" value="Delete" />*@
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

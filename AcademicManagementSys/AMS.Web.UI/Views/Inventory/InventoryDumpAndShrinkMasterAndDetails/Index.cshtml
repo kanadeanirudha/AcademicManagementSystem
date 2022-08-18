@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AMS.ViewModel.InventoryDumpAndShrinkMasterAndDetailsViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Inventory/InventoryDumpAndShrinkMasterAndDetails.js")" type="text/javascript"></script>
+<div id="ListViewModel"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventoryDumpAndShrinkMasterAndDetails.LoadList();
+    });
+</script>
+

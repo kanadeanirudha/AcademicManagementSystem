@@ -1,0 +1,99 @@
+﻿@model AMS.ViewModel.FeeReceiptMasterViewModel
+
+@Html.HiddenFor(m => m.FeeStructureMasterID)
+@Html.HiddenFor(m => m.AccBalanceSheetID)
+@Html.HiddenFor(m => m.AccountSessionID)
+@Html.HiddenFor(m => m.FeeReceiptMasterHistoryID)
+@Html.HiddenFor(m => m.StudentID)
+
+@Html.HiddenFor(m => m.PersonID)
+@Html.HiddenFor(m => m.StageSequenceNumber)
+@Html.HiddenFor(m => m.TaskNotificationMasterID)
+@Html.HiddenFor(m => m.TaskNotificationDetailsID)
+@Html.HiddenFor(m => m.GeneralTaskReportingDetailsID)
+@Html.HiddenFor(m => m.IsLastRecord)
+
+
+
+<div class="nonboxy-widget">
+    <div id="upload-choices" style="margin-left: 5%;">
+        @if (Model.FeeStructureCriteriaApprovalList.Count != 0)
+        {
+            <img alt="Field for image cutting" class="my-picture" style="height:150px;width:150px;" id="preview" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.FeeStructureCriteriaApprovalList[0].StudentPhoto, 0, Convert.ToInt32(Model.FeeStructureCriteriaApprovalList[0].StudentPhotoFileSize))" />
+        }
+        else
+        {
+            <img alt="Field for image cutting" class="my-picture" style="height: 150px; width: 150px;" id="preview" src="~/Content/images/Avatar.png" />
+        }
+        <table class="table">
+            <tr>
+                <td class="size" width="30%;"><b>Name </b></td>
+                <td>
+                    <b>@Html.DisplayFor(model => model.StudentName, new { style = "font-Weight:Bold;" })</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="size"><b>Section </b></td>
+                <td>
+                    <b>@Html.DisplayFor(model => model.SectionDescription, new { style = "font-Weight:Bold;" })</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="size"><b>Academic Year </b></td>
+                <td>
+                    <b>@Html.DisplayFor(model => model.AdmitAcademicYear, new { style = "font-Weight:Bold;" })</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="size"><b>Admission Type </b></td>
+                <td>
+                    <b>@Html.DisplayFor(model => model.AdmissionPattern, new { style = "font-Weight:Bold;" })</b>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br /><br />
+    <br /><br />
+    <br /><br />
+    <br /><br />
+    <br /><br />
+
+    <div id="tblFeeStructure" style="position: relative; overflow: visible; transform: translateZ(0px);">
+        <div class="row-fluid">
+            <div class="span12">
+                <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                    <div class="table_content">
+                        <table id="tblData1" class="table user-tbl " style=" border: 1px solid #dddddd;width:1000px; margin-left: 1%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left; width: 20%">Installment</th>
+                                    <th style="text-align: left; width: 20%">Amount</th>
+                                    <th style="text-align: center; width: 20%">Due Date</th>
+                                    <th style="text-align: center; width: 20%">Paid Date</th>
+                                    <th style="text-align: center; width: 10%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody style=" overflow: auto">
+                                @for (int i = 0; i < Model.FeeStructureMasterList.Count; i++)
+                                {
+
+                                    <tr style="height: 2px;">
+                                        <td style="text-align: left; width: %">@Convert.ToInt32(i + 1) </td>
+                                        <td style="text-align: left; width: %">@Model.FeeStructureMasterList[i].FeeSubTypeName</td>
+                                        <td style="text-align: center; width: %">@Math.Round(Model.FeeStructureMasterList[i].FeeSubTypeAmount, 2)</td>
+                                        <td style="text-align: left; width: %">@Model.FeeStructureMasterList[i].FeeSubTypeName</td>
+                                        <td style="text-align: center; width: %">@Math.Round(Model.FeeStructureMasterList[i].FeeSubTypeAmount, 2)</td>
+                                    </tr>
+                                }
+                                <tr style="height: 2px;">
+                                  
+                                </tr>
+                            </tbody>
+                        </table>
+
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

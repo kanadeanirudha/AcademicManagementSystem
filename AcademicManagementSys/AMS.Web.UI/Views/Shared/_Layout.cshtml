@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    @* <link rel="icon" href="demo_icon.gif" type="image/gif" sizes="16x16">*@
+    @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "" && Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ISProjectEnvoirnmentLengthLong"]) == "1")
+    {
+        <title>
+            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+        </title>
+    }
+    else
+    {
+        <title>
+            @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "")
+            {
+                @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+            }
+            else
+            {
+                @Resources.ProjectEnvoirnment_BCS
+            }
+        </title>
+
+    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- styles -->
+    <link rel="shortcut icon" type="image/x-icon" href="..//Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectFaviconIcon"])">
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/styles.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/bootstrap-responsive.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/icons-sprite.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/themes.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/colorbox/colorbox.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/multiple-select.css")" rel="stylesheet" type="text/css" />
+
+
+    <link href="@Url.Content("~/Content/bootstrap/dataTables.bootstrap.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery/jquery-2.1.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/plugin/validate/jquery.validate-1.13.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/plugin/bootstrap/bootstrap-3.2.0.min.js")" type="text/javascript"></script>
+    @*  <script src="@Url.Content("~/Scripts/plugin/bootstrap/dataTables.bootstrap.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery.dataTables.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/plugin/colorbox/jquery.colorbox.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>
+
+    <style>
+        .paging_full_numbers .ui-button {
+            padding: 2px 6px;
+            margin: 0;
+            cursor: pointer;
+            * cursor: hand;
+        }
+
+        .columnDisplay {
+            display: none;
+        }
+
+        .rceDataTable * {
+            box-sizing: initial;
+        }
+    </style>
+    @Html.Partial("_Header")
+
+    @Html.Partial("_Sidebar")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            AMSValidation.Initialize();
+
+            $(function () {
+
+                setNavigation();
+            });
+
+            $(".side-nav li ul").hide();
+
+            function setNavigation() {
+
+                var href = '';
+                var path = window.location.pathname;
+                //  path = path.replace(/\/$/, "");
+                //  path = decodeURIComponent(path);
+
+                $(".side-nav li ul li a").each(function () {
+
+                    href = $(this).attr("href");
+
+                    //if (path.substring(0, href.length) === href) {
+                    if (path === href) {
+
+                        $(this).closest('li ul li').addClass('active');
+
+                        $(this).closest("ul").css("display", "block");
+                    }
+                });
+                //  _Header.LoadMenuWithActiveTab(path);
+            }
+
+            //window.onbeforeunload = function (event) {
+
+            //    var message = 'Forcefully';
+            //    $.ajax(
+            //             {
+            //                 cache: false,
+            //                 type: "Post",
+            //                 data: { LogoutType: message },
+
+            //                 dataType: "html",
+            //                 url: '/Account/LogOff',
+            //                 success: function (result) {
+            //                     //Rebind Grid Data
+            //                     // $('#ListViewModel').html(result);
+            //                     alert("dfas");
+            //                     FormsAuthentication.SignOut();
+            //                 }
+            //             });
+            //};
+        });
+    </script>
+</head>
+<body onclick="clicked=true;">
+
+    <noscript>
+        <div class="message" style="color: yellow; font-weight: bold; width: 100%; background: black;">
+
+            <p>Your current browser does not have JavaScript enabled or you are using a browser that does not support JavaScript. In order to use <span style="color: white;">sirtune.com</span> efficiently, you must enable JavaScript or use a browser that supports JavaScript.</p>
+            <p>Please enable JavaScript in your browser to feel through the enhanced features of this website.</p>
+            <p>Avoid using IE6 to get best browsing experience.</p>
+        </div>
+    </noscript>
+
+    <div id="ajaxLoading"></div>
+
+    <!--Top Navigation Start -->
+    <!--Top Navigation End -->
+    <!--Sidebar(Left/Right Menu) Start -->
+    <!--Sidebar(Left/Right Menu) End -->
+    <!-- Middle Content Start -->
+    <div id="main-content">
+
+        @RenderBody()
+
+
+    </div>
+    <!-- Middle Content End -->
+
+    <footer class="navbar navbar-fixed-bottom">
+        <div class="navbar-inner top-nav" style="">
+
+            <div class="container" style="width: auto">
+
+                <div class="pull-right smalllogo">
+                    <a target="_blank" href="http://bhumati.com/">
+                        <img style="height: 45px; background: #fff; margin-right: 19%" src="../Content/images/logo.png">
+                    </a>
+                </div>
+
+                <p style="height: 7px"></p>
+                <div style="color: #ffffff; font-weight: bold; text-transform: none">&nbsp; &nbsp; &copy; <a target="_blank" href="http://bhumati.com/" style="color: #fff">2015 Bhumati Consultancy Services </a></div>
+                <p></p>
+
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="@Url.Content("~/Scripts/admin/custom.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/admin/accordion.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/plugin/nicescroll/jquery.nicescroll.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+    @*<script src="/Scripts/jquery.signalR-2.2.1.js"></script>*@
+    <!--Reference the autogenerated SignalR hub script. -->
+    @*<script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
+        $(function () {
+            // Declare a proxy to reference the hub.
+
+            var notifications = $.connection.notificationHub;
+
+            //debugger;
+            // Create a function that the hub can call to broadcast messages.
+            notifications.client.updateMessages = function () {
+                getNotificationCount();
+            };
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                getNotificationCount();
+            }).fail(function (e) {
+                alert(e);
+            });
+        });
+
+        function getNotificationCount() {
+            $.ajax({
+                url: '/Home/GetNotificationCount',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'JSON'
+            }).success(function (result) {
+                if (result[0]) {
+                    $('#NotiCount').html(result[0].NotificationCount);
+                } else {
+                    $('#NotiCount').html(0);
+                }
+            }).error(function () {
+            });
+        }
+    </script>*@
+
+
+
+    <div style="padding-left: 0px; padding-right: 1px; width: 8px; z-index: 9002; position: absolute; top: 1px; left: 201.5px; height: 572px; cursor: -moz-grab; display: block; opacity: 0;"
+         id="ascrail2000">
+        <div style="position: relative; top: 0px; float: right; width: 5px; height: 326px; background-color: rgb(47, 46, 46); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 5px;">
+        </div>
+    </div>
+
+
+</body>
+
+
+</html>

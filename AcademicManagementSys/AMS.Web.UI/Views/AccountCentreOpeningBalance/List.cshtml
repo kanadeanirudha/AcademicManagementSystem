@@ -1,0 +1,623 @@
+﻿@*@model AMS.ViewModel.AccountCentreOpeningBalanceViewModel
+
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnGetColumnData.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>@Resources.MainMenu_Account<span class="divider">»</span></li>
+        <li class="active">@Resources.FormName_CentreOpeningBalance</li>
+    </ul>
+    <ul class="breadcrumb" style="height: 30px;">
+
+        <li>
+            <h5>&nbsp;&nbsp;&nbsp;@Resources.TableHeaders_AccountType :</h5>
+        </li>
+        <li>
+            
+        @Html.DropDownListFor(m => m.SelectedAccountType, Model.ListAccountTypeItems, new { @class = "form-control chosen-select", style = "font-weight:bold;" })
+            </li>
+        <li>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  <span style="font-size: 12px; font-weight: bold;">@Resources.TableHeaders_Session &nbsp;: &nbsp;&nbsp;</span>
+            @if (Model.SessionName != "Session not defined !")
+            {
+                <b>@Html.DisplayFor(m => m.SessionName, new { style = "font-size: 12px;" })</b>
+            }
+            else
+            {
+                <b style="color: red;">@Html.DisplayFor(m => m.SessionName, new { style = "font-size: 12px; " })</b>
+            }
+        </li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp; 
+            <input type="button" value=@Resources.GlobalProperties_ShowList style="margin-bottom: 9px;" class="btn btn-primary" id="btnShowList" />
+        </li>
+    </ul>
+    <div id="SuccessMessage" style="display: none; color: #000;" class="alert"></div>
+    @Html.HiddenFor(m => m.SessionID)
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-block">
+                <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+                <div class="widget-head">
+                    <script src="~/Scripts/fnGetColumnData.js"></script>
+                    <h5 id="hFive"><i class="black-icons users"></i>&nbsp; @Resources.FormName_CentreOpeningBalance</h5>
+                    <div class="pull-right" style="margin: -24px 60px 0px 10px;">
+                        <div class="input-append" id="" style="float: right;">
+                            <div style="display: none;">
+                                <input type="hidden" name="_method" value="POST">
+                            </div>
+                            <div>
+                                <select name="data[User][searchby]" class="" id="showrecord" tabindex="16">
+                                    <option value="10">@Resources.GlobalProperties_ShowRecords</option>
+                                    <option value="10">@Resources.GlobalProperties_10</option>
+                                    <option value="50">@Resources.GlobalProperties_50</option>
+                                    <option value="100">@Resources.GlobalProperties_100</option>
+                                </select>
+                                &nbsp;&nbsp;
+                                <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearch">
+                                <button class="btn" type="button" id="searchBtn"><i class="icon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center; width: 300px">@Resources.TableHeaders_AccountName</th>
+                                            <th style="text-align: center; width: 150px">@Resources.TableHeaders_PersonType</th>
+                                            <th style="text-align: center; width: 300px; line-height: 40px">@Resources.TableHeaders_OpeningBalance</th>
+                                            <th style="text-align: center">@Resources.TableHeaders_HeadCode</th>
+                                            <th style="text-align: center; line-height: 40px">@Resources.TableHeaders_DebitCredit</th>
+                                            <th style="display: none; width: 0px">@Resources.TableHeaders_ID</th>
+
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divSubmit" >
+        <ul class="breadcrumb" style="text-align: right">
+            <li>
+                <input type="button" id="CreateAccCentreOpeningBalanceRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+            </li>
+        </ul>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+        AccountCentreOpeningBalance.Initialize();
+        var a = null;
+        oTable = $('#myDataTable').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "AccountCentreOpeningBalance/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "SelectedBalanceSheet", "value": $("#selectedBalsheetID").val() }),
+                aoData.push({ "name": "SelectedAccountType", "value": $('#SelectedAccountType :selected').val() });
+                aoData.push({ "name": "SelectedSessionID", "value": $('#SessionID').val() });
+            },
+            "columnDefs": [
+                {
+                    "visible": true, "targets": 0,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[0] + "</p>";
+                        return result;
+                    }
+                },
+                {
+                    "visible": true, "targets": 1,
+                },
+
+               {
+                   "visible": false, "targets": 3,
+               },
+                {
+                    "targets": 2,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        // This column shows the Opening Balance textbox.Its for input purpose
+                        if ($('#SelectedAccountType').val() == 0) {
+
+                            var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<input type='text' style=' font-weight: bold;text-align:right;' class='myClass' value=" + data[6] + " id='txtOpeningBal' />";
+                        }
+                        else if ($('#SelectedAccountType').val() == 1) {
+                            var AccBalsheetID = $("#selectedBalsheetID").val();
+                            var AccBalsheetName = $('#BalanceSheetType').text();
+                            var result = '@Html.ActionLink("Create", "IndividualOpeningBalance", new { IDs = "ID1" }, new { @class = "ajax  cboxElement" })';
+                            var result = result.replace("ID1", AccBalsheetID + "~" + data[1] + "~" + data[5] + "~" + data[0].replace(/ /g, ':') + "~" + AccBalsheetName.replace(/ /g, ':'));
+
+                            var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.replace("Create", "<input type='text' readonly='readonly' class='myClass' style=' font-weight: bold;text-align:right;'  tag=" + data[6] + "  value=" + data[6] + " id='txtOpeningBal' />");
+                        }
+
+                        return result;
+
+
+                    }
+                },
+                {
+                    "targets": 4,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        if ($('#SelectedAccountType').val() == 0) {
+                            //This column shows Debit/Credit Dropdown list
+                            if (data[9] == null) {
+
+                                var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" style="width:90px"><option value="0">Cr</option><option value="1">Dr</option></select>';
+                            }
+                            // if data[9] is smaller than 0 Credit Flag will be selected
+                            if (data[9] < 0) {
+                                var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" style="width:90px"><option selected="selected" value="0">Cr</option><option value="1">Dr</option></select>';
+                            }
+                            // if data[9] is greater than 0 Debit Flag will be selected
+                            if (data[9] >= 0) {
+                                var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" style="width:90px"><option value="0">Cr</option><option selected="selected" value="1">Dr</option></select>';
+                            }
+                        }
+                        else if ($('#SelectedAccountType').val() == 1) {
+                            if (data[9] == null || data[9] == 0) {
+
+                                var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" disabled style="width:90px"><option value="0"></option><option value="1"></option></select>';
+                            }
+                            // if data[9] is smaller than 0 Credit Flag will be selected
+                            if (data[9] < 0) {
+                                var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" disabled style="width:90px"><option selected="selected" value="0">Cr</option></select>';
+                            }
+                            // if data[9] is greater than 0 Debit Flag will be selected
+                            if (data[9] > 0) {
+                                var result = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '<select id="combobox" disabled style="width:90px"><option selected="selected" value="1">Dr</option></select>';
+                            }
+                        }
+                        return result;
+
+
+                    }
+                },
+                 {
+                     "visible": true, "targets": 5,
+                     "bSortable": false,
+                     "sClass": "columnDisplay", "aTargets": [5],
+                     "targets": 5,
+                     "data": null,
+                     "render": function (data, type, full, meta) {
+                         //This column is hidden and used to compare the data for Insert/Update
+                         if (data[9] >= 0) {
+                             var result = "<input type='checkbox' style='display:none'  tag=" + data[4] + "  value=" + data[4] + '~' + data[5] + "~" + data[6] + "~" + 1 + " id='txtOpeningBal' />";
+                         }
+                         else if (data[9] < 0) {
+                             var result = "<input type='checkbox' style='display:none'  tag=" + data[4] + "  value=" + data[4] + '~' + data[5] + "~" + data[6] + "~" + 0 + " id='txtOpeningBal' />";
+                         }
+                         return result;
+
+
+                     }
+                 }
+
+
+
+            ],
+            "order": [[0, 'asc']],
+            "drawCallback": function (settings) {
+                debugger;
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                var selectedBalncesheet = $('#SelectedBalanceSheet').val();
+                api.column(3, { page: 'current' }).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="5" style="font-weight:bold;background-color:rgba(128,128,128,0.2);color:#000;font-size:12px;font-family: verdana;">' + group +
+                            '</td>'// <td style="text-align:center"><a class="ajax cboxElement" href="/AccountCentreOpeningBalance/Create?GroupVal=' + GroupID[i++] + ":" + group.replace(/ /g, "~") + ":" + selectedBalncesheet + '"><i class="icon-plus" style="margin-left: 7px;"></i></a></td></tr>'
+                        );
+
+                        last = group;
+
+                    }
+                });
+            }
+        });
+
+
+        $('#myDataTable tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === 3 && currentOrder[3] === 'asc') {
+                table.order([3, 'desc']).draw();
+            }
+            else {
+                table.order([3, 'asc']).draw();
+            }
+        });
+    });
+
+    function ReloadAccountCentreOpeningBalance() {
+        oTable = $('#myDataTable').dataTable();
+        oTable.fnReloadAjax('AccountCentreOpeningBalance/AjaxHandler');
+    };
+
+</script>
+
+<style type="text/css">
+    .columnDisplay {
+        display: none;
+    }
+</style>*@
+
+
+
+
+@model AMS.ViewModel.AccountCentreOpeningBalanceViewModel
+
+<style>
+    .columnDisplay {
+        display: none;
+    }
+    .header-inner {
+        margin-bottom: 0;
+        padding: 0;
+    }
+    .card .card-header:not(.ch-alt) {
+        padding: 45px 25px;
+    }
+
+    /*.form-control[readonly], fieldset[disabled] .form-control {
+        background-color: #fff;
+        opacity: 1;
+    }*/
+</style>
+
+@*<div class="container">*@
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormName_CentreOpeningBalance</h2>
+    </div>
+
+    <div class="card">
+        @*<div class="card-header"></div>*@
+        <div class="card-body card-padding">
+            <div class="row">
+                
+                <div id="displayErrorMessage" role="alert" hidden class="alert" style="width:50%; margin-left:auto; margin-right:auto;">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <p id="messageContent"></p>
+                </div>
+
+
+                <div class="col-sm-4">
+                    <div class="form-group fg-line select">
+                        @Html.DropDownListFor(m => m.SelectedAccountType, Model.ListAccountTypeItems, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-2" style="margin-top:20px;">
+                    <span style="font-weight: bold;">@Resources.TableHeaders_Session &nbsp;: &nbsp;</span>
+                    @if (Model.SessionName != "Session not defined !")
+                    {
+                        <b>@Html.DisplayFor(m => m.SessionName, new { })</b>
+                    }
+                    else
+                    {
+                        <b style="color: red;">@Html.DisplayFor(m => m.SessionName, new { })</b>
+                    }
+                </div>
+
+                    <div class="col-sm-3" style="margin-top:10px;">
+                        <button type="button" class="btn btn-primary" id="btnShowList">@Resources.GlobalProperties_ShowList</button>
+
+                    </div>
+                </div>
+        </div>
+        @Html.HiddenFor(m => m.SessionID)
+
+
+        <div class="bootgrid-header container-fluid" id="data-table-command-header">
+            <div class="row">
+                <div class="col-sm-12 actionBar">
+                    <div class="search form-group">
+                        <div class="input-group">
+                            <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                            <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                        </div>
+                    </div>
+                    <div class="actions btn-group">
+                        <div class="dropdown btn-group">
+                            <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                                <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                            </button>
+                            <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                                <li class="active" aria-selected="true">
+                                    <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                                </li>
+                                <li aria-selected="false">
+                                    <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                                </li>
+                                <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown btn-group">
+                            <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                                <span class="dropdown-text">
+                                    <span class="zmdi icon zmdi-view-module"></span>
+                                </span><span class="caret"></span>
+                            </button>
+                            <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+
+                                <li>
+                                    <div class="checkbox">
+                                        <label class="dropdown-item" aria-disabled="false">
+                                            <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="Account">
+                                            @Resources.TableHeaders_AccountName<i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <div class="checkbox">
+                                        <label class="dropdown-item" aria-disabled="false">
+                                            <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="AccountCode">
+                                            @Resources.TableHeaders_PersonType<i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="checkbox">
+                                        <label class="dropdown-item" aria-disabled="false">
+                                            <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name="CentreAndBalanceSheet">
+                                            @Resources.TableHeaders_OpeningBalance<i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <div class="checkbox">
+                                        <label class="dropdown-item" aria-disabled="false">
+                                            <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="4" name="Action">
+                                            @Resources.TableHeaders_DebitCredit<i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+            <thead>
+                <tr>
+                    <th>@Resources.TableHeaders_AccountName</th>
+                    <th>@Resources.TableHeaders_PersonType</th>
+                    <th>@Resources.TableHeaders_OpeningBalance</th>
+                    <th>@Resources.TableHeaders_HeadCode</th>
+                    <th>@Resources.TableHeaders_DebitCredit</th>
+                    <th>@Resources.TableHeaders_ID</th>
+
+                </tr>
+            </thead>
+        </table>
+
+        <div class="card-header" id="divSubmit">
+            <ul class="header-inner pull-left">
+                <li>
+                    <input type="button" id="CreateAccCentreOpeningBalanceRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    
+
+@*</div>*@
+
+
+
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnGetColumnData.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+        AccountCentreOpeningBalance.Initialize();
+        var a = null;
+        oTable = $('#myDataTable').DataTable({
+            "bServerSide": true,
+            "sAjaxSource": "AccountCentreOpeningBalance/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "SelectedBalanceSheet", "value": $("#selectedBalsheetID").val() }),
+                aoData.push({ "name": "SelectedAccountType", "value": $('#SelectedAccountType :selected').val() });
+                aoData.push({ "name": "SelectedSessionID", "value": $('#SessionID').val() });
+            },
+            "columnDefs": [
+                {
+                    "visible": true, "targets": 0,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[0] + "</p>";
+                        return result;
+                    }
+                },
+                {
+                    "visible": true, "targets": 1,
+                },
+
+               {
+                   "visible": false, "targets": 3,
+               },
+                {
+                    "targets": 2,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        // This column shows the Opening Balance textbox.Its for input purpose
+                        if ($('#SelectedAccountType').val() == 0) {
+
+                            var result = "" + "<div class='form-group  fg-line'><input type='text' style='font-weight: bold;text-align:right;' class='form-control' value=" + data[6] + " id='txtOpeningBal' /></div>";
+                        }
+                        else if ($('#SelectedAccountType').val() == 1) {
+                            var AccBalsheetID = $("#selectedBalsheetID").val();
+                            var AccBalsheetName = '';
+                            $('ul#balsheetList li').each(function (i) {
+                                var cls = $(this).closest("li").find("a i").attr("class");
+                                if (cls.split(' ')[1] == "zmdi-check-all") {
+                                    AccBalsheetName = $(this).closest("li").find("a").text().trim();
+                                }
+                            });
+                            var result = '@Html.ActionLink("Create", "IndividualOpeningBalance", new { IDs = "ID1" }, new { @class = "mfpAjaxModal" })';
+                            var result = result.replace("ID1", AccBalsheetID + "~" + data[1] + "~" + data[5] + "~" + data[0].replace(/ /g, ':') + "~" + AccBalsheetName.replace(/ /g, ':'));
+
+                            var result = "" + result.replace("Create", "<div class='form-group  fg-line'><input type='text' readonly='readonly' class='form-control' style=' font-weight: bold;text-align:right; background-color: #fff;'  tag=" + data[6] + "  value=" + data[6] + " id='txtOpeningBal' /></div>");
+                        }
+
+                        return result;
+
+
+                    }
+                },
+                {
+                    "targets": 4,
+                    "bSortable": false,
+                    "data": null,
+                    "render": function (data, type, full, meta) {
+                        if ($('#SelectedAccountType').val() == 0) {
+                            //This column shows Debit/Credit Dropdown list
+                            if (data[9] == null) {
+
+                                var result = "" + '<div class="form-group fg-line select"><select class="form-control" id="combobox"><option value="0">Cr</option><option value="1">Dr</option></select></div>';
+                            }
+                            // if data[9] is smaller than 0 Credit Flag will be selected
+                            if (data[9] < 0) {
+                                var result = "" + '<div class="form-group fg-line select"><select class="form-control" id="combobox"><option selected="selected" value="0">Cr</option><option value="1">Dr</option></select></div>';
+                            }
+                            // if data[9] is greater than 0 Debit Flag will be selected
+                            if (data[9] >= 0) {
+                                var result = "" + '<div class="form-group fg-line select"><select class="form-control" id="combobox"><option value="0">Cr</option><option selected="selected" value="1">Dr</option></select></div>';
+                            }
+                        }
+                        else if ($('#SelectedAccountType').val() == 1) {
+                            if (data[9] == null || data[9] == 0) {
+
+                                var result = "" + '<div class="form-group fg-line select"><select class="form-control" id="combobox" disabled><option value="0"></option><option value="1"></option></select></div>';
+                            }
+                            // if data[9] is smaller than 0 Credit Flag will be selected
+                            if (data[9] < 0) {
+                                var result = "" + '<div class="form-group fg-line select"><select class="form-control" id="combobox" disabled><option selected="selected" value="0">Cr</option></select></div>';
+                            }
+                            // if data[9] is greater than 0 Debit Flag will be selected
+                            if (data[9] > 0) {
+                                var result = "" + '<div class="form-group fg-line select"><select class="form-control" id="combobox" disabled><option selected="selected" value="1">Dr</option></select></div>';
+                            }
+                        }
+                        return result;
+
+
+                    }
+                },
+                 {
+                     "visible": true, "targets": 5,
+                     "bSortable": false,
+                     "sClass": "columnDisplay", "aTargets": [5],
+                     "targets": 5,
+                     "data": null,
+                     "render": function (data, type, full, meta) {
+                         //This column is hidden and used to compare the data for Insert/Update
+                         if (data[9] >= 0) {
+                             var result = "<input type='checkbox' style='display:none'  tag=" + data[4] + "  value=" + data[4] + '~' + data[5] + "~" + data[6] + "~" + 1 + " id='txtOpeningBal' />";
+                         }
+                         else if (data[9] < 0) {
+                             var result = "<input type='checkbox' style='display:none'  tag=" + data[4] + "  value=" + data[4] + '~' + data[5] + "~" + data[6] + "~" + 0 + " id='txtOpeningBal' />";
+                         }
+                         return result;
+
+
+                     }
+                 }
+
+
+
+            ],
+            "order": [[0, 'asc']],
+            "drawCallback": function (settings) {
+                debugger;
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                var selectedBalncesheet = $('#SelectedBalanceSheet').val();
+                api.column(3, { page: 'current' }).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="5" style="font-weight:bold;background-color:rgba(128,128,128,0.2);color:#000;font-size:12px;font-family: verdana;">' + group +
+                            '</td>'// <td style="text-align:center"><a class="ajax cboxElement" href="/AccountCentreOpeningBalance/Create?GroupVal=' + GroupID[i++] + ":" + group.replace(/ /g, "~") + ":" + selectedBalncesheet + '"><i class="icon-plus" style="margin-left: 7px;"></i></a></td></tr>'
+                        );
+
+                        last = group;
+
+                    }
+                });
+            }
+        });
+
+        DataTableSettings(oTable, "myDataTable", "toggleTableColumn");
+
+
+        $('#myDataTable tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === 3 && currentOrder[3] === 'asc') {
+                table.order([3, 'desc']).draw();
+            }
+            else {
+                table.order([3, 'asc']).draw();
+            }
+        });
+    });
+
+    function ReloadAccountCentreOpeningBalance() {
+        oTable = $('#myDataTable').dataTable();
+        oTable.fnReloadAjax('AccountCentreOpeningBalance/AjaxHandler');
+    };
+
+</script>
+
+
+
+

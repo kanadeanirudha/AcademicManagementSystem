@@ -1,0 +1,647 @@
+﻿@model AMS.ViewModel.InventorySalesMasterAndTransactionViewModel
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+<style>
+    /* HOVER STYLES */
+    div#pop-up {
+        display: none;
+        position: absolute;
+        width: 153px;
+        padding: 10px;
+        background: #eeeeee;
+        color: #000000;
+        border: 2px solid #c2c2c2;
+        border-radius: 3px;
+        font-size: 90%;
+    }
+</style>
+<div class="container-fluid">
+    <div id="CounterLoginDiv" style="display: none">
+        <form id="FormCreateInventoryCounterLogin">
+            @Html.HiddenFor(model => model.LoginUserCount)
+            @Html.HiddenFor(model => model.FieldName)
+            @Html.HiddenFor(model => model.FieldValue)
+            @Html.HiddenFor(model => model.PolicyDefaultAnswer)
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="widget-block" style="width: auto; height: auto;">
+                        <div class="widget-head">
+                            <h5>Counter Login</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="widget-box" style="padding: 15px">
+                                <div class="control-group control-label">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CounterName, new { style = "font-Weight:Bold;" })
+                                    <div class="controls input-xlarge text-tip">
+                                        @Html.DropDownListFor(m => m.SelectedCounterID, Model.InventoryCounterMasterListItems, "-----Select Counter-----", new { style = "width:210px;font-Weight:Bold" })
+                                    </div>
+                                </div>
+                                <div class="control-group control-label">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CounterOpeningCash, new { style = "font-Weight:Bold;" })
+                                    <div class="controls input-xlarge text-tip">
+                                        @Html.TextBoxFor(model => model.CounterOpeningCash, new { maxlength = "12", style = "font-Weight:Bold; Text-align:right;" })
+                                    </div>
+                                </div>
+                                <div class="control-group control-label">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CounterClosingCash, new { style = "font-Weight:Bold;" })
+                                    <div class="controls input-xlarge text-tip">
+                                        @Html.TextBoxFor(model => model.CounterClosingCash, new { ReadOnly = "True", style = "font-Weight:Bold;Text-align:right" })
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+                                    <input type="button" id="CounterLogin" value="Login" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="salesDiv" style="display: none">
+        <div class="widget-block">
+            <div class="widget-head">
+                <div style="float: left; padding-left: 5px; padding-top: 13px;">
+                    <a href="#" id="trigger"><i class="black-icons info_about"></i></a>.
+                    <div id="pop-up">
+                        <div>
+                            <p style="font-weight: bold;">Shortcut Keys</p>
+                            <span style="color: #0088cc; font-weight: bold">Alt+A &nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp;: </span><span style="">Sale Form</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Alt+L &nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp;: </span><span style="">List View</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Alt+P &nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp;: </span><span style="">Payment</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Alt+R &nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp: </span><span style="">Hold Reference</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Alt+X &nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp;: </span><span style="">Reset Form</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F1 &nbsp;&nbsp;: </span><span style="">Hold Bill 1</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F2 &nbsp;&nbsp;: </span><span style="">Hold Bill 2</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F3 &nbsp;&nbsp;: </span><span style="">Hold Bill 3</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F4 &nbsp;&nbsp;: </span><span style="">Hold Bill 4</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F5 &nbsp;&nbsp;: </span><span style="">Hold Bill 5</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F6 &nbsp;&nbsp;: </span><span style="">Hold Bill 6</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F7 &nbsp;&nbsp;: </span><span style="">Hold Bill 7</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F8 &nbsp;&nbsp;: </span><span style="">Hold Bill 8</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F9 &nbsp;&nbsp;: </span><span style="">Hold Bill 9</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F10 : </span><span style="">Hold Bill 10</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F11 : </span><span style="">Hold Bill 11</span>
+                            <br />
+                            <span style="color: #0088cc; font-weight: bold">Sht+Ctrl+F12 : </span><span style="">Hold Bill 12</span>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <h5>Sale</h5>
+                @Html.HiddenFor(model => model.CounterLogID)
+                @Html.HiddenFor(model => model.CounterID)
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.RoundUpAmount)
+                @Html.HiddenFor(model => model.CustomerID)
+                @Html.HiddenFor(model => model.OpenBillCount)
+
+                <div class="pull-right" style="margin: -24px 50px 0px 10px;">
+
+                    @* <span style="line-height: 10px"><b>Customer Type : &nbsp; &nbsp;</b></span>
+                        @Html.DropDownList("CustomerType", ViewData["CustomerTypeList"] as List<selectlistitem>
+                            , new { @class = "input-xlarge text-tip", style = "font-weight:bold ; width:150px" })
+                            <span style="line-height: 10px"><b>Customer Name : &nbsp; &nbsp;&nbsp;</b></span>
+                            @Html.TextBoxFor(model => model.CustomerName, new { @class = "txtbox", style = "font-weight:bold ; width:200px" })*@
+                    <span style="line-height: 10px"><b>Location :&nbsp; &nbsp;&nbsp;</b></span>
+                    @Html.DropDownListFor(m => m.LocationID, Model.LocationListItems, new { @class = "form-control chosen-select", style = "font-weight:bold;" })
+                    &nbsp;&nbsp;
+                    <input type="button" id="CounterLogOut" class="btn btn-primary" style="height: 28px; margin-bottom: 10px;" value="Sign-Out" />&nbsp;
+                    @*Open Bills
+                        <span class="alert-noty">@Html.DisplayFor(m=>m.OpenBillCount)</span>*@
+                    @*<a class="ajax cboxElement" href="@Url.Action(" openbills", "InventorySalesMasterAndTransaction" )">
+                            <input type="button" id="btnOpenBill" class="btn btn-primary " style="height: 28px; margin-bottom: 10px;" value="Open Bills" />
+                        </a>*@
+                    <a class="ajax cboxElement" style="text-decoration:none;" href="@Url.Action("Operatorsalereport", "InventorySalesMasterAndTransaction" , new { id=Model.LocationID})">
+                        <input type="button" id="OperatorSaleReport" class="btn btn-primary" style="height: 28px;text-decoration:none; margin-bottom: 10px;" value="Todays Sale" />
+                    </a>
+                    <button class="btn btn-primary" onclick="location.href = '/InventoryItemSaleReturnMasterAndTransaction'" style="margin-bottom: 10px; text-decoration: none;">Sale Return</button>
+                    <input type="button" id="btnDisplayHoldBillCount" disabled="disabled" class="btn  btn-inverse" style="height: 28px; text-decoration: none; margin-bottom: 10px;" value="Hold Bill : @Html.DisplayFor(m => m.OpenBillCount)" />&nbsp;
+                    @*<button class="btn btn-large  btn-primary disabled" disabled="disabled">Hold Bills : <span class="alert-noty">@Html.DisplayFor(m => m.OpenBillCount)</span></button>*@
+
+                </div>
+                <div class="pull-right" style="margin: -24px 60px 0px 10px;">
+                    <div class="input-append" id="" style="float: right;">
+                        <div class="widget-control pull-right">
+                            <a href="#" id="closeSale" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-remove-sign"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <form class="form-horizontal well" id="FormCreateInventorySalesAndTransaction">
+                        <div class="nonboxy-widget">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="span11">
+                                        <div class="row control-group">
+                                            @Html.HiddenFor(m => m.ItemID)
+                                            @Html.HiddenFor(m => m.IsExpiry)
+                                            @Html.HiddenFor(m => m.GeneralTaxGroupID)
+                                            <div class="span">
+                                                @Html.LabelFor(model => model.ItemName, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                @Html.TextBoxFor(model => model.ItemName, new { @class = "txtbox", style = "font-weight:bold;width:150px" })
+                                                <br />
+                                                @Html.ValidationMessageFor(model => model.ItemName)
+                                            </div>
+                                            <div class="spanFullName">
+                                                @Html.HiddenFor(m => m.BatchID)
+                                                @Html.HiddenFor(m => m.ExpiryDate)
+                                                @Html.HiddenFor(m => m.BatchQuantity)
+                                                @Html.LabelFor(model => model.BatchNumber, new { Style = "font-size: 100%;font-weight:bold ;" })
+                                                @Html.TextBoxFor(model => model.BatchNumber, new { @class = "txtbox", style = "width:100px;text-align:left;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                            </div>
+                                            <div class="spanFullName">
+                                                @Html.LabelFor(model => model.RateIncludingtax, new { Style = "font-size: 100%;font-weight:bold ;" })
+                                                @Html.TextBoxFor(model => model.RateIncludingtax, new { @class = "txtbox", style = "width:60px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                                <br />
+                                                @Html.ValidationMessageFor(model => model.RateIncludingtax)
+                                            </div>
+                                            <div class="spanFullName" style="display:none">
+                                                @Html.LabelFor(model => model.Rate, new { Style = "font-size: 100%;font-weight:bold ;" })
+                                                @Html.TextBoxFor(model => model.Rate, new { @class = "txtbox", style = "width:60px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                            </div>
+                                            <div class="spanFullName">
+                                                @Html.LabelFor(model => model.UnitCode, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                @Html.TextBoxFor(model => model.UnitCode, new { @class = "txtbox", style = "width:50px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                            </div>
+                                            <div class="spanFullName">
+                                                @Html.LabelFor(model => model.Quantity, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                @Html.TextBoxFor(model => model.Quantity, new { @class = "txtbox", Style = "width:60px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                                <br />
+                                                @Html.ValidationMessageFor(model => model.Quantity)
+                                            </div>
+                                            <div class="spanFullName">
+                                                @Html.LabelFor(model => model.AvailableStock, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                @Html.TextBoxFor(model => model.AvailableStock, new { disabled = "disabled", style = "width:60px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" })
+                                            </div>
+                                            <div class="spanFullName">
+                                                @Html.LabelFor(model => model.Discount, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                @Html.TextBoxFor(model => model.Discount, new { disabled = "disabled", maxLength = "5", style = "width:60px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", })
+                                            </div>
+                                            <div class="spanFullName" style="display:none">
+                                                @Html.LabelFor(model => model.Tax, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                @Html.TextBoxFor(model => model.Tax, new { @class = "txtbox", Style = "width:60px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                            </div>
+                                            <div class="spanFullName">
+                                                @Html.LabelFor(model => model.BillAmount, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                @Html.TextBoxFor(model => model.BillAmount, new { @class = "txtbox", Style = "width:57px;text-align:right;font-weight:bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                                <input type="button" id="addItem" class="btn btn-primary" style="height: 28px; width: 40px; " value="Add" />
+                                                <input type="button" id="getQuantity" class="btn btn-primary" style="height: 28px;width:30px" value="Q" />
+                                            </div>
+                                            @*<div class="spanFullName">
+                                                    <label for="input01">&nbsp;</label>
+                                                    <input type="button" id="addItem" class="btn btn-primary" style="height: 28px" value="Add" />
+                                                    <input type="button" id="getQuantity" class="btn btn-primary" style="height: 28px" value="Get Qty" />
+                                                </div>
+                                                <div class="">
+                                                    <label for="input01">&nbsp;</label>&nbsp;&nbsp;
+
+                                                </div>*@
+
+                                        </div>
+                                    </div>
+                                    @*<div class="span2">
+                                            <div class="row control-group">
+                                                <div class="span">
+                                                    @Html.LabelFor(model => model.AvailableStock, new { Style = "font-size: 100%;font-weight:bold;" })
+                                                    @Html.TextBoxFor(model => model.AvailableStock, new { disabled = "disabled", style = "width:60px;text-align:right;font-weight:bold" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(model => model.AvailableStock)
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+
+                                <div class="row">
+                                    <div class="span11">
+                                        <div id="DivAddRowTable">
+                                            <table id="tblData" class="table user-tbl " style="border: 1px solid #dddddd">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: left; width: 18%">item</th>
+                                                        <th style="text-align: left; width: 12%">batch</th>
+                                                        <th style="text-align: left; width: 9%">Rate</th>
+                                                        <th style="text-align: left; width: 8%">Unit</th>
+                                                        <th style="text-align: left; width: 10%">quantity</th>
+                                                        <th style="text-align: left; width: 9%">Discount</th>
+                                                        <th style="text-align: left; width: 8%;display:none">Tax Amt.</th>
+                                                        <th style="text-align: left; width: 5px">Amount</th>
+                                                        <th style="text-align: left; width: 10px">Total Amt.</th>
+                                                        <th style="text-align: center; width: 5px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.InventorySalesMasterAndTransactionBillPrintList)
+                                                    {
+                                                        <tr style='font-size:11px;'>
+                                                            <td>
+                                                                <input value="@item.ItemID" type="text" style="display:none" />@item.ItemName
+                                                            </td>
+                                                            <td>
+                                                                <input value="@item.BatchID" type='hidden' /> @item.BatchNumber
+                                                            </td>
+                                                            <td>
+                                                                <input value="@item.Rate" type="text" style="display:none" />@string.Format("{0:0.00}", item.Rate)
+                                                            </td>
+                                                            <td style="display:none"><input value="@item.RateIncludingtax" type="text" style="display:none" />@string.Format("{0:0.00}", item.RateIncludingtax)</td>
+                                                            <td>@item.UnitCode</td>
+                                                            <td>
+                                                                <input id='itemQuantity' type='text' value="@item.Quantity " style='width: 60%; height: 16px; text-align: right' />
+                                                            </td>
+                                                            <td>@string.Format("{0:0.00}", item.Discount)</td>
+                                                            <td style="display:none">@string.Format("{0:0.00}", item.Tax)</td>
+                                                            <td>@string.Format("{0:0.00}", Convert.ToDecimal(item.Quantity * item.Rate)) </td>
+                                                            <td style="display:none">@string.Format("{0:0.00}", Convert.ToDecimal(item.Quantity * item.Rate)) </td>
+                                                            <td>@string.Format("{0:0.00}", Convert.ToDecimal(Convert.ToDecimal(item.Quantity * item.Rate) - item.Discount))</td>
+                                                            <td style='text-align: center;'>
+                                                                <i class='icon-trash' style='cursor:pointer' title=Delete>
+                                                                    <input type='hidden' id='itemDiscount' value="@item.DiscountInPercentage" />
+                                                                    <input type='hidden' id='itemTax' value="@item.TaxInPercentage" />
+                                                                    <input type='hidden' id='itemDiscountAmount' value="@item.Discount" />
+                                                                    <input type='hidden' id='itemTaxAmount' value="@item.Tax" />
+                                                                    <input type='hidden' id='itemBillAmount' value="@Convert.ToDecimal(item.Quantity * item.Rate)" />
+                                                                    @*<input type='hidden' id='TotalBillAmountIncludeTaxTemplate' value="@Convert.ToDecimal(item.Quantity * item.Rate)" />*@
+                                                                    <input type='hidden' id='itemGrossAmount' value="@Convert.ToDecimal(Convert.ToDecimal(item.Quantity * item.Rate) + @item.Tax - @item.Discount)" />
+                                                                    <input type='hidden' id='itemGeneralTaxGroupID' value="@item.GeneralTaxGroupID" />
+                                                                    <input type='hidden' value="@item.ExpiryDate" />
+                                                                    <input type='hidden' value="@item.BatchNumber" />
+                                                                    <input type='hidden' value="@item.AvailableStock" id='availableStcok' />
+                                                                    @*<input type='hidden' value= @Math.Round(@item.RateIncludingtax,2) id='rate' />*@
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="span4">
+                                        <div class="form-actions " style="border: 1px solid #e5e5e5; text-align: left">
+                                            <input name="" style="" id="reset" type="button" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                                            <a class="ajax cboxElement" id="btnHold" style="text-decoration:none" href="@Url.Action("HoldBill", "InventorySalesMasterAndTransaction")">
+                                                <input type="button" style="" value="Hold" class="btn btn-primary btn-warning" />
+                                            </a>
+                                            <a class="ajax cboxElement" id="btnPayment" style="text-decoration:none" href="@Url.Action("Payment", "InventorySalesMasterAndTransaction")">
+                                                <input type="button" style="" id="CreateInventorySalesAndTransaction" value="Payment" class="btn btn-primary btn-success" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="span7">
+                                        <div class="form-actions " style="border: 1px solid #e5e5e5; text-align: right">
+                                            <table style=" margin-left: -20%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="margin-left:%"><span style="font-weight:bold">Total</span> : @Html.TextBoxFor(model => model.DeliveryCharge, new { style = "width: 90px; font-weight: bold; height: 16px; text-align: right", placeholder = "Delivery Amt" }) </td>
+                                                        <td style="margin-left:%">@Html.TextBoxFor(model => model.TotalDiscount, new { disabled = "disabled", style = "width: 75px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" }) </td>
+                                                        <td style="width: %; display: none">@Html.TextBoxFor(model => model.TotalTaxAmount, new { disabled = "disabled", style = "width: 75px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" }) </td>
+                                                        <td style="width: %">@Html.TextBoxFor(model => model.TotalBillAmount, new { disabled = "disabled", style = "width: 75px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" })</td>
+                                                        <td style="width: %; display: none">@Html.TextBoxFor(model => model.TotalBillAmountIncludeTaxTemplate, new { disabled = "disabled", style = "width: 75px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" })</td>
+                                                        <td style="width: %">@Html.TextBoxFor(model => model.TotalGrossAmount, new { disabled = "disabled", style = "width: 75px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" })</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="listDiv">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-block">
+                    <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+                    <div class="widget-head">
+                        <script src="~/Scripts/fnGetColumnData.js"></script>
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp; Bill List  @*@Resources.FormName_InventorySalesMasterAndTransaction*@</h5>
+                        <div class="pull-right" style="margin: -24px 60px 0px 10px;">
+                            <div class="input-append" id="" style="float: right;">
+                                <div style="display: none;">
+                                    <input type="hidden" name="_method" value="POST">
+                                </div>
+                                <div>
+                                    <select name="data[User][searchby]" class="" id="showrecord" tabindex="16">
+                                        <option value="10">@Resources.GlobalProperties_ShowRecords</option>
+                                        <option value="10">10</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    &nbsp;&nbsp;
+                                    <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearch">
+                                    <button class="btn" type="button" id="searchBtn"><i class="icon-search"></i></button>
+                                </div>
+                                <div class="widget-control pull-right">
+                                    <a href="#" id="openSale" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus-sign"></i></a>
+                                    @*<ul class="dropdown-menu">
+                                            <li><a class="ajax cboxElement" href="@Url.Action(" create", "InventorySalesMasterAndTransaction" )"> <h6 style="color:#000;"><i class="icon-plus" style="padding-left:7px;"></i>@Resources.GlobalProperties_Add </h6></a></li>
+
+                                        </ul>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-box">
+                            <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                                <div class="table_content">
+                                    <table id="myDataTable" class="table table-striped table-bordered" style="width: 1095px">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center; width: 40%">Date</th>
+                                                <th style="text-align: center; width: 20%">Bill Number</th>
+                                                <th style="text-align: center; width: 20%">Amount</th>
+                                                <th style="text-align: center; width: 20%">Customer</th>
+                                                <th style="text-align: center; width: 5%; line-height: 40px">@Resources.TableHeaders_Action</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="widget-bottom">
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function submit() {
+        @*$.ajax({
+            url: "/InventorySalesMasterAndTransaction/OperatorSaleReport", // @Url.Action("OperatorSaleReport", "InventorySalesMasterAndTransaction") + '?ID=' + $('#LocationID').value,
+            data: { ID: $('#LocationID').val() },
+            type: 'POST',
+            // ... other ajax options ...
+        });*@
+
+        $.ajax({
+            cache: false,
+            type: "GET",
+            data: { ID: $('#LocationID').val() },
+            dataType: "html",
+            url: '/InventorySalesMasterAndTransaction/OperatorSaleReport',
+            success: function (data) {
+                //Rebind Grid Data
+                $('#showOpSale').html(data);
+            }
+        });
+    }
+
+    var oTable;
+    $(document).ready(function () {
+
+        //$("#CreateInventorySalesAndTransaction").click(function () {
+        //    var DataArray = [];
+        //    $('#DivAddRow Table table tbody tr td)').each(function () {
+
+        //        DataArray.push($(this).val());
+        //    });
+        //    alert(DataArray);
+        //    //InventorySalesMasterAndTransaction.PrintBill();
+
+        //});
+        //$("#CreateInventorySalesAndTransaction").on("click", function () {
+        //    var divContents = $("#tblData").html();
+        //    var printWindow = Document.toString();
+        //    printWindow.document.write('<html><head><title>Bill</title>');
+        //    printWindow.document.write('</head><body >');
+        //    printWindow.document.write(divContents);
+        //    printWindow.document.write('</body></html>');
+        //    printWindow.document.close();
+        //    printWindow.print();
+        //});
+
+        InventorySalesMasterAndTransaction.Initialize();
+        $(function () {
+            debugger;
+            var moveLeft = -230;
+            var moveDown = -50;
+
+            $('a#trigger').hover(function (e) {
+                $('div#pop-up').show();
+                //.css('top', e.pageY + moveDown)
+                //.css('left', e.pageX + moveLeft)
+                //.appendTo('body');
+            }, function () {
+                $('div#pop-up').hide();
+            });
+
+            $('a#trigger').mousemove(function (e) {
+                $("div#pop-up").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+            });
+
+        });
+
+        //  var oTable1 = $("#myDataTable1").dataTable({});
+        oTable = $('#myDataTable').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "InventorySalesMasterAndTransaction/AjaxHandler",
+            "bJQueryUI": true,
+            //"sScrollY": false,
+            "bProcessing": true,
+            "bAutoWidth": true,
+            "order": [[0, "desc"]],
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "SelectedBalanceSheet", "value": $("#selectedBalsheetID").val() });
+            },
+            "columnDefs": [
+
+                            {
+                                "targets": 0,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    if (data[0] != "") {
+
+                                        var result = "<p  style=' height:5px;text-align: center'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[0] + "</p>";
+                                        return result;
+                                    }
+                                    else {
+                                        return null;
+                                    }
+                                }
+                            },
+                            {
+                                "targets": 1,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    if (data[1] != "") {
+                                        var result = "<p  style=' height:5px;text-align: left'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[1] + "</p>";
+                                        return result;
+                                    }
+                                    else {
+                                        return null;
+                                    }
+                                }
+                            },
+                            {
+                                "targets": 2,
+                                "data": null,
+                                "bSortable": false,
+                                "render": function (data, type, full, meta) {
+                                    if (data[2] != "") {
+
+                                        var result = "<p  style=' height:5px;text-align: right'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[2] + "</p>";
+                                        return result;
+                                    }
+                                    else {
+                                        return null;
+                                    }
+
+
+                                }
+                            },
+                            {
+                                "targets": 3,
+                                "data": null,
+                                "bSortable": false,
+                                "render": function (data, type, full, meta) {
+                                    if (data[3] != "") {
+                                        return data[3];
+                                    }
+                                    else {
+                                        return null;
+                                    }
+                                }
+                            },
+                            {
+                                "targets": 4,
+                                "bSortable": false,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+
+                                    if (data[5] == "True") {
+                                        @* var result1 = '@Html.ActionLink("Edit1", "Edit", new { selectedBalsheet = "ID2", InvSaleMasterID = "ID1" }, new { @class = "ajax  cboxElement" })';
+                                        result1 = result1.replace('ID1', data[4]);
+                                        result1 = result1.replace('ID2', $("#selectedBalsheetID").val());*@
+                                        //var result1 = result1.replace("Edit1", '<i class="color-icons printer_co" title = "Print Bill"></i>');
+                                        var result = "<p  style='text-align:center; height:5px;'>" + "<i tag='" + data[4] + "' class='icon-edit' title = 'Edit Bill'></i>" + "</p>";
+                                        return result;
+                                    }
+                                    else {
+                                        var result = "<p  style='text-align:center;cursor:pointer; height:5px;'>" + "<i tag='" + data[4] + "' class='color-icons printer_co' title = 'Print Bill'></i>" + "</p>";
+                                        return result;
+                                    }
+                                }
+                            }
+            ],
+        });
+    });
+
+    $('#myDataTable tbody').on('click', 'tr td i[class="icon-edit"]', function () {
+        var InvSaleMasterID = $(this).attr("tag");
+        var Balancesheet = $("#selectedBalsheetID").val();
+        if (Balancesheet != null && Balancesheet != "") {
+            $.ajax(
+           {
+               cache: false,
+               type: "GET",
+               data: { "selectedBalsheet": Balancesheet, invSaleMasterID: InvSaleMasterID },
+               dataType: "html",
+               url: '/InventorySalesMasterAndTransaction/List',
+               success: function (data) {
+                   //Rebind Grid Data
+                   $('#ListViewModel').html(data);
+               }
+           });
+        }
+        else {
+            $('#SuccessMessage').html("Please select balancesheet");
+            $('#SuccessMessage').delay(400).slideDown(400).delay(2000).slideUp(400).css('background-color', "#FFCC80");
+        }
+
+    });
+
+    $('#myDataTable tbody').on('click', 'tr td i[class="color-icons printer_co"]', function () {
+        var InvSaleMasterID = $(this).attr("tag");
+        var Balancesheet = $("#selectedBalsheetID").val();
+        var PolicyDefaultAnswer = $("#PolicyDefaultAnswer").val();
+        if (InvSaleMasterID != null && InvSaleMasterID != "" && Balancesheet != null && Balancesheet != "") {
+            $.ajax(
+           {
+               cache: false,
+               type: "GET",
+               data: { "selectedBalsheet": Balancesheet, invSaleMasterID: InvSaleMasterID, PolicyDefaultAnswer: PolicyDefaultAnswer },
+               //  dataType: "html",
+               url: '/InventorySalesMasterAndTransaction/PrintBill',
+               success: function (data) {
+                   debugger;
+                   debugger;
+                   if (data != null) {
+                       var frame1 = $('<iframe />');
+                       frame1[0].name = "frame1";
+                       frame1.css({ "position": "absolute", "top": "-1000000px" });
+                       $("body").append(frame1);
+                       var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+                       frameDoc.document.open();
+                       //Create a new HTML document.
+                       frameDoc.document.write('<html><head><meta charset="utf-8"><title>Bill</title>');
+                       //Append the external CSS .
+                       frameDoc.document.write('<style media="all" type="text/css">body { max-width: 300px;text-transform: uppercase; margin:0 auto; text-align:center; color:#000; font-family: Arial, Helvetica, sans-serif; font-size:12px; }#wrapper { min-width: 250px; margin: 0 auto; }#wrapper img { max-width: 300px; width: auto; }h2, h3, p { margin: 5px 0; }.left { width:60%; float:left; text-align:left; margin-bottom: 3px; }.right { width:40%; float:right; text-align:right; margin-bottom: 3px; }.table, .totals { width: 100%; margin:10px 0; }.table th { border-bottom: 1px solid #000; }.table td { padding:0; }.totals td { width: 24%; padding:0; }.table td:nth-child(2) { overflow:hidden; } print {body { text-transform: uppercase; }#buttons { display: none; }#wrapper { width: 100%; margin: 0; font-size:9px; }#wrapper img { max-width:300px; width: 80%; }#header,#footer {display:none}}</style>');
+                       frameDoc.document.write('</head><body>');
+                       //Append the DIV contents.
+                       //frameDoc.document.write(contents);
+                       frameDoc.document.write('<div id="wrapper"><img src="../Content/images/surbhifruitsfinallogo.jpg" style="width:50%;"><p>' + data[0].PrintingLine1 + '<br>' + data[0].PrintingLine2 + '</p>    	<span class="left">' + data[0].PrintingLine4 + '</span> <span class="right" style="text-overflow: ellipsis;">Bill No.: ' + data[0].BillNumber + '</span><span class="left">Customer:' + data[0].CustomerName + ' </span> <span class="right">Date: ' + data[0].TransactionDate.split(' ')[0] + '</br>' + data[0].TransactionDate.split(' ')[1] + '</span>    <div style="clear:both;"></div><table cellspacing="0"  border="0" class="table"> <thead> <tr style="font-size:11px">  <th>Items</th> <th>Qty</th><th>Rate</th><th>Amount</th> </tr> </thead> <tbody style="font-size:11px">');
+                       var strCollection1 = '';
+                       for (var i = 0; i < data.length; i++) {
+                           strCollection1 = strCollection1 + '<tr>' +
+                                                           '<td style="text-align:left; width:180px;">' + data[i].ItemName + '</td>' +
+                                                           '<td style="text-align:center; width:70px;">' + parseFloat(data[i].Quantity).toFixed(3) + '' + data[i].UnitCode + '</td>' +
+                                                           '<td style="text-align:center; width:70px;">' + parseFloat(data[i].Rate).toFixed(2) + '</td>' +
+                                                           '<td style="text-align:right; width:70px; ">' + parseFloat(parseFloat(data[i].Rate).toFixed(3) * parseFloat(data[i].Quantity)).toFixed(2) + '</td>' +
+                                                           '</tr>'
+                       }
+                       frameDoc.document.write(strCollection1);
+                       //frameDoc.document.write('</tbody></table> <table cellspacing="0" border="0" style="margin-bottom:5px;" class="totals"><tbody style="font-size:10px"><tr><td style="text-align:left;">Total Items</td><td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">' + data.length + '</td><td style="text-align:left; padding-left:1.5%;">Total</td><td style="text-align:right;">' + data[0].CurrencyCode + ' ' + parseFloat(data[0].BillAmount).toFixed(2) + '</td></tr><tr><td style="text-align:left; font-weight:bold; border-top:1px solid #000; padding-top:5px;" colspan="2">Grand Total</td><td style="border-top:1px solid #000; padding-top:5px; text-align:right; font-weight:bold;" colspan="2">' + data[0].CurrencyCode + ' ' + parseFloat(data[0].BillAmount).toFixed(2) + '</td></tr></tbody></table><div style="border-top:1px solid #000; padding-top:10px;"><p>Thank You Visit Again !</p>    </div></div>');
+                       frameDoc.document.write('</tbody></table> <table cellspacing="0" border="0" style="margin-bottom:5px;" class="totals"><tbody style="font-size:10px"><tr><td style="text-align:left;"></td><td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">' + " " + '</td><td style="text-align:left; padding-left:1.5%;">Net Amt.</td><td style="text-align:right;">' + data[0].CurrencyCode + ' ' + parseFloat(data[0].NetAmount).toFixed(2) + '</td></tr><tr><td style="text-align:left;"></td><td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">' + " " + '</td></tr><tr><td style="text-align:left;"></td><td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">' + " " + '</td></tr><tr><td style="text-align:left;">Total Items</td><td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">' + data.length + '</td><td style="text-align:left; padding-left:1.5%;">Discount </td><td style="text-align:right;">' + data[0].CurrencyCode + ' ' + parseFloat(data[0].TotalDiscount).toFixed(2) + '</td></tr><tr><td style="text-align:left; font-weight:bold; border-top:1px solid #000; padding-top:5px;" colspan="2">Grand Total</td><td style="border-top:1px solid #000; padding-top:5px; text-align:right; font-weight:bold;" colspan="2">' + data[0].CurrencyCode + ' ' + parseFloat(data[0].BillAmount).toFixed(2) + '</td></tr></tbody></table><div style="border-top:1px solid #000; padding-top:10px;"><p>Thank You Visit Again !</p>    </div></div>');
+                       frameDoc.document.write('</body></html>');
+                       frameDoc.document.close();
+                       setTimeout(function () {
+                           window.frames["frame1"].focus();
+                           window.frames["frame1"].print();
+                           frame1.remove();
+                       }, 500);
+                   }
+               }
+           });
+        }
+
+
+    });
+</script>

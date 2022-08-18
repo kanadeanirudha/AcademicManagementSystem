@@ -1,0 +1,62 @@
+﻿@model AMS.Web.UI.Models.CategoryMaster.CategoryMaster
+@{
+    ViewBag.Title = "Details";
+}
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Category Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                              <legend>Details</legend>
+
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Medium CategoryName :</label>
+                        <div class="col-lg-8">
+                                <span class="form-text">@Model.CategoryName</span>
+                        </div>
+                        </div>
+                                
+                            <div>
+                                <div class="display-label"></div>
+                                <div class="display-field"></div>
+                           </div>
+                                 <br />
+
+                             <div class="form-group">
+                            <label class="col-lg-3 control-label">Category Type :</label>
+                        <div class="col-lg-8">
+                                <span class="form-text">@Model.CategoryType</span>
+                        </div>
+                        </div>
+                                <div class="display-label"></div> 
+                                <div class="display-field"></div>
+                                 <br />
+                            
+                             <div class="form-group">
+                            <label class="col-lg-3 control-label">CategoryCode :</label>
+                        <div class="col-lg-8">
+                                <span class="form-text">@Model.CategoryCode</span>
+                        </div>
+                        </div>
+                                <div class="display-label"></div> 
+                                <div class="display-field"></div>
+
+                            </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

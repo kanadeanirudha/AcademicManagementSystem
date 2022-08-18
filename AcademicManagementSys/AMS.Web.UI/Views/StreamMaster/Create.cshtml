@@ -1,0 +1,107 @@
+﻿@model AMS.Web.UI.Models.StreamMaster.StreamMaster
+@{
+    ViewBag.Title = "Create";
+}
+
+<div id='dlgLogin'>
+    <div class="col-md-10">
+     
+
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Stream Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <legend>Create</legend>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">@Html.LabelFor(model => model.StreamDescription) :</label>
+                                    <div class="col-lg-8 dropdown">
+                                        @Html.EditorFor(model => model.StreamDescription)
+                                        @Html.ValidationMessageFor(model => model.StreamDescription)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">@Html.LabelFor(model => model.DivisionID) :</label>
+                                    <div class="col-lg-8">
+                                        
+                                      @Html.DropDownList("MyDropDown",(SelectList) ViewBag.DropDownValues)                                     
+                                                                            
+                                        @Html.ValidationMessageFor(model => model.DivisionID)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">@Html.LabelFor(model => model.ShortCode) :</label>
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.ShortCode)
+                                        @Html.ValidationMessageFor(model => model.ShortCode)
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="col-lg-3 control-label">@Html.LabelFor(model => model.PrintCode) :</label>
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.PrintCode)
+                                        @Html.ValidationMessageFor(model => model.PrintCode)
+                                    </div>
+                                </div>
+                                <br />
+                                <p>
+                                    <input type="submit" value="Create" />
+                                </p>
+
+                            </fieldset>
+                        }
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*script for popup*@
+<script type="text/javascript">
+    $(function () {
+        $("#dlgLogin").dialog({
+            modal: true,
+            autoOpen: true,
+            resizable: false,
+            buttons: {
+                Create: function () {
+                    // perform login
+                    $.post("@Url.Action("Login", "StreamMaster")",
+				    {
+				        StreamDescription: $('#StreamDescription').val(),
+				        DivisionID: $('#DivisionID').val(),
+				        ShortCode: $('#ShortCode').val(),
+				        PrintCode: $('#PrintCode').val()
+				    },
+				    function (data, status, xhr) {
+				        if (data.Success) {
+				            alert('great'); // do something
+				            $('#dlgLogin').dialog("close");
+				            $('#divLoginButton').load("@Url.Action("GetLoginButton", "StreamMaster")");
+                        } else {
+				            // do something else
+                        }
+				    });
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+</script>
+
+@* End othe Script*@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

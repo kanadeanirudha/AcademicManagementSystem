@@ -1,0 +1,195 @@
+﻿@*
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+    @model AMS.ViewModel.StudentRegistrationFormViewModel
+    <html>
+    <head>
+        <title>Student Registration</title>
+        <link href="~/Content/admin/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/admin/styles.css" rel="stylesheet" />
+        <link href="~/Content/admin/themes.css" rel="stylesheet" />
+        <link href="@Url.Content("Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+        <script src="@Url.Content("~/Scripts/jquery/jquery-2.1.1.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentRegistrationForm.js")" type="text/javascript"></script>
+        <script  src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
+        <script  src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+
+        <script src="@Url.Content("~/Scripts/bootstrap3.1.0.js")" type="text/javascript"></script>
+
+        <style>
+            .textboxAlignment {
+                width: 30%;
+            }
+
+            .lableAlignment {
+                width: 15%;
+            }
+        </style>
+
+    </head>
+    <body>
+        <form id="FormCreateStudentRegistrationForm" method="post">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <!--Top Navigation Start -->
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <div class="branding">
+                            <div class="logo">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--Top Navigation End -->
+
+
+            <!-- Middle Content Start -->
+            <div style="margin-left: 10%;">
+                <div class="widget-block" style="height: auto; width: 90%;">
+                    <div class="widget-head">
+                        <h5>  Please Contact Administrator!!!!!!!!!!!!</h5>
+                    </div>
+
+                    <div class="widget-box" id="checkboxlist">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Middle Content End -->
+        </form>
+    </body>
+    </html>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            StudentRegistrationForm.Initialize();
+        });
+
+
+    </script>
+
+*@
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+@model AMS.ViewModel.StudentRegistrationFormViewModel
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Agreement</title>
+
+    <!-- Start added from layout -->
+    <!-- animate css -->
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/animate.css/animate.min.css")" rel="stylesheet" type="text/css" />
+    <!-- font material -->
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css")" rel="stylesheet" type="text/css" />
+    <!-- animate.css -->
+
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css")" rel="stylesheet" type="text/css" />
+    <!-- CSS -->
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.1.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.2.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/materialtheme/dist/css/style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/jquery/dist/jquery.min.js")" type="text/javascript"></script>
+
+    <!-- custom -->
+    <!--End added from layout -->
+    <!--old script-->
+    <script src="@Url.Content("~/Scripts/jquery/jquery-2.1.1.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentRegistrationForm.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+    <!--old script-->
+
+</head>
+
+<body>
+
+    <style>
+        body {
+            font-size: 14px;
+        }
+    </style>
+
+    <header id="header" class="clearfix" data-current-skin="blue" style="text-align: center; font-size: x-large; color: #FFF; font-weight: BOLD; font-size: 28px; padding-top: 1%;">
+        @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Name")
+        {
+            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+        }
+        else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Image")
+        {
+            <span>
+                <img src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" />
+            </span>
+        }
+        else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Both")
+        {
+            <span>
+                <img src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" />
+            </span>
+            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+        }
+    </header>
+    
+        <form id="FormCreateStudentRegistrationForm" method="post">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <section id="main">
+                <div class="container">
+                    <div class="block-header">
+                        <h2></h2>
+                    </div>
+                    <div class="card bs-item z-depth-5">
+                        <div class="card-header ch-alt">
+                            @*<button class="btn btn-icon pull-right" type="button" style="margin-top: -1%;" onclick="location.href = '/StudentLogin/Index'" data-val="true" data-toggle="tooltip" data-palcement="top" title="Go to Student Registration Login">
+                                <i class="zmdi zmdi-long-arrow-return"></i>
+                            </button>*@
+                            @*<h2>Agreement<small> </small></h2>*@
+                        </div>
+
+                        <div class="card-body card-padding">
+                            <p class="c-black f-500 m-b-20">  Please Contact Administrator!!!!!!!!!!!!</p>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </form>
+
+
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        StudentRegistrationForm.Initialize();
+    });
+
+
+</script>

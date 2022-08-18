@@ -1,0 +1,357 @@
+﻿
+    @*@model AMS.ViewModel.StudentReportViewModel
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/Report/StudentIdentityCardReport.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <style>
+        .ui-front {
+            /*z-index:10000;*/
+            z-index: 10000;
+        }
+
+        hr {
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 1px;
+        }
+
+        input[placeholder] {
+            font-weight: 600;
+        }
+    </style>
+    @using (Html.BeginForm("Index", "StudentIdentityCardReport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.StudentId)
+        @Html.HiddenFor(m => m.IsPosted)
+        <div class="container-fluid">
+            <div id="ListViewModel">
+                <ul class="breadcrumb">
+                    <li>Student Report<span class="divider">»</span></li>
+                    <li>Student Identity Card</li>
+                </ul>
+                <div id="SuccessMessage" style="display: none; color: #000;" class="alert"></div>
+                <ul class="breadcrumb">
+                    <li>
+                        <div class="control-group" style="margin-bottom: 5px;">
+                            <div class="span2">
+                                @Html.LabelFor(m => m.CentreCode, new { @class = "control-label", style = "font-weight:bold" })
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+                                @Html.DropDownListFor(m => m.SelectedCentreCode, Model.StudyCentreListMasterItems, "--Select Centre--", new { @class = "", style = "font-weight:bold" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.SelectedCentreCode)
+                            </div>
+                            <div class="span2">
+                                @Html.LabelFor(m => m.UniversityID, new { @class = "control-label", style = "font-weight:bold" })
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+
+                                @Html.DropDownListFor(m => m.SelectedUniversityID, Model.UniversityListMasterItems, "--Select University--", new { @class = "", style = "font-weight:bold" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.SelectedUniversityID)
+                            </div>
+                        </div>
+
+
+                        <div class="control-group" style="margin-bottom: 5px;" id="DivCourseSection">
+                            <div class="span2">
+                                @Html.LabelFor(m => m.Course_Section, new { @class = "control-label", style = "font-weight:bold" })
+
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+                                @Html.DropDownList("Course_Section", ViewData["Course_Section"] as List<SelectListItem>, new { @class = "", style = "font-weight:bold" })
+                            </div>
+                            <div class="span2">
+                                @if (@Model.Course_Section == "S" || @Model.Course_Section == null)
+                                {
+                                    <div id="DivSectionLable">@Html.LabelFor(m => m.SectionDetailID, new { @class = "control-label", style = "font-weight:bold" })</div>
+                                    <div id="DivCourseYearLable" style="display: none">@Html.LabelFor(m => m.CourseYearId, new { @class = "control-label", style = "font-weight:bold" })</div>
+                                }
+                                else
+                                {
+                                    <div id="DivSectionLable" style="display: none">@Html.LabelFor(m => m.SectionDetailID, new { @class = "control-label", style = "font-weight:bold" })</div>
+                                    <div id="DivCourseYearLable">@Html.LabelFor(m => m.CourseYearId, new { @class = "control-label", style = "font-weight:bold" })</div>
+                                }
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+                                @if (@Model.Course_Section == "S" || @Model.Course_Section == null)
+                                {
+                                    <div id="DivSectionDropDown">
+                                        @Html.DropDownListFor(m => m.SelectedSectionDetailID, Model.SectionDetailsListMasterItems, "--Select Section--", new { @class = "", style = "font-weight:bold" })
+                                        <br />
+                                        @Html.ValidationMessageFor(model => model.SelectedSectionDetailID)
+                                    </div>
+                                    <div id="DivCourseYearDropDown" style="display: none">
+                                        @Html.DropDownListFor(m => m.SelectedCourseYearId, Model.CourseYearListMasterItems, "--Select Course Year--", new { @class = "", style = "font-weight:bold" })
+                                        <br />
+                                        @Html.ValidationMessageFor(model => model.SelectedSectionDetailID)
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div id="DivSectionDropDown" style="display: none">
+                                        @Html.DropDownListFor(m => m.SelectedSectionDetailID, Model.SectionDetailsListMasterItems, "--Select Section--", new { @class = "", style = "font-weight:bold" })
+                                        <br />
+                                        @Html.ValidationMessageFor(model => model.SectionDetailID)
+                                    </div>
+                                    <div id="DivCourseYearDropDown">
+                                        @Html.DropDownListFor(m => m.SelectedCourseYearId, Model.CourseYearListMasterItems, "--Select Course Year--", new { @class = "", style = "font-weight:bold" })
+                                        <br />
+                                        @Html.ValidationMessageFor(model => model.CourseYearId)
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+
+                        <div class="control-group" style="margin-bottom: 5px;">
+                            <div class="span2">
+                                @Html.LabelFor(m => m.AcademicYear, new { @class = "control-label", style = "font-weight:bold" })
+
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+                                @Html.DropDownListFor(m => m.SelectedAcademicYear, Model.SessionDetailsListMasterItems, "--Select Session --", new { @class = "", style = "font-weight:bold" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.SelectedAcademicYear)
+
+                            </div>
+                            <div class="span2">
+                                @Html.LabelFor(m => m.SelectedICardView, new { @class = "control-label", style = "font-weight:bold" })
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+                                @Html.DropDownList("SelectedICardView", ViewData["SelectedICardView"] as List<SelectListItem>, new { @class = "", style = "font-weight:bold" })
+                            </div>
+                        </div>
+
+
+                        <div class="control-group" style="margin-bottom: 5px;">
+                            <div class="span2">
+                                @Html.LabelFor(m => m.StudentFullName, new { @class = "control-label", style = "font-weight:bold" })
+
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+                                @Html.TextBoxFor(m => m.StudentFullName, new { @class = "control-label", style = "font-weight:bold" })
+                            </div>
+
+                        </div>
+                        <div class="control-group" style="margin-bottom: 5px;">
+                            <div class="span2">
+                                &nbsp;
+                            </div>
+                            <div class="span3" style="line-height: 25px;" id="divShowStudentList">
+
+                                <input type="submit" id="btnStudentIdentityCardReportSubmit" name="submit" value="Submit" class="btn btn-primary" />
+                            </div>
+                            <div class="span2">
+                                &nbsp;
+                            </div>
+                            <div class="span3" style="line-height: 25px">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div id="aaa">
+                <div class="span12" style="float: left">
+                    <div class="widget-block">
+                        <div class="widget-head">
+                            <h5>Student Identity Card</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="widget-box" style="padding: 15px">
+                                @Html.Partial("/Views/Student/Report/StudentIdentityCardReport/StudentIdentityCardReport.aspx")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            StudentIdentityCardReport.Initialize();
+        });
+    </script>*@
+
+
+
+@model AMS.ViewModel.StudentReportViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Student/Report/StudentIdentityCardReport.js")" type="text/javascript"></script>
+
+
+<div class="container">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @using (Html.BeginForm("Index", "StudentIdentityCardReport", FormMethod.Post, new { enctype = "multipart/form-data", id = "GroupForm" }))
+    {
+
+        <div class="block-header">
+            <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Student Identity Card</h2>
+        </div>
+        <div class="card" style="margin-bottom: 0px;">
+            <div class="card-body card-padding" style="padding-bottom:35%;">
+                @Html.HiddenFor(m => m.StudentId)
+                @Html.HiddenFor(m => m.IsPosted)
+                
+                <div class="row col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.CentreCode, new { })
+                        <div class="fg-line select form-group">
+                            @Html.DropDownListFor(m => m.SelectedCentreCode, Model.StudyCentreListMasterItems, "--Select Centre--", new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SelectedCentreCode)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.UniversityID, new { })
+                        <div class="fg-line select form-group">
+                            @Html.DropDownListFor(m => m.SelectedUniversityID, Model.UniversityListMasterItems, "--Select University--", new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SelectedUniversityID)
+                    </div>
+
+                    
+
+                    <!-- -->
+                    
+                    
+                        <div class="" id="DivCourseSection">
+                            <div class="col-sm-6">
+                                @Html.LabelFor(m => m.Course_Section, new { })
+                                <div class="fg-line select form-group">
+                                    @Html.DropDownList("Course_Section", ViewData["Course_Section"] as List<SelectListItem>, new { @class = "form-control", style = "" })
+                                </div>
+                            </div>
+
+                            @if (@Model.Course_Section == "S" || @Model.Course_Section == null)
+                            {
+                                <div class="col-sm-6" id="DivSectionDropDown">
+                                    <div id="DivSectionLable">@Html.LabelFor(m => m.SectionDetailID, new { })</div>
+                                    <div class="fg-line form-group select">
+                                        @Html.DropDownListFor(m => m.SelectedSectionDetailID, Model.SectionDetailsListMasterItems, "--Select Section--", new { @class = "form-control", style = "" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.SelectedSectionDetailID)
+                                </div>
+
+                                <div class="col-sm-6" id="DivCourseYearDropDown" style="display: none">
+                                    <div id="DivCourseYearLable" style="display: none">@Html.LabelFor(m => m.CourseYearId, new { })</div>
+                                    <div class="fg-line form-group select">
+                                        @Html.DropDownListFor(m => m.SelectedCourseYearId, Model.CourseYearListMasterItems, "--Select Course Year--", new { @class = "form-control", style = "" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.SelectedSectionDetailID)
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-6" id="DivSectionDropDown" style="display: none">
+                                    <div id="DivSectionLable" style="display: none">@Html.LabelFor(m => m.SectionDetailID, new { })</div>
+                                    <div class="fg-line form-group select">
+                                        @Html.DropDownListFor(m => m.SelectedSectionDetailID, Model.SectionDetailsListMasterItems, "--Select Section--", new { @class = "form-control", style = "" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.SectionDetailID)
+                                </div>
+
+                                <div class="col-sm-6" id="DivCourseYearDropDown">
+                                    <div id="DivCourseYearLable">@Html.LabelFor(m => m.CourseYearId, new { })</div>
+                                    <div class="fg-line form-group select">
+                                        @Html.DropDownListFor(m => m.SelectedCourseYearId, Model.CourseYearListMasterItems, "--Select Course Year--", new { @class = "form-control", style = "" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.CourseYearId)
+                                </div>
+                            }
+                        </div>
+
+                    
+                   
+                    
+
+
+
+
+
+                    
+                        <!--required-->
+                        <div class="col-sm-6">
+                            @Html.LabelFor(m => m.AcademicYear, new { })
+                            <div class="fg-line select form-group">
+                                @Html.DropDownListFor(m => m.SelectedAcademicYear, Model.SessionDetailsListMasterItems, "--Select Session --", new { @class = "form-control", style = "" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.SelectedAcademicYear)
+                        </div>
+
+                        
+
+                        <div class="col-sm-6">
+                            @Html.LabelFor(m => m.SelectedICardView, new {  })
+                            <div class="fg-line select form-group">
+                                @Html.DropDownList("SelectedICardView", ViewData["SelectedICardView"] as List<SelectListItem>, new { @class = "form-control", style = "" })
+                            </div>
+                        </div>
+
+                    
+
+                        <div class="col-sm-6">
+                            @Html.LabelFor(m => m.StudentFullName, new {  })
+                            <div class="fg-line form-group">
+                                @Html.TextBoxFor(m => m.StudentFullName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    
+
+                    <div class="col-sm-12" id="divShowStudentList">
+
+                        <button type="submit" name="submit" id="btnStudentIdentityCardReportSubmit" class="btn-primary btn">Show</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    }
+</div>
+
+<div class="container" style="margin-top:-10px">
+    <div id="aaa">
+        <div class="card">
+            <div class="card-header"></div>
+            <div class="card-body card-padding">
+                @Html.Partial("/Views/Student/Report/StudentIdentityCardReport/StudentIdentityCardReport.aspx")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        StudentIdentityCardReport.Initialize();
+        $("#GroupForm").submit(function () {
+            // $("#CreatedBy").val($("#selectedBalsheetID").val());
+        });
+    });
+</script>
+
+
+

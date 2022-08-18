@@ -1,0 +1,20 @@
+﻿@model AMS.ViewModel.InventoryDashboardReportViewModel
+@Html.HiddenFor(m => m.ReportList, new { @id = "ReportListRetailListItems" })
+<div class="col-sm-6 col-md-3">
+    <div class="mini-charts-item bgm-bluegray">
+        <div class="clearfix">
+            <div class="chart  myBarClassTotalSale col-sm-6 text-center"></div>
+            <div class="count text-center">
+                <small>Retail Sale</small>
+                <small>Articals</small>
+                <h2>@Html.DisplayFor(m => m.ReportList)</h2>
+                <small>&nbsp;</small>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        sparklineBar('myBarClassTotalSale', $("#ReportListRetailListItems").val().split(','), '45px', 3, '#fff', 2);
+    });
+</script>

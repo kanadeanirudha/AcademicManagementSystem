@@ -1,0 +1,20 @@
+﻿@model AMS.ViewModel.PurchaseReportViewModel
+<div class="col-sm-6 col-md-3">
+    <a class='mfpAjaxModal' href="#">
+        <div class="mini-charts-item bgm-cyan">
+            <div class="clearfix">
+                <div class="chart myBarClassMeetings col-sm-6 text-center"></div>
+                <div class="count text-center">
+                    <small>Total Manual Requisition</small>
+                    <h2>15</h2>
+                    <small>&nbsp;</small>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+<script>
+    $(document).ready(function () {
+        sparklineBar('myBarClassMeetings', [5,7,3,2,10,51,14,25,13,46,12], '45px', 3, '#fff', 2);
+    });
+</script>

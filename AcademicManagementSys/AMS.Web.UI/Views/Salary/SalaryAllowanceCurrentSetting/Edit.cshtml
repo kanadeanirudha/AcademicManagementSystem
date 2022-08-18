@@ -1,0 +1,131 @@
+﻿@model AMS.ViewModel.SalaryAllowanceCurrentSettingViewModel
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Edit Salary Allowance  Setting</h2>
+    </div>
+    <div class="card">
+        <div id="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormEditSalaryAllowanceCurrentSetting">
+                @Html.HiddenFor(m => m.ID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6 ">
+                        <div class="form-group fg-line select">
+                            @Html.LabelFor(model => model.AllowanceHeadName, new { })
+                            @Html.DropDownListFor(model => model.AllowanceHeadName, (SelectList)ViewBag.SalaryAllowanceMasterIDsList, "---Select Allowance Name ---", new { @class = "form-control input-sm" })
+
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.AllowanceHeadName)*@
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.FixedAmount, new { })
+                            @Html.TextBoxFor(model => model.FixedAmount, new { maxlength = "25", @class = "form-control input-sm date-picker" })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.FixedAmount)*@
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.Percentage, new { })
+                            @Html.TextBoxFor(model => model.Percentage, new { maxlength = "25", @class = "form-control input-sm " })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.Percentage)*@
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.EffectedDate, new { })
+                            @Html.TextBoxFor(model => model.EffectedDate, new { @class = "form-control input-sm date-picker" })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.EffectedDate)*@
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.CloseDate, new { })
+                            @Html.TextBoxFor(model => model.CloseDate, new { @class = "form-control input-sm date-picker" })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.CloseDate)*@
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            @Html.LabelFor(model => model.PayScaleRuleDescription, new { })
+                            @Html.DropDownListFor(model => model.PayScaleRuleDescription, (SelectList)ViewBag.SalaryPayRulesIDsList, "---Select Allowance Name ---", new { @class = "form-control input-sm" })
+
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.PayScaleRuleDescription)*@
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+
+                            @Html.LabelFor(model => model.AccountName, new { })
+                            @Html.DropDownListFor(model => model.AccountName, (SelectList)ViewBag.GeneralTypeOfAccountList, "---Select Account Name ---", new { @class = "form-control input-sm" })
+
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.AccountName)*@
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            @Html.LabelFor(model => model.CalculateOn, new { })
+                            @Html.DropDownList("CalculateOn", ViewData["CalculateOn"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.CalculateOn)*@
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <div class="checkbox m-b-15">
+                            <label>
+                                <input type="checkbox" id="IsCurrent" />
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsCurrent)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 m-t-30">
+                    <input class=" btn btn-primary btn-sm m-t-12 waves-effect" value="@Resources.ButtonAction_Submit" id="EditSalaryAllowanceCurrentSettingRecord" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#EffectedDate').datetimepicker({
+            format: 'DD MMMM YYYY',
+            //ignoreReadonly: true,
+          // minDate: moment()
+        });
+        $('#CloseDate').datetimepicker({
+            format: 'DD MMMM YYYY',
+            //ignoreReadonly: true,
+          //maxDate: moment()
+        });
+
+        $('#EffectedDate').on('dp.hide', function (e) {
+            var minDate = new Date(e.date.valueOf());
+            minDate.setDate(minDate.getDate());
+            $("#CloseDate").data("DateTimePicker").minDate(minDate);
+
+        })
+        SalaryAllowanceCurrentSetting.Initialize();
+    })
+</script>

@@ -1,0 +1,58 @@
+﻿@model AMS.ViewModel.CRMSaleReportViewModel
+
+
+<div class="card">
+    <div class="card-header ch-alt m-b-20 bgm-cyan">
+        <h2>Today's Meeting </h2>
+
+    </div>
+
+    <div class="card-body">
+        <div class="listview">
+            @if (ViewBag.ListCRMSaleTodaysMeetingDetails.Count > 0)
+            {
+                foreach (var item in ViewBag.ListCRMSaleTodaysMeetingDetails)
+                {
+                    <div class="lv-item">
+                        <div class="media">
+                            <div class="media-body">
+
+                                <div class="lv-title">
+                                    @if (@item.SubScheduleType == 1)
+                                    {
+                                        <button class='btn bgm-brown btn-xs'>Pitch Meeting</button><button class='btn bgm-gray btn-xs' style="margin-left:1%;">@item.FromTime &nbsp;-&nbsp; @item.UptoTime</button>
+                                    }
+                                    else if (@item.SubScheduleType == 2)
+                                    {
+                                        <button class='btn bgm-teal btn-xs'>Introductory Meeting</button><button class='btn bgm-gray btn-xs' style="margin-left:1%;">@item.FromTime &nbsp;-&nbsp; @item.UptoTime</button>
+                                    }
+                                    else if (@item.SubScheduleType == 3)
+                                    {
+                                        <button class='btn bgm-indigo btn-xs'>Presentation</button><button class='btn bgm-gray btn-xs' style="margin-left:1%;">@item.FromTime &nbsp;-&nbsp; @item.UptoTime</button>
+                                    }
+                                    else if (@item.SubScheduleType == 4)
+                                    {
+                                        <button class='btn bgm-purple btn-xs'>Follow-up</button><button class='btn bgm-gray btn-xs' style="margin-left:1%;">@item.FromTime &nbsp;-&nbsp; @item.UptoTime</button>
+                                    }
+                                </div>
+                                @*<div class="lv-title"></div>*@
+                                <small class="p-l-10" style="color: #a9a9a9; font-size:13px;">@item.ScheduleDescription</small>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="lv-item">
+                    <div class="media">
+                        <div class="media-body">
+                            <small class="p-l-20" style="color: #a9a9a9; font-size:13px;">Sorry.. No Meeting For Today.</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

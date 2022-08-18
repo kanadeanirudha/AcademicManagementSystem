@@ -1,0 +1,389 @@
+﻿@*@model AMS.ViewModel.OrganisationSectionDetailsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.StreamID)
+@Html.HiddenFor(model => model.BranchID)
+@Html.HiddenFor(model => model.BranchDetID)
+@Html.HiddenFor(model => model.StandardID)
+@Html.HiddenFor(model => model.MediumID)
+@Html.HiddenFor(model => model.Duration)
+@Html.HiddenFor(model => model.UniversityID)
+@Html.HiddenFor(model => model.CentreCode)
+@Html.HiddenFor(model => model.ExamApplicable)
+@Html.HiddenFor(model => model.ExamPattern)
+@Html.HiddenFor(model => model.DegreeName)
+@Html.HiddenFor(model => model.CourseYearDetailID)
+@Html.HiddenFor(model => model.NumberOfSemester)
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<div id="update-message" class="error invisible"></div>
+<div class="widget-block">
+    <div class="widget-head">
+        <h5>@Resources.FormCreate_AddSection </h5>
+    </div>
+
+    <div class="widget-content">
+        <form id="FormCreateOrganisationSectionDetailsAdd" method="post" class="form-horizontal well">
+            <div class="row">
+                <div class="span9" style="">
+                    <h4>@Html.DisplayFor(model => model.Descriptions)</h4>
+                    <br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.BranchDescriptions, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            <b>@Html.DisplayFor(model => model.BranchDescriptions)</b>
+                        </div>
+                        <div class="spanFullName span2">
+
+                            @Html.LabelFor(model => model.DegreeName, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            <b>@Html.DisplayFor(model => model.DegreeName)</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.StreamDescriptions, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            <b>@Html.DisplayFor(model => model.StreamDescriptions)</b>
+                        </div>
+                        <div class="spanFullName span2">
+
+                            @Html.LabelFor(model => model.StandardDescriptions, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            <b>@Html.DisplayFor(model => model.StandardDescriptions)</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.MediumDescription, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            <b>@Html.DisplayFor(model => model.MediumDescription)</b>
+                        </div>
+                        <div class="spanFullName span2">
+
+                            @Html.LabelFor(model => model.ExamApplicable, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            <b>@Html.DisplayFor(model => model.ExamApplicable)</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.ExamPattern, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            <b>@Html.DisplayFor(model => model.ExamPattern)</b>
+                        </div>
+                        <div class="spanFullName span2">
+                            &nbsp;
+                        </div>
+                        <div class="span2">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.SelectedDescriptions, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.DropDownListFor(model => model.SelectedDescriptions, (SelectList)ViewBag.organisationSectionMaster, Resources.ddlHeaders_SelectSection, new { style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.SelectedDescriptions)
+                        </div>
+                        <div class="spanFullName span2">
+                               @Html.LabelFor(model => model.SectionDetailCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                              @Html.TextBoxFor(model => model.SectionDetailCode, new { maxlength = "50", style = "font-Weight:Bold;" })
+                              <br />
+                            @Html.ValidationMessageFor(model => model.SectionDetailCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.SectionCapacity, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.SectionCapacity, new { style = "font-Weight:Bold;", min = 1, maxlength = "3" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.SectionCapacity)
+                        </div>
+                        <div class="spanFullName span2">
+                               @Html.LabelFor(model => model.OrgShiftCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                               @Html.DropDownList("OrgShiftCode", ViewData["OrgShiftCode"] as List<SelectListItem>, Resources.ddlHeaders_SelectSift, new { style = "font-weight:bold" })
+                              <br />
+                            @Html.ValidationMessageFor(model => model.OrgShiftCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.SectionActive, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                           @Html.CheckBoxFor(model => model.SectionActive)
+                        </div>
+                        <div class="spanFullName span2">
+                            &nbsp;
+                        </div>
+                        <div class="span2">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions" style="padding-left: 0px; padding-bottom: 0px; text-align: right">
+                <input id="CreateOrganisationSectionDetailsAddRecord" type="button" value="@Resources.ButtonAction_Submit" class="btn btn-primary" style="width:50px;"/>
+                <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationSectionDetailsAdd.Initialize();
+
+    });
+
+
+</script>
+
+<style>
+    .span1 {
+        width: 125px;
+    }
+
+    .span2 {
+        width: 135px;
+    }
+</style>*@
+
+
+@*------------new code-------------*@
+
+@model AMS.ViewModel.OrganisationSectionDetailsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormCreate_LocationMaster</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateOrganisationSectionDetailsAdd">
+
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.StreamID)
+                @Html.HiddenFor(model => model.BranchID)
+                @Html.HiddenFor(model => model.BranchDetID)
+                @Html.HiddenFor(model => model.StandardID)
+                @Html.HiddenFor(model => model.MediumID)
+                @Html.HiddenFor(model => model.Duration)
+                @Html.HiddenFor(model => model.UniversityID)
+                @Html.HiddenFor(model => model.CentreCode)
+                @Html.HiddenFor(model => model.ExamApplicable)
+                @Html.HiddenFor(model => model.ExamPattern)
+                @Html.HiddenFor(model => model.DegreeName)
+                @Html.HiddenFor(model => model.CourseYearDetailID)
+                @Html.HiddenFor(model => model.NumberOfSemester)
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.DisplayFor(model => model.Descriptions)
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.BranchDescriptions, new { style = "" }):    <b>@Html.DisplayFor(model => model.BranchDescriptions)</b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.DegreeName, new { style = "" }):
+                            <b>@Html.DisplayFor(model => model.DegreeName)</b>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.StreamDescriptions, new { style = "" }):
+                            <b>@Html.DisplayFor(model => model.StreamDescriptions)</b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.StandardDescriptions, new { style = "" }):
+                            <b>@Html.DisplayFor(model => model.StandardDescriptions)</b>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.MediumDescription, new { style = "" }):
+                            <b>@Html.DisplayFor(model => model.MediumDescription)</b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.ExamApplicable, new { style = "" }):
+                            <b>@Html.DisplayFor(model => model.ExamApplicable)</b>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.ExamPattern, new { style = "" }):
+                            <b>@Html.DisplayFor(model => model.ExamPattern)</b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.SelectedDescriptions, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.SelectedDescriptions, (SelectList)ViewBag.organisationSectionMaster, Resources.ddlHeaders_SelectSection, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SelectedDescriptions)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.SectionDetailCode, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.SectionDetailCode, new { @class = "form-control", maxlength = "50", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SectionDetailCode)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.SectionCapacity, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.SectionCapacity, new { @class = "form-control", style = "", min = 1, maxlength = "3" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SectionCapacity)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.OrgShiftCode, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownList("OrgShiftCode", ViewData["OrgShiftCode"] as List<SelectListItem>, Resources.ddlHeaders_SelectSift, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.OrgShiftCode)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @if (Model.OrganisationSectionDetailsDTO.SectionActive==true)
+                        {
+                        <div class="checkbox m-b-15" style="padding-top:8%;">
+                            <label>
+                                <input type="checkbox" id="SectionActive" checked>
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.SectionActive)
+                            </label>
+                        </div>
+                            }else{
+                                <div class="checkbox m-b-15" style="padding-top:8%;">
+                                    <label>
+                                        <input type="checkbox" id="SectionActive">
+                                        <i class="input-helper"></i>
+                                        @Html.LabelFor(model => model.SectionActive)
+                                    </label>
+                                </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateOrganisationSectionDetailsAddRecord" type="button" />
+                    <input name="" id="reset" type="submit" class="btn btn-default" value="@Resources.ButtonAction_Reset" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationSectionDetailsAdd.Initialize();
+
+    });
+</script>
+

@@ -1,0 +1,109 @@
+﻿@model AMS.ViewModel.OnlineExamViewModel
+@Html.HiddenFor(m => m.QuestionOrder)
+@Html.HiddenFor(m => m.IsQuestionDescriptive)
+<div class="col-sm-9" style="border: 1px solid;height: 410px;overflow: auto;">
+    <div class="card-header">
+        <span style="Font-size: 16px"><b>Question No. @Model.QuestionOrder</b></span>
+        <p style="overflow: auto; height: 250px; border-top: 1px solid;">
+            @Model.QuestionLableText
+        </p>
+        <p>
+            @if (Model.ImageName != null && Model.ImageName != "")
+            {
+                <img src="~/Content/UploadedFiles/QuestionImage/@Model.ImageName" />
+            }
+        </p>
+        <div class="col-sm-12">
+            @if (Model.OptionIDsList != null)
+            {
+                String[] OptionImageArray = Model.OptionImage.Split(new char[] { '~' });
+                String[] OptionTextArray = Model.OptionText.Split(new char[] { '~' });
+                String[] OptionIDsArray = Model.OptionIDsList.Split(new char[] { '~' });
+                var checkedAnswer = "";
+                var i = 0;
+                foreach (var OptionID in OptionIDsArray)
+                {
+                    <div class="col-sm-6" style="padding-bottom: 10px;">
+                        @if (Convert.ToInt32(OptionID) == Model.AnswerOptionID)
+                        {
+                            <input type="radio" value="@OptionID" checked name="AnsweredOptionID" />
+                        }
+                        else
+                        {
+                            <input type="radio" value="@OptionID" name="AnsweredOptionID" />
+                        }
+
+                        @if (OptionImageArray[i] != null && OptionImageArray[i] != " " && OptionImageArray[i] != "")
+                        {
+                            <img src="~/Content/UploadedFiles/AnswerImage/@OptionImageArray[i]" />;
+                        }
+                        else
+                        {
+                            @OptionTextArray[i];
+                        }
+                    </div>
+                        i++;
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<div class="col-sm-2" id="QuestionPallete">
+    <p><b>Question Pallete</b></p>
+    <div class="col-sm-12" id="QuestionStatusDiv">
+        @if (Model.CurrentStatusList != null)
+        {
+            String[] CurrentStatusArray = Model.CurrentStatusList.Split(new char[] { '~' });
+            String[] QuestionOrderList = Model.QuestionOrderList.Split(new char[] { '~' });
+            var AnswerOrder = 1;
+            for (var i = 0; i < QuestionOrderList.Length; i++)
+            {
+                if (Convert.ToInt32(CurrentStatusArray[i]) == 0)
+                {
+                    <span class="NotVisitedQuestion DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 1)
+                {
+                    <span class="AnsweredQuestion DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 2)
+                {
+                    <span class="NotAnsweredQuestion DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 3)
+                {
+                    <span class="NotAnsweredQuestionButReview DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 4)
+                {
+                    <span class="AnsweredQuestionButReview DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                AnswerOrder++;
+            }
+        }
+    </div>
+    <p><b>Legends :</b></p>
+    <div class="col-sm-6 legendsGuide"><span class="AnsweredQuestion btn btn-default">&nbsp;</span>Answered</div>
+    <div class="col-sm-6 legendsGuide"><span class="NotAnsweredQuestion btn btn-default">&nbsp;</span>Not Answered</div>
+    <div class="col-sm-6 legendsGuide"><span class="AnsweredQuestionButReview btn btn-default">&nbsp;</span>Marked</div>
+    <div class="col-sm-6 legendsGuide"><span class="NotVisitedQuestion btn btn-default">&nbsp;</span>Not Visited</div>
+    <div class="col-sm-12" style="text-align: center; margin-bottom: 10px;"><button class="btn btn-primary" type="button" id="FinalSubmitExam">Submit</button></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".DirectLoadQuestion").click(function () {
+            var OnlineExamIndStudentExamInfoID = $('#OnlineExamIndStudentExamInfoID').val();
+            var QuestionOrder = parseInt($(this).text());
+            if (QuestionOrder != $("#QuestionOrder").val()) {
+                OnlineExam.LoadQuestions(OnlineExamIndStudentExamInfoID, QuestionOrder);
+            }
+        });
+
+        $("#FinalSubmitExam").click(function () {
+            OnlineExam.ActionName = "FinalSubmitExam";
+            OnlineExam.AjaxCallOnlineExam();
+        });
+    });
+
+</script>

@@ -1,0 +1,103 @@
+﻿@model AMS.ViewModel.CRMSaleBillingTransactionViewModel
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>Create Billing Transaction</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+
+            <form id="FormCreateCRMSaleBillingTransaction" role="form">
+                @Html.HiddenFor(model => model.CRMSaleEnquiryAccountMasterID)
+                @Html.HiddenFor(model => model.CallEnquiryMasterID)
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.AccountName)
+                        </label>                        
+                        @Html.TextBoxFor(m => m.AccountName, new { @class = "form-control input-sm typeahead", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.EnquiryDesription)
+                        </label> 
+                        @Html.TextBoxFor(m => m.EnquiryDesription, new { @class = "form-control input-sm typeahead", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.InvoiceDate)
+                        </label>
+                        @Html.TextBoxFor(m => m.InvoiceDate, new { @class = "form-control input-sm date-picker"})
+                    </div>
+                    @Html.ValidationMessageFor(model => model.InvoiceDate)
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            @Html.LabelFor(model => model.InvoiceNumber)
+                        </label>                        
+                        @Html.TextBoxFor(model => model.InvoiceNumber, new { @class = "form-control input-sm typeahead", Value = "", maxLength = "10" })
+                    </div>
+                    @*@Html.ValidationMessageFor(model => model.InvoiceNumber)*@
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            @Html.LabelFor(model => model.InvoiceAmount)
+                        </label> 
+                        @Html.TextBoxFor(model => model.InvoiceAmount, new { @class = "form-control input-sm typeahead", Value = "", maxLength = "10" })
+                    </div>
+                    @*@Html.ValidationMessageFor(model => model.InvoiceAmount)*@
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <label>
+                            @Html.LabelFor(model => model.CurrencyCode)
+                        </label>                         
+                        @Html.DropDownListFor(model => model.CurrencyCode, (SelectList)ViewBag.GetGeneralCurrencyMasterList, "---Select currency code ---", new { @class = "form-control input-sm" })
+                    </div>
+                    @*@Html.ValidationMessageFor(model => model.CurrencyCode)*@
+                </div>
+
+                <div class="form-group" style="margin-left:1%;">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateCRMSaleBillingTransactionRecord" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#InvoiceDate").datetimepicker({
+            format: 'DD MMMM YYYY'
+        });
+
+        $("#InvoiceDate").on("keydown", function () {
+                return false;           
+        });
+        CRMSaleBillingTransaction.Initialize();
+    });
+</script>

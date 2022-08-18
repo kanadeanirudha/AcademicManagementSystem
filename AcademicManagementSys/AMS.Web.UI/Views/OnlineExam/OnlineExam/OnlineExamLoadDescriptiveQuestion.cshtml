@@ -1,0 +1,137 @@
+﻿@model AMS.ViewModel.OnlineExamViewModel
+@Html.HiddenFor(m => m.QuestionOrder)
+@Html.HiddenFor(m => m.IsQuestionDescriptive)
+@Html.HiddenFor(m => m.IsAttachmentCompalsary)
+@Html.HiddenFor(m => m.DescriptiveAnswer)
+@Html.HiddenFor(m => m.AttachedDocument)
+<div class="col-sm-9" style="border: 1px solid;height: 410px;overflow: auto;">
+    <div class="card-header">
+        <span style="Font-size: 16px"><b>Question No. @Model.QuestionOrder</b></span>
+        <p style="overflow: auto; height: 250px; border-top: 1px solid;">
+            @Model.QuestionLableText
+        </p>
+        <p>
+            @if (Model.ImageName != null && Model.ImageName != "")
+            {
+                <img src="~/Content/UploadedFiles/QuestionImage/@Model.ImageName" />
+            }
+        </p>
+        <label>Answer</label>
+        <div class="AnswerEditor">
+
+        </div>
+        @if (Model.IsAttachmentCompalsary == 1 || Model.IsAttachmentCompalsary == 2)
+        {
+            <div class="form-group">
+                <label>Attach Document</label>
+                @Html.FileFor(model => model.AttachedDocumentFile)
+                @if (Model.AttachedDocument != null || Model.AttachedDocument != "")
+                {
+                    <a href="/OnlineExam/DownloadAttachedDocument?AttachedDocument=@Model.AttachedDocument" target="_blank" id="linkForAttachedDocument">@Model.AttachedDocument</a>
+                }
+            </div>
+        }
+    </div>
+</div>
+<div class="col-sm-2" id="QuestionPallete">
+    <p><b>Question Pallete</b></p>
+    <div class="col-sm-12" id="QuestionStatusDiv">
+        @if (Model.CurrentStatusList != null)
+        {
+            String[] CurrentStatusArray = Model.CurrentStatusList.Split(new char[] { '~' });
+            String[] QuestionOrderList = Model.QuestionOrderList.Split(new char[] { '~' });
+            var AnswerOrder = 1;
+            for (var i = 0; i < QuestionOrderList.Length; i++)
+            {
+                if (Convert.ToInt32(CurrentStatusArray[i]) == 0)
+                {
+                    <span class="NotVisitedQuestion DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 1)
+                {
+                    <span class="AnsweredQuestion DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 2)
+                {
+                    <span class="NotAnsweredQuestion DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 3)
+                {
+                    <span class="NotAnsweredQuestionButReview DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                else if (Convert.ToInt32(CurrentStatusArray[i]) == 4)
+                {
+                    <span class="AnsweredQuestionButReview DirectLoadQuestion btn btn-default">@QuestionOrderList[i]</span>
+                }
+                AnswerOrder++;
+            }
+        }
+    </div>
+    <p><b>Legends :</b></p>
+    <div class="col-sm-6 legendsGuide"><span class="AnsweredQuestion btn btn-default">&nbsp;</span>Answered</div>
+    <div class="col-sm-6 legendsGuide"><span class="NotAnsweredQuestion btn btn-default">&nbsp;</span>Not Answered</div>
+    <div class="col-sm-6 legendsGuide"><span class="AnsweredQuestionButReview btn btn-default">&nbsp;</span>Marked</div>
+    <div class="col-sm-6 legendsGuide"><span class="NotVisitedQuestion btn btn-default">&nbsp;</span>Not Visited</div>
+    <div class="col-sm-12" style="text-align: center; margin-bottom: 10px;"><button class="btn btn-primary" type="button" id="FinalSubmitExam">Submit</button></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".DirectLoadQuestion").click(function () {
+            var OnlineExamIndStudentExamInfoID = $('#OnlineExamIndStudentExamInfoID').val();
+            var QuestionOrder = parseInt($(this).text());
+            if (QuestionOrder != $("#QuestionOrder").val()) {
+                OnlineExam.LoadQuestions(OnlineExamIndStudentExamInfoID, QuestionOrder);
+            }
+        });
+
+        $("#FinalSubmitExam").click(function () {
+            OnlineExam.ActionName = "FinalSubmitExam";
+            OnlineExam.AjaxCallOnlineExam();
+        });
+        $('.AnswerEditor').summernote({
+            height: 150,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                //['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen'/*, 'codeview'*/]],
+                ['help', ['help']]
+            ],
+        });
+        $('.AnswerEditor').code($("#DescriptiveAnswer").val());
+        $("#AttachedDocumentFile").change(function () {
+            var data = new FormData();
+            var files = $("#AttachedDocumentFile").get(0).files;
+            if (files.length > 0) {
+                data.append("NewFile", files[0]);
+                data.append("OldFile", $("#AttachedDocument").val());
+
+                $.ajax({
+                    url: "/OnlineExam/UploadAttachedDocument",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,              //A => Answer
+                    dataType: 'json',
+                    success: function (result) {
+                        $("#AttachedDocument").val(result);
+                        $("#linkForAttachedDocument").text(result);
+                        $("#linkForAttachedDocument").href().href("/OnlineExam/DownloadAttachedDocument?AttachedDocument=" + result);
+                    },
+                    async: false,
+                    error: function (er) {
+                        alert(er);
+                    }
+                });
+            }
+        });
+    });
+
+</script>

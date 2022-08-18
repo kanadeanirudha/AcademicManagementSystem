@@ -1,0 +1,114 @@
+﻿@model AMS.ViewModel.OnlineEntranceExamQuestionBankMasterViewModel
+
+@*<form id="FormViewOnlineQuestionBank" method="post" style="width:700px;height:300px;">
+
+    <div class="widget-block" style="width:230px;">
+             <div class="widget-head">
+                 <h5>View Question And Its Option</h5>
+             </div>
+
+             <div class="widget-content">
+                 <div class="widget-box">
+                     <div class="control-group" style="padding:10px;">
+                         &nbsp;&nbsp;<img src="~/Content/images/warning.png" />&nbsp;&nbsp;@Resources.DisplayName_DeleteMessage
+                         <div class="controls">
+                         </div>
+                     </div>
+                     <div class="control-group" style="padding:10px;text-align:right;margin-bottom:0px;border: 1px solid #e5e5e5;">
+                         <input type="button" id="DeleteOnlineQuestionBankRecord" value="@Resources.ButtonAction_Delete" class="btn btn-primary" />
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </form>*@
+
+<div class="widget-block">
+    <div class="widget-head">
+        <h5 id="hFive">Question And Option </h5>
+    </div>
+    <div class="widget-content" style="height: auto;">
+        <form id="FormViewOnlineQuestionBank" method="post" class="form-horizontal well">
+            <div class="row">
+                @*<div class="span10">
+                        <div class="spanFullName span2">
+                            @Html.LabelFor(model => model.QuestionLableText, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="row control-group">
+                            @if (Model.GetQuestionBankAndDetailList[0].IsQuestionInImage == true)
+                            {
+                                <img src="@Url.Content("../Content/UploadedFiles/QuestionImage/" + @Model.GetQuestionBankAndDetailList[0].ImageName)" alt="IMAGES" style="height:101px; width:70%;" />
+                            }
+                            else
+                            {
+                                <b>@Model.GetQuestionBankAndDetailList[0].QuestionLableText</b>
+                            }
+                            <br /><br />
+                            <div class="span1" style="margin-left:5%;">
+                                @Html.LabelFor(model => model.OptionText, new { style = "font-Weight:Bold;" })
+                            </div>
+                            @foreach (var item in Model.GetQuestionBankAndDetailList)
+                            {
+                                <div>
+                                    @if(item.OptionImage != "")
+                                    {
+                                    <img src="@Url.Content("../Content/UploadedFiles/AnswerImage/" + @item.OptionImage)" alt="IMAGES" style="height:70px; width:28%; margin-left:11%;" />
+                                    }
+                                    else
+                                    {
+                                         <br />
+                                        <div style="margin-left:23%;"><b>@item.OptionText</b></div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>*@
+                <table id="tblDataQuestions" class="table user-tbl " style=" margin-left: 30px; width: auto; height:auto;">
+                    <thead>
+                        <tr>
+                            <td><b> Questions  </b></td>
+                            <td>
+                                @if (Model.GetQuestionBankAndDetailList[0].IsQuestionInImage == true)
+                                {
+                                    <img src="@Url.Content("../Content/UploadedFiles/QuestionImage/" + @Model.GetQuestionBankAndDetailList[0].ImageName)" alt="IMAGES" style="height:101px; width:100%;" />
+                                }
+                                else
+                                {
+                                    <b>@Model.GetQuestionBankAndDetailList[0].QuestionLableText</b>
+                                }
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><b>Options </b></td>
+                            <td>
+                                @foreach (var item in Model.GetQuestionBankAndDetailList)
+                                {
+                                    <div>
+                                        @if (item.OptionImage != "")
+                                        {
+                                            <br />
+                                            <img src="@Url.Content("../Content/UploadedFiles/AnswerImage/" + @item.OptionImage)" alt="IMAGES" style="height:60px; width:90%; " />
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            <div style="margin-left:11%;"><b>@item.OptionText</b></div>
+                                        }
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        OnlineEntranceExamQuestionBankMaster.Initialize();
+    });
+</script>

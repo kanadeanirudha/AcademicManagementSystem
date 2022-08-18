@@ -1,0 +1,191 @@
+﻿@model AMS.ViewModel.HMPatientMasterViewModel
+<script src="@Url.Content("~/Scripts/AMS_Scripts/HealthCare/HMPatientMaster.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Create Patient Master</h2>
+    </div>
+    <div class="card">
+        <div id="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateHMPatientMaster">
+                
+                    @*<div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.PatientName, new { })
+                            @Html.TextBoxFor(model => model.PatientName, new { maxlength = "100", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PatientName)
+                    </div>*@
+                  <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.FirstName, new { })
+                            @Html.TextBoxFor(model => model.FirstName, new { maxlength = "100", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                
+               
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.MiddleName, new { })
+                            @Html.TextBoxFor(model => model.MiddleName, new { maxlength = "100", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MiddleName)
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.LastName, new { })
+                            @Html.TextBoxFor(model => model.LastName, new { maxlength = "100", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                   
+                        <div class="col-sm-6">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.Age, new { })
+                                @Html.TextBoxFor(model => model.Age, new { maxlength = "100", @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Age)
+                        </div>
+                   
+            
+                    <div class="col-sm-6">
+                        @*       <span style="float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                        <div class="form-group" style="padding-top: 1%;">
+                            @Html.LabelFor(model => model.Gender, new { style = "" })
+                            @if (Model.Gender == "1")
+                            {
+                                <label class="radio radio-inline">
+                                    @Html.RadioButtonFor(model => model.Gender, true, new { @checked = true, id = "Male" })Male
+                                    <i class="input-helper"></i>
+                                </label>
+
+                                <label class="radio radio-inline">
+                                    @Html.RadioButtonFor(model => model.Gender, false, new { id = "Female", disabled = "disabled" })Female
+                                    <i class="input-helper"></i>
+                                </label>
+
+                            }
+                            else
+                            {
+                                <label class="radio radio-inline">
+                                    @Html.RadioButtonFor(model => model.Gender, true, new { id = "Male" })Male
+                                    <i class="input-helper"></i>
+                                </label>
+
+                                <label class="radio radio-inline">
+                                    @Html.RadioButtonFor(model => model.Gender, false, new { @checked = true, id = "Female" })Female
+                                    <i class="input-helper"></i>
+                                </label>
+
+                            }
+                        </div>
+                    </div>
+                   
+                        <div class="col-sm-6">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.DOB, new { })
+                                @Html.TextBoxFor(model => model.DOB, new { maxlength = "100", @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.DOB)
+                        </div>
+                  <div class="col-sm-6">
+                <div class="form-group fg-line">
+                    @Html.LabelFor(model => model.Address, new { })
+                    @Html.TextBoxFor(model => model.Address, new { maxlength = "100", @class = "form-control input-sm" })
+                </div>
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.City, new { })
+                            @Html.TextBoxFor(model => model.City, new { maxlength = "100", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.City)
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.PinCode, new { })
+                            @Html.TextBoxFor(model => model.PinCode, new { maxlength = "100", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PinCode)
+                    </div>
+                    
+                  
+                        <div class="col-sm-6">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.Note, new { })
+                                @Html.TextBoxFor(model => model.Note, new { maxlength = "100", @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Note)
+                        </div>
+
+                  
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.IdentityNumber, new { })
+                            @Html.TextBoxFor(model => model.IdentityNumber, new { maxlength = "100", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.IdentityNumber)
+                    </div>
+           
+                  
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.FamilyMobileNumber, new { })
+                        @Html.TextBoxFor(model => model.FamilyMobileNumber, new { maxlength = "100", @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FamilyMobileNumber)
+                </div>
+              
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        <div class="checkbox m-b-15">
+                            <label>
+                                <input type="checkbox" id="IsIPDPatient" />
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsIPDPatient)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 m-t-30">
+                    <input class=" btn btn-primary btn-sm m-t-12 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateHMPatientMasterRecord" type="button" />
+                </div>
+                
+            </form>
+          </div>
+       </div>
+   </div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        HMPatientMaster.Initialize();
+
+        
+        $("#DOB").datetimepicker({
+            format: 'DD MMMM YYYY',
+            maxDate: moment(),
+        });
+
+        $("#DOB").on("keydown", function () {
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode != 9) {
+                return false;
+            }
+        });
+    })
+</script>

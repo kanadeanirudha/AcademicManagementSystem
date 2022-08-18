@@ -1,0 +1,79 @@
+﻿@model AMS.Web.UI.Models.SessionMaster.SessionMaster
+@{
+    ViewBag.Title = "Edit";
+}
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Session Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Edit</legend>
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(model => model.ID)
+
+                                <div class="form-group">
+                                    <div class="editor-label col-lg-2 control-label">
+                                        @Html.LabelFor(model => model.Session)
+                                    </div>
+                                    <div class="editor-field">
+                                        @Html.EditorFor(model => model.Session)
+                                        @Html.ValidationMessageFor(model => model.Session)
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="editor-label col-lg-2 control-label">
+                                        @Html.LabelFor(model => model.SessionOrder)
+                                    </div>
+                                    <div class="editor-field">
+                                        @Html.EditorFor(model => model.SessionOrder)
+                                        @Html.ValidationMessageFor(model => model.SessionOrder)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="editor-label col-lg-2 control-label">
+                                        @Html.LabelFor(model => model.CurrentFlag)
+                                    </div>
+                                    <div class="editor-field">
+                                        @Html.EditorFor(model => model.CurrentFlag)
+                                        @Html.ValidationMessageFor(model => model.CurrentFlag)
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <div class="editor-label col-lg-2 control-label">
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <input class="btn btn-sm btn-primary" value="Save" />
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+
+</div>

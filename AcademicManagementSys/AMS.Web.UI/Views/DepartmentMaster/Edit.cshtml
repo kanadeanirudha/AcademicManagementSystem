@@ -1,0 +1,79 @@
+﻿@model AMS.Web.UI.Models.DepartmentMaster.DepartmentMaster
+@{
+    ViewBag.Title = "Edit";
+}
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Department Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Edit</legend>
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(model => model.ID)
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DepartmentName)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.DepartmentName)
+                                    @Html.ValidationMessageFor(model => model.DepartmentName)
+                                </div>                               
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DepartmentShortCode)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.DepartmentShortCode)
+                                    @Html.ValidationMessageFor(model => model.DepartmentShortCode)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DepartmentPrintCode)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.DepartmentPrintCode)
+                                    @Html.ValidationMessageFor(model => model.DepartmentPrintCode)
+                                </div>
+                                  <div class="editor-label">
+                                    @Html.LabelFor(model => model.AcademicNonAcademic)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.AcademicNonAcademic)
+                                    @Html.ValidationMessageFor(model => model.AcademicNonAcademic)
+                                </div>                              
+                                 <div class="editor-label">
+                                    @Html.LabelFor(model => model.TeachingActivity)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.TeachingActivity)
+                                    @Html.ValidationMessageFor(model => model.TeachingActivity)
+                                </div>                              
+                                
+                                <p>
+                                    <input type="submit" value="Save" />
+                                </p>
+                            }
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+
+</div>

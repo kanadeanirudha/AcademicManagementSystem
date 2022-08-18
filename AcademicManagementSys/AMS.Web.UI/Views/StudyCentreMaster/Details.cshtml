@@ -1,0 +1,272 @@
+﻿@model AMS.Web.UI.Models.StudyCentreMaster.StudyCentreMaster
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Organisation Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Details</legend>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CentreName)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+
+                                        <span class="form-control">@Model.CentreName</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CentreCode)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CentreCode</span>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.HoCoRoScFlag)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+
+                                        <span class="form-control">@Model.HoCoRoScFlag</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.HoID)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.HoID</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CoID)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CoID</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.RoID)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.RoID</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CentreSpecialization)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CentreSpecialization</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CentreAddress)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CentreAddress</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                               <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.PlotNo)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.PlotNo</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.StreetName)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.StreetName</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CityID)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CityID</span>
+
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.Pincode)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.Pincode</span>
+
+                                    </div>
+                                </div>
+                              
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.EmailID)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.EmailID</span>
+
+                                    </div>
+                                </div>
+                                  <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.Url)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.Url</span>
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.EmailID)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.EmailID</span>
+
+                                    </div>
+                                </div>
+                               <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CellPhone)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CellPhone</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.FaxNumber)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.FaxNumber</span>
+
+                                    </div>
+                                </div>
+                               <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.PhoneNumberOffice)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.PhoneNumberOffice</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    Centre Est.DateTime
+                                   @* @Html.LabelFor(model => model.CentreEstablishmentDatetime)*@</label>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CentreEstablishmentDatetime</span>
+
+                                    </div>
+                                </div>
+                               <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.OrganisationID)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.OrganisationID</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.UniversityID)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.UniversityID</span>
+
+                                    </div>
+                                </div>
+                               <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.CentreLoginNumber)
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.CentreLoginNumber</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    @Html.LabelFor(model => model.InstituteCode)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="form-control">@Model.InstituteCode</span>
+
+                                    </div>
+                                </div>
+                               
+                               
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    <p>      
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

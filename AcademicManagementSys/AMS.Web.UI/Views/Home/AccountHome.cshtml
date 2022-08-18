@@ -1,0 +1,197 @@
+﻿@model AMS.ViewModel.UserMasterViewModel
+
+@{
+    ViewBag.Title = "Accounts";
+    Layout = null;
+}
+
+
+
+<!-- content -->
+<div class="container-fluid">
+
+    <ul class="breadcrumb">
+        <li><a href="#"> @Resources.MainMenu_AccountDashboard</a><span class="divider">»</span></li>
+        @*  <li class="active">Users List</li>     *@
+    </ul>
+
+    <div class="row-fluid">
+
+
+    </div>
+    @*	<div class="row-fluid">
+                    <div class="span12">
+                        <div class="widget-block">
+
+
+                            <div class="widget-head">
+                                <h5><i class="black-icons users"></i> Users</h5>
+
+                                <div style="margin:-24px 60px 0px 10px;" class="pull-right">
+                                <form accept-charset="utf-8" method="post" style="float: right;" id="searchuser" name="searchuser" class="input-append" action="/nonmovingstocks/admin/users/search"><div style="display:none;"><input type="hidden" value="POST" name="_method"></div>
+                                <select style="float:left;" tabindex="16" id="type" class="" name="data[User][searchby]">
+        <option value="name">Name</option>
+        <option value="email">Email</option>
+        </select> &nbsp;&nbsp;
+         <input type="text" id="UserSearch" autocomplete="off" size="16" placeholder="Search..." class="search_query input-medium" name="data[User][search]"><button id="search" type="submit" class="btn"><i class="icon-search"></i></button>
+          &nbsp;&nbsp; &nbsp;&nbsp;
+        </form>
+        </div>
+                                <div class="widget-control pull-right">
+
+                                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i><b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                        <a title="Add New" id="link-992179724" href="/nonmovingstocks/admin/users/add/"><i class="icon-plus"></i> Add New</a>								</li>
+                                        <li><a id="bulkActivate" href="#"><i class="icon-ok"></i> Bulk Activate</a></li>
+                                        <li><a id="bulkInActivate" href="#"><i class="icon-ban-circle"></i> Bulk In-Activate</a></li>
+                                        <li><a id="bulkRemove" href="#"><i class="icon-trash"></i> Bulk Remove</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="widget-content">
+                                <div class="widget-box">
+                                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                <form accept-charset="utf-8" method="post" style="margin:0px; padding:0px;" id="bulkAction" name="bulkAction" class="" action="/nonmovingstocks/admin/users/bulk_action"><div style="display:none;"><input type="hidden" value="POST" name="_method"></div><input type="hidden" id="bulkType" value="" name="data[User][bulktype]">
+                                <div class="table_content">
+                                    <table class="table table-striped table-bordered dataTable borderNone">
+                    <thead>
+                      <tr role="row">
+        <!-- role="columnheader" -->
+                        <th width="5%" class="center"><input type="checkbox" id="selectAll" name="checkbox" value="" class="checkall-task">
+                        </th>
+                        <th width="5%" class=""> S.N </th>
+                        <th width="40%" class="">
+                        <a style="width:418px; display: block;" id="link-214818090" class="sorting" href="/nonmovingstocks/admin/users/index/sort:first_name/direction:asc">Name</a>                  </th>
+                        <th width="20%" class=""> <a style="width:200px; display: block;" id="link-648311954" class="sorting" href="/nonmovingstocks/admin/users/index/sort:email/direction:asc">Email</a> </th>
+                        <th width="20%" class=""> Country </th>
+                        <th width="5%" class="center"> Status </th>
+
+                        <th width="5%" class="center"> Action </th>
+                    </tr>
+                    </thead>
+
+
+                  <tbody aria-relevant="all" aria-live="polite" role="alert">
+
+                                   <tr class="odd">
+                        <td class="center tr-task-check  ">
+                            <input type="checkbox" class="listRowCheckbox" name="data[User][id][]" value="6">
+                        </td>
+                        <td class="">1</td>
+                        <td class="">
+                        <a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/6">Naren Modi</a>                </td>
+                        <td class="">nmodi@nms.com</td>
+                        <td class=""> Country</td>
+                        <td class="center sdate  "> <a id="link-1786291537" href="/nonmovingstocks/admin/users/inactive/6"><span class="label label-success">Active</span></a> </td>
+                        <td class="  "><div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog "></i><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/6"><i class="icon-zoom-in"></i> View</a></li>
+                              <li><a title="Edit" id="link-451503150" href="/nonmovingstocks/admin/users/edit/6"><i class="icon-edit"></i> Edit</a></li>
+                              <li><a id="link-71841669" href="/nonmovingstocks/admin/users/delete/6"><i class="icon-trash"></i> Remove</a></li>
+                            </ul>
+                          </div></td>
+                      </tr>
+                                  <tr class="even">
+                        <td class="center tr-task-check  ">
+                            <input type="checkbox" class="listRowCheckbox" name="data[User][id][]" value="5">
+                        </td>
+                        <td class="">2</td>
+                        <td class="">
+                        <a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/5">Alok Dubey</a>                </td>
+                        <td class="">alok@yopmail.com</td>
+                        <td class=""> Country</td>
+                        <td class="center sdate  "> <a id="link-1700525424" href="/nonmovingstocks/admin/users/inactive/5"><span class="label label-success">Active</span></a> </td>
+                        <td class="  "><div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog "></i><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/5"><i class="icon-zoom-in"></i> View</a></li>
+                              <li><a title="Edit" id="link-1745344965" href="/nonmovingstocks/admin/users/edit/5"><i class="icon-edit"></i> Edit</a></li>
+                              <li><a id="link-491149578" href="/nonmovingstocks/admin/users/delete/5"><i class="icon-trash"></i> Remove</a></li>
+                            </ul>
+                          </div></td>
+                      </tr>
+                                  <tr class="odd">
+                        <td class="center tr-task-check  ">
+                            <input type="checkbox" class="listRowCheckbox" name="data[User][id][]" value="4">
+                        </td>
+                        <td class="">3</td>
+                        <td class="">
+                        <a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/4">Abhay Deotale</a>                </td>
+                        <td class="">abhay@yopmail.com</td>
+                        <td class=""> Country</td>
+                        <td class="center sdate  "> <a id="link-1157573888" href="/nonmovingstocks/admin/users/inactive/4"><span class="label label-success">Active</span></a> </td>
+                        <td class="  "><div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog "></i><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/4"><i class="icon-zoom-in"></i> View</a></li>
+                              <li><a title="Edit" id="link-1270412952" href="/nonmovingstocks/admin/users/edit/4"><i class="icon-edit"></i> Edit</a></li>
+                              <li><a id="link-1367795354" href="/nonmovingstocks/admin/users/delete/4"><i class="icon-trash"></i> Remove</a></li>
+                            </ul>
+                          </div></td>
+                      </tr>
+                                  <tr class="even">
+                        <td class="center tr-task-check  ">
+                            <input type="checkbox" class="listRowCheckbox" name="data[User][id][]" value="3">
+                        </td>
+                        <td class="">4</td>
+                        <td class="">
+                        <a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/3">Avinash Kushwaha</a>                </td>
+                        <td class="">avinash@yopmail.com</td>
+                        <td class=""> Country</td>
+                        <td class="center sdate  "> <a id="link-1698989882" href="/nonmovingstocks/admin/users/inactive/3"><span class="label label-success">Active</span></a> </td>
+                        <td class="  "><div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog "></i><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/3"><i class="icon-zoom-in"></i> View</a></li>
+                              <li><a title="Edit" id="link-645868889" href="/nonmovingstocks/admin/users/edit/3"><i class="icon-edit"></i> Edit</a></li>
+                              <li><a id="link-1781142285" href="/nonmovingstocks/admin/users/delete/3"><i class="icon-trash"></i> Remove</a></li>
+                            </ul>
+                          </div></td>
+                      </tr>
+                                  <tr class="odd">
+                        <td class="center tr-task-check  ">
+                            <input type="checkbox" class="listRowCheckbox" name="data[User][id][]" value="2">
+                        </td>
+                        <td class="">5</td>
+                        <td class="">
+                        <a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/2">Pankaj Danode</a>                </td>
+                        <td class="">pankaj@yopmail.com</td>
+                        <td class=""> Country</td>
+                        <td class="center sdate  "> <a id="link-1920892007" href="/nonmovingstocks/admin/users/inactive/2"><span class="label label-success">Active</span></a> </td>
+                        <td class="  "><div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog "></i><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a title="View Detail" class="ajax cboxElement" href="/nonmovingstocks/admin/users/view/2"><i class="icon-zoom-in"></i> View</a></li>
+                              <li><a title="Edit" id="link-1245498709" href="/nonmovingstocks/admin/users/edit/2"><i class="icon-edit"></i> Edit</a></li>
+                              <li><a id="link-606025769" href="/nonmovingstocks/admin/users/delete/2"><i class="icon-trash"></i> Remove</a></li>
+                            </ul>
+                          </div></td>
+                      </tr>
+
+                      </tbody>
+                </table>
+                </div>
+
+                </form>
+                <div class="widget-bottom">
+
+                <br><br>
+
+
+
+                </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+
+
+</div>

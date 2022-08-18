@@ -1,0 +1,98 @@
+﻿@model AMS.ViewModel.DashboardViewModel
+@{  
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/General_Script/EmployeeDashboard.js")" type="text/javascript"></script>
+@Html.HiddenFor(m => m.TaskCode)
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>@Resources.MainMenu_Dashboard</><span class="divider">»</span></li>
+    </ul>
+    @if (Model.TaskCodeList.Count > 0)
+    {
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box-tab">
+
+                    <div class="tabbable">
+                        <!-- Only required for left/right tabs -->
+                        <ul class="nav nav-tabs" id="TaskList">
+                            @foreach (var item in Model.TaskCodeList)
+                    {
+                        if (Model.TaskCodeList[0].TaskCode == item.TaskCode)
+                        {
+                            <li class="active" id="@item.TaskCode"><a data-toggle="tab" href="#@item.TaskCode" style="color:#0088cc;text-decoration:none"><i class="black-icons list_images"></i> @item.Description</a></li>
+                        }
+                        else
+                        {
+                            <li class="" id="@item.TaskCode"><a data-toggle="tab" href="#@item.TaskCode" style="color:#0088cc;text-decoration:none"><i class="black-icons blocks_images"></i> @item.Description</a></li>
+                        }
+                    }
+                        </ul>
+                        <div class="tab-content">
+
+                            @foreach (var item1 in Model.TaskCodeList)
+                    {
+                        if (Model.TaskCodeList[0].TaskCode == item1.TaskCode)
+                        {
+                            <div id="@item1.TaskCode" class="tab-pane active">
+                                @if (item1.TaskCode == "LA")
+                                {
+                                    //Html.RenderAction("PendingLeaveRequest", "Home", new { TaskCode = item1.TaskCode });
+                                @Html.Partial("PendingLeaveRequest")
+                                }
+                                else if (item1.TaskCode == "MA")
+                                {
+                                  //  Html.RenderAction("PendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    @Html.Partial("PendingRequest")
+                                }
+                                else if (item1.TaskCode == "ASA")
+                                {
+                                    //Html.RenderAction("SPAttendancePendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                @Html.Partial("SPAttendancePendingRequest")
+                                }
+                                else if (item1.TaskCode == "CODA")
+                                {
+                                    //Html.RenderAction("CODAPendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                @Html.Partial("CODAPendingRequest")
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="@item1.TaskCode" class="tab-pane">
+                                @if (item1.TaskCode == "LA")
+                                {
+                                @Html.Partial("PendingLeaveRequest")
+                                }
+                                else if (item1.TaskCode == "MA")
+                                {
+                                    //Html.RenderAction("PendingRequest", "Home", new { TaskCode = item1.TaskCode });
+                                    Html.RenderAction("PendingRequest");
+                                    @*@Html.Partial("PendingRequest")*@
+                                }
+                                else if (item1.TaskCode == "ASA")
+                                {
+                                @Html.Partial("SPAttendancePendingRequest")
+                                }
+                                else if (item1.TaskCode == "CODA")
+                                {
+                                @Html.Partial("CODAPendingRequest")
+                                }
+                            </div>
+                        }
+                    }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //EmployeeDashboard.Initialize();
+    });
+</script>

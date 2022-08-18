@@ -1,0 +1,104 @@
+﻿@model AMS.Web.UI.Models.SemisterInfoMaster.SemisterInfoMaster
+@{
+    ViewBag.Title = "Edit";
+}
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Semister Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Edit</legend>
+                           
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                 @Html.HiddenFor(model => model.ID)
+
+                               <div class="form-group">
+                                 <div class="editor-label col-lg-2 control-label">
+                                    @Html.LabelFor(model => model.SemisterName)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.SemisterName)
+                                    @Html.ValidationMessageFor(model => model.SemisterName)
+                                </div>
+                                   </div>
+                             <div class="form-group">
+                                 <div class="editor-label col-lg-2 control-label">
+                                    @Html.LabelFor(model => model.SemisterCode)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.SemisterCode)
+                                    @Html.ValidationMessageFor(model => model.SemisterCode)
+                                </div>
+
+                                 <div class="form-group">
+                                 <div class="editor-label col-lg-2 control-label">
+                                    @Html.LabelFor(model => model.SemisterType)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.SemisterType)
+                                    @Html.ValidationMessageFor(model => model.SemisterType)
+                                </div>
+
+                               
+                            
+                             @*   <table class="table table-striped table-bordered">
+                            <tr>
+                                <th style="display:none;">
+                                     @Html.HiddenFor(model => model.ID)
+                                </th>
+                                <th>
+                                     @Html.LabelFor(model => model.DivisionName)
+                                </th>
+
+                                <th>
+                                       @Html.LabelFor(model => model.DivisionShortCode)
+                                </th>
+
+                                <th>
+                                     @Html.LabelFor(model => model.DivisionPrintCode)
+                                </th>
+                            </tr>
+                              <tr>
+                                    <td style="display:none;">
+                                      
+                                    </td>
+                                    <td>
+                                       @Html.EditorFor(model => model.DivisionName)
+                                    </td>
+                                    <td>
+                                       @Html.EditorFor(model => model.DivisionShortCode)
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.DivisionPrintCode)
+                                    </td>
+                                </tr>
+                        </table>*@
+                                    <p>
+                                        <input type="submit" value="Save" />
+                                    </p>
+                            }
+
+ 
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+
+</div>

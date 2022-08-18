@@ -1,0 +1,194 @@
+﻿@model AMS.ViewModel.FeeStructureApplicableViewModel
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<div class="card">
+    <div class="card-header">
+        <ul class="actions">
+            <li>
+                <i style="font-size:22px; cursor:pointer;" title="Back" id="removeStructListDiv" class="zmdi zmdi-long-arrow-return zmdi-hc-fw"></i>
+            </li>
+       </ul>
+    </div>
+    <form class="row" role="form" id="FormCreateFeeStructureApplicable">
+        @Html.HiddenFor(m => m.FeeStructureSessionMasterID)
+        @Html.HiddenFor(m => m.FeeStructureSessionInstallmentDetailsID)
+        @Html.HiddenFor(m => m.IsInstallmentApplicable)
+        @Html.HiddenFor(m => m.FeeStructureMasterID)
+        <div class="card-body card-padding">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.FeeCriteriaValueCombinationDescription)&nbsp;&nbsp;&nbsp;@Html.DisplayFor(model => model.FeeCriteriaValueCombinationDescription, new { @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.ApplicableFromDate)
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group fg-line">
+                        @if (Model.FeeStructureSessionMasterID > 0)
+                        {
+                            @Html.TextBoxFor(m => m.ApplicableFromDate, new { @class = "form-control input-sm", disabled = "disabled", maxlength = "50" })
+                            @Html.ValidationMessageFor(m => m.ApplicableFromDate)
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(m => m.ApplicableFromDate, new { @class = "form-control input-sm", Value = "", maxlength = "50" })
+                            @Html.ValidationMessageFor(m => m.ApplicableFromDate)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6 m-b-20">
+                    <p class="f-500 m-b-20 c-black">Fee Sub Type Details</p>
+                    <div class="table-responsive" style="border: 1px solid; border-color: #EDECEC">
+                        <table class="table" id="tblData1">
+                            <thead>
+                                <tr class="" style="border-bottom:0">
+                                    <th>#</th>
+                                    <th>Fee Sub Type</th>
+                                    <th style="text-align: center;width: 40%">Amount</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.FeeStructureMasterList.Count; i++)
+                                {
+
+                                    <tr style="height: 2px;">
+                                        <td style="text-align: left; width: 10%">@Convert.ToInt32(i + 1) </td>
+                                        <td style="text-align: left; width: 50%">@Model.FeeStructureMasterList[i].FeeSubTypeName</td>
+                                        <td style="text-align: center; width: 40%">@Math.Round(Model.FeeStructureMasterList[i].FeeSubTypeAmount, 2)</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td></td>
+                                    <td style="text-align: left;font-weight:bold; width: 40%">Total</td>
+                                    <td style="text-align: center; font-weight: bold; width: 40%">@Math.Round(Model.TotalFeeAmount, 2)</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @if (@Model.FeeStructureInstallmentList.Count > 0)
+                {
+
+                    <div class="col-sm-6 m-b-20">
+                        <p class="f-500 m-b-20 c-black">Installment Details</p>
+                        <div class="table-responsive" style="border: 1px solid; border-color: #EDECEC; overflow: visible;">
+                            <table class="table" id="tblData2">
+                                <thead>
+                                    <tr>
+                                        <th>Installments</th>
+                                        <th>Amount</th>
+                                        <th>From</th>
+                                        <th>Upto</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.FeeStructureSessionInstallmentDetailsID > 0)
+                                    {
+                                        for (int j = 0; j < Model.FeeStructureInstallmentList.Count; j++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" value="@Model.FeeStructureInstallmentList[j].FeeStructureSessionInstallmentDetailsID" />
+                                                    <input type="hidden" value="@Model.FeeStructureInstallmentList[j].FeeStructureInstallmentMasterID" />
+                                                    @Convert.ToInt32(j + 1)
+                                                </td>
+                                                <td>@Math.Round(Model.FeeStructureInstallmentList[j].FeeInstallmentAmount, 2)</td>
+                                                <td><input id="installmentFromDate~@j" class="form-control input-sm" style="background-color:white" value="@Model.FeeStructureInstallmentList[j].InstallmentFromDate" disabled></td>
+                                                <td><input id="installmentUptoDate~@j" class="form-control input-sm" style="background-color:white" value="@Model.FeeStructureInstallmentList[j].InstallmentToDate" disabled></td>
+
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int j = 0; j < Model.FeeStructureInstallmentList.Count; j++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" value="@Model.FeeStructureInstallmentList[j].FeeStructureSessionInstallmentDetailsID" />
+                                                    <input type="hidden" value="@Model.FeeStructureInstallmentList[j].FeeStructureInstallmentMasterID" />
+                                                    @Convert.ToInt32(j + 1)
+                                                </td>
+                                                <td>@Math.Round(Model.FeeStructureInstallmentList[j].FeeInstallmentAmount, 2)</td>
+                                                <td><div class="fg-line"><input id="installmentFromDate~@j" class="form-control input-sm mydateclass"></div></td>
+                                                <td><div class="fg-line"><input id="installmentUptoDate~@j" class="form-control input-sm mydateclass"></div></td>
+
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+            <div class="col-sm-12" style="margin-bottom:3%;margin-left:2%">
+                <button id="CreateFeeStructureApplicable" value="" type="button" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+            </div>
+           
+            <div class="col-sm-12" style="margin-bottom:20px;">
+                <div class="card-header">
+                    <p class="f-500 m-b-20 c-black">Fee Structure Applicable To</p>
+                </div>
+
+                <div id="tableDiv" style="">
+                    <table id="tblData3" class="table user-tbl infinite-scroll" style="  border: 1px solid #dddddd">
+                        <thead>
+                            <tr>
+                                @*<th style="text-align: left; width: 5%">#</th>*@
+                                <th style="text-align: left; width: 35%">Student</th>
+                                <th style="text-align: left; width: 15%">Student Code</th>
+                                <th style="text-align: left; width: 15%"> Course</th>
+                                <th style="text-align: left; width: 15%"> Section</th>
+                                <th style="text-align: left; width: 20%"> Centre Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @Html.Partial("~/Views/Fees/FeeStructureApplicable/StudentList.cshtml", (@Model.StructureApplicableStudentList))
+                        </tbody>
+                    </table>
+                </div>
+                @Html.Partial("_Loading")
+            </div>
+            
+            
+            
+        </div>
+       
+    </form>
+
+</div>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        FeeStructureApplicable.AllocateFeeStructure();
+        FeeStructureApplicable.ShowList();
+        FeeStructureApplicable.DatePickerValidation();
+        $("div#loading").hide();
+        FeeStructureApplicable.page = 0;
+        FeeStructureApplicable.inCallback = false;
+        FeeStructureApplicable.hasReachedEndOfInfiniteScroll = false;
+        FeeStructureApplicable.scrollHandler = null;
+    });
+
+</script>
+<style>
+    .bootstrap-datetimepicker-widget {
+
+    }
+</style>

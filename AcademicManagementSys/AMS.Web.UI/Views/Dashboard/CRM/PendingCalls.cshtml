@@ -1,0 +1,19 @@
+﻿@model AMS.ViewModel.CRMReportViewModel
+@Html.HiddenFor(m=>m.MapArray)           
+<div class="col-sm-6 col-md-3">
+    <div class="mini-charts-item bgm-teal">
+        <div class="clearfix">
+            <div class="chart myBarClass" id="pendingCallsBar"></div>
+            <div class="count text-center">
+                <small>Pending Calls</small>
+                <h2>@Html.DisplayFor(m => m.PendingCalls)</h2>
+                <small>&nbsp;</small>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        sparklineBar('myBarClass', $("#MapArray").val().split(','), '45px', 3, '#fff', 2);
+    });
+</script>

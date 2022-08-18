@@ -1,0 +1,38 @@
+﻿
+@model AMS.ViewModel.OnlineEntranceExamQuestionBankMasterViewModel
+
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<form id="FormDeleteOnlineQuestionBank" method="post" style="width:233px;height:144px;">
+    @Html.HiddenFor(model => model.OnlineExamQuestionBankAnsDetailsID)
+
+    <div class="widget-block" style="width:230px;">
+        <div class="widget-head">
+            <h5>Delete Question Bank</h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+                <div class="control-group" style="padding:10px;">
+                    &nbsp;&nbsp;<img src="~/Content/images/warning.png" />&nbsp;&nbsp;@Resources.DisplayName_DeleteMessage
+                    <div class="controls">
+                    </div>
+                </div>
+                <div class="control-group" style="padding:10px;text-align:right;margin-bottom:0px;border: 1px solid #e5e5e5;">
+                    <input type="button" id="DeleteOnlineQuestionBankRecord" value="@Resources.ButtonAction_Delete" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="update-message" class="error invisible"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        OnlineEntranceExamQuestionBankMaster.Initialize();
+    });
+</script>

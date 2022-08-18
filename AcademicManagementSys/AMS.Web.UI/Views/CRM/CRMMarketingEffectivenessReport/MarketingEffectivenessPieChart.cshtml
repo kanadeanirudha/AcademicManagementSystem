@@ -1,0 +1,80 @@
+﻿@model AMS.ViewModel.CRMCallMasterAndDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<div class="card">
+    <div class="card-body card-padding">
+        <div id="PieGraphContainerMarketingEffectiveness"></div>
+        <div class="flc-pie hidden-xs"></div>
+    </div>
+</div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            if (valuFromDate != "" && ValuUptoDate != "") {
+                $.ajax({
+                    url: 'CRMMarketingEffectivenessReport/MarketingEffectivenessData',
+                    dataType: "json",
+                    type: "GET",
+                    data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                    contentType: 'application/json; charset=utf-8',
+                    // async: false,
+                    //  processData: false,
+                    cache: false,
+                    delay: 15,
+                    success: function (data) {
+                        
+                        var series = new Array();
+                        for (var i in data) {
+                            var serie = new Array(data[i].source, data[i].countSource);
+                            series.push(serie);
+                        }
+                        DrawPieChart(series);
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            }
+        });
+
+
+
+        function DrawPieChart(series) {
+            $('#PieGraphContainerMarketingEffectiveness').highcharts({
+
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 1, //null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Marketing Effectiveness'
+                    //    fontFamily: "Helvetica",
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Source(%)',
+                    data: series
+                }]
+            });
+        }
+
+    </script>

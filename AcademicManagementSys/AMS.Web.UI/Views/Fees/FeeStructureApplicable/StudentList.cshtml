@@ -1,0 +1,23 @@
+﻿@model List<AMS.DTO.FeeStructureApplicable>
+@{
+    Layout = null;
+}
+
+@if (Model.Count > 0)
+{
+    for (int i = 0; i < Model.Count; i++)
+    {
+
+        <tr style="height: 2px;">
+            @*<td style="text-align: left; width: 10%"> @Convert.ToInt32(Model[i].StartRow + 1)  </td>*@
+            <td style="text-align: left; width: 35%"> @Model[i].StudentName    </td>
+            <td style="text-align: left; width: 10%"> @Model[i].StudentCode    </td>
+            <td style="text-align: left; width: 15%"> @Model[i].BranchName     </td>
+            <td style="text-align: left; width: 15%"> @Model[i].SectionName    </td>
+            <td style="text-align: left; width: 20%"> @Model[i].CentreCode     </td>
+        </tr>
+    }
+}
+
+
+

@@ -1,0 +1,104 @@
+﻿@model AMS.ViewModel.GeneralRunningNumbersForAccountViewModel
+<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+<style>
+    .bootstrap-select {
+        padding-left: 0%;
+        width: 102%;
+    }
+    .ddl-width {
+        width: 101%;
+    }
+</style>
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Create Running Number</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+
+            <form id="FormCreateGeneralRunningNumbersForAccount" role="form">
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Description, new { })
+                        @Html.TextBoxFor(m => m.Description, new { maxlength = "30",@class = "form-control input-sm", placeholder = "" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="select  form-group fg-line">
+                        @Html.LabelFor(model => model.KeyField, new { })
+                        @Html.DropDownListFor(model => model.KeyField, Model.MenuCodeListItems,"-----------Select Key Field-----------------", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Centre" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.KeyField)
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.FinancialYear, new { })
+                        @Html.HiddenFor(m => m.FinancialYearID)
+                        @Html.TextBoxFor(m => m.FinancialYear, new { @class = "form-control input-sm", @disabled = "disabled" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FinancialYear)
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.StartNumber, new { })
+                        @Html.TextBoxFor(m => m.StartNumber, new { maxlength = "2", @class = "form-control input-sm", min = 1, placeholder = "" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.StartNumber)
+                </div>
+
+                <div class="col-sm-12" style="display:none">
+                    @Html.LabelFor(model => model.DisplayFormat, new { @class = "f-500 m-b-15" })
+                    <p id="e5_f">
+                        <select class="selectpicker col-sm-12 form-group" multiple name="selectDisplayFormat">
+                            @foreach (var item in ViewData["FormatList"] as List<SelectListItem>)
+                            {                                
+                                    <option selected disabled id="@item.Value" value="@item.Value"> @item.Text</option>                                                               
+                            }
+                        </select>
+                    </p>
+                </div>
+
+                <div class="col-sm-6" >
+                    <div class="select  form-group fg-line">
+                        @Html.LabelFor(model => model.Seperator, new { })
+                        @Html.DropDownListFor(model => model.Seperator, ViewData["SeperatorList"] as List<SelectListItem>, new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Centre" })
+                    </div>
+                </div>
+               
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Prefix1, new { })
+                        @Html.TextBoxFor(m => m.Prefix1, new {maxlength="6", @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Prefix1)
+                </div>
+                <br />
+                <div class="form-group" style="padding-left:2%">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateGeneralRunningNumbersForAccountRecord" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker();
+        GeneralRunningNumbersForAccount.Initialize();
+    });
+</script>

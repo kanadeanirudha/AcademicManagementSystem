@@ -1,0 +1,59 @@
+﻿@*@{
+    ViewBag.Title = "UnauthorizedAccess";
+}
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="alert alert-block alert-error fade in" style="margin-left: 30px; margin-right: 30px; text-align: center; ">
+    <button type="button" class="close" data-dismiss="alert"></button>
+    <br />
+    <h4 class="alert-heading"> @Resources.DisplayMessage_UnauthorizedAccess</h4>
+    <br />
+   
+   
+</div>*@
+
+@*--------new code--------------*@
+
+
+@{
+    ViewBag.Title = "UnauthorizedAccess";
+}
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+<style>
+    .btn-icon .zmdi {
+        font-size: 78px;
+    }
+</style>
+
+
+<div class="four-zero bs-item z-depth-4" style="margin-top:5%;">
+
+
+    <small>
+    <button class="btn btn-warning btn-icon waves-effect waves-circle waves-float" style="width:100px;height:100px;margin-top:30px;"><i class="zmdi zmdi-block zmdi-hc-fw"></i></button>
+    <br>Nah....<br> @Resources.DisplayMessage_UnauthorizedAccess</small>
+
+    <footer>
+        <a href="/"><i class="zmdi zmdi-arrow-back"></i></a>
+        <a href="/"><i class="zmdi zmdi-home"></i></a>
+    </footer>
+</div>

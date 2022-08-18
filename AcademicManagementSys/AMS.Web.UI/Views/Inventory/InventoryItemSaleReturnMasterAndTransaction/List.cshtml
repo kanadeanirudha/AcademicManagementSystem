@@ -1,0 +1,280 @@
+﻿@model AMS.ViewModel.InventoryItemSaleReturnMasterViewModel
+
+<style>
+    .itemChk {
+    }
+</style>
+<div class="container-fluid">
+
+    <div id="itemDetailDiv" style="display: none">
+        <div class="widget-block">
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="widget-head">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;&nbsp;<span id="billDate"></span>  &nbsp;&nbsp;<span id="customer"></span>
+                            <button class="btn btn-primary pull-right" onclick="location.href = '/InventorySalesMasterAndTransaction'" @Model.BalanceSheetID style="margin-right :6%; margin-top: -5px;"><< Back To Sale</button>
+                            <button class="btn btn-primary pull-right" id="btnReload" style="margin-right :-16%; margin-top: -5px;">Back</button>
+                        </h5>                        
+                    </div>
+                        <form class="form-horizontal well" id="FormCreateInventorySalesAndTransaction">
+                            <div class="nonboxy-widget">
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="span11">
+                                            <div id="DivAddRowTable">
+                                                <table id="tbleData" class="table user-tbl " style="border: 1px solid #dddddd">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align:center; width: 20px;">#</th>
+                                                            <th style="text-align: center; width: 17%;">Item</th>
+                                                            <th style="text-align: center; width: 8%;">Rate</th>
+                                                            <th style="text-align: center; width: 8%;">Unit</th>
+                                                            <th style="text-align: center; width: 8%;">Quantity</th>
+                                                            <th style="text-align: center; width: 10%;">Discount(%)</th>
+                                                            <th style="text-align: center; width: 10%;">Amount</th>
+                                                            <th style="text-align: center; width: 8%;">Tax(%)</th>
+                                                            <th style="text-align: center; width: 8%">Batch</th>
+                                                            <th style="text-align: center; width: 10%;">Return Quantity</th>
+                                                            <th style="text-align: center; width: 10%;">Return Amount</th>
+                                                            @*<th style="text-align: center; width: 30px;line-height:40px;">@Resources.DisplayName_Actions</th>*@
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model.InventoryReturnItemDetailList)
+                                                        {
+                                                            <tr>
+                                                                <td style="text-align:center; width: 20px;" class="itemChk">
+                                                                    <input type="checkbox" value="" id="itemChk" />                                                                   
+                                                                </td>
+                                                                <td style="text-align: center; width: 17%;">
+                                                                    @item.ItemName
+                                                                </td>
+                                                                <td style="text-align: center; width: 8%;">
+                                                                    @item.Rate                                                                    
+                                                                </td>
+                                                                <td style="text-align: center; width: 8%;">
+                                                                    @item.UnitCode
+                                                                </td>
+                                                                <td style="text-align: center; width: 8%;">
+                                                                    @item.Quantity                                                                   
+                                                                </td>
+                                                                <td style="text-align: center; width: 10%;">
+                                                                    @item.DiscountInPercentage %                                                                    
+                                                                </td>
+                                                                <td style="text-align: center; width: 8%;">
+                                                                    @item.ItemAmount
+                                                                </td>
+                                                                <td style="text-align: center; width: 8%;">
+                                                                    @item.TaxInPercentage %                                                                    
+                                                                </td>
+                                                                <td style="text-align: center; width: 8%">
+                                                                    @item.BatchNumber
+                                                                </td>
+                                                                <td style="text-align: center; width: 12%;">
+                                                                    <input value="0" type="text" style="width: 50px;" disabled="" id="returnQuantity" />
+                                                                </td>
+                                                                <td style="text-align: center; width: 18%;">
+                                                                    <input type="text" style="width: 50px; display:none" value="0" readonly="readonly" id="returnAmount" />                                                                  
+                                                                </td>
+                                                                
+                                                                <td style="display:none"> 
+                                                                    <input value="@item.ItemID" id="itemID" type="text" style="display:none" />
+                                                                    <input value="@item.Quantity" id="Quantity" type="text" style="display:none" />
+                                                                    <input value="@item.Rate" id="Rate" type="text" style="display:none" />  
+                                                                    <input value="@item.GenTaxGroupMasterID" id="GenTaxGroupMasterID" type="text" /> 
+                                                                    <input value="@item.TaxAmount" id="TaxAmount" type="text" style="display:none" />                                                                              
+                                                                    <input value="@item.DiscountAmount" id="DiscountAmount" type="text" style="display:none" />
+                                                                    <input value="@item.DiscountInPercentage" id="DiscountInPercentage" type="text" style="display:none" /> 
+                                                                    <input value="@item.TaxInPercentage" id="TaxInPercentage" type="text" style="display:none" /> 
+                                                                                                                                                                                                                                                                                                                                              
+                                                                    <input value="@item.TransactionDate" id="TransactionDate" type="text" />                                                                    
+                                                                    <input value="@item.LocationID" id="LocationID" type="text" />
+                                                                    <input value="@item.InvBufferSalesMasterID" id="InvBufferSalesMasterID" type="text" style="display:none" />
+                                                                    <input value="@item.InvSalesDetailsID" id="InvSalesDetailsID" type="text" style="display:none" />                                                                    
+                                                                    <input value="@item.BalanceSheetID" id="BalanceSheetID" type="text" />
+                                                                    <input value="@item.CounterLogID" id="CounterLogID" type="text" />
+                                                                    <input value="@item.CustomerID" id="CustomerID" type="text" />
+                                                                    <input value="@item.CustomerName" id="CustomerName" type="text" />
+                                                                    <input value="@item.BillNumber" id="BillNumber" type="text" />
+                                                                    <input value="@item.BatchNumber" id="BatchNumber" type="text" />
+                                                                    <input value="@item.ExpiryDate" id="ExpiryDate" type="text" />
+                                                                    <input value="@item.DeliveryCharge" id="DeliveryCharge" type="text" />
+                                                                    <input value="@item.CustomerType" id="CustomerType" type="text" />
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="span11">
+                                            <div class="form-actions " style="border: 1px solid #e5e5e5; text-align: right">
+                                                @*<span style="float: left; margin-left: -150px; font-weight: bold;">
+                                                    Total Item
+                                                    @Html.TextBoxFor(model => model.TotalItem, new { id = "returnItem", disabled = "disabled", style = "width: 50px; height: 16px; text-align: right" })
+                                                </span>*@
+                                                <span style="float: left; margin-left: -150px; font-weight: bold;">
+                                                    Total Return Amount
+                                                    @Html.TextBoxFor(model => model.TotalReturnAmount, new { id = "returnTotalAmount", disabled = "disabled", Value="0.00", style = "width: 70px; font-weight: bold; height: 16px; text-align: right" })
+                                                </span>
+                                                <input type="button" id="CreateInventorySalesAndTransaction" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                                                <input type="button" id="Reset" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="listDiv">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-block">
+                    <div class="widget-head">
+                        <script src="~/Scripts/fnGetColumnData.js"></script>
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp; Bill List</h5>
+                        <div class="pull-right" style="margin: -24px 40px 0px 10px;">
+                            <div class="input-append" id="" style="float: right;">
+                                <div style="display: none;">
+                                    <input type="hidden" name="_method" value="POST">
+                                </div>
+                                <div>
+                                    <select name="data[User][searchby]" class="" id="showrecord" tabindex="16">
+                                        <option value="10">@Resources.GlobalProperties_ShowRecords</option>
+                                        <option value="10">10</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    &nbsp;&nbsp;
+                                    <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearch">
+                                    <button class="btn" type="button" id="searchBtn"><i class="icon-search"></i></button> 
+                                    <button class="btn btn-primary" onclick="location.href = '/InventorySalesMasterAndTransaction'" @Model.BalanceSheetID style="margin-left:3%"><< Back To Sale</button>
+                                      
+                                </div>
+                            </div>                           
+                        </div>
+                       
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-box">                           
+                            <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                                <div class="table_content">                                   
+                                    <table id="myDataTable" class="table table-striped table-bordered" style="width: 1095px">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center; width: 40%">Date</th>
+                                                <th style="text-align: center; width: 20%">Bill Number</th>
+                                                <th style="text-align: center; width: 20%">Amount</th>
+                                                <th style="text-align: center; width: 20%">Customer</th>
+                                                <th style="text-align: center; width: 5%; line-height: 40px">@Resources.TableHeaders_Action</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="widget-bottom">
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventoryItemSaleReturnMasterAndTransaction.Initialize();
+
+        var oTable = $('#myDataTable').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "InventoryItemSaleReturnMasterAndTransaction/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "order": [[0, "desc"]],
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "selectedBalanceSheet", "value": $("#selectedBalsheetID").val() });
+            },
+            "columnDefs": [{
+                "targets": 0,
+                "bSearchable": true,
+            },
+            {
+                "targets": 1,
+                "bSearchable": true,
+            },
+            {
+                "targets": 2,
+                "bSearchable": true,
+            },
+            {
+                "targets": 3,
+                "bSearchable": true,
+            },
+            {
+                "targets": 4,
+                "bSortable": false,
+                "data": null,
+                "render": function (data, type, full, meta) {
+                    debugger;
+                    @*var returnItemResult = '@Html.ActionLink("ItemReturnDetail1", "ItemReturnDetail", new { invBufferSalesMasterID = "ItemReturnDetail1", balanceSheetID = "BalanceSheetID1" }, new { @class = "ajax  cboxElement" })';
+                    returnItemResult = returnItemResult.replace('ItemReturnDetail1', data[4]);
+                    returnItemResult = returnItemResult.replace('BalanceSheetID1', data[5]);
+                    returnItemResult = returnItemResult.replace("ItemReturnDetail1", '<i class="icon-plus" title = "@Resources.ToolTip_Create"></i>');
+                    var result = "<p style='text-align: center; height:5px;'>" + returnItemResult + "</p>"*@
+
+                    var result = "<p style='text-align: center; height:5px;'>" + "<i tag='" + data[4] + "~ " + data[5] + "' class='icon-plus' title = 'Edit Bill'></i>" + "</p>";
+                    return result;
+                }
+            }]
+        });
+    });
+
+    $('#myDataTable tbody').on('click', 'tr td i[class="icon-plus"]', function () {
+        var data = ($(this).attr("tag")).split('~');
+        debugger;
+        var InvBufferSalesMasterID = data[0];
+        var Balancesheet = data[1];
+
+        if (InvBufferSalesMasterID != "" && Balancesheet != "") {
+            $.ajax(
+           {
+               cache: false,
+               type: "GET",
+               data: { actionMode: null, invBufferSalesMasterID: InvBufferSalesMasterID, "selectedBalsheet": Balancesheet },
+               dataType: "html",
+               url: '/InventoryItemSaleReturnMasterAndTransaction/List',
+               success: function (data) {
+                   //Rebind Grid Data
+                   $('#ListViewModel').html(data);
+               }
+           });
+        }
+        else {
+            $('#SuccessMessage').html("Please select balancesheet");
+            $('#SuccessMessage').delay(400).slideDown(400).delay(2000).slideUp(400).css('background-color', "#FFCC80");
+        }
+
+    });
+
+</script>
+

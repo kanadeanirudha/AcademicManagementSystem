@@ -1,0 +1,104 @@
+﻿@*@model AMS.ViewModel.ToolQualificationExamMasterViewModel
+
+<form id="FormCreateToolQualificationExamMaster" method="post">
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="update-message" class="error invisible"></div>
+
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>@Resources.FormCreate_QualificationExam </h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box" style="padding: 15px">
+                
+                        <div class="control-group control-label">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+							 @Html.LabelFor(model => model.QualificationName, new {style ="font-weight:bold" })
+                            <div class="controls input-xlarge text-tip">
+                               @Html.TextBoxFor(model => model.QualificationName, new { maxLength = "50", style = "font-Weight:Bold;" })
+               
+                                <br />
+                                @Html.ValidationMessageFor(model => model.QualificationName)                             
+                            </div>
+                        </div>
+                         <div class="control-group control-label">
+                          
+							 @Html.LabelFor(model => model.EducationType, new {style ="font-weight:bold" })
+                            <div class="controls input-xlarge text-tip">
+                            @Html.DropDownList("EducationType", ViewData["EducationType"] as List<SelectListItem>, new { style = "width:210px;font-Weight:Bold;", @class = "dropdown1" })
+                       
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="border: 1px solid #e5e5e5; text-align:right">
+                            
+                              
+                            <input type="button" id="CreateToolQualificationExamMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                            <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                            
+                        </div>
+                   
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ToolQualificationExamMaster.Initialize();
+    });
+</script>*@
+
+@*------new code-------*@
+
+@model AMS.ViewModel.ToolQualificationExamMasterViewModel
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormCreate_QualificationExam</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateToolQualificationExamMaster">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.QualificationName, new { })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.QualificationName, new { @class = "form-control", maxLength = "50", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.QualificationName)
+                    </div>
+  
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.EducationType, new { })
+                        <div class="form-group fg-line select">
+                            @Html.DropDownList("EducationType", ViewData["EducationType"] as List<SelectListItem>, new { style = "", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    <button type="button" id="CreateToolQualificationExamMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                    <button name="" id="reset" type="submit" class="btn btn-default" value="@Resources.ButtonAction_Reset">@Resources.ButtonAction_Reset</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ToolQualificationExamMaster.Initialize();
+    });
+</script>
+

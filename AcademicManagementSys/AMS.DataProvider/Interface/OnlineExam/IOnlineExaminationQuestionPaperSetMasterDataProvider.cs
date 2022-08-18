@@ -1,0 +1,15 @@
+﻿using AMS.Base.DTO;
+using AMS.DTO;
+namespace AMS.DataProvider
+{
+    public interface IOnlineExaminationQuestionPaperSetMasterDataProvider
+    {
+		IBaseEntityResponse<OnlineExaminationQuestionPaperSetMaster> InsertOnlineExaminationQuestionPaperSetMaster(OnlineExaminationQuestionPaperSetMaster item);
+		IBaseEntityResponse<OnlineExaminationQuestionPaperSetMaster> UpdateOnlineExaminationQuestionPaperSetMaster(OnlineExaminationQuestionPaperSetMaster item);
+		IBaseEntityResponse<OnlineExaminationQuestionPaperSetMaster> DeleteOnlineExaminationQuestionPaperSetMaster(OnlineExaminationQuestionPaperSetMaster item);
+		IBaseEntityCollectionResponse<OnlineExaminationQuestionPaperSetMaster> GetOnlineExaminationQuestionPaperSetMasterBySearch(OnlineExaminationQuestionPaperSetMasterSearchRequest searchRequest);
+        IBaseEntityCollectionResponse<OnlineExaminationQuestionPaperSetMaster> GetOnlineExaminationQuestionPaperSetMasterSearchList(OnlineExaminationQuestionPaperSetMasterSearchRequest searchRequest);
+        IBaseEntityCollectionResponse<OnlineExaminationQuestionPaperSetMaster> GetOnlineExaminationQuestionPaperSetMasterBySpin(OnlineExaminationQuestionPaperSetMasterSearchRequest searchRequest);
+        IBaseEntityCollectionResponse<OnlineExaminationQuestionPaperSetMaster> GetOnlineExaminationQuestionPaperSetMasterByID(OnlineExaminationQuestionPaperSetMasterSearchRequest searchRequest);
+    }
+}

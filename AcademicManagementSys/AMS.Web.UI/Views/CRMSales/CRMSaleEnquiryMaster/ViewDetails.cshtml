@@ -1,0 +1,107 @@
+﻿@model AMS.ViewModel.CRMSaleEnquiryMasterAndAccountDetailsViewModel
+<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;View Details Enquiry</h2>
+    </div>
+    <div class="card" style="box-shadow: 0 0 0px rgba(0, 0, 0, 0.15);">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateCRMSaleEnquiryMaster" role="form">
+                @if (Model.EnquiryAccountType == 1)
+                {
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.AccountName, new { })
+                            @Html.TextBoxFor(model => model.AccountName, new { maxlength = "50", @class = "form-control input-sm typeahead" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AccountName)
+                    </div>
+                }
+                <div class="col-sm-6">
+
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryContactPerson, new { })
+                        @Html.TextBoxFor(model => model.EnquiryContactPerson, new { maxlength = "50", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryContactPerson)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryAccountType, new { })
+                        @Html.DropDownList("EnquiryAccountType", ViewData["EnquiryAccountType"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryAccountType)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquirySource, new { })
+                        @Html.DropDownList("EnquirySource", ViewData["EnquirySource"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquirySource)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.GenServiceRequiredID, new { })
+                        @*@Html.DropDownListFor(model => model.GenServiceRequiredID, (SelectList)ViewBag.GeneralServiceMasterList, new { @class = "form-control input-sm selectpicker", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "", multiple = "multiple" })*@
+                        <select class="form-control input-sm selectpicker" multiple>
+                            @foreach (var genSelected in Model.GeneralServiceSelected)
+                            {
+                                if (@genSelected.StatusFlag == true)
+                                {
+                                    <option selected>@genSelected.ServiceName</option>
+                                }
+                                else
+                                {
+                                    <option>@genSelected.ServiceName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.GenServiceRequiredID)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.ExpectedBillingAmount, new { })
+                        @Html.TextBoxFor(model => model.ExpectedBillingAmount, new { maxlength = "12", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ExpectedBillingAmount)
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryDesription, new { })
+                        @Html.TextBoxFor(model => model.EnquiryDesription, new { maxlength = "200", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryDesription)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryMasterAddress, new { })
+                        @Html.TextBoxFor(model => model.EnquiryMasterAddress, new { maxlength = "200", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryMasterAddress)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryMasterCity, new { })
+                        @Html.TextBoxFor(model => model.EnquiryMasterCity, new { maxlength = "30", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EnquiryMasterCity)
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMSaleEnquiryMaster.Initialize();
+        $('.selectpicker').selectpicker();
+    });
+</script>

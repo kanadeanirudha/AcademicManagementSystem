@@ -1,0 +1,60 @@
+﻿@model AMS.Web.UI.Models.EducationMaster.EducationMaster
+@{
+    ViewBag.Title = "Details";
+}
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Education Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Details</legend>
+
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Education Type :</label>
+                                <div class="col-lg-8">
+                                    <span class="form-text">@Model.EducationType</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="display-label"></div>
+                                <div class="display-field"></div>
+                            </div>
+                            <br />
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Education Description :</label>
+                                <div class="col-lg-8">
+                                    <span class="form-text">@Model.EducationDescription</span>
+                                </div>
+                            </div>
+                            <div class="display-label"></div>
+                            <div class="display-field"></div>
+                            <br />
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Completion Period :</label>
+                                <div class="col-lg-8">
+                                    <span class="form-text">@Model.CompletionPeriod</span>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

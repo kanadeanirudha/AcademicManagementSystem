@@ -1,0 +1,103 @@
+﻿<!-- left, vertical navbar -->
+
+<div class="col-md-2 bootstrap-admin-col-left">
+    <div id="my_menu" class="sdmenu">
+          <div>
+            <span>Account</span>
+                @Html.MenuItem("Balance Sheet", "Index", "AccountBalancesheetMaster") 
+                @Html.MenuItem("Category Group GL", "Index", "AccountTreeView") 
+        </div>
+         <div>
+            <span>Admin</span>
+                @Html.MenuItem("Create Post ", "Index", "AdminSnPosts")
+                @Html.MenuItem("Create Role", "Index", "AdminRoleMaster") 
+                @Html.MenuItem("Create Special Rights ", "Index", "AdminRoleModuleAccess")
+                @Html.MenuItem("Role Details","Index","AdminRoleDetails")
+                @Html.MenuItem("Role Allocation", "Index","AdmRoleAllocation") 
+           
+        </div>
+        <div>
+            <span>General Parameter</span>
+         
+            @Html.MenuItem("Academic Session", "Index", "GeneralSessionMaster")
+            @Html.MenuItem("Country", "Index", "GeneralCountryMaster")
+            @Html.MenuItem("Region", "Index", "GeneralRegionMaster")
+            @Html.MenuItem("City", "Index", "GeneralCityMaster")
+            @Html.MenuItem("Location", "Index", "GeneralLocationMaster")
+            @Html.MenuItem("Nationality", "Index", "GeneralNationalityMaster")
+            @Html.MenuItem("Religion", "Index", "GeneralReligionMaster")            
+            @Html.MenuItem("Category", "Index", "GeneralCategoryMaster")
+            @Html.MenuItem("Caste", "Index", "GeneralCasteMaster")
+            @Html.MenuItem("Language", "Index", "GeneralLanguageMaster")
+            
+            @* //second level menu list*@
+            <div>
+            <span>Education Info</span> 
+            @Html.MenuItem("Education Type", "Index", "GeneralEducationTypeMaster")
+            @Html.MenuItem("Education Master", "Index", "GeneralEducationMaster")
+            </div>
+        </div>
+        <div>
+            <span>Society And Centre</span>
+            @Html.MenuItem("Society", "Index", "OrganisationMaster")
+            @Html.MenuItem("University", "Index", "OrganisationUniversityMaster")
+             @Html.MenuItem("Study Centre", "Index", "OrganisationStudyCentreMaster")
+            @Html.MenuItem("Semester", "Index", "OrganisationSemesterMaster")
+        </div>
+         <div>
+            <span>Academic Structure</span>
+            @Html.MenuItem("Add Department", "Index", "OrganisationDepartmentMaster")
+            @Html.MenuItem("Add Department in Centre", "Index", "OrganisationCentrewiseDepartment")
+            @Html.MenuItem("Add Course", "Index", "OrganisationBranchMaster")
+
+                                  @* //second level menu list*@
+                                 <div>
+                                    <span>Add General Course Details</span>
+                                    @Html.MenuItem("Division Master", "Index", "OrganisationDivisionMaster")
+                                    @Html.MenuItem("Stream Master", "Index", "OrganisationStreamMaster")
+                                    @Html.MenuItem("Standard Master", "Index", "OrganisationStandardMaster")
+                                    @Html.MenuItem("Medium Master", "Index", "OrgMediumMaster")
+                                    @Html.MenuItem("Section Master", "Index", "OrgSectionMaster")
+                                </div>
+           @Html.MenuItem("Add Course Year", "", "")
+        </div>
+         <div>
+            <span>Course Planning</span>
+            @*@Html.MenuItem("Add Subject List", "Index", "SubjectTypeMaster")*@
+                                 @* //second level menu list*@
+                                 <div>
+                                    <span>Add Subject List</span>
+                                        @Html.MenuItem("Subject Master", "Index", "SubjectMaster")
+                                        @Html.MenuItem("Subject Type ", "Index", "SubjectTypeMaster")                                   
+                                     
+                                </div>
+            @Html.MenuItem("Add Rules For Course Year", "Index", "SyllabusMaster")
+            @Html.MenuItem("Add Subject For Rules","","")
+            @Html.MenuItem("Add Syllabus Topics","","")
+        </div>
+          <div>
+            <span>Section Planning</span>
+            @Html.MenuItem("Add Courses in Centre", "", "")
+            @Html.MenuItem("Add Section", "", "")
+            @Html.MenuItem("Setting", "", "")
+        </div>
+        <div>
+            <span>Support Us</span>
+            @Html.MenuItem("Semester Master", "Index", "SemesterInfoMaster")
+            @Html.MenuItem("About", "Index", "Home")
+            @Html.MenuItem("Dashboard", "Index", "Dashboard")
+            @Html.MenuItem("DatePickers", "Index", "Calendar")
+            @Html.MenuItem("Statistics (Charts)", "Index", "Statistics")
+            @Html.MenuItem("Forms", "Index", "Forms")
+            @Html.MenuItem("Tables", "Index", "Tables")
+            @Html.MenuItem("Buttons &amp; Icons", "Index", "Buttons")
+            @Html.MenuItem(" WYSIWYG Editors", "Index", "Editors")
+            @Html.MenuItem(" UI &amp; Interface", "Index", "Interface")
+
+        </div>
+    </div>
+</div>
+
+
+
+

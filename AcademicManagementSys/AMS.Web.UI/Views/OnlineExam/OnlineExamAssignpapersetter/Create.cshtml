@@ -1,0 +1,109 @@
+﻿@model AMS.ViewModel.OnlineExamAssignpapersetterViewModel
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp;Assign Paper Setter </h2>
+    </div>
+    <div class="card">
+        @Html.HiddenFor(m => m.SubjectGroupID)
+        @Html.HiddenFor(m => m.GlobalSessionID)
+        @Html.HiddenFor(m => m.OnlineExamExaminationMasterID)
+        @Html.HiddenFor(m => m.OnlineExamSubjectGroupScheduleID)
+        @*--@Html.HiddenFor(m => m.OnlineExamAllocateJobSupportStaffID)*@
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateOnlineExamAssignpapersetter" role="form" class="row">
+              <div class="row">
+                <div class="form-group col-sm-6">
+                    <div class="form-group fg-line">
+                        <span style="color:red">*</span> 
+                        @Html.LabelFor(model => model.PaperSet, new { })
+                        @Html.DropDownListFor(model => model.PaperSet, (SelectList)ViewBag.GeneralPaperSetMasterListt, "---Select Paper Set--", new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PaperSet)
+                </div>
+                   <div class="form-group col-sm-6">
+                      <div class="form-group fg-line">
+                        <span style="color:red">*</span> 
+                        @Html.HiddenFor(model => model.OnlineExamAllocateJobSupportStaffID)
+                            @Html.LabelFor(model => model.OnlineExamAllocateJobSupportStaff, new { })
+                            @Html.TextBoxFor(model => model.OnlineExamAllocateJobSupportStaff, new { maxlength = "50", @class = "form-control input-sm typeahead" })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.OnlineExamAllocateJobSupportStaff)
+                </div>
+             </div>
+                <div class="form-group col-sm-12">
+                    <input class="btn btn-primary" style="margin-left:1%" value="@Resources.ButtonAction_Submit" id="CreateOnlineExamAssignpapersetterRecord" type="button" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OnlineExamAssignpapersetter.Initialize();
+        var map = {};
+        var getGetOnlineExamSupportStaffList = function () {
+            return function findMatches(q, cb) {
+
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+                var SelectedCentreCode = $('#SelectedCentreCode').val();
+                var SelectedExam = $('#SelectedExam').val();
+                var SubjectGroupID = $('#SubjectGroupID').val();
+                var GlobalSessionId = $('#SessionID').val();
+                $.ajax({
+                    url: "/OnlineExamAssignpapersetter/GetListOnlineExamSupportStaff",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: q, CentreCode: SelectedCentreCode, OnlineExamExaminationMasterID: SelectedExam, SubjectGroupId: SubjectGroupID, GlobalSessionID: GlobalSessionId },
+                    success: function (data) {
+
+                        // iterate through the pool of strings and for any string that
+                        // contains the substring `q`, add it to the `matches` array
+                        $.each(data, function (i, response) {
+                            if (substrRegex.test(response.name)) {
+                                map[response.name] = response;
+                                matches.push(response.name);
+                                $('#OnlineExamAllocateJobSupportStaffID').val(response.id);
+
+                            }
+                        });
+                    },
+                    async: false
+                })
+                cb(matches);
+            };
+
+        };
+
+
+       
+        $('#OnlineExamAllocateJobSupportStaff').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            source: getGetOnlineExamSupportStaffList()
+        }).on("typeahead:selected", function (obj, item) {
+            $('#OnlineExamAllocateJobSupportStaffID').val(map[item].OnlineExamAllocateJobSupportStaffID);
+        });
+
+    });
+</script>
+

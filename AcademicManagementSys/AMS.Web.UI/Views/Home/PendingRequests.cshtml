@@ -1,0 +1,130 @@
+﻿@model AMS.ViewModel.DashboardViewModel
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Dashboard/PendingRequest.js")" type="text/javascript"></script>
+@Html.HiddenFor(m => m.TaskCode)
+<input type="hidden" id="hiddenTaskCode" value="MA" />
+<div class="nonboxy-widget">
+        <a style="display: none" class="ajax  cboxElement" href="Home/RequestApproval"></a>
+    <div class="widget-content">
+        <div class="widget-box">
+            <table id="MyDataTablePendingRequest-MA" class="table post-tbl table-striped">
+                <thead>
+                    <tr>
+                        <th style="display:none"></th>
+                        <th style="border-top: 1px solid #bbb">@Resources.TableHeaders_Details </th>
+                        <th style="border-top: 1px solid #bbb"> @Resources.TableHeaders_ApplicationDate</th>                       
+                        <th style="border-top: 1px solid #bbb" class="">@Resources.TableHeaders_Status</th>
+                        <th style="border-top: 1px solid #bbb" class="center">@Resources.DisplayName_Actions</th>
+                    </tr>
+                </thead>
+                <tbody style="border: 1px solid #bbb"></tbody>
+            </table>
+        </div>
+        <div class="widget-bottom">
+            <br />
+            <br />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        PendingRequest.Initialize();
+        var isReloadedFromCookies;
+
+        var oTable = $('#MyDataTablePendingRequest-MA').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "Home/AjaxHandlerMyDataTablePendingRequest",
+            "bJQueryUI": true,           
+            "bProcessing": true,
+            "bAutoWidth": true,
+            "iDisplayLength": 50,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "TaskCode", "value": "MA" });
+            },
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "columnDefs": [
+                             {
+                                 "targets": 0,
+                                 "visible": false,
+                             },
+                            {
+                                "targets": 1,
+                                "bSortable": false,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    var result = "<p  style='height:5px;'>" + data[0] + "</p>";
+                                    return result;
+                                }
+                            },
+                             {
+                                 "targets": 2,
+                                 "bSortable": false,
+                                 "data": null,
+                                 "render": function (data, type, full, meta) {
+                                     var result = "<p  style='text-align: center; height:5px;'>" + data[8] + "</p>";
+                                     return result;
+                                 }
+                             },
+                             {
+                                 "targets": 3,
+                                 "bSortable": false,
+                                 "orderable": false,
+
+                                 "data": null,
+                                 "render": function (data, type, full, meta) {
+                                     var chkStatus = '';
+                                     if (data[1] == "1") {
+                                         chkStatus = '@Resources.Displaychkstatus_Pending';
+                                     }
+                                     else if (data[1] == "2") {
+                                         chkStatus = '@Resources.Displaychkstatus_Done';
+                                     }
+                                     else if (data[1] == "3") {
+                                         chkStatus = '@Resources.Displaychkstatus_Reject';
+                                     }
+                                     var result = "<p  style='text-align: center; height:5px;'>" + '<span class="label label-important">' + chkStatus + ' </span>' + "</p>";
+
+                                     return result;
+                                 }
+                             },
+                             {
+                                 "targets": 4,
+                                 "bSortable": false,
+                                 "data": null,
+                                 "render": function (data, type, full, meta) {
+                                     var result1 = '@Html.ActionLink("PendingRequestApproval1", "PendingRequestApproval", new { TNDID = "TNDID1", TNMID = "TNMID1", NGTRDID = "NGTRDID1", MenuLink = "ML1",TaskCode=Model.TaskCode }, new { @class = "ajax  cboxElement" })';
+                                     result1 = result1.replace('TNDID1', data[3]);
+                                     result1 = result1.replace('TNMID1', data[4]);
+                                     result1 = result1.replace('NGTRDID1', data[5]);
+                                     result1 = result1.replace('ML1', data[2]);
+                                     result1 = result1.replace("PendingRequestApproval1", '<i class="icon-file" title="@Resources.ToolTip_View"></i>');
+
+                                     var TaskCode = $('input[name=TaskCode]').val();
+                                     TaskCode = 'MA';
+                                     var result1 = '<a href="#" class="ajax  cboxElement"><i class="icon-file"></i></a>';
+                                     result1 = result1.replace("#", data[2] + "&TNDID=" + data[3] + "&TNMID=" + data[4] + "&GTRDID1=" + data[5] + "&TaskCode=" + TaskCode + "&StageSequenceNumber=" + data[6] + "&IsLast=" + data[7]);
+
+                                     var result2 = '<i class="icon-lock" title="@Resources.ToolTip_ApplicationIsTakenByAnotherApprover"></i>';
+
+                                     if (data[9] == 'True') {
+                                         if (data[10] == 'True') {
+                                             var result = "<p style='text-align: center; height:5px;'>" + result1 + "</p>";
+                                         }
+                                         else {
+                                             var result = "<p style='text-align: center; height:5px;'>" + result2 + "</p>";
+                                         }
+                                     }
+                                     else {
+                                         var result = "<p style='text-align: center; height:5px;'>" + result1 + "</p>";
+                                     }
+                                     return result;
+                                 }
+                             }
+            ]
+        });
+
+        $('.ui-corner-tl').hide();
+    });
+</script>

@@ -1,0 +1,55 @@
+﻿@model AMS.ViewModel.AccountMasterReportViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<div class="container">
+    @using (Html.BeginForm("Index", "AccountMasterReport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @*<ul class="breadcrumb">
+                <li>Account Reports<span class="divider">»</span></li>
+                <li>Account Master Report</li>
+            </ul>*@
+        <div id="SuccessMessage" style="display:none;color:#000;" class="alert"></div>
+
+    }
+</div>
+
+
+<div class="container">
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Account Report</h2>
+    </div>
+    <div id="aaa">
+        <div class="card">
+            <div class="card-header"></div>
+            <div class="card-body card-padding">
+                @Html.Partial("/Views/Accounts/AccountMasterReport/AccountMasterReport.aspx")
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="container-fluid">
+    <div class="row-fluid">
+        <div id="aaa">
+            <div class="span12" style="float: left">
+                <div class="widget-block">
+                    <div class="widget-head">
+                        <h5>Account Report</h5>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-box" style="padding: 15px">
+                            @Html.Partial("/Views/Accounts/AccountMasterReport/TestPage.aspx")
+                           @Html.Partial("~/Views/TestPage.aspx")
+
+
+                            @Html.Partial("/Views/Accounts/AccountMasterReport/AccountMasterReport.aspx")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

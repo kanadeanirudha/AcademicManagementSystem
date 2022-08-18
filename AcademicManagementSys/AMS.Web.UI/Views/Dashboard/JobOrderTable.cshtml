@@ -1,0 +1,1828 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/admin/styles.css" rel="stylesheet" />
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+</style>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>Job Order<span class="divider">»</span></li>
+        <li class="active">Job Order Performance Report</li>
+    </ul>
+    <ul class="breadcrumb" style="height: 30px;">
+
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">Branch &nbsp;</span>
+            <select class="form-control chosen-select" id="ddlBranch" style="font-weight: bold;">
+                <option value="All">All</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+
+        </li>
+
+      @*  <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">From&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">UpTo&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>*@
+
+        <li style="float: right">
+            <a href="@Url.Action("Index", "Dashboard")" style="cursor: pointer" id="Graph">
+                <span class="color-icons chart_bar_co"></span>Graph</a> &nbsp;&nbsp;
+            <a href="@Url.Action("JobOrderTable", "Dashboard")" style="cursor: pointer" id="Table"><span class="color-icons table_co"></span>Table</a>
+        </li>
+
+        @* <li>
+            <input type="button" value="@Resources.GlobalProperties_ShowList" style="margin-bottom:9px" class="btn btn-primary"  id="btnShowList" />
+        </li>*@
+    </ul>
+    <div id="SuccessMessage" style="display: none; color: #000;" class="alert"></div>
+    @*  For Delhi Table*@
+    <div class="row-fluid" id="DivBranchWiseJobOrder">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Branchwise Report</h5>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Branch</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Order</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Done</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Progress</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Cancel</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr id="trDelhi">
+                                            <td id="BranchDelhi" style="text-align: left; font-weight: bold"><a style="cursor: pointer">Delhi</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">12
+                                            </td>
+                                            <td id="BranchDelhiJobDone" style="text-align: center; font-weight: bold;"><a style="cursor: pointer">7</a>
+                                            </td>
+                                            <td id="BranchDelhiJobProgress" style="text-align: center; font-weight: bold;"><a style="cursor: pointer">3</a>
+                                            </td>
+                                            <td id="BranchDelhiJobCancel" style="text-align: center; font-weight: bold;"><a style="cursor: pointer">2</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">90,000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">30,000
+                                            </td>
+                                        </tr>
+                                        <tr id="trMumbai">
+                                            <td id="BranchMumbai" style="text-align: left; font-weight: bold"><a style="cursor: pointer">Mumbai</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">18
+                                            </td>
+
+                                            <td id="BranchMumbaiJobDone" style="text-align: center; font-weight: bold"><a style="cursor: pointer">10</a>
+                                            </td>
+                                            <td id="BranchMumbaiJobProgress" style="text-align: center; font-weight: bold"><a style="cursor: pointer">5</a>
+                                            </td>
+                                            <td id="BranchMumbaiJobCancel" style="text-align: center; font-weight: bold"><a style="cursor: pointer">3</a>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">1,50,000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">40,000</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiWiseJobOrder" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivDelhiWiseJobOrderBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Delhi)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010101
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-01
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-01
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">5000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">1750
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010102
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-01
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-02
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">7500
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2250
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010103
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-01
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-03
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">14000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">4470
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010104
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-04
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">7000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2400
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010105
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-05
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">11000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3650
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010106
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-06
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">8000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2680
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010107
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-07
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">10000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3500
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010108
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-08
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">8500
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2550
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010109
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-09
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">10000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3750
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010110
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-10
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">9000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3000
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010111
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-11
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @*<div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010112
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-12
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiWiseJobDone" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivDelhiWiseJobDoneBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Delhi)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010102
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-01
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-02
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">7500
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2250
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010103
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-01
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-03
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">14000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">4470
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010104
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-04
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">7000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2400
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010106
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-06
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">8000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2680
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010107
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-07
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">10000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3500
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010108
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-08
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">8500
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">2550
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010110
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-10
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">9000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3000
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiWiseJobProgress" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivDelhiWiseJobProgressBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Delhi)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010101
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-01
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-01
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">5000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">1750
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010105
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-05
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">11000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3650
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010109
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-09
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">10000
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">3750
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivDelhiWiseJobCancel" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivDelhiWiseJobCancelBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Delhi)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010111
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-02
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-11
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @*<div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010112
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span>
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeA1-03
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">CustomerX2-12
+                                            </td>
+
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: center; font-weight: bold">00
+                                            </td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*  For Mumbai Table*@
+
+    <div class="row-fluid" id="DivMumbaiWiseJobOrder" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivMumbaiWiseJobOrderBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Mumbai)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010111	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-01	</td>
+                                            <td style="text-align: center; font-weight: bold">8000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2100</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010112	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-02	</td>
+                                            <td style="text-align: center; font-weight: bold">9500	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2200</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010113	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-03	</td>
+                                            <td style="text-align: center; font-weight: bold">10000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2400</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010114	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-04	</td>
+                                            <td style="text-align: center; font-weight: bold">13000	 </td>
+                                            <td style="text-align: center; font-weight: bold">3900	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010115	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-05	</td>
+                                            <td style="text-align: center; font-weight: bold">12500	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">3500</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010116	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-06	</td>
+                                            <td style="text-align: center; font-weight: bold">11250	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2700</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010117	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-07	</td>
+                                            <td style="text-align: center; font-weight: bold">7000	 </td>
+                                            <td style="text-align: center; font-weight: bold">2100	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010118	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-08	</td>
+                                            <td style="text-align: center; font-weight: bold">4500	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">550</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010119	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-09	</td>
+                                            <td style="text-align: center; font-weight: bold">10000	 </td>
+                                            <td style="text-align: center; font-weight: bold">3000	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010120	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-10	</td>
+                                            <td style="text-align: center; font-weight: bold">9000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2500</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010121	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-11	</td>
+                                            <td style="text-align: center; font-weight: bold">12000	 </td>
+                                            <td style="text-align: center; font-weight: bold">3600	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010122	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-12	</td>
+                                            <td style="text-align: center; font-weight: bold">11600	 </td>
+                                            <td style="text-align: center; font-weight: bold">3480	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010123	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-04	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-13	</td>
+                                            <td style="text-align: center; font-weight: bold">6850	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">1570</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010124	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-04	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-14	</td>
+                                            <td style="text-align: center; font-weight: bold">17000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">4400</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010125	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-04	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-15	</td>
+                                            <td style="text-align: center; font-weight: bold">7800	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2000</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010126	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-16	</td>
+                                            <td style="text-align: center; font-weight: bold">00	 </td>
+                                            <td style="text-align: center; font-weight: bold">00	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010127	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-17	</td>
+                                            <td style="text-align: center; font-weight: bold">00	 </td>
+                                            <td style="text-align: center; font-weight: bold">00	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010128	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-18	</td>
+                                            <td style="text-align: center; font-weight: bold">00	 </td>
+                                            <td style="text-align: center; font-weight: bold">00	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivMumbaiWiseJobDone" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivMumbaiWiseJobDoneBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Mumbai)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010111	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-01	</td>
+                                            <td style="text-align: center; font-weight: bold">8000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red"><span style="color:red">2100</span></span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010112	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-02	</td>
+                                            <td style="text-align: center; font-weight: bold">9500	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2200</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010114	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-04	</td>
+                                            <td style="text-align: center; font-weight: bold">13000	 </td>
+                                            <td style="text-align: center; font-weight: bold">3900	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010116	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-06	</td>
+                                            <td style="text-align: center; font-weight: bold">11250	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2700</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010117	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-07	</td>
+                                            <td style="text-align: center; font-weight: bold">7000	 </td>
+                                            <td style="text-align: center; font-weight: bold">2100	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010118	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-08	</td>
+                                            <td style="text-align: center; font-weight: bold">4500	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">550</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010120	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-10	</td>
+                                            <td style="text-align: center; font-weight: bold">9000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2500</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010121	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-11	</td>
+                                            <td style="text-align: center; font-weight: bold">12000	 </td>
+                                            <td style="text-align: center; font-weight: bold">3600	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010122	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-12	</td>
+                                            <td style="text-align: center; font-weight: bold">11600	 </td>
+                                            <td style="text-align: center; font-weight: bold">3480	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010124	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-success">Completed</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-04	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-14	</td>
+                                            <td style="text-align: center; font-weight: bold">17000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">4400</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivMumbaiWiseJobProgress" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivMumbaiWiseJobProgressBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Mumbai)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010113	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-03	</td>
+                                            <td style="text-align: center; font-weight: bold">10000	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">2400</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010115	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-05	</td>
+                                            <td style="text-align: center; font-weight: bold">12500	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">3500</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010119	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-09	</td>
+                                            <td style="text-align: center; font-weight: bold">10000	 </td>
+                                            <td style="text-align: center; font-weight: bold">3000	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010123	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-04	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-13	</td>
+                                            <td style="text-align: center; font-weight: bold">6850	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red">1570</span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010125	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-warning">In-Progess</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-04	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-15	</td>
+                                            <td style="text-align: center; font-weight: bold">7800	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span style="color:red"><span style="color:red">2000</span></span>	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="DivMumbaiWiseJobCancel" style="display: none;">
+        <div class="span12">
+            <div class="widget-block">
+
+                <div class="widget-head" id="DivMumbaiWiseJobCancelBack">
+                    @*<h5 id="hFive"><i class="black-icons users"></i> &nbsp; @Resources.TableHeaders_ManageEmployeeProfile</h5>*@
+                    <a style="cursor: pointer">
+                        <h5 id="hFive"><i class="black-icons users"></i>&nbsp;Job Order Performance Report(Mumbai)</h5>
+                    </a>
+
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table user-tbl">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; color: #000">Job ID</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Job Status</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Employee</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Customer</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Revenue</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Profit/Loss</th>
+                                            <th class="center" style="font-weight: bold; color: #000">Feedback</th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="Level0" style="overflow: scroll;">
+
+                                          <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010126	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-01</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-16	</td>
+                                            <td style="text-align: center; font-weight: bold">00	 </td>
+                                            <td style="text-align: center; font-weight: bold">00	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010127	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-02	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-17	</td>
+                                            <td style="text-align: center; font-weight: bold">00	 </td>
+                                            <td style="text-align: center; font-weight: bold">00	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold">J1010128	 </td>
+                                            <td style="text-align: center; font-weight: bold"><span class="label label-important">Cancel</span></td>
+                                            <td style="text-align: center; font-weight: bold">EmployeeM2-03	</td>
+                                            <td style="text-align: center; font-weight: bold">CustomerM3-18	</td>
+                                            <td style="text-align: center; font-weight: bold">00	 </td>
+                                            <td style="text-align: center; font-weight: bold">00	</td>
+                                            <td style="text-align: right; font-weight: bold">
+                                                @* <div class="star" style="cursor: pointer; width: 100px;">
+                                                    <img title="bad" alt="1" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="poor" alt="2" src="../Content/img/admin/img-raty/star-on.png">
+                                                    <img title="regular" alt="3" src="../Content/img/admin/img-raty/star-half.png">
+                                                    <img title="good" alt="4" src="../Content/img/admin/img-raty/star-off.png">
+                                                    <img title="gorgeous" alt="5" src="../Content/img/admin/img-raty/star-off.png">
+                                                </div>*@
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#ddlBranch').on("change", function () {
+            var selectedItem = $(this).val();
+            if (selectedItem == "All") {
+                $("#trDelhi").show(true);
+                $("#trMumbai").show(true);
+                $("#DivBranchWiseJobOrder").show(true);
+
+                $("#DivDelhiWiseJobOrder").hide(true);
+                $("#DivDelhiWiseJobDone").hide(true);
+                $("#DivDelhiWiseJobProgress").hide(true);
+                $("#DivDelhiWiseJobCancel").hide(true);
+
+                $("#DivMumbaiWiseJobOrder").hide(true);
+                $("#DivMumbaiWiseJobDone").hide(true);
+                $("#DivMumbaiWiseJobProgress").hide(true);
+                $("#DivMumbaiWiseJobCancel").hide(true);
+            }
+            else if (selectedItem == "Delhi") {
+                $("#trMumbai").hide(true);
+                $("#trDelhi").show(true);
+                $("#DivBranchWiseJobOrder").show(true);
+
+                $("#DivDelhiWiseJobOrder").hide(true);
+                $("#DivDelhiWiseJobDone").hide(true);
+                $("#DivDelhiWiseJobProgress").hide(true);
+                $("#DivDelhiWiseJobCancel").hide(true);
+
+                $("#DivMumbaiWiseJobOrder").hide(true);
+                $("#DivMumbaiWiseJobDone").hide(true);
+                $("#DivMumbaiWiseJobProgress").hide(true);
+                $("#DivMumbaiWiseJobCancel").hide(true);
+            }
+            else if (selectedItem == "Mumbai") {
+                $("#trDelhi").hide(true);
+                $("#trMumbai").show(true);
+                $("#DivBranchWiseJobOrder").show(true);
+
+                $("#DivDelhiWiseJobOrder").hide(true);
+                $("#DivDelhiWiseJobDone").hide(true);
+                $("#DivDelhiWiseJobProgress").hide(true);
+                $("#DivDelhiWiseJobCancel").hide(true);
+
+                $("#DivMumbaiWiseJobOrder").hide(true);
+                $("#DivMumbaiWiseJobDone").hide(true);
+                $("#DivMumbaiWiseJobProgress").hide(true);
+                $("#DivMumbaiWiseJobCancel").hide(true);
+               
+            }
+        });
+        //--For Delhi
+        $('#BranchDelhi').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivDelhiWiseJobOrder").show(true);
+        });
+        $('#DivDelhiWiseJobOrderBack').on('click', function () {
+            $("#DivDelhiWiseJobOrder").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+        $('#BranchDelhiJobDone').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivDelhiWiseJobDone").show(true);
+
+        });
+        $('#DivDelhiWiseJobDoneBack').on('click', function () {
+            $("#DivDelhiWiseJobDone").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+        $('#BranchDelhiJobProgress').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivDelhiWiseJobProgress").show(true);
+
+        });
+        $('#DivDelhiWiseJobProgressBack').on('click', function () {
+            $("#DivDelhiWiseJobProgress").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+        $('#BranchDelhiJobCancel').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivDelhiWiseJobCancel").show(true);
+
+        });
+        $('#DivDelhiWiseJobCancelBack').on('click', function () {
+            $("#DivDelhiWiseJobCancel").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+        //--For Mumbai
+        $('#BranchMumbai').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivMumbaiWiseJobOrder").show(true);
+        });
+        $('#DivMumbaiWiseJobOrderBack').on('click', function () {
+            $("#DivMumbaiWiseJobOrder").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+        $('#BranchMumbaiJobDone').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivMumbaiWiseJobDone").show(true);
+
+        });
+        $('#DivMumbaiWiseJobDoneBack').on('click', function () {
+            $("#DivMumbaiWiseJobDone").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+        $('#BranchMumbaiJobProgress').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivMumbaiWiseJobProgress").show(true);
+
+        });
+        $('#DivMumbaiWiseJobProgressBack').on('click', function () {
+            $("#DivMumbaiWiseJobProgress").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+        $('#BranchMumbaiJobCancel').on('click', function () {
+            $("#DivBranchWiseJobOrder").hide(true);
+            $("#DivMumbaiWiseJobCancel").show(true);
+
+        });
+        $('#DivMumbaiWiseJobCancelBack').on('click', function () {
+            $("#DivMumbaiWiseJobCancel").hide(true);
+            $("#DivBranchWiseJobOrder").show(true);
+
+        });
+    });
+
+
+</script>
+

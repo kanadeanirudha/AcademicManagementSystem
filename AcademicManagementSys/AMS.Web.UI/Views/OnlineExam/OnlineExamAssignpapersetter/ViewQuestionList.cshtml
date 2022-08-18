@@ -1,0 +1,180 @@
+﻿@model AMS.ViewModel.OnlineExamAssignpapersetterViewModel
+
+<div class="card">
+
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    @*   <button title="Refresh" type="button" class="btn btn-default">
+                            <span class="zmdi icon zmdi zmdi-refresh zmdi-hc-fw"></span>
+                        </button>*@
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                            @*<li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="-1">All</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="Question Type">
+                                        Question<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            @*<li>
+                                    <div class="checkbox">
+                                        <label class="dropdown-item" aria-disabled="false">
+                                            <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name=" Related With">
+                                            Paper Set<i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </li>*@
+                            @*<li>
+                                    <div class="checkbox">
+                                        <label class="dropdown-item" aria-disabled="false">
+                                            <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="Action">
+                                            @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>Questions</th>
+                <th>Questions</th>
+                @*<th>@Resources.TableHeaders_Action</th>*@
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var oTable;
+        OnlineExamAssignpapersetter.Initialize();
+        oTable = $('#myDataTable').DataTable({
+            "bServerSide": true,
+            "sAjaxSource": "/OnlineExamExaminationQuePaperDetails/ViewQuestionListAjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "OnlineExamExaminationQuestionPaperID", "value": $("#OnlineExamExaminationQuestionPaperID").val() });
+                aoData.push({ "name": "OnlineExamSubjectGroupScheduleID", "value": $("#OnlineExamSubjectGroupScheduleID").val() });
+            },
+            "columnDefs": [
+                              {
+                                  "visible": false, "targets": 0,
+                              },
+
+                               {
+                                   "targets": 1,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = "";
+                                       if (data[5] != null && data[5] != "" && data[5] != " ") {
+                                            result = "<img src='/Content/UploadedFiles/AnswerImage/" + data[5] + "' style='width:60px;'>";
+                                       } else {
+                                            result = "<p  style=' height:5px;'>" + data[6] + "</p>";
+                                       }
+
+                                       return result;
+                                   }
+                               },
+                               //{
+                               //    "targets": 2,
+                               //    "bSortable": false,
+                               //    "data": null,
+                               //    "render": function (data, type, full, meta) {
+                               //        var result = null;
+                               //        //result1 = " <a href='/OnlineExamExaminationQuePaperDetails/Create?PaperDetails=" + data[0] + "~" + data[1] + "~" + data[2] + "' data-toggle=\"tooltip\" class=\"mfpAjaxModal\" title =\"Add Questions\"><span class=\"btn btn-default waves-effect \">Add</span></a>";
+                               //        //result2 = " <a href=\"javascript:void(0);\" data-toggle=\"tooltip\" class=\"btn btn-default waves-effect\"><span class=\"zmdi zmdi-view-toc\"></span></a>";
+                               //        result2 = '';
+                               //        result = result2;
+                               //        return result;
+
+                               //    }
+                               //}
+            ],
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                api.column(1, { page: 'current' }).data().each(function (group, i) {
+                    var array = String(group).split(',');
+                    if (last !== array[0]) {
+                        var question = array[1];
+                        question = question.replace(/~/g, ',');
+                        if (array[3] != null && array[3] != "") {
+
+                            question += '<img src="/Content/UploadedFiles/QuestionImage/' + array[3] + '" style="width: 60px;"/>';
+                        } 
+                        $(rows).eq(i).before(
+                          '<tr class="group"><td colspan="4" style="font-weight:bold;background-color:rgba(128,128,128,0.2);color:#000;font-size:12px;font-family: verdana;">' + question + '<span class="mfpAjaxModal btn btn-default pull-right" >' + array[9] + '&nbsp Marks</span></td></tr>'
+                        );
+                        last = array[0];
+                    }
+                });
+            }
+        });
+        DataTableSettings(oTable, 'myDataTable', 'toggleTableColumn');
+    });
+
+    //function RemoveQuestionFromExamPaper(Question) {
+    //    var QuestionDetail = $(Question).next('input.QuestionDetail').val();
+    //    $.ajax(
+    //     {
+    //         cache: false,
+    //         type: "GET",
+    //         dataType: "json",
+    //         url: '/OnlineExamAssignpapersetter/RemoveQuestionFromExamPaper?QuestionDetail=' + QuestionDetail,
+    //         context: Question,
+    //         success: function (data) {
+    //             var splitData = data.split(',');
+    //             notify(splitData[0], splitData[1]);
+    //             OnlineExamAssignpapersetter.LoadViewQuestionList();
+    //         }
+    //     });
+    //}
+</script>

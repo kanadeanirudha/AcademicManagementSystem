@@ -1,0 +1,135 @@
+﻿@model AMS.ViewModel.CRMSaleJobUserJobScheduleSheetViewModel
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>
+            &nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Meeting Reschedule
+        </h2>
+
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormUpDateMeetingWithReschedule" role="form">
+                @Html.HiddenFor(m => m.ID)
+                @Html.HiddenFor(m => m.JobCreationAllocationID)
+                @Html.HiddenFor(m => m.CRMSaleCallMasterID)
+                @Html.HiddenFor(m => m.CallEnquiryMasterID)
+                @Html.HiddenFor(m => m.ScheduleType)
+                @Html.HiddenFor(m => m.TransactionDate)
+                @Html.HiddenFor(m => m.SubScheduleType)
+
+                <div class="col-sm-12">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.ScheduleDescription, new { })
+                        @Html.TextBoxFor(model => model.ScheduleDescription, new { maxlength = "200", @class = "form-control input-sm typeahead", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.TransactionDate, new { })
+                        @Html.TextBoxFor(model => model.TransactionDate, new { @class = "form-control input-sm typeahead", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.FromTime, new { })
+                        @Html.TextBoxFor(m => m.FromTime, new { @class = "form-control input-sm time-picker", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.UpToTime, new { })
+                        @Html.TextBoxFor(m => m.UpToTime, new { @class = "form-control input-sm time-picker", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.NextDate, new { })
+                        @Html.TextBoxFor(model => model.NextDate, new { @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.NextDate)
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.NextFromTime, new { })
+                        @Html.TextBoxFor(m => m.NextFromTime, new { @class = "form-control input-sm time-picker" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.NextFromTime)
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.NextUpToTime, new { })
+                        @Html.TextBoxFor(m => m.NextUpToTime, new { @class = "form-control input-sm time-picker"})
+                    </div>
+                    @Html.ValidationMessageFor(model => model.NextUpToTime)
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.Remark, new { })
+                        @Html.TextBoxFor(model => model.Remark, new { maxlength = "200", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Remark)
+                </div>
+
+                <div class="form-group" style="margin-left:2%;">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="UpdateMeetingWithReschedule" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMSaleJobUserJobScheduleUpdateStatus.Initialize();
+        $("#NextDate").datetimepicker({
+            format: 'DD MMMM YYYY',
+            minDate: moment(),
+        });
+
+        $("#NextDate").on("keydown", function () {
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode != 9) {
+                return false;
+            }
+        });
+
+        $("#NextFromTime").datetimepicker({
+            format: 'LT'
+        });
+
+        $("#NextUpToTime").datetimepicker({
+            format: 'LT'
+        });
+        $("#NextFromTime").on("keydown", function (e) {
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode != 9) {
+                return false;
+            }
+        });
+        $("#NextUpToTime").on("keydown", function (e) {
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode != 9) {
+                return false;
+            }
+        });
+               
+    });
+</script>

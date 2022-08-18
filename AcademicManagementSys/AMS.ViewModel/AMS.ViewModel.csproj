@@ -1,0 +1,880 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9E374571-B9A5-486D-B0F7-F8EE0D24E16D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMS.ViewModel</RootNamespace>
+    <AssemblyName>AMS.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AcademicManagementSys|AnyCPU'">
+    <OutputPath>bin\AcademicManagementSys\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\user\abhijit\MVCProject1\AcademicManagementSys\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Implementation\Account\AccountBalancesheetTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountBalsheetMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountCategoryMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountCentreOpeningBalanceViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountChequeBookDetailsViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountChequeBookMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountGroupMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountHeadMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountSessionMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountTransactionMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\AccountTransactionTypeMasterViewModel .cs" />
+    <Compile Include="Implementation\Account\AccountVoucherSettingMasterViewModel.cs" />
+    <Compile Include="Implementation\Account\GeneralMapTypeOfAccountViewModel.cs" />
+    <Compile Include="Implementation\Account\GeneralTypeOfAccountViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountBalancesheetReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountBalancesheetTypeReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountCategoryMasterReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountCentreWiseBalanceSheetReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountDayBookReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountExclusiveToCentreReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountGeneralLedgerReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountGroupMasterReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountHeadMasterReportVIewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountMasterReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountProfitAndLossViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountSessionMasterReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountTradingReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountTrialBalanceReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\AccountVoucherSettingMasterReportViewModel.cs" />
+    <Compile Include="Implementation\Account\Report\EnterpriseDrillThroughReportViewModel.cs" />
+    <Compile Include="Implementation\Admin\AdminRoleApplicableDetailsViewModel.cs" />
+    <Compile Include="Implementation\Admin\AdminRoleDetailsViewModel.cs" />
+    <Compile Include="Implementation\Admin\AdminRoleMasterViewModel.cs" />
+    <Compile Include="Implementation\Admin\AdminRoleMenuDetailsViewModel.cs" />
+    <Compile Include="Implementation\Admin\AdminRoleModuleAccessViewModel.cs" />
+    <Compile Include="Implementation\Admin\AdminSnPostsViewModel.cs" />
+    <Compile Include="Implementation\API\APIInventoryViewModel.cs" />
+    <Compile Include="Implementation\API\InventoryStoreBillingPrintingInfoViewModel.cs" />
+    <Compile Include="Implementation\API\PhysicalInventory\PhysicalInventoryViewModel.cs" />
+    <Compile Include="Implementation\API\PhysicalInventory\PurchaseGRNViewModel.cs" />
+    <Compile Include="Implementation\API\POSCounterViewModel.cs" />
+    <Compile Include="Implementation\API\POS\GeneralCounterPOSApllicableViewModel.cs" />
+    <Compile Include="Implementation\API\POS\GeneralTimeZoneMasterViewModel.cs" />
+    <Compile Include="Implementation\API\POS\RegisterPOSAPIViewModel.cs" />
+    <Compile Include="Implementation\API\POS\StudyCentreMasterViewModel.cs" />
+    <Compile Include="Implementation\API\POS\UserMasterAPIViewModel.cs" />
+    <Compile Include="Implementation\API\Restaurant\InventoryRecipeDetailsViewModel.cs" />
+    <Compile Include="Implementation\API\Restaurant\RestaurantCategoryAndMenuViewModel.cs" />
+    <Compile Include="Implementation\API\Restaurant\RestaurantKOTOrderDetailsViewModel.cs" />
+    <Compile Include="Implementation\API\Restaurant\RestaurantSettleAndPrintBillViewModel.cs" />
+    <Compile Include="Implementation\API\Restaurant\RestaurantSettleBillViewModel.cs" />
+    <Compile Include="Implementation\API\Restaurant\RestaurantTableMasterViewModel.cs" />
+    <Compile Include="Implementation\API\Restaurant\RestaurantTableOrderViewModel.cs" />
+    <Compile Include="Implementation\API\SalePromotion\SalePromotionGetOfflineViewModel.cs" />
+    <Compile Include="Implementation\API\SalePromotion\SalePromotionOnFixAmountPlanViewModel.cs" />
+    <Compile Include="Implementation\API\SelfServiceQiso\CheckTabRegistrationViewModel.cs" />
+    <Compile Include="Implementation\API\SelfServiceQiso\GetIngredientsListViewModel.cs" />
+    <Compile Include="Implementation\API\SelfServiceQiso\SelfServiceQisoViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleAccountProgressTypeMasterAndRuleViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleBillingTransactionViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleEnquiryMasterAndAccountDetailsViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleGroupMasterAndAllocateEmployeeInGroupViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleJobCreationMasterAndJobAllocationDetailsViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleJobUserJobScheduleSheetViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleReportViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\CRMSaleTargetDetailsViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\NotificationTypeMasterAndNotificationTransactionViewModel.cs" />
+    <Compile Include="Implementation\CRMSales\Report\CRMSalesCustomerInformationReportViewModel .cs" />
+    <Compile Include="Implementation\CRM\CRMCallEnquiryDetailsViewModel.cs" />
+    <Compile Include="Implementation\CRM\CRMCallerRoleAllocationViewModel.cs" />
+    <Compile Include="Implementation\CRM\CRMCallMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\CRM\CRMJobCreationMasterAndAllocationViewModel.cs" />
+    <Compile Include="Implementation\CRM\CRMReportViewModel.cs" />
+    <Compile Include="Implementation\Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmpDesignationMasterViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmpEmployeeMasterViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Implementation\Employee\EmployeeAssociatesProfessionalBodiesViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeAttendanceReportViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeChildrenDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeConsultancyMasterViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeContactDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeCourseSubjectTaughtViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeDependentsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeDocumentRequiredViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeElectionNomineeBodyViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeEnterpriseReportViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeExperienceViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeLanguageDetailsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Implementation\Employee\EmployeeOtherCollegeFinancialAssistanceDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeOtherCollegeSpecialLectureDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeePaperPresentViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeePatentReceivedDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeePersonalDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeePHdGuideRecognisationDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeePictureDetailsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Implementation\Employee\EmployeePrizesWonDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeProjectWorksMasterViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeQualificationViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeServiceDetailsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Implementation\Employee\EmployeeShiftApplicableMasterViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeShiftMasterViewModel.cs" />
+    <Compile Include="Implementation\Employee\EmployeeSpecializationResearchAreaDetailsViewModel.cs" />
+    <Compile Include="Implementation\Employee\GeneralExperienceTypeMasterViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Implementation\Employee\GeneralJobProfileViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Implementation\Employee\GeneralJobStatusViewModel.cs" />
+    <Compile Include="Implementation\Employee\GeneralLevelMasterViewModel.cs" />
+    <Compile Include="Implementation\EntranceExam\EntranceExamApplicableExamToCourseViewModel.cs" />
+    <Compile Include="Implementation\EntranceExam\EntranceExamInfrastructureDetailViewModel.cs" />
+    <Compile Include="Implementation\EntranceExam\EntranceExamPaymentDetailsViewModel.cs" />
+    <Compile Include="Implementation\EntranceExam\EntranceExamScheduleAndScheduleDetailViewModel.cs" />
+    <Compile Include="Implementation\EntranceExam\EntranceExamValidationParameterApplicableViewModel.cs" />
+    <Compile Include="Implementation\EntranceExam\EntranceExamValidationParameterViewModel.cs" />
+    <Compile Include="Implementation\EntranceExam\EntranceExamViewModel.cs" />
+    <Compile Include="Implementation\ExcelUpload\InventoryExcelUploadViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeAccountTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeCriteriaCombinationParameterValueViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeCriteriaMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeCriteriaParametersAndValuesViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeLateFeesMasterViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeePredefinedCriteriaParametersViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeReceiptMasterViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeRefundMasterViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeStructureApplicableViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeStructureMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Fees\FeeTypeAndSubTypeViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Implementation\Fisheries\FishFishermenMasterViewModel.cs" />
+    <Compile Include="Implementation\Fisheries\FishItemLicenseAllocationViewModel.cs" />
+    <Compile Include="Implementation\Fisheries\FishItemLicenseRateViewModel.cs" />
+    <Compile Include="Implementation\Fisheries\FishLicenceTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\Fisheries\FishLicenseRuleMasterViewModel.cs" />
+    <Compile Include="Implementation\Fisheries\FishReservoirMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralCasteMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralCategoryMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralCityMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralCountryMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralEducationMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralEducationTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralGroupMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralLanguageMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralLocationMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralMainTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralNationalityMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralPeriodTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralPolicyDetailsViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralPolicyMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralPolicyRulesViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralPreTablesForMainTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralQuestionTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralRegionMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralRelationshipTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralReligionMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralRunningNumbersForAccountViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralSessionMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralSupplierMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralTaxGroupMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralTaxMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralTimeSlotMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralTitleMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralUnitMasterViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralUnitTypeViewModel.cs" />
+    <Compile Include="Implementation\GeneralMaster\GeneralWeekDaysViewModel.cs" />
+    <Compile Include="Implementation\HealthCare\HMOPDHealthCentreViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryCounterApplicableDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryCounterLogAndLockDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryCounterMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryDatewiseItemTransactionViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryDayEndJobViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryDumpAndShrinkMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryEstimationMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryInWardMasterAndInWardDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryIssueMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryIssueMasterAndIssueDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryItemCategoryMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryItemMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryItemSaleReturnMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryLocationMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryMachineMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryOpeningBalanceViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryPurchaseMasterAndTransactionViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryRateMarkDownMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventorySalesMasterAndTransactionViewModel.cs" />
+    <Compile Include="Implementation\Inventory\InventoryWeighingDataViewModel.cs" />
+    <Compile Include="Implementation\Inventory\Report\InventoryDailySaleReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory\Report\InventoryReportMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\BOMAndRecipeDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\ECommerceSystemSettingsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralAllocateSaleProcessUnitViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralCounterMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralItemCategoryMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralItemMarchandiseBaseCategoryViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralItemMarchandiseGroupViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralItemMarchandiseSubCategoryViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralItemMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralItemMerchantiseCategoryViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralItemMerchantiseDepartmentViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralMovementTypeViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralOperatorRelatedRoleViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralPackageTypeViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralPackingTypeInfoViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralPriceGroupViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralPriceListAndListLineViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralPurchaseGroupMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralTemperatureMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralTransactionMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralUnitsStorageLocationViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralCounterPOSAndPosOperatorViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\GeneralUnitsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryAttributeMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryBrandMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryDashboardReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryDimensionUnitMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryLablePrintingFormatViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryLocationMaster_1ViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryPhysicalStockMasterAndTransactionViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryProductionMasterAndTransactionViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryRecipeFormulaDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryRecipeMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryRecipeMenuCategoryViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryStockAdjustmentViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryUoMGroupAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryUoMMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\InventoryVariationMasterViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\OrderingAndDeliveryDayViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\ArticlesAvailabilityReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\InventoryConsumptionDetailDrillReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\InventoryCurrentStockPriceDrillReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\InventoryReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\RetailDrillDownReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\SaleSummaryDrillReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\RetailSalesAndMarginDrillDownReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\SalesPromotion\SalePromotionActivityMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\SalesPromotion\SalePromotionPlanAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\TillReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\RetailReportsViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\Report\VendorMasterReportViewModel.cs" />
+    <Compile Include="Implementation\Inventory_1\VendorMasterViewModel.cs" />
+    <Compile Include="Implementation\Leave\GeneralLeaveDocumentViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveApplicationViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveAttendanceExemptionViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveAttendanceSpanLockViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveAttendanceSpecialRequestViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveAvailedViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveCompensatoryWorkDayViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveDeductRuleExceptionForCentreViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveEmployeeApplicationStatusReportViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveLateMarkRulesDetailsViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveManualAttendanceViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveMasterViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeavePostViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveRuleApplicableDetailsViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveRuleExemptedEmployeeViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveRuleMasterViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveSessionViewModel.cs" />
+    <Compile Include="Implementation\Leave\LeaveShiftAllocateToCentreViewModel.cs" />
+    <Compile Include="Implementation\MonitoringSystem\AttendenceMonitoringSystemViewModel.cs" />
+    <Compile Include="Implementation\OnlineEntranceExam\OnlineEntranceExamQuestionBankMasterViewModel.cs" />
+    <Compile Include="Implementation\OnlineEntranceExam\OnlineExaminationMasterAndCourseApplicableViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamAssignPaperCheckerViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamAssignpapersetterViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamStudentQuePaperCheckDetailsViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamSubjectGroupScheduleViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamStudentApplicableViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamExaminationQuePaperDetailsViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\GeneralPaperSetMasterViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\GeneralQuestionLevelMasterViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamAllocateSupportStaffViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamExaminationCourseApplicableViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamExaminationMasterViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExaminationHallTicketViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExaminationMasterViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExaminationQuestionPaperSetMasterViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\OnlineExamQuestionBankMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\Report\OnlineExamResultViewModel.cs" />
+    <Compile Include="Implementation\OnlineExam\Report\StudentReportCardViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationBranchDetailsViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationBranchMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationCentrewiseDepartmentViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationCentrewiseSessionViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationCourseYearDetailsViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationDepartmentMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationDirectorMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationDivisionMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationElectiveGrpMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationMediumMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationMemberMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSectionDetailsViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSectionMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSemesterMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSessionCryrAllocationViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationStandardMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationStreamMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationStudyCentreMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationStudyCentrePrintingFormatViewModelViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSubGrpRuleSessionwiseViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSubjectGroupDetailsViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSubjectGrpRuleViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSubjectMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSubjectTypeMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationSyllabusGroupMasterViewModel.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationUniversityMasterViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseGRNMasterViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseInvoiceViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseOrderMasterAndDetailsViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseReplenishmentViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseReportViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseRequirementMasterViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseRequisitionMasterViewModel.cs" />
+    <Compile Include="Implementation\Purchase\PurchaseReturnViewModel.cs" />
+    <Compile Include="Implementation\Purchase\Report\PurchaseReportMasterViewModel.cs" />
+    <Compile Include="Implementation\Salary\SalaryAllowanceMasterViewModel.cs" />
+    <Compile Include="Implementation\Salary\SalaryGradePayMasterViewModel.cs" />
+    <Compile Include="Implementation\Salary\SalaryPayRulesViewModel.cs" />
+    <Compile Include="Implementation\Salary\SalaryPayScaleMasterViewModel.cs" />
+    <Compile Include="Implementation\ScholarShip\ScholarShipAllocationViewModel.cs" />
+    <Compile Include="Implementation\ScholarShip\ScholarShipMasterViewModel.cs" />
+    <Compile Include="Implementation\Student\BranchPromotionViewModel.cs" />
+    <Compile Include="Implementation\Student\GenerateStudentRollNumberViewModel.cs" />
+    <Compile Include="Implementation\Student\StudentIdentityCardViewModel.cs" />
+    <Compile Include="Implementation\Student\StudentMasterViewModel.cs" />
+    <Compile Include="Implementation\Student\StudentQuickRegistrationViewModel.cs" />
+    <Compile Include="Implementation\Student\StudentReadmissionViewModel.cs" />
+    <Compile Include="Implementation\Student\StudentReportViewModel.cs" />
+    <Compile Include="Implementation\Student\StudentSectionChangeRequestViewModel.cs" />
+    <Compile Include="Implementation\StudentRegistration\StudentLoginViewModel.cs" />
+    <Compile Include="Implementation\StudentRegistration\StudentRegistrationFormViewModel.cs" />
+    <Compile Include="Implementation\StudentRegistration\StudentRegistrationAcademicApprovalViewModel.cs" />
+    <Compile Include="Implementation\StudentRegistration\StudentSelfRegistrationViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolQualificationApplicableViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolQualificationExamMasterViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolQualificationMasterSubjectViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolQualifyingExamApplicableViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolQualifyingExamMasterViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolQualifyingExamSubjectViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolTemplateApplicableViewModel.cs" />
+    <Compile Include="Implementation\StudentToolMaster\ToolTemplateRegistrationViewModel.cs" />
+    <Compile Include="Implementation\Sync\SyncViewModel.cs" />
+    <Compile Include="Implementation\TaskModel\GeneralRequestMasterViewModel.cs" />
+    <Compile Include="Implementation\TaskModel\GeneralTaskModelViewModel.cs" />
+    <Compile Include="Implementation\TaskModel\GeneralTaskReportingDetailsViewModel.cs" />
+    <Compile Include="Implementation\TaskModel\RequestApprovalFormFieldNameMasterViewModel.cs" />
+    <Compile Include="Implementation\TaskModel\TaskApprovalFormFieldNameMasterViewModel.cs" />
+    <Compile Include="Implementation\UserMaster\UserMainMenuMasterViewModel.cs" />
+    <Compile Include="Implementation\UserMaster\UserModuleMasterViewModel.cs" />
+    <Compile Include="Implementation\UserMaster\UsersDetailViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountTransactionTypeMasterViewModel .cs" />
+    <Compile Include="Interface\Account\IAccountVoucherSettingMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IGeneralMapTypeOfAccountViewModel.cs" />
+    <Compile Include="Interface\Account\IGeneralTypeOfAccountViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountBalancesheetReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountBalancesheetTypeReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountCentreWiseBalanceSheetReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountExclusiveToCentreReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountProfitAndLossViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountSessionMasterReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountDayBookReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountGeneralLedgerReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountCategoryMasterReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountGroupMasterReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountHeadMasterViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountMasterReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountTradingReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountTrialBalanceReportViewModel.cs" />
+    <Compile Include="Interface\Account\Report\IAccountVoucherSettingMasterReportViewModel.cs" />
+    <Compile Include="Interface\API\IAPIInventoryViewModel.cs" />
+    <Compile Include="Interface\API\IInventoryStoreBillingPrintingInfoViewModel.cs" />
+    <Compile Include="Interface\API\IPOSCounterViewModel.cs" />
+    <Compile Include="Interface\API\PhysicalInventory\IPhysicalInventoryViewModel.cs" />
+    <Compile Include="Interface\API\PhysicalInventory\IPurchaseGRNViewModel.cs" />
+    <Compile Include="Interface\API\POS\IGeneralCounterPOSApllicableViewModel.cs" />
+    <Compile Include="Interface\API\POS\IGeneralTimeZoneMasterViewModel.cs" />
+    <Compile Include="Interface\API\POS\IRegisterPOSAPIViewModel.cs" />
+    <Compile Include="Interface\API\POS\IStudyCentreMasterViewModel.cs" />
+    <Compile Include="Interface\API\POS\IUserMasterAPIViewModel.cs" />
+    <Compile Include="Interface\API\Restaurant\IInventoryRecipeDetailsViewModel.cs" />
+    <Compile Include="Interface\API\Restaurant\IRestaurantCategoryAndMenuViewModel.cs" />
+    <Compile Include="Interface\API\Restaurant\IRestaurantKOTOrderDetailsViewDetails.cs" />
+    <Compile Include="Interface\API\Restaurant\IRestaurantSettleAndPrintBillViewModel.cs" />
+    <Compile Include="Interface\API\Restaurant\IRestaurantSettleBillViewModel.cs" />
+    <Compile Include="Interface\API\Restaurant\IRestaurantTableMasterViewModel.cs" />
+    <Compile Include="Interface\API\Restaurant\IRestaurantTableOrderViewModel.cs" />
+    <Compile Include="Interface\API\SalePromotion\ISalePromotionGetOfflineViewModel.cs" />
+    <Compile Include="Interface\API\SalePromotion\ISalePromotionOnFixAmountPlanViewModel.cs" />
+    <Compile Include="Interface\API\SelfServiceQiso\ICheckTabRegistrationViewModel.cs" />
+    <Compile Include="Interface\API\SelfServiceQiso\IGetIngredientsListViewModel.cs" />
+    <Compile Include="Interface\API\SelfServiceQiso\ISelfServiceQisoViewModel.cs" />
+    <Compile Include="Interface\CRMSales\ICRMSaleAccountProgressTypeMasterAndRuleViewModel.cs" />
+    <Compile Include="Interface\CRMSales\ICRMSaleBillingTransactionViewModel.cs" />
+    <Compile Include="Interface\CRMSales\ICRMSaleEnquiryMasterAndAccountDetailsViewModel.cs" />
+    <Compile Include="Interface\CRMSales\ICRMSaleGroupMasterAndAllocateEmployeeInGroupViewModel.cs" />
+    <Compile Include="Interface\CRMSales\ICRMSaleJobCreationMasterAndJobAllocationDetailsViewModel.cs" />
+    <Compile Include="Interface\CRMSales\ICRMSaleJobUserJobScheduleSheetViewModel.cs" />
+    <Compile Include="Interface\CRMSales\ICRMSaleTargetDetailsViewModel.cs" />
+    <Compile Include="Interface\CRMSales\INotificationTypeMasterAndNotificationTransactionViewModel.cs" />
+    <Compile Include="Interface\CRM\ICRMCallEnquiryDetailsViewModel.cs" />
+    <Compile Include="Interface\CRM\ICRMCallerRoleAllocationViewModel.cs" />
+    <Compile Include="Interface\CRM\ICRMCallMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\CRM\ICRMJobCreationMasterAndAllocationViewModel.cs" />
+    <Compile Include="Interface\CRM\ICRMReportViewModel.cs" />
+    <Compile Include="Interface\Dashboard\IDashboardViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmpEmployeeMasterViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Employee\IEmployeeAssociatesProfessionalBodiesViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeAttendanceReportViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeChildrenDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeConsultancyMasterViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeContactDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeCourseSubjectTaughtViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeDependentsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeDocumentRequiredViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeElectionNomineeBodyViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeEnterpriseReportViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeExperienceViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeLanguageDetailsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Employee\IEmployeeOtherCollegeFinancialAssistanceDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeOtherCollegeSpecialLectureDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeePaperPresentViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeePatentReceivedDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeePersonalDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeePHdGuideRecognisationDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeePictureDetailsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Employee\IEmployeePrizesWonDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeProjectWorksMasterViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeQualificationViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeServiceDetailsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Employee\IEmployeeShiftApplicableMasterViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeShiftMasterViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmployeeSpecializationResearchAreaDetailsViewModel.cs" />
+    <Compile Include="Interface\Employee\IGeneralExperienceTypeMasterViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Employee\IGeneralJobProfileViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Employee\IGeneralJobStatusViewModel.cs" />
+    <Compile Include="Interface\Employee\IGeneralLevelMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountBalanceSheetMasterModel.cs" />
+    <Compile Include="Interface\Account\IAccountBalancesheetMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountBalancesheetTypeMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountCategoryMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountCentreOpeningBalanceViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountChequeBookDetailsViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountChequeBookMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountGroupMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountHeadMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountSessionMasterViewModel.cs" />
+    <Compile Include="Interface\Account\IAccountTransactionMasterViewModel.cs" />
+    <Compile Include="Interface\Admin\IAdminRoleApplicableDetailsViewModel.cs" />
+    <Compile Include="Interface\Admin\IAdminRoleDetailsViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Admin\IAdminRoleMasterViewModel.cs" />
+    <Compile Include="Interface\Admin\IAdminRoleMenuDetailsViewModel.cs" />
+    <Compile Include="Interface\Admin\IAdminRoleModuleAccessViewModel.cs" />
+    <Compile Include="Interface\Admin\IAdminSnPostsViewModel.cs" />
+    <Compile Include="Interface\Employee\IEmpDesignationMasterViewModel.cs" />
+    <Compile Include="Interface\EntranceExam\IEntranceExamApplicableExamToCourseViewModel.cs" />
+    <Compile Include="Interface\EntranceExam\IEntranceExamInfrastructureDetailViewModel.cs" />
+    <Compile Include="Interface\EntranceExam\IEntranceExamPaymentDetailsViewModel.cs" />
+    <Compile Include="Interface\EntranceExam\IEntranceExamScheduleAndScheduleDetailViewModel.cs" />
+    <Compile Include="Interface\EntranceExam\IEntranceExamValidationParameterApplicableViewModel.cs" />
+    <Compile Include="Interface\EntranceExam\IEntranceExamValidationParameterViewModel.cs" />
+    <Compile Include="Interface\EntranceExam\IEntranceExamViewModel.cs" />
+    <Compile Include="Interface\ExcelUpload\IInventoryExcelUploadViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeAccountTypeMasterViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeCriteriaCombinationParameterValueViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeCriteriaMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeCriteriaParametersAndValuesViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeLateFeesMasterViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeePredefinedCriteriaParametersViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeReceiptMasterViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeRefundMasterViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeStructureApplicableViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeStructureMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Fees\IFeeTypeAndSubTypeViewModel.cs" />
+    <Compile Include="Interface\Fisheries\IFishFishermenMasterViewModel.cs" />
+    <Compile Include="Interface\Fisheries\IFishItemLicenseAllocationViewModel.cs" />
+    <Compile Include="Interface\Fisheries\IFishItemLicenseRateViewModel.cs" />
+    <Compile Include="Interface\Fisheries\IFishLicenceTypeMasterViewModel.cs" />
+    <Compile Include="Interface\Fisheries\IFishLicenseRuleMasterViewModel.cs" />
+    <Compile Include="Interface\Fisheries\IFishReservoirMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralCasteMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralCategoryMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralCityMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralCountryMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralEducationMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralEducationTypeMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralGroupMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralLanguageMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralLocationMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralMainTypeMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralNationalityMasterViewModel .cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralPeriodTypeMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralPolicyDetailsViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralPolicyMasterViewModel .cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralPolicyRulesViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralPreTablesForMainTypeMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralQuestionTypeMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralRegionMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralRelationshipTypeMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralReligionMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralRunningNumbersForAccountViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralSessionMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralSupplierMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralTaxGroupMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralTaxMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralTimeSlotMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralTitleMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralUnitMasterViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralUnitTypeViewModel.cs" />
+    <Compile Include="Interface\GeneralMaster\IGeneralWeekDaysViewModel.cs" />
+    <Compile Include="Interface\HealthCare\IHMOPDHealthCentreViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryCounterApplicableDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryCounterLogAndLockDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryCounterMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryDatewiseItemTransactionViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryDayEndJobViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryDumpAndShrinkMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryEstimationMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryInWardMasterAndInWardDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryIssueMasterAndDetailsTViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryIssueMasterAndIssueDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryItemCategoryMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryItemMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryItemSaleReturnMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryLocationMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryMachineMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryOpeningBalanceViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryPurchaseMasterAndTransactionViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryRateMarkDownMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventorySalesMasterAndTransactionViewModel.cs" />
+    <Compile Include="Interface\Inventory\IInventoryWeighingDataViewModel.cs" />
+    <Compile Include="Interface\Inventory\Report\IInventoryDailySaleReportViewModel.cs" />
+    <Compile Include="Interface\Inventory\Report\IInventoryReportMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IBOMAndRecipeDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IECommerceSystemSettingsViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralAllocateSaleProcessUnitViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralCounterMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralItemCategoryMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralItemMarchandiseBaseCategoryViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralItemMarchandiseGroupViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralItemMarchandiseSubCategoryViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralItemMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralItemMerchantiseCategoryViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralItemMerchantiseDepartmentViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralMovementTypeViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralOperatorRelatedRoleViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralPackageTypeViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralPackingTypeInfoViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralPriceGroupViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralPriceListAndListLineViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralPurchaseGroupMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralTemperatureMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralTransactionMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralUnitsStorageLocation.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralCounterPOSAndPosOperatorViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IGeneralUnitsViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryAttributeMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryBrandMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryDashboardReportViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryDimensionUnitMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryLocationMaster_1ViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryPhysicalStockMasterAndTransactionViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryProductionMasterAndTransactionViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryRecipeFormulaDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryRecipeMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryRecipeMenuCategoryViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryStockAdjustmentViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryUoMGroupAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryUoMMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IInventoryVariationMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IOrderingAndDeliveryDayViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\IVendorMasterViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\SalesPromotion\ISalePromotionActivityMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Inventory_1\SalesPromotion\ISalePromotionPlanAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Leave\IGeneralLeaveDocumentViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveApplicationViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveAttendanceExemptionViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveAttendanceSpecialRequestViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveAvailedViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveCompensatoryWorkDayViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveDeductRuleExceptionForCentreViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveEmployeeApplicationStatusReportViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveLateMarkRulesDetailsViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveManualAttendanceViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveMasterViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeavePostViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveRuleApplicableDetails.cs" />
+    <Compile Include="Interface\Leave\ILeaveRuleExemptedEmployeeViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveRuleMasterViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveSessionViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveShiftAllocateToCentreViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveSummaryViewModel.cs" />
+    <Compile Include="Interface\Leave\ILeaveAttendanceSpanLockViewModel.cs" />
+    <Compile Include="Interface\MonitoringSystem\IAttendenceMonitoringSystemViewModel.cs" />
+    <Compile Include="Interface\OnlineEntranceExam\IOnlineEntranceExamQuestionBankMasterViewModel.cs" />
+    <Compile Include="Interface\OnlineEntranceExam\IOnlineExaminationMasterAndCourseApplicableViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamAssignPaperCheckerViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamAssignpapersetterViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamStudentQuePaperCheckDetailsViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamSubjectGroupScheduleViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamStudentApplicableViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamExaminationQuePaperDetailsViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IGeneralPaperSetMasterViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IGeneralQuestionLevelMasterViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamAllocateSupportStaffViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamExaminationCourseApplicableViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamExaminationMasterViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExaminationHallTicketViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExaminationMasterViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExaminationQuestionPaperSetMasterViewModel.cs" />
+    <Compile Include="Interface\OnlineExam\IOnlineExamQuestionBankMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationBranchDetailsViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationBranchMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationCentrewiseDepartmentViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationCentrewiseSessionViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationCourseYearDetailsViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationDepartmentMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationDirectorMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationDivisionMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationElectiveGrpMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationMediumMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationMemberMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSectionDetailsViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSectionMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSemesterMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSessionCryrAllocationViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationStandardMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationStreamMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationStudyCentreMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationStudyCentrePrintingFormatViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSubGrpRuleSessionwiseViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSubjectGroupDetailsViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSubjectGrpRuleViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSubjectMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSubjectTypeMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationSyllabusGroupMasterViewModel.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationUniversityMasterViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseGRNMasterViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseInvoiceViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseOrderMasterAndDetailsViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseReplenishmentViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseReportViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseRequirementMasterViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseRequisitionMasterViewModel.cs" />
+    <Compile Include="Interface\Purchase\IPurchaseReturnViewModel.cs" />
+    <Compile Include="Interface\Purchase\Report\IPurchaseReportMasterViewModel.cs" />
+    <Compile Include="Interface\Salary\ISalaryAllowanceMasterViewModel.cs" />
+    <Compile Include="Interface\Salary\ISalaryGradePayMasterViewModel.cs" />
+    <Compile Include="Interface\Salary\ISalaryPayRulesViewModel.cs" />
+    <Compile Include="Interface\Salary\ISalaryPayScaleMasterViewModel.cs" />
+    <Compile Include="Interface\ScholarShip\IScholarShipAllocationViewModel.cs" />
+    <Compile Include="Interface\ScholarShip\IScholarShipMasterViewModel.cs" />
+    <Compile Include="Interface\StudentRegistration\IStudentLoginViewModel.cs" />
+    <Compile Include="Interface\StudentRegistration\IStudentRegistrationFormViewModel.cs" />
+    <Compile Include="Interface\StudentRegistration\IStudentSelfRegistrationViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolQualificationApplicableViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolQualificationExamMasterViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolQualificationMasterSubjectViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolQualifyingExamApplicableViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolQualifyingExamMasterViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolQualifyingExamSubjectViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolTemplateApplicableViewModel.cs" />
+    <Compile Include="Interface\StudentToolMaster\IToolTemplateRegistrationViewModel.cs" />
+    <Compile Include="Interface\Sync\ISyncViewModel.cs" />
+    <Compile Include="Interface\TaskModel\IGeneralRequestMasterViewModel.cs" />
+    <Compile Include="Interface\TaskModel\IGeneralTaskModelViewModel.cs" />
+    <Compile Include="Interface\TaskModel\IGeneralTaskReportingDetailsViewModel.cs" />
+    <Compile Include="Interface\TaskModel\IRequestApprovalFormFieldNameMasterViewModel.cs" />
+    <Compile Include="Interface\TaskModel\ITaskApprovalFormFieldNameMasterViewModel.cs" />
+    <Compile Include="Interface\UserMaster\IUserMainMenuMasterViewModel.cs" />
+    <Compile Include="Interface\UserMaster\IUserMasterViewModel.cs" />
+    <Compile Include="Interface\UserMaster\IUserModuleMasterViewModel.cs" />
+    <Compile Include="Interface\Student\IBranchPromotionViewModel.cs" />
+    <Compile Include="Interface\Student\IGenerateStudentRollNumberViewModel.cs" />
+    <Compile Include="Interface\Student\IStudentIdentityCardViewModel.cs" />
+    <Compile Include="Interface\Student\IStudentMasterViewModel.cs" />
+    <Compile Include="Interface\Student\IStudentQuickRegistrationViewModel.cs" />
+    <Compile Include="Interface\Student\IStudentReadmissionViewModel.cs" />
+    <Compile Include="Interface\Student\IStudentReportViewModel.cs" />
+    <Compile Include="Interface\Student\IStudentSectionChangeRequestViewModel.cs" />
+    <Compile Include="Interface\StudentRegistration\IStudentRegistrationAcademicApprovalViewModel.cs" />
+    <Compile Include="JQueryDataTableParamModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\AMS.Base.DTO\AMS.Base.DTO.csproj">
+      <Project>{a574a086-4b01-4dcb-9a06-74b29b8c0b5c}</Project>
+      <Name>AMS.Base.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.Common\AMS.Common.csproj">
+      <Project>{2ac1ca2b-819e-4f08-8b8a-d748ab81c5ca}</Project>
+      <Name>AMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.DTO\AMS.DTO.csproj">
+      <Project>{4c258527-e8c6-476d-bade-c5b5211067f2}</Project>
+      <Name>AMS.DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\AMS.Base.DTO.dll" />
+    <Content Include="bin\Debug\AMS.Base.DTO.pdb" />
+    <Content Include="bin\Debug\AMS.Common.dll" />
+    <Content Include="bin\Debug\AMS.Common.pdb" />
+    <Content Include="bin\Debug\AMS.DTO.dll" />
+    <Content Include="bin\Debug\AMS.DTO.pdb" />
+    <Content Include="bin\Debug\AMS.ViewModel.dll" />
+    <Content Include="bin\Debug\AMS.ViewModel.pdb" />
+    <Content Include="bin\Debug\en-GB\AMS.Common.resources.dll" />
+    <Content Include="bin\Release\AMS.Base.DTO.dll" />
+    <Content Include="bin\Release\AMS.Base.DTO.pdb" />
+    <Content Include="bin\Release\AMS.Common.dll" />
+    <Content Include="bin\Release\AMS.Common.pdb" />
+    <Content Include="bin\Release\AMS.DTO.dll" />
+    <Content Include="bin\Release\AMS.DTO.pdb" />
+    <Content Include="bin\Release\AMS.ViewModel.dll" />
+    <Content Include="bin\Release\AMS.ViewModel.pdb" />
+    <Content Include="bin\Release\en-GB\AMS.Common.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\en-GB\vssver.scc" />
+    <None Include="bin\Debug\vssver.scc" />
+    <None Include="bin\Release\en-GB\vssver.scc" />
+    <None Include="bin\Release\vssver.scc" />
+    <None Include="Implementation\Account\Report\vssver.scc" />
+    <None Include="Implementation\API\PhysicalInventory\vssver.scc" />
+    <None Include="Implementation\API\POS\vssver.scc" />
+    <None Include="Implementation\API\Restaurant\vssver.scc" />
+    <None Include="Implementation\API\SalePromotion\vssver.scc" />
+    <None Include="Implementation\API\SelfServiceQiso\vssver.scc" />
+    <None Include="Implementation\API\vssver.scc" />
+    <None Include="Implementation\CRMSales\Report\vssver.scc" />
+    <None Include="Implementation\CRMSales\vssver.scc" />
+    <None Include="Implementation\Dashboard\vssver.scc" />
+    <None Include="Implementation\Employee\vssver.scc" />
+    <None Include="Implementation\EntranceExam\vssver.scc" />
+    <None Include="Implementation\Fisheries\vssver.scc" />
+    <None Include="Implementation\HealthCare\vssver.scc" />
+    <None Include="Implementation\Inventory\Report\InventoryDailySaleReport\vssver.scc" />
+    <None Include="Implementation\Inventory\Report\vssver.scc" />
+    <None Include="Implementation\Inventory_1\Report\vssver.scc" />
+    <None Include="Implementation\Inventory_1\SalesPromotion\vssver.scc" />
+    <None Include="Implementation\Inventory_1\vssver.scc" />
+    <None Include="Implementation\Leave\vssver.scc" />
+    <None Include="Implementation\MonitoringSystem\vssver.scc" />
+    <None Include="Implementation\OnlineEntranceExam\vssver.scc" />
+    <None Include="Implementation\OnlineExam\Report\vssver.scc" />
+    <None Include="Implementation\OnlineExam\vssver.scc" />
+    <None Include="Implementation\Purchase\Report\vssver.scc" />
+    <None Include="Implementation\Purchase\vssver.scc" />
+    <None Include="Implementation\Salary\vssver.scc" />
+    <None Include="Implementation\ScholarShip\vssver.scc" />
+    <None Include="Implementation\Student\vssver.scc" />
+    <None Include="Implementation\Sync\vssver.scc" />
+    <None Include="Implementation\TaskModel\vssver.scc" />
+    <None Include="Interface\Account\Report\vssver.scc" />
+    <None Include="Interface\API\PhysicalInventory\vssver.scc" />
+    <None Include="Interface\API\POS\vssver.scc" />
+    <None Include="Interface\API\Restaurant\vssver.scc" />
+    <None Include="Interface\API\SalePromotion\vssver.scc" />
+    <None Include="Interface\API\SelfServiceQiso\vssver.scc" />
+    <None Include="Interface\API\vssver.scc" />
+    <None Include="Interface\CRMSales\vssver.scc" />
+    <None Include="Interface\Dashboard\vssver.scc" />
+    <None Include="Interface\Employee\vssver.scc" />
+    <None Include="Interface\EntranceExam\vssver.scc" />
+    <None Include="Interface\Fisheries\vssver.scc" />
+    <None Include="Interface\HealthCare\vssver.scc" />
+    <None Include="Interface\Inventory\Report\InventoryDailySaleReport\vssver.scc" />
+    <None Include="Interface\Inventory\Report\vssver.scc" />
+    <None Include="Interface\Inventory_1\SalesPromotion\vssver.scc" />
+    <None Include="Interface\Inventory_1\vssver.scc" />
+    <None Include="Interface\Leave\vssver.scc" />
+    <None Include="Interface\MonitoringSystem\vssver.scc" />
+    <None Include="Interface\OnlineEntranceExam\vssver.scc" />
+    <None Include="Interface\OnlineExam\vssver.scc" />
+    <None Include="Interface\Purchase\Report\vssver.scc" />
+    <None Include="Interface\Purchase\vssver.scc" />
+    <None Include="Interface\Salary\vssver.scc" />
+    <None Include="Interface\ScholarShip\vssver.scc" />
+    <None Include="Interface\Student\vssver.scc" />
+    <None Include="Interface\Sync\vssver.scc" />
+    <None Include="Interface\TaskModel\vssver.scc" />
+    <None Include="Interface\vssver.scc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\AcademicManagementSys\" />
+    <Folder Include="Implementation\Utility\" />
+    <Folder Include="Interface\CRMSales\Report\" />
+    <Folder Include="Interface\Utility\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

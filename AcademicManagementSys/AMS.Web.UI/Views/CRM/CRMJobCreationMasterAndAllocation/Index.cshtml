@@ -1,0 +1,263 @@
+﻿@model AMS.ViewModel.CRMJobCreationMasterAndAllocationViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+<div class="container">
+    
+
+    <style>
+    .actions > li > a::before, .actions > a::before {
+            height: 0;
+    }
+
+
+   .btn-float {
+            border-radius: 50%;
+            height: 40px;
+            line-height: 35px !important;
+            width: 40px;
+        }
+    </style>
+
+
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Job Creation And Allocation</h2>
+        <ul class="actions">
+            <li>
+                <button title="Job List" class="btn btn-success waves-effect" style="background-color:green;" id="IconShowList"><i style="font-size:12px;" class="zmdi zmdi-view-list zmdi-hc-fw"></i></button>
+
+            </li>&nbsp;&nbsp;&nbsp;&nbsp;
+            <li>
+                <a href="~/CRMJobCreationMasterAndAllocation" id="IconShowCreateJob" style="background-color: #EDECEC; display: none;">
+                    <button title="Create And Allocate Job" class="btn bgm-orange waves-effect"><i class="zmdi zmdi-plus-square zmdi-hc-fw"></i></button>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="card" id="divContent">
+        @Html.HiddenFor(m => m.errorMessage)
+        <div class="card-body card-padding">
+            <form class="row" role="form" id="FormCreateCRMJobCreationMasterAndAllocation">
+               
+                <h2 style="border-bottom: 2px solid #eaeaea; font-size: 18px; margin-left:1.5%">Create Job</h2>
+
+                <div class="row col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="fg-line dtp-container">
+                            @Html.TextBoxFor(model => model.JobStartDate, new { Value = "" + DateTime.Now.ToString("d MMM yyyy") + "", @class = "form-control",  data_val = "true",  data_toggle = "tooltip", data_placement = "top", data_original_title = "Start Date*" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                        <div class="col-sm-11">
+                            <div class="fg-line dtp-container">
+                                @Html.TextBoxFor(model => model.JobEndDate, new {  @class = "form-control", @placeholder = Resources.DisplayName_JobEndDate, style = "background-color: #ffffff;", data_toggle = "tooltip", data_placement = "top", data_original_title = "End Date", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="form-group fg-line">
+
+                                <span class="btn btn-xs bgm-cyan" style="height:30px; width:30px;" title="Reset" id="JobEndDate_Clear"><i class="zmdi zmdi-watch zmdi-hc-fw" style="padding-top:8px;"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="select form-group fg-line">
+                            @Html.DropDownListFor(m => m.CallTypeID, Model.ListCallTypeItems, Resources.DropdownMessage_CallType, new { @class = "form-control", data_toggle = "tooltip", data_placement = "top", data_original_title = "Call Type*" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(model => model.JobName, new { @class = "form-control", data_toggle = "tooltip", data_placement = "top", data_original_title = "Job Name" })
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divAllocateJob" style="display:none; margin-top:12%">
+                    
+                  
+                    <h2 style="border-bottom: 2px solid #eaeaea; font-size: 18px; margin-left: 1.5%;">Allocated Job</h2>
+
+
+                    <div class="row col-sm-12" style="margin-bottom:5px">
+                        @Html.HiddenFor(m => m.AdminRoleMasterID)
+                        <div class="col-sm-4">
+                            <div class="form-group fg-line">
+                                <label><span style="color: red;">*</span>@Html.LabelFor(model => model.EmployeeName)</label>
+                                @Html.HiddenFor(m => m.EmployeeID)
+                                @Html.TextBoxFor(model => model.EmployeeName, new { maxlength = "50", @class = "form-control typeahead" })
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                <label><span style="color: red;">*</span>@Html.LabelFor(model => model.PendingCalls)</label>
+                                @Html.TextBoxFor(model => model.PendingCalls, new { @class = "form-control", style = "text-align:center", @disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                <label><span style="color: red;">*</span>@Html.LabelFor(model => model.PerDayCallTarget)</label>
+                                @Html.TextBoxFor(model => model.PerDayCallTarget, new { maxlength = "3", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2" style="margin-top:30px">
+                           <!-- <button type="button" class="btn btn-primary" id="btnAdd">Add Row</button> -->
+                            <button type="button" title="Add row" class="btn bgm-cyan btn-float waves-effect waves-circle waves-float" id="btnAdd"><i class="zmdi zmdi-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12 row">
+                        <div id="" class="table-responsive">
+                            <div id="DivAddRowTable">
+                                <table id="tblData" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee Name</th>
+                                            <th>@Resources.TableHeader_Target</th>
+                                            <th>@Resources.DisplayName_Actions</th>
+                                        </tr>
+                                    </thead>
+
+                                    @if (ViewData["ViewMode"] == "Index")
+                                    {
+                                        <tbody></tbody>
+                                    }
+                                    else if (ViewData["ViewMode"] == "Edit")
+                                    {
+                                        <tbody>
+                                            @foreach (var item in Model.CRMJobAllocationList)
+                                            {
+                                                <tr>
+                                                    <td><input id="roleID" type="text" value="@item.AdminRoleMasterID" style='display:none' /><input id="empID" type="text" value="@item.EmployeeID" style="display:none" /><input type="text" value="@item.PerDayCallTarget " style="display:none" />@item.EmployeeName </td>
+                                                    <td>@item.PerDayCallTarget</td>
+
+                                                    <td> <i class="zmdi zmdi-delete zmdi-hc-fw" style="cursor:pointer" id="'$('#perdaycalltarget').val()'" title=Delete> </i> </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="col-sm-12" style="margin-top:2%">
+                            @if (ViewData["ViewMode"] == "Index")
+                            {
+                                <button class="btn btn-primary waves-effect pull-left" type="button"  id="CreateCRMJobCreationMasterAndAllocationRecord">Submit</button>
+                            }
+                            else if (ViewData["ViewMode"] == "Edit")
+                            {
+                                <button class="btn btn-primary waves-effect pull-left" type="button" id="EditCRMJobCreationMasterAndAllocationRecord" >Submit</button>
+                            }
+                        </div>
+                    </div>
+           </form>
+        </div>
+     </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+    CRMJobCreationMasterAndAllocation.Initialize();
+
+    var getData = function () {
+        return function findMatches(q, cb) {
+
+            var matches, substringRegex;
+            // an array that will be populated with substring matches
+            matches = [];
+
+            // regex used to determine if a string contains the substring `q`
+            substrRegex = new RegExp(q, 'i');
+
+            $.ajax({
+                url: "/CRMJobCreationMasterAndAllocation/GetEmployees",
+                type: "POST",
+                dataType: "json",
+                data: { term: q },
+                success: function (data) {
+
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(data, function (i, response) {
+                        if (substrRegex.test(response.name)) {
+                            CRMJobCreationMasterAndAllocation.map[response.name] = response;
+                            matches.push(response.name);
+                        }
+                    });
+
+                },
+                async: false
+            })
+
+            cb(matches);
+        };
+
+    };
+
+
+    $('.typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    },
+    {
+        name: 'states',
+        source: getData()
+    }).on("typeahead:selected", function (obj, item) {
+        $('#EmployeeID').val(CRMJobCreationMasterAndAllocation.map[item].id);
+        $("#AdminRoleMasterID").val(CRMJobCreationMasterAndAllocation.map[item].roleId);
+
+    });
+
+
+
+    // Add new record in table
+    $('#btnAdd').on("click", function () {
+
+        if ($('#PerDayCallTarget').val() != "" && $('#PerDayCallTarget').val() != 0 && $('#EmployeeID').val() != "") {
+            if (parseInt($('#PerDayCallTarget').val()) <= parseInt($('#PendingCalls').val())) {
+                $("#tblData tbody").append(
+                                        "<tr>" +
+                                        "<td><input id='roleID' type='text' value=" + $('#AdminRoleMasterID').val() + " style='display:none' /><input id='empID' type='text' value=" + $('#EmployeeID').val() + " style='display:none' /><input id='' type='text' value=" + $('#PerDayCallTarget').val() + " style='display:none' /> " + $('#EmployeeName').val() + "</td>" +
+                                        "<td>" + $('#PerDayCallTarget').val() + "</td>" +
+                                        "<td> <i class='zmdi zmdi-delete zmdi-hc-fw' style='cursor:pointer' id='" + $('#PerDayCallTarget').val() + "' title = Delete></td>" +
+                                        "</tr>"
+                                        );
+                var a = parseInt($('#PendingCalls').val()) - parseInt($('#PerDayCallTarget').val());
+                $('#PendingCalls').val(a);
+                $("#EmployeeName").val("");
+                $("#EmployeeID").val("");
+                $('#PerDayCallTarget').val(0);
+            }
+            else {
+
+                notify('Per day calls should not be greater than pending calls.', 'danger')
+                $('#PerDayCallTarget').val('');
+                $('#PerDayCallTarget').focus();
+            }
+        }
+        else if ($('#EmployeeName').val() == "") {
+
+            notify('Please select employee name.', 'danger')
+        }
+        else if ($('#PerDayCallTarget').val() == "" || $('#PerDayCallTarget').val() == 0) {
+
+            notify('Per day call should be specified.', 'danger')
+        }
+    });
+
+});
+</script>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AMS_Scripts/CRM/CRMJobCreationMasterAndAllocation.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>

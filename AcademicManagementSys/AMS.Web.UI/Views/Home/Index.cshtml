@@ -1,0 +1,41 @@
+﻿ @model AMS.ViewModel.UserMasterViewModel
+@if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["IsNewTheme"]) != "1")
+{
+  
+   
+
+    {
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/General_Script/EmployeeDashboard.js")" type="text/javascript"></script>
+
+    <!-- content -->
+    <div id="ListViewModel">
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            EmployeeDashboard.Initialize();
+            EmployeeDashboard.LoadList();
+        });
+    </script>
+}
+else
+{
+    {
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_LayoutV2.cshtml";
+    }
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/General_Script/EmployeeDashboardV2.js")" type="text/javascript"></script>
+    <!-- content -->
+    <div id="ListViewModel" class="container">
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            EmployeeDashboardV2.Initialize();
+            EmployeeDashboardV2.LoadList();
+        });
+    </script>
+   
+}
+

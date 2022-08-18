@@ -1,0 +1,37 @@
+﻿@model AMS.ViewModel.OrganisationStandardMasterViewModel
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<div id="update-message" class="error invisible"></div>
+@Html.ValidationSummary(true)
+
+@Html.HiddenFor(model => model.ID)
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Description)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Description)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.StandardNumber)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.StandardNumber)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.CodeShortCode)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.CodeShortCode)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.PrintShortCode)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.PrintShortCode)
+</div>
+
+

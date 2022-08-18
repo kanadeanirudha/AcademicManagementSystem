@@ -1,0 +1,251 @@
+﻿@model AMS.ViewModel.InventoryInWardMasterAndInWardDetailsViewModel
+@{
+
+    Layout = null;
+}
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Inventory/InventoryInWardMasterAndInWardDetails.js")" type="text/javascript"></script>
+
+
+<div class="widget-block">
+    <div class="widget-head">
+        <h5>  Approve Inward Details</h5>
+    </div>
+
+
+    <div class="widget-content">
+        <div id="SuccessMessagediv" style="display:none;color:#000;" class="alert"></div>
+        @if (@Model.InWardMasterList.Count == 0)
+        {
+            <div style="color: rgb(255, 1, 1);" class="alert">
+                <b style="font-size: 13px">Sync Is Required</b>
+            </div>
+
+        }
+        
+
+        <div class="widget-box">
+            <form class="form-horizontal well" id="FormApproveInventoryInwardDetails" style="">
+                @Html.HiddenFor(m => m.TaskCode)
+                @Html.HiddenFor(m => m.TaskNotificationDetailsID)
+                @Html.HiddenFor(m => m.TaskNotificationMasterID)
+                @Html.HiddenFor(m => m.GeneralTaskReportingDetailsID)
+                @Html.HiddenFor(m => m.PersonID)
+                @Html.HiddenFor(m => m.StageSequenceNumber)
+                @Html.HiddenFor(m => m.IsLastRecord)
+                @Html.HiddenFor(m => m.FieldName)
+                @Html.HiddenFor(m => m.FieldValue)
+                @Html.HiddenFor(m => m.LocationID)
+                @Html.HiddenFor(m => m.BalanceSheetID)
+                @Html.HiddenFor(m => m.IssueToLocationID)
+                @Html.HiddenFor(m => m.InventoryInWardMasterID)
+
+
+                <div class="widget-bottom">
+                    <div style="padding-right: 10px; padding-top: 5px; padding-bottom: 0px; text-align: right;">
+                        <ul>
+                            <li style="float:left">
+                                <span style="font-size: 13px; float:left; font-weight: bold;">From Location: &nbsp;</span>
+                                @if (@Model.InWardMasterList.Count == 0)
+                                {
+                                    <b style="display:none"></b>
+                                    @Html.ValidationSummary("error")
+
+                                }
+                                else
+                                {
+                                    <b>@Html.DisplayFor(m => m.InWardMasterList[0].IssueFromLocationName, new { style = "font-size: 12px;" })</b>
+                                }
+
+                            </li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <li style="float:right">
+                                <span style="font-size: 13px; float:left; font-weight: bold;">To Location: &nbsp;</span>
+
+                                @if (@Model.InWardMasterList.Count == 0)
+                                {
+                                    <b style="display:none"></b>
+                                }
+                                else
+                                {
+
+                                    <b>@Html.DisplayFor(m => m.InWardMasterList[0].IssueToLocationName, new { style = "font-size: 12px;" })</b>
+                                }
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <br />
+
+                <div class="nonboxy-widget">
+                    <fieldset>
+                        <div class="row">
+                            <div class="span10">
+                                <div id="DivAddRowTable">
+                                    <table id="tblData" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left; width: 20%">Item</th>
+                                                <th style="text-align: left; width: 8%">Unit</th>
+                                                <th style="text-align: left; width: 8%">Issue Qty</th>
+                                                <th style="text-align: left; width: 8%">Inward Qty</th>
+                                                <th style="text-align: left; width: 10%">Damaged Qty</th>
+                                                <th style="text-align: left; width: 10%">Stolen Qty</th>
+                                                <th style="text-align: left; width: 20%">Remark</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody style="overflow: auto">
+
+                                            @foreach (var item in Model.InWardMasterList)
+                                            {
+                                                <tr>
+                                                    <td>@item.ItemName<input type="text" style="display:none" value="@item.ItemID"></td>
+                                                    <td>@item.UnitCode</td>
+                                                    <td><input type="text" id="IssueQuantity" style="display:none" value="@item.Quantity" />@Math.Round(@item.Quantity, 3)</td>
+                                                    <td><input type="text" id="InwardQuantity" maxlength="11" value="0" style="text-align:right; width: 60px; height: 15px;  " /> </td>
+                                                    <td><input type="text" id="DamagedQuantity" maxlength="11" value="0" style="text-align: right; width: 60px; height: 15px;" disabled="disabled" /></td>
+                                                    <td><input type="text" id="StolenQuantity" maxlength="11" value="0" style="text-align:right; width: 60px; height: 15px; " disabled="disabled" /> </td>
+                                                    <td><input type="text" id="Remark" value="" maxlength="100" style="text-align: left; width: 185px; height: 15px;" disabled="disabled" /></td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <div class="widget-bottom">
+                                        <div style="padding-right: 10px; padding-top: 5px; padding-bottom: 0px; text-align: right;">
+                                            <button type="button" id="CreateApproveInventoryInwardDetails" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        InventoryInWardMasterAndInWardDetails.Initialize();
+        debugger;
+        myfunction();
+    })
+    function myfunction() {
+        //validation for textbox to allow decimal only
+        $('input[id^=InwardQuantity]').on("keydown keyup keypress", function (e) {
+            AMSValidation.AllowNumbersWithDecimalOnly(e);
+            AMSValidation.NotAllowSpaces(e);
+            parseFloat($('input[id^=InwardQuantity]').val()).toFixed(3);
+
+            var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+            if (inputKeyCode == 45 || inputKeyCode == 95) {
+                return false;
+            }
+        });
+        $('input[id^=DamagedQuantity]').on("keydown keyup keypress", function (e) {
+            AMSValidation.AllowNumbersWithDecimalOnly(e);
+            AMSValidation.NotAllowSpaces(e);
+            parseFloat($('input[id^=DamagedQuantity]').val()).toFixed(3);
+            var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+            if (inputKeyCode == 45 || inputKeyCode == 95) {
+                return false;
+            }
+
+        });
+        $('input[id^=StolenQuantity]').on("keydown keyup keypress", function (e) {
+            AMSValidation.AllowNumbersWithDecimalOnly(e);
+            AMSValidation.NotAllowSpaces(e);
+            parseFloat($('input[id^=StolenQuantity]').val()).toFixed(3);
+            var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+            if (inputKeyCode == 45 || inputKeyCode == 95) {
+                return false;
+            }
+
+        });
+
+        //On InwardQuantity Quantity Change
+        $("#tblData tbody").on("keyup", "tr td input[id^=InwardQuantity]", function () {
+            debugger;
+            var Quantity = $(this).closest('tr').find('td').eq(2).text();
+            var InwardQuantity = $(this).closest('tr').find('td input[id=InwardQuantity]').val();
+            var DamagedQuantity = $(this).closest('tr').find('td input[id=DamagedQuantity]').val();
+            var StolenQuantity = $(this).closest('tr').find('td input[id=StolenQuantity]').val();
+            var Remark = $(this).closest('tr').find('td input[id=Remark]').val();
+
+            //alert(Quantity+"-"+InwardQuantity + " -" + DamagedQuantity + " -" + StolenQuantity);
+            if (parseFloat(InwardQuantity) == parseFloat(Quantity)) {
+                $(this).closest('tr').find('td input[id=DamagedQuantity]').prop("disabled", true)
+                $(this).closest('tr').find('td input[id=StolenQuantity]').prop("disabled", true)
+                $(this).closest('tr').find('td input[id=Remark]').prop("disabled", true)
+                return true;
+            }
+            else if (parseFloat(InwardQuantity) < parseFloat(Quantity)) {
+                debugger;
+                $(this).closest('tr').find('td input[id=DamagedQuantity]').prop("disabled", false)
+                $(this).closest('tr').find('td input[id=StolenQuantity]').prop("disabled", false)
+                $(this).closest('tr').find('td input[id=Remark]').prop("disabled", false)
+
+            }
+            else if (parseFloat(InwardQuantity) > parseFloat(Quantity)) {
+                $(this).closest('tr').find('td input[id=DamagedQuantity]').prop("disabled", true)
+                $(this).closest('tr').find('td input[id=StolenQuantity]').prop("disabled", true)
+                $(this).closest('tr').find('td input[id=Remark]').prop("disabled", true)
+                $(this).closest('tr').find('td input[id=InwardQuantity]').val(0);
+            }
+            var total = parseFloat(parseFloat(InwardQuantity) + parseFloat(DamagedQuantity) + parseFloat(StolenQuantity)).toFixed(2);
+            // alert(total + "-" + Quantity);
+            if (parseFloat(total) > parseFloat(Quantity)) {
+                $('#SuccessMessagediv').html("Inward Quantity  should not be grater then Issue Quantity");
+                $('#SuccessMessagediv').delay(400).slideDown(400).delay(1500).slideUp(400).css('background-color', colorCode);
+                $(this).closest('tr').find('td input[id=InwardQuantity]').val(0);
+                return false;
+
+            }
+
+        });
+        //On DamagedQuantity Quantity Change
+        $("#tblData tbody").on("keyup", "tr td input[id^=DamagedQuantity]", function () {
+            debugger;
+            var Quantity = $(this).closest('tr').find('td').eq(2).text();
+            var InwardQuantity = $(this).closest('tr').find('td input[id=InwardQuantity]').val();
+            var DamagedQuantity = $(this).closest('tr').find('td input[id=DamagedQuantity]').val();
+            var StolenQuantity = $(this).closest('tr').find('td input[id=StolenQuantity]').val();
+            var Remark = $(this).closest('tr').find('td input[id=Remark]').val();
+
+            var total = parseFloat(parseFloat(InwardQuantity) + parseFloat(DamagedQuantity) + parseFloat(StolenQuantity)).toFixed(2);
+            if (parseFloat(total) > parseFloat(Quantity)) {
+                $(this).closest('tr').find('td input[id=DamagedQuantity]').val(0);
+                $('#SuccessMessagediv').html("Total Quantity should not be grater then Issue Quantity");
+                $('#SuccessMessagediv').delay(400).slideDown(400).delay(1500).slideUp(400).css('background-color', colorCode);
+            }
+
+        });
+        //On StolenQuantity Quantity Change
+        $("#tblData tbody").on("keyup", "tr td input[id^=StolenQuantity]", function () {
+            debugger;
+            var Quantity = $(this).closest('tr').find('td').eq(2).text();
+            var InwardQuantity = $(this).closest('tr').find('td input[id=InwardQuantity]').val();
+            var DamagedQuantity = $(this).closest('tr').find('td input[id=DamagedQuantity]').val();
+            var StolenQuantity = $(this).closest('tr').find('td input[id=StolenQuantity]').val();
+            var Remark = $(this).closest('tr').find('td input[id=Remark]').val();
+
+            var total = parseFloat(parseFloat(InwardQuantity) + parseFloat(DamagedQuantity) + parseFloat(StolenQuantity)).toFixed(2);
+            if (parseFloat(total) > parseFloat(Quantity)) {
+                $(this).closest('tr').find('td input[id=StolenQuantity]').val(0);
+                $('#SuccessMessagediv').html("Total Quantity should not be grater then Issue Quantity");
+                $('#SuccessMessagediv').delay(400).slideDown(400).delay(1500).slideUp(400).css('background-color', colorCode);
+
+            }
+        });
+
+
+
+    }
+
+</script>

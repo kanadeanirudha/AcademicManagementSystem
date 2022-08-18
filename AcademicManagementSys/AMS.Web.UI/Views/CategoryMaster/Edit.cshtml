@@ -1,0 +1,95 @@
+﻿@model AMS.Web.UI.Models.CategoryMaster.CategoryMaster
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Category Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Edit</legend>
+                           
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                 @Html.HiddenFor(model => model.ID)
+
+                                
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label"> @Html.LabelFor(model => model.CategoryName) :</label>
+                        <div class="col-lg-8">
+                                <span class="">@Html.EditorFor(model => model.CategoryName) @Html.ValidationMessageFor(model => model.CategoryName)</span>
+                        </div>
+                        </div>
+                                
+                         <div class="form-group">
+                            <label class="col-lg-2 control-label"> @Html.LabelFor(model => model.CategoryType) :</label>
+                        <div class="col-lg-8">
+                                <span class="">  @Html.EditorFor(model => model.CategoryType) @Html.ValidationMessageFor(model => model.CategoryType)</span>
+                        </div>
+                        </div> 
+                                
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">@Html.LabelFor(model => model.CategoryCode) :</label>
+                        <div class="col-lg-8">
+                                <span class=""> @Html.EditorFor(model => model.CategoryCode) @Html.ValidationMessageFor(model => model.CategoryCode)</span>
+                        </div>
+                        </div>   
+                                
+                                
+                                         
+                                @*<div class="editor-label">
+                                    @Html.LabelFor(model => model.CategoryName)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.CategoryName)
+                                    @Html.ValidationMessageFor(model => model.CategoryName)
+                                </div>                               
+
+                                 <div class="editor-label">
+                                    @Html.LabelFor(model => model.CategoryType)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.CategoryType)
+                                    @Html.ValidationMessageFor(model => model.CategoryType)
+                                </div>      
+                                 <div class="editor-label">
+                                    @Html.LabelFor(model => model.CategoryCode)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.CategoryCode)
+                                    @Html.ValidationMessageFor(model => model.CategoryCode)
+                                </div>*@      
+                                
+                                
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">&nbsp;</label>
+                        <div class="col-lg-8">
+                                <span class=""> <button class="btn btn-sm btn-default">Save</button></span>
+                        </div>
+                        </div>   
+                                   
+                           <br />
+                            }
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+
+</div>

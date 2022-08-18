@@ -1,0 +1,37 @@
+﻿@model AMS.Web.UI.Models.EducationTypeMaster
+@{
+    ViewBag.Title = "Details";
+}
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Education Type Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                              <legend>Details</legend>
+                                
+                                <div class="display-label">Education Type</div>
+                                <div class="display-field">@Model.EducationType</div>
+                                
+                                 <br />
+                                <div class="display-label">Sequence No</div> 
+                                <div class="display-field">@Model.SequenceNo</div>
+                                 <br />
+
+                            </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

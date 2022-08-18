@@ -1,0 +1,339 @@
+﻿@*@model AMS.ViewModel.GeneralMainTypeMasterViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-checktree.js")" type="text/javascript"></script>
+
+<style>
+    .spanFullName {
+        width: 14%;
+    }
+
+    .spanlabel {
+        width: 15%;
+    }
+
+    .hrStyle {
+        margin-top: 0%;
+    }
+
+    .txtbox {
+        font-weight: bold;
+        width: 100%;
+    }
+</style>
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div class="widget-block" style="height:430px;">
+    <div class="widget-head">
+        <h5>Create General Main Type Master </h5>
+    </div>
+
+    <div class="widget-box">
+        <div id="SuccessMessages" style="display:none;color:#000;" class="alert"></div>
+        <form id="FormCreateGeneralMainTypeMaster" method="post" class="form-horizontal well">            
+            <div class="nonboxy-widget">
+
+                @Html.HiddenFor(model => model.RefTableEntity)
+                @Html.HiddenFor(model => model.RefTableEntityKey)
+                @Html.HiddenFor(model => model.RefTableEntityKeyValue)                
+                <div class="row">
+                    <div class="span10">
+                        <div class="row control-group">
+                            <div class="span">&nbsp;</div>
+                            <div class="spanFullName">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.TypeDesc, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(model => model.TypeDesc, new { maxlength = "100", style = "font-Weight:Bold;" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.TypeDesc)
+                            </div>
+                            <div class="spanFullName">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.TypeShortDesc, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(model => model.TypeShortDesc, new { maxlength = "100", style = "font-Weight:Bold;" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.TypeShortDesc)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span10">
+                        <div class="row control-group">
+                            <div class="span">&nbsp;</div>
+                            <div class="spanFullName">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.ModuleName, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span3">
+                                @Html.DropDownListFor(model => model.ModuleName, (SelectList)ViewBag.GeneralUserModuleCodeMasterList, "----Select Module----", new { id = "ModuleCode", style = "font-weight:bold; width:78%;" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.ModuleName)
+                            </div>
+
+                            <div class="spanFullName">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.MenuName, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span2">
+                                @Html.DropDownListFor(model => model.MenuName, ViewBag.GeneralUserMenuCodeMasterList as List<SelectListItem>, "----Select Menu----", new { id = "MenuCode", style = "font-weight:bold; width:125%;" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.MenuName)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ValidSuccess" style="display:none;">
+                    <div class=" row">
+                    <div class="span10">
+                        <div class="row control-group">
+                            <div class="span">&nbsp;</div>
+
+                            <div class="spanFullName">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.IsFixed, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span3">
+                                @Html.CheckBoxFor(model => model.IsFixed)
+                                <br />
+                                <div class="span">&nbsp;</div>
+                            </div>
+
+                            <div class="spanFullName">
+                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                @Html.LabelFor(model => model.SubTypeDesc, new { style = "font-Weight:Bold;" })
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(model => model.SubTypeDesc, new { maxlength = "100", style = "font-Weight:Bold;" })
+                                <br />
+                               @Html.ValidationMessageFor(model => model.SubTypeDesc)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="row">
+                        <div class="span10">
+                            <div class="row control-group">
+                                <div class="span">&nbsp;</div>
+
+                                <div class="spanFullName">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.SubShortDesc, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span3">
+                                   @Html.TextBoxFor(model => model.SubShortDesc, new { maxlength = "100", style = "font-Weight:Bold;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.SubShortDesc)
+                                </div>
+
+                                <div class="spanFullName">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.TransactionType, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span2">
+                                    @Html.DropDownListFor(model => model.TransactionType, (SelectList)ViewBag.GeneralAccTransactionTypeMasterList, "----Select Transaction Type----", new { id = "TransactionType", style = "font-weight:bold; width:125%;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.TransactionType)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="span10">
+                            <div class="row control-group">
+                                <div class="span">&nbsp;</div>
+
+                                <div class="spanFullName">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.KeyCode, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span3">
+                                   @Html.TextBoxFor(model => model.KeyCode, new { maxlength = "100", style = "font-Weight:Bold;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.KeyCode)
+                                </div>
+                                <div class="spanFullName">
+                                    @Html.LabelFor(model => model.RefTableEntityDisplayKey, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span2">
+                                    @Html.DropDownListFor(model => model.RefTableEntityDisplayKey, ViewBag.GeneralRefTableEntityDisplayKeyList as List<SelectListItem>, "----Select key value----", new { id = "RefTableEntityDisplayKey", style = "font-weight:bold; width:125%;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.RefTableEntityDisplayKey)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-actions" style="padding-left: 0px; padding-bottom: 0px; text-align: right;">
+                    <input id="CreateGeneralMainTypeMasterRecord" type="button" value="@Resources.ButtonAction_Submit" class="btn btn-primary" style="width: 60px;" />
+                    <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GeneralMainTypeMaster.Initialize();
+    });
+</script>*@
+
+
+
+
+@*----------------new code------------------*@
+
+@model AMS.ViewModel.GeneralMainTypeMasterViewModel
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Create General Main Type Master</h2>
+    </div>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.RefTableEntity)
+    @Html.HiddenFor(model => model.RefTableEntityKey)
+    @Html.HiddenFor(model => model.RefTableEntityKeyValue)
+ 
+    <div class="card">
+        <div class="card-body card-padding" style="padding-bottom:465px;">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <div id="SuccessMessages" style="display:none;color:#000;" class="alert"></div>
+            <form id="FormCreateGeneralMainTypeMaster">
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.TypeDesc, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.TypeDesc, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.TypeDesc)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.TypeShortDesc, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.TypeShortDesc, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.TypeShortDesc)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.ModuleName, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.ModuleName, (SelectList)ViewBag.GeneralUserModuleCodeMasterList, "----Select Module----", new { @class = "form-control", id = "ModuleCode", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ModuleName)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.MenuName, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.MenuName, ViewBag.GeneralUserMenuCodeMasterList as List<SelectListItem>, "----Select Menu----", new { @class = "form-control", id = "MenuCode", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MenuName)
+                    </div>
+                </div>
+                
+
+                <div class="col-sm-12" id="ValidSuccess" style="display:none;">
+                    <div class="col-sm-6">
+                        <div class="checkbox m-b-15" style="padding-top:8%;">
+                            <label>
+                                <input type="checkbox" id="IsFixed">
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsFixed)
+                            </label>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.IsFixed)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.SubTypeDesc, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.SubTypeDesc, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SubTypeDesc)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.SubShortDesc, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.SubShortDesc, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SubShortDesc)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.TransactionType, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.TransactionType, (SelectList)ViewBag.GeneralAccTransactionTypeMasterList, "----Select Transaction Type----", new { @class = "form-control", id = "TransactionType", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.TransactionType)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.KeyCode, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.KeyCode, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.KeyCode)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.RefTableEntityDisplayKey, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.RefTableEntityDisplayKey, ViewBag.GeneralRefTableEntityDisplayKeyList as List<SelectListItem>, "----Select key value----", new { @class = "form-control", id = "RefTableEntityDisplayKey", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.RefTableEntityDisplayKey)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group" style="margin-left: 2%; ">
+                        <button type="button" id="CreateGeneralMainTypeMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                        <button name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset">@Resources.ButtonAction_Reset</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GeneralMainTypeMaster.Initialize();
+    });
+</script>

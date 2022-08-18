@@ -1,0 +1,193 @@
+﻿@model AMS.ViewModel.HMAppointmentTransactionViewModel
+<script src="@Url.Content("~/Scripts/AMS_Scripts/HealthCare/HMAppointmentTransaction.js")" type="text/javascript"></script>
+<div class="card">
+    @Html.HiddenFor(model => model.GeneralPatientMasterId)
+    <div class="card-body card-padding">
+        <form id="FormCreateHMAppointmentTransaction" role="form" class="row">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group fg-line select">
+                        @Html.LabelFor(model => model.CentreName, new { })
+                        @Html.DropDownListFor(m => m.CentreCode, Model.ListGetAdminRoleApplicableCentreItems, Resources.ddlHeaders_CentreName, new { id = "CentreCode", @class = "form-control", style = "" })
+                        @Html.HiddenFor(m => m.CentreCode)
+                        @Html.HiddenFor(m => m.CentreName)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.PatientName, new { })
+                        @Html.TextBoxFor(m => m.PatientName, new { maxlength = "50", @class = "form-control input-sm typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PatientName)
+                    <span id="AppointmentTransactionForPatient"></span>
+                </div>
+            </div>
+        </form>
+        <div class="card-body card-padding" style="margin-left:-10px;margin-top:-30px">
+            <div>
+                <ul class="tab-nav" id="TaskList">
+                    <li class="active" id="HMAppointmentTransaction">
+                        <a id="r1" href="HMAppointmentTransaction" aria-controls="HMAppointmentTransaction" role="tab" data-toggle="tab">&nbsp;&nbsp;General&nbsp;</a>
+                    </li>
+                    <li class="" id="HMPatientCaseHistory">
+                        <a id="r2" href="HMPatientCaseHistory" aria-controls="HMPatientCaseHistory" role="tab" data-toggle="tab">&nbsp;Last case History &nbsp;</a>
+                    </li>
+                    <li class="" id="HMPatientMedicine">
+                        <a id="r3" href="HMPatientMedicine" aria-controls="HMPatientMedicine" role="tab" data-toggle="tab">&nbsp;Last Prescription&nbsp;</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="HMAppointmentTransaction" class="tab-pane active">
+
+                        @{Html.RenderAction("General", "HMAppointmentTransaction"); }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>  
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+ 
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        HMAppointmentTransaction.Initialize();
+
+
+        var map = {};
+        ///////////////new search functionality///////////////////////////////////
+        debugger;
+        var getData = function () {
+
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+                // an array that will be populated with substring matches
+                matches = [];
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+                $.ajax({
+
+                    url: "/HMAppointmentTransaction/GetPatientNameList",
+                    type: "POST",
+                    data: { term: q },
+
+                    dataType: "json",
+                    success: function (data) {
+
+                        // iterate through the pool of strings and for any string that
+                        // contains the substring `q`, add it to the `matches` array
+                        //alert(data);
+                        $.each(data, function (i, response) {
+                            //alert(response.id);
+                            if (substrRegex.test(response.PatientName)) {
+                                map[response.PatientName] = response;
+                                matches.push(response.PatientName);
+                                //console.log(response.name);
+                            }
+                        });
+                    },
+                    async: false
+                })
+                cb(matches);
+            };
+        };
+
+        $("#PatientName").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            source: getData()
+        }).on("typeahead:selected", function (obj, item) {
+            //alert(val(map[item].Status))
+             debugger;
+            $('#GeneralPatientMasterId').val(map[item].id);
+            $('#Name').val(map[item].PatientName);
+            $('#Age').val(map[item].Age);
+           // $('#Gender').val(map[item].Gender);
+            // alert(val(map[item].Gender))
+            $('#Symtomp').val(map[item].symtoms);
+            $('#NextAppointmentDate').val(map[item].NextAppointmentDate);
+            $('#TransactionDate').val(map[item].TransactionDate);
+            $('#IsCaseClosed').val(map[item].IsCaseClosed);
+            $('#Status').val(map[item].Status);
+            //var abc = (map[item].HMOPDHealthCentreID)
+            //$('#SelectedHMOPDHealthCentreID').val(abc);
+            $('#SelectedHMOPDHealthCentreID').val(map[item].HMOPDHealthCentreID);
+          //  alert(map[item].HMOPDHealthCentreID)
+            var st = (map[item].Status);
+           // alert(st)
+
+            if (st == 1) {
+
+
+                $("#DivLastAppointmentDate").attr('disabled', 'disabled');
+              //  $('#DivLastAppointmentDate').disabled();
+
+            }
+            else {
+                $('#DivLastAppointmentDate').enabled();
+            }
+
+
+            var gn = (map[item].Gender);
+         //   alert(gn)
+          
+            if (gn == 1) {
+                $('#Gender').val('Male');
+            }
+            else {
+                $('#Gender').val('Female')
+            }
+            var sym = (map[item].symtoms);
+            // alert(gn)
+            if (st == 1) {
+                $('#Symtomp').val('');
+            }
+            else {
+                $('#Symtomp').val(map[item].symtoms);
+            }
+
+            //alert($('#Status').val(map[item].Status))
+        });
+
+        $('#PatientName').on("keydown", function (e) {
+            //  AMSValidation.AllowAlphaNumericOnly(e);
+            $('#AppointmentTransactionForPatient').text("");
+
+            if (e.keyCode == 8 || e.keyCode == 46) {
+                $("#GeneralPatientMasterId").val("0");
+                $("#PatientName").val("");
+                $("#Name").val("");
+                $('#PatientName').typeahead('val', '');
+                // $("#CentreCode").val("");
+                $("#Age").val("");
+                $("#NextAppointmentDate").val("");
+                $('#Gender').val("");
+                $('#Status').val("");
+                $('#Symtomp').val("");
+                $('#SelectedHMOPDHealthCentreID').val("");
+
+
+                $('ul#TaskList li:eq(0)').addClass("active");
+                $('ul#TaskList li:eq(1)').removeClass("active");
+                $('ul#TaskList li:eq(2)').removeClass("active");
+
+                TaskCode = 'General'
+                $("#" + TaskCode).click();
+
+            }
+        });
+
+
+        HMAppointmentTransaction.CreateTab();
+
+    });
+</script>
+
+ 

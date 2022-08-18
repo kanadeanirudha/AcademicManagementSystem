@@ -1,0 +1,43 @@
+﻿@model List<AMS.DTO.OnlineExaminationQuestionPaperSetMaster>
+@{
+    Layout = null;
+    var group1 = string.Empty;
+    var TotalSubjectQueCount = 1;
+}
+@for (int i = 0; i < Model.Count; i++)
+{
+    if (group1 != Model[i].SubjectName)
+    {
+        if (Model[i].SubjectWiseStatus)
+        {
+            <tr>
+                <td colspan="2" style="text-align: left; font-weight: bold;">
+                    @Model[i].SubjectName
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="2" style="text-align: left; font-weight: bold;color:red">
+                    @Model[i].SubjectName <p style="float:right;"> @Convert.ToInt32(Model[i].SubjectWiseCount - Model[i].SubjectWiseTotalQuestion) question(s) short  </p>
+                </td>
+            </tr>
+
+        }
+
+        group1 = Model[i].SubjectName;
+        TotalSubjectQueCount = 1;
+    }
+    <tr>
+        <td><input type="hidden" value="@Model[i].OnlineExamQuestionBankMasterID" />   @Convert.ToInt32(TotalSubjectQueCount++) </td>
+        @if (Model[i].IsQuestionInImage)
+        {
+            <td><img alt="Photo" style="height: 80px; " id="qtp" src="@Url.Content("~/Content/UploadedFiles/QuestionImage/" + Model[i].ImageName+ ".jpg")" /></td>
+        }
+        else
+        {
+            <td>@Model[i].QuestionLableText</td>
+        }
+    </tr>
+}

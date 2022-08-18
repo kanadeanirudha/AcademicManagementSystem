@@ -1,0 +1,330 @@
+﻿@model AMS.ViewModel.CRMSaleJobUserJobScheduleSheetViewModel
+<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Create Job Schedule</h2>
+    </div>
+    <div class="card">
+
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+
+            <form id="FormCreateCRMUserJobScheduleSheet" role="form">
+                @Html.HiddenFor(model => model.CRMSaleEnquiryAccountMasterID)
+                @Html.HiddenFor(model => model.CRMSaleEnquiryAccountContactPersonID)
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label>
+                                <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.JobType, new { })
+                            </label>
+                            @Html.DropDownListFor(model => model.JobType, ViewData["JobType"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.JobType)
+                    </div>
+
+                    <div class="col-sm-6" id="AccountNameDiv">
+                        <div class="">
+                            <div class="form-group fg-line">
+                                <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.AccountName, new { })
+                                @Html.TextBoxFor(model => model.AccountName, new { maxlength = "50", @class = "form-control input-sm typeahead" })
+                            </div>
+                            <span class="input-group-addon last">
+                                @*<a title="Add New Account" href="@Url.Action("Index", "CRMSaleEnquiryAccountMaster")">
+                                    <i class="zmdi zmdi-plus-circle"></i>
+                                </a>*@
+                            </span>
+                            </div>
+                        </div>
+                    @*</div>
+                            <div class="col-sm-12">*@
+                                <div class="col-sm-6" id="ContactPersonDiv">
+                                    <div class="form-group fg-line">
+                                       <span style="color: red;font-weight: bold">*</span> @Html.LabelFor(model => model.ContactPerson, new { })
+                                        @Html.TextBoxFor(model => model.ContactPerson, new { @class = "form-control input-sm typeahead" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group fg-line">
+                                        <label>
+                                            <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.Job, new { })
+                                        </label>
+                                        @Html.DropDownListFor(model => model.Job, Model.ListEmployeeJobsItems, "--Select Job--", new { @class = "form-control input-sm" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Job)
+                                </div>
+                            </div>
+
+                         <div class="col-sm-12">
+                            <div class="col-sm-12">
+                                <div class="form-group fg-line">
+                                    <label>
+                                        <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.ScheduleDescription, new { })
+                                    </label>
+                                    @Html.TextBoxFor(model => model.ScheduleDescription, new { @class = "form-control input-sm typeahead", maxlength = "200", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ScheduleDescription)
+                            </div>
+                        </div>
+                          <div class="col-sm-12"> 
+                               <div class="col-sm-6">
+                                <div class="form-group fg-line">
+                                    <label>
+                                        <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.ScheduleType, new { })
+                                    </label>
+                                    @Html.DropDownList("ScheduleType", ViewData["ScheduleType"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ScheduleType)
+                            </div>
+
+                            <div class="col-sm-6" id="subScheduleType">
+                                <div class="form-group fg-line">
+                                    @Html.LabelFor(model => model.SubScheduleType, new { })
+                                    @Html.DropDownList("SubScheduleType", ViewData["SubScheduleType"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.SubScheduleType)
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                             <div class="col-sm-6">
+                                <div class="form-group fg-line">
+                                    <label><span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.TransactionDate, new { })</label>
+                                    @Html.TextBoxFor(model => model.TransactionDate, new { @class = "form-control input-sm date-picker" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.TransactionDate)
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line">
+                                    <label>
+                                        <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.FromTime, new { })
+                                    </label>
+                                    @Html.TextBoxFor(model => model.FromTime, new { @class = "form-control input-sm time-picker" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.FromTime)
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line">
+                                    <label>
+                                        <span style="color: red;font-weight: bold">*</span>@Html.LabelFor(model => model.UpToTime, new { })
+                                    </label>
+                                    @Html.TextBoxFor(model => model.UpToTime, new { @class = "form-control input-sm time-picker" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.UpToTime)
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <div class="checkbox col-sm-6" style="margin-top:2%;">
+                                <label style="margin-top: 2%; margin-bottom: 3%;">
+                                    <input type="checkbox" value="" id="isAttendOther">
+                                    <i class="input-helper"></i>
+                                    @Html.LabelFor(model => model.IsAttendOther, new { style = "padding-left: 0px; margin-top:2%;" })
+                                </label>
+                            </div>
+
+                            <div class="col-sm-6 m-b-25" id="employeeName">
+                                @Html.LabelFor(model => model.EmployeeName, new { @class = "f-500 m-b-15", style = "margin-top:2%;" })
+                                <p id="e5_f">
+                                    <select id="employee" class="selectpicker col-sm-12" multiple name="selEmployee">
+                                        @foreach (var emp in Model.ListEmpEmployeeMaster)
+                                        {
+                                            <option id="@emp.ID" value="@emp.ID"> @emp.EmployeeFullName</option>
+                                        }
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="form-group row">
+                            <input class="btn btn-primary btn-sm m-t-12 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateCRMSaleUserJobSheetRecord" type="button" style="margin-left:5%;" />
+                        </div>
+
+</form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#TransactionDate").datetimepicker({
+            format: 'DD MMMM YYYY',
+            minDate: moment(),
+        });
+
+        $("#TransactionDate").on("keydown", function () {
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode != 9) {
+                return false;
+            }
+        });
+
+        $("#FromTime").datetimepicker({
+            format: 'LT'
+        });
+
+        $("#UpToTime").datetimepicker({
+            format: 'LT'
+        });
+        $("#FromTime").on("keydown", function (e) {
+            return false;
+        });
+
+        $('.selectpicker').selectpicker();
+        CRMSaleJobUserJobScheduleSheet.Initialize();
+    });
+    //================ACCountName================================
+    var map = {};
+  
+    var getData = function () {
+        return function findMatches(q, cb) {
+
+            var matches, substringRegex;
+
+            // an array that will be populated with substring matches
+            matches = [];   
+
+            // regex used to determine if a string contains the substring `q`
+            substrRegex = new RegExp(q, 'i');
+            $('#ContactPerson').val("");
+            $('#CRMSaleEnquiryAccountContactPersonID').val(0);
+            if ($('#JobType').val() != '') {
+                $.ajax({
+                    url: "/CRMSaleJobUserJobScheduleSheet/GetAccountDetails",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: q },
+                    success: function (data) {
+
+                        // iterate through the pool of strings and for any string that
+                        // contains the substring `q`, add it to the `matches` array
+                        $.each(data, function (i, response) {
+                            if (substrRegex.test(response.name)) {
+                                map[response.name] = response;
+                                matches.push(response.name);
+                                //$('#CRMSaleEnquiryAccountMasterID').val(response.id);
+
+                            }
+                        });
+                    },
+                    async: false
+                })
+            } else {
+                $("#displayErrorMessage p").text("Please select Job Type").closest('div').fadeIn().closest('div').addClass('alert-' + "warning");
+            }
+            cb(matches);
+        };
+
+    };
+
+
+    $('#AccountName').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    },
+    {
+        source: getData()
+    }).on("typeahead:selected", function (obj, item) {
+        $('#CRMSaleEnquiryAccountMasterID').val(map[item].id);
+
+    });
+
+    //================Contact Person================================
+
+    var map1 = {};
+    var getDataEnquiryContactPerson = function () {
+        return function findMatches(q, cb) {
+
+            var matches, substringRegex;
+
+            // an array that will be populated with substring matches
+            matches = [];
+
+            // regex used to determine if a string contains the substring `q`
+            substrRegex = new RegExp(q, 'i');
+
+            if ($("#CRMSaleEnquiryAccountMasterID").val() != 0) {
+                $.ajax({
+                    url: "/CRMSaleJobUserJobScheduleSheet/GetEnquiryContactPersonDetails",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: q, AccountMasterID: $("#CRMSaleEnquiryAccountMasterID").val() },
+                    success: function (data) {
+
+                        // iterate through the pool of strings and for any string that
+                        // contains the substring `q`, add it to the `matches` array
+                        $.each(data, function (i, response) {
+                            if (substrRegex.test(response.name)) {
+                                map1[response.name] = response;
+                                matches.push(response.name);
+                                //$('#').val(response.id);
+                            }
+                        });
+                    },
+                    async: false
+                })
+            }
+            else {
+                $("#displayErrorMessage p").text("Please select account").closest('div').fadeIn().closest('div').addClass('alert-' + "warning");
+            }
+            cb(matches);
+        };
+
+    };
+
+
+    $('#ContactPerson').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    },
+    {
+        source: getDataEnquiryContactPerson()
+    }).on("typeahead:selected", function (obj, item) {
+        $('#CRMSaleEnquiryAccountContactPersonID').val(map1[item].id);
+        //For Function On Account
+        selectedContactPerson = $("#CRMSaleEnquiryAccountContactPersonID").val();
+        selectedAccountName = $("#CRMSaleEnquiryAccountMasterID").val();
+        selectedJobType= $("#JobType").val();
+        var $ddlEmployeeJob = $("#Job");
+
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/CRMSaleJobUserJobScheduleSheet/GetEmployeeJobsByAccount",
+            data: { "jobType": selectedJobType, "EnquiryAccountMasterId": selectedAccountName, "EnquiryAccountContactPersonId": selectedContactPerson },
+            success: function (data) {
+                $ddlEmployeeJob.html('');
+                $ddlEmployeeJob.append('<option value="">----Select Job----</option>');
+                $.each(data, function (id, option) {
+                    $ddlEmployeeJob.append($('<option></option>').val(option.id).html(option.name));
+                });
+               
+                return;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve Accounts.');
+            }
+        });
+    });
+
+
+</script>

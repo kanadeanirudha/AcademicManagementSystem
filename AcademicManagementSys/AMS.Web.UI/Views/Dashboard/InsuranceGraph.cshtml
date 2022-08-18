@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/admin/styles.css" rel="stylesheet" />
+<script src="~/Scripts/plugin/GraphAndChart/canvasjs.min.js"></script>
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .cl {
+        height: auto;
+        clear: both;
+    }
+</style>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>Insurance<span class="divider">»</span></li>
+        <li class="active">Conversion Report</li>
+    </ul>
+    <ul class="breadcrumb" style="height: 30px;">
+
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">Branch &nbsp;</span>
+            <select class="form-control chosen-select" id="ddlBranch" style="font-weight: bold;">
+                <option value="All">All</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+
+        </li>
+
+        @*  <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">From&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">UpTo&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>*@
+
+        <li style="float: right">
+            <a href="@Url.Action("InsuranceGraph", "Dashboard")" style="cursor: pointer" id="Graph">
+                <span class="color-icons chart_bar_co"></span>Graph</a> &nbsp;&nbsp;
+            <a href="@Url.Action("InsuranceTable", "Dashboard")" style="cursor: pointer" id="Table"><span class="color-icons table_co"></span>Table</a>
+        </li>
+
+        @* <li>
+            <input type="button" value="@Resources.GlobalProperties_ShowList" style="margin-bottom:9px" class="btn btn-primary"  id="btnShowList" />
+        </li>*@
+    </ul>
+  
+    <div id="graph">
+       
+    </div>
+
+    @*   <div class="row-fluid" id="DivDelhiBranchEnquiryBarChart" style="display: none">
+
+        <div class="span3" >
+            <div id="DelhiBranchEnquiryBarChart" style="height: 100%; width: 90%;"></div>
+        </div>
+        <div  class="span3" >
+            <div id="DelhiInsurenceTypeBarChart" style="height: 100%; width: 90%;"></div>
+        </div>
+        <div class="span6">
+            <div id="DelhiBranchPieChart" style="height: 100%; width: 90%;"></div>
+        </div>
+    </div>
+    <div class="row-fluid" id="DivMumbaiBranchEnquiryBarChart" style="display: none" >
+         <div class="span3">
+            <div id="MumbaiBranchEnquiryBarChart" style="height: 100%; width: 90%;"></div>
+        </div>
+        <div  class="span3">
+            <div id="MumbaiInsurenceTypeBarChart" style="height: 100%; width: 90%;"></div>
+        </div>
+        <div class="span4">
+            <div id="MumbaiBranchPieChart" style="height: 100%; width: 90%;"></div>
+        </div>
+    </div>*@
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {      
+                $.ajax(
+                      {
+                          cache: false,
+                          type: "POST",
+
+                          dataType: "html",
+                          url: '/Dashboard/InsuranceBranchAll',
+                          success: function (result) {
+                              //Rebind Grid Data
+                              $('#graph').html('');
+                              $('#graph').html(result);
+
+                          }
+                      });           
+      
+
+        $('#ddlBranch').on("change", function () {
+            var selectedItem = $(this).val();
+            if (selectedItem == "All") {
+                //$("#DivAllBranchEnquiryBarChart").show(true);
+                //$("#DivDelhiBranchEnquiryBarChart").hide(true);
+                //$("#DivMumbaiBranchEnquiryBarChart").hide(true);
+                $.ajax(
+                      {
+                          cache: false,
+                          type: "POST",
+
+                          dataType: "html",
+                          url: '/Dashboard/InsuranceBranchAll',
+                          success: function (result) {
+                              //Rebind Grid Data
+                              $('#graph').html('');
+                              $('#graph').html(result);
+
+                          }
+                      });
+            }
+            else if (selectedItem == "Delhi") {
+                    //$("#DivAllBranchEnquiryBarChart").show(true);
+                    //$("#DivDelhiBranchEnquiryBarChart").hide(true);
+                //$("#DivMumbaiBranchEnquiryBarChart").hide(true);
+               
+            $.ajax(
+                    {
+                        cache: false,
+                        type: "POST",
+
+                        dataType: "html",
+                        url: '/Dashboard/InsuranceDelhi',
+                        success: function (result) {
+                            //Rebind Grid Data
+                            
+                            $('#graph').html('');
+                            $('#graph').html(result);
+
+                        }
+                    });
+            }
+            else if (selectedItem == "Mumbai") {
+                $.ajax(
+                     {
+                         cache: false,
+                         type: "POST",
+
+                         dataType: "html",
+                         url: '/Dashboard/InsuranceMumbai',
+                         success: function (result) {
+                             //Rebind Grid Data
+
+                             $('#graph').html('');
+                             $('#graph').html(result);
+
+                         }
+                     });
+            }
+        });
+   
+   
+    });
+
+
+</script>

@@ -1,0 +1,180 @@
+﻿@model AMS.ViewModel.OnlineExamAssignPaperCheckerViewModel
+
+<div class="card">
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    @*<button title="Refresh" type="button" class="btn btn-default">
+                            <span class="zmdi icon zmdi zmdi-refresh zmdi-hc-fw"></span>
+                        </button>*@
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                            @*<li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="-1">All</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name=" Allocate Staff">
+                                        Allocate Staff<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name="Action">
+                                        @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>subjectName</th>
+                <th>Allocate Paper Checker</th>
+                <th>Is All Checked</th>
+                <th style="text-align: right;">@Resources.TableHeaders_Action</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        debugger
+        var oTable;
+        OnlineExamAssignPaperChecker.Initialize();
+        var CourseYearID = $("#CourseYearID").val();
+        var CourseYearIDSplitData = CourseYearID.split("~");
+        var SectionDetailID = $("#SectionDetailID").val();
+        oTable = $('#myDataTable').DataTable({
+
+            "bServerSide": true,
+            "sAjaxSource": "OnlineExamAssignPaperChecker/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "CentreCode", "value": $("#SelectedCentreCode").val() });
+                aoData.push({ "name": "OnlineExamExaminationMasterID", "value": $("#SelectedExam").val() });
+                aoData.push({ "name": "CourseYearID", "value": CourseYearIDSplitData[0] });
+                aoData.push({ "name": "SemesterMstID", "value": CourseYearIDSplitData[1] });
+                aoData.push({ "name": "SessionID", "value": $("#SessionID").val() });
+                aoData.push({ "name": "SectionDetailID", "value": $("#SectionDetailID").val() });
+            },
+            "columnDefs": [
+                               {
+                                   "visible": false, "targets": 0,
+                               },
+
+                               
+                               {
+                                   "targets": 1,
+                                   "bSortable": true,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = "";
+                                       if (data[6] != "" && data[6] != null) {
+                                           var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[6] + "</p>";
+                                       }
+                                       return result;
+                                   }
+                               },
+                               {
+                                   "targets": 2,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = "";
+                                       if (data[10] == "True") {
+                                               var result = "<p  style=' height:5px; text-align:center'><a  href=\"javascript:void(0);\" data-toggle=\"tooltip\" class=\"btn btn-default waves-effect\"><span class=\"zmdi zmdi-check-all\"></span></a></p>";
+                                           } 
+                                           
+                                     
+                                       return result;
+                                   }
+                               },
+                               {
+                                   "targets": 3,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = null;
+                                       if ( data[6] != "" && data[6] != null) {
+                                           result1 = " <a  href=\"javascript:void(0);\" data-toggle=\"tooltip\" class=\"btn btn-default pull-right waves-effect\" onclick=\"fancyBoxPopUpAjax('Delete Paper Setter','Are you sure? want to delete this Record?','error','btn-danger','Yes!','/OnlineExamAssignPaperChecker/Delete/" + data[8] + "','content','page-loader','OnlineExamAssignPaperChecker')\"><span class=\"zmdi zmdi-delete\"></span></a>";
+                                           var result = "<p  style='text-align: center; height:5px;'>" + result1 +  "</p>";
+
+                                       }
+                                       return result;
+                                   }
+                               }
+
+            ],
+            "drawCallback": function (settings) {
+                debugger;
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                var groupArray = '';
+                var SectionDetailID = $("#SectionDetailID").val();
+                api.column(1, { page: 'current' }).data().each(function (group, i) {
+
+                    var array = String(group).split(',');
+
+                    if (last !== array[3]) {
+
+                        $(rows).eq(i).before(
+                       '<tr class="group"><td colspan="4" style="font-weight:bold;font-size:12px;font-family: verdana;background-color:rgba(128,128,128,0.2);color:#000;" >' + array[3] + '<a class="mfpAjaxModal" href="/OnlineExamAssignPaperChecker/Create?IDs=' + array[5] + "~" + array[4] + "~" + array[0] + "~" + array[1] + "~" + array[3] + "~" + SectionDetailID + '"><span class="mfpAjaxModal btn btn-default pull-right" ><i class="zmdi zmdi-plus" title="@Resources.ToolTip_Create"style=""></i></span></a></td></tr>'
+                        );
+                        last = array[3];
+                    }
+                });
+            }
+        });
+        DataTableSettings(oTable, 'myDataTable', 'toggleTableColumn');
+    });
+
+
+</script>
+
+

@@ -1,0 +1,433 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/admin/styles.css" rel="stylesheet" />
+<script src="~/Scripts/plugin/GraphAndChart/canvasjs.min.js"></script>
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+</style>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>Job Order<span class="divider">»</span></li>
+        <li class="active">Job Order Performance Report</li>
+    </ul>
+    <ul class="breadcrumb" style="height: 30px;">
+
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">Branch &nbsp;</span>
+            <select class="form-control chosen-select" id="ddlBranch" style="font-weight: bold;">
+                <option value="All">All</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+
+        </li>
+
+        @*  <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">From&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>
+        <li>
+            <span style="color: red; padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">UpTo&nbsp;: &nbsp;&nbsp;</span>
+            <input type="text" class="form-control chosen-select" readonly="true" style="font-weight: bold;" />
+        </li>*@
+
+        <li style="float: right">
+            <a href="@Url.Action("Index", "Dashboard")" style="cursor: pointer" id="Graph">
+                <span class="color-icons chart_bar_co"></span>Graph</a> &nbsp;&nbsp;
+            <a href="@Url.Action("JobOrderTable", "Dashboard")" style="cursor: pointer" id="Table"><span class="color-icons table_co"></span>Table</a>
+        </li>
+
+        @* <li>
+            <input type="button" value="@Resources.GlobalProperties_ShowList" style="margin-bottom:9px" class="btn btn-primary"  id="btnShowList" />
+        </li>*@
+    </ul>
+    <div id="SuccessMessage" style="display: none; color: #000;" class="alert"></div>
+    <div class="row-fluid" id="DivAllBranchPieChart">
+        <div class="span6">
+            <div id="AllBranchPieChart" style="height: 100%; width: 90%;"></div>
+            <div id="DelhiBranchPieChart" style="height: 100%; width: 90%; display: none"></div>
+            <div id="MumbaiBranchPieChart" style="height: 100%; width: 90%; display: none"></div>
+        </div>
+        <div class="span6">
+            <div id="AllBranchProfitBarChart" style="height: 100%; width: 90%;"></div>
+            <div id="DelhiBranchProfitBarChart" style="height: 100%; width: 90%; display: none"></div>
+            <div id="MumbaiBranchProfitBarChart" style="height: 100%; width: 90%; display: none"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlBranch').on("change", function () {
+            var selectedItem = $(this).val();
+            if (selectedItem == "All") {
+                $("#AllBranchPieChart").show(true);
+                $("#DelhiBranchPieChart").hide(true);
+                $("#MumbaiBranchPieChart").hide(true);
+
+                $("#AllBranchProfitBarChart").show(true);
+                $("#DelhiBranchProfitBarChart").hide(true);
+                $("#MumbaiBranchProfitBarChart").hide(true);
+
+            }
+            else if (selectedItem == "Delhi") {
+                $("#AllBranchPieChart").hide(true);
+                $("#DelhiBranchPieChart").show(true);
+                $("#MumbaiBranchPieChart").hide(true);
+
+                $("#AllBranchProfitBarChart").hide(true);
+                $("#DelhiBranchProfitBarChart").show(true);
+                $("#MumbaiBranchProfitBarChart").hide(true);
+
+
+            }
+            else if (selectedItem == "Mumbai") {
+                $("#AllBranchPieChart").hide(true);
+                $("#DelhiBranchPieChart").hide(true);
+                $("#MumbaiBranchPieChart").show(true);
+
+                $("#AllBranchProfitBarChart").hide(true);
+                $("#DelhiBranchProfitBarChart").hide(true);
+                $("#MumbaiBranchProfitBarChart").show(true);
+
+            }
+        });
+        //----------------------For Job Order-------------------------
+        var chart = new CanvasJS.Chart("AllBranchPieChart",
+        {
+            title: {
+                text: "Job Order Status",
+                fontSize: 20,
+                fontFamily: "Helvetica",
+            },
+            animationEnabled: true,
+            legend: {
+                verticalAlign: "bottom",
+                horizontalAlign: "center",
+                fontSize: 16,
+                fontFamily: "Helvetica"
+            },
+            theme: "theme2",
+            data: [
+            {
+                type: "pie",
+                indexLabelFontFamily: "Garamond",
+                indexLabelFontSize: 14,
+                indexLabel: "{label} {y}%",
+                startAngle: 0,
+                showInLegend: true,
+                toolTipContent: "{legendText} {y}%",
+                dataPoints: [
+                    { y: 56.67, legendText: "Job Done", label: "Job Done", color: "#5bb75b" },
+                    { y: 26.67, legendText: "Job In-progress", label: "Job In-progress", color: "#faa732" },
+                    { y: 16.67, legendText: "Job Cancelled", label: "Job Cancelled", color: "#da4f49" },
+                ]
+            }
+            ]
+        });
+        chart.render();
+        $('.canvasjs-chart-credit').hide();
+
+        var chart = new CanvasJS.Chart("DelhiBranchPieChart",
+        {
+            title: {
+                text: "Job Order Status",
+                fontSize: 20,
+                fontFamily: "Helvetica"
+            },
+            animationEnabled: true,
+            legend: {
+                verticalAlign: "bottom",
+                horizontalAlign: "center",
+                fontSize: 16,
+                fontFamily: "Helvetica"
+            },
+            theme: "theme2",
+            data: [
+            {
+                type: "pie",
+                indexLabelFontFamily: "Garamond",
+                indexLabelFontSize: 14,
+                indexLabel: "{label} {y}%",
+                startAngle: 0,
+                showInLegend: true,
+                toolTipContent: "{legendText} {y}%",
+                dataPoints: [
+                    { y: 58.33, legendText: "Job Done", label: "Job Done", color: "#5bb75b" },
+                    { y: 25, legendText: "Job In-progress", label: "Job In-progress", color: "#faa732" },
+                    { y: 16.67, legendText: "Job Cancelled", label: "Job Cancelled", color: "#da4f49" },
+                ]
+            }
+            ]
+        });
+        chart.render();
+        $('.canvasjs-chart-credit').hide();
+
+        var chart = new CanvasJS.Chart("MumbaiBranchPieChart",
+           {
+               title: {
+                   text: "Job Order Status",
+                   fontSize: 20,
+                   fontFamily: "Helvetica"
+               },
+               animationEnabled: true,
+               legend: {
+                   verticalAlign: "bottom",
+                   horizontalAlign: "center",
+                   fontSize: 16,
+                   fontFamily: "Helvetica"
+               },
+               theme: "theme2",
+               data: [
+               {
+                   type: "pie",
+                   indexLabelFontFamily: "Garamond",
+                   indexLabelFontSize: 14,
+                   indexLabel: "{label} {y}%",
+                   startAngle: 0,
+                   showInLegend: true,
+                   toolTipContent: "{legendText} {y}%",
+                   dataPoints: [
+                       { y: 55.56, legendText: "Job Done", label: "Job Done", color: "#5bb75b" },
+                       { y: 27.78, legendText: "Job In-progress", label: "Job In-progress", color: "#faa732" },
+                       { y: 16.67, legendText: "Job Cancelled", label: "Job Cancelled", color: "#da4f49" },
+                   ]
+               }
+               ]
+           });
+        chart.render();
+
+
+        //-----------------------------------------------
+        //----------------------For Profit Loss-------------------------
+        var chart = new CanvasJS.Chart("AllBranchProfitBarChart",
+        {
+            theme: "theme3",
+            animationEnabled: true,
+            title: {
+                text: "Revenue And Profit Status",
+                fontSize: 20,
+                fontFamily: "Helvetica",
+            },
+            animationEnabled: true,
+            legend: {
+                verticalAlign: "bottom",
+                horizontalAlign: "center",
+                fontSize: 14,
+                fontFamily: "Helvetica",
+                cursor: "pointer",
+                itemclick: function (e) {
+                    if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                        e.dataSeries.visible = false;
+                    }
+                    else {
+                        e.dataSeries.visible = true;
+                    }
+                    chart.render();
+                }
+            },
+            axisY: {
+                title: ""
+            },
+            toolTip: {
+                shared: true,
+                content: function (e) {
+                    var str = '';
+                    var total = 0;
+                    var str3;
+                    var str2;
+                    for (var i = 0; i < e.entries.length; i++) {
+                        var str1 = "<span style= 'color:" + e.entries[i].dataSeries.color + "'> " + e.entries[i].dataSeries.name + "</span>: <strong>" + e.entries[i].dataPoint.y + "</strong> <br/>";
+                        total = e.entries[i].dataPoint.y + total;
+                        str = str.concat(str1);
+                    }
+                    str2 = "<span style = 'color:DodgerBlue; '><strong>" + e.entries[0].dataPoint.label + "</strong></span><br/>";
+                    //str3 = "<span style = 'color:Tomato '>Total: </span><strong>" + total + "</strong><br/>";
+
+                    return (str2.concat(str));
+                }
+
+            },
+            data: [
+            {
+                type: "column",
+                showInLegend: true,
+                name: "Revenue",
+                color: "#3366ff",
+                dataPoints: [
+                { y: 240000, label: "All Branches" }
+
+                ]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                name: "Profit",
+                color: "green",
+                dataPoints: [
+                { y: 70000, label: "All Branches" }
+                ]
+            }
+            ]
+        });
+        chart.render();
+        $('.canvasjs-chart-credit').hide();
+
+        var chart = new CanvasJS.Chart("DelhiBranchProfitBarChart",
+           {
+               theme: "theme3",
+               animationEnabled: true,
+               title: {
+                   text: "Revenue And Profit Status",
+                   fontSize: 20,
+                   fontFamily: "Helvetica"
+               },
+               animationEnabled: true,
+               legend: {
+                   verticalAlign: "bottom",
+                   horizontalAlign: "center",
+                   fontSize: 14,
+                   fontFamily: "Helvetica",
+                   cursor: "pointer",
+                   itemclick: function (e) {
+                       if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                           e.dataSeries.visible = false;
+                       }
+                       else {
+                           e.dataSeries.visible = true;
+                       }
+                       chart.render();
+                   }
+               },
+               axisY: {
+                   title: ""
+               },
+               toolTip: {
+                   shared: true,
+                   content: function (e) {
+                       var str = '';
+                       var total = 0;
+                       var str3;
+                       var str2;
+                       for (var i = 0; i < e.entries.length; i++) {
+                           var str1 = "<span style= 'color:" + e.entries[i].dataSeries.color + "'> " + e.entries[i].dataSeries.name + "</span>: <strong>" + e.entries[i].dataPoint.y + "</strong> <br/>";
+                           total = e.entries[i].dataPoint.y + total;
+                           str = str.concat(str1);
+                       }
+                       str2 = "<span style = 'color:DodgerBlue; '><strong>" + e.entries[0].dataPoint.label + "</strong></span><br/>";
+                       //str3 = "<span style = 'color:Tomato '>Total: </span><strong>" + total + "</strong><br/>";
+
+                       return (str2.concat(str));
+                   }
+
+               },
+               data: [
+                {
+                    type: "column",
+                    showInLegend: true,
+                    name: "Revenue",
+                    color: "#3366ff",
+                    dataPoints: [
+                    { y: 90000, label: "Delhi" }
+
+                    ]
+                },
+                {
+                    type: "column",
+                    showInLegend: true,
+                    name: "Profit",
+                    color: "green",
+                    dataPoints: [
+                    { y: 30000, label: "Delhi" }
+                    ]
+                }
+               ]
+           });
+        chart.render();
+        $('.canvasjs-chart-credit').hide();
+
+        var chart = new CanvasJS.Chart("MumbaiBranchProfitBarChart",
+         {
+             theme: "theme3",
+             animationEnabled: true,
+             title: {
+                 text: "Revenue And Profit Status",
+                 fontSize: 20,
+                 fontFamily: "Helvetica"
+             },
+             animationEnabled: true,
+             legend: {
+                 verticalAlign: "bottom",
+                 horizontalAlign: "center",
+                 fontSize: 14,
+                 fontFamily: "Helvetica",
+                 cursor: "pointer",
+                 itemclick: function (e) {
+                     if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                         e.dataSeries.visible = false;
+                     }
+                     else {
+                         e.dataSeries.visible = true;
+                     }
+                     chart.render();
+                 }
+             },
+             axisY: {
+                 title: ""
+             },
+             toolTip: {
+                 shared: true,
+                 content: function (e) {
+                     var str = '';
+                     var total = 0;
+                     var str3;
+                     var str2;
+                     for (var i = 0; i < e.entries.length; i++) {
+                         var str1 = "<span style= 'color:" + e.entries[i].dataSeries.color + "'> " + e.entries[i].dataSeries.name + "</span>: <strong>" + e.entries[i].dataPoint.y + "</strong> <br/>";
+                         total = e.entries[i].dataPoint.y + total;
+                         str = str.concat(str1);
+                     }
+                     str2 = "<span style = 'color:DodgerBlue; '><strong>" + e.entries[0].dataPoint.label + "</strong></span><br/>";
+                     //str3 = "<span style = 'color:Tomato '>Total: </span><strong>" + total + "</strong><br/>";
+
+                     return (str2.concat(str));
+                 }
+
+             },
+             data: [
+             {
+                 type: "column",
+                 showInLegend: true,
+                 name: "Revenue",
+                 color: "#3366ff",
+                 dataPoints: [
+                 { y: 150000, label: "Mumbai" }
+
+                 ]
+             },
+             {
+                 type: "column",
+                 showInLegend: true,
+                 name: "Profit",
+                 color: "green",
+                 dataPoints: [
+                 { y: 40000, label: "Mumbai" }
+                 ]
+             }
+             ]
+         });
+        chart.render();
+        $('.canvasjs-chart-credit').hide();
+        //-----------------------------------------------
+    });
+
+
+</script>

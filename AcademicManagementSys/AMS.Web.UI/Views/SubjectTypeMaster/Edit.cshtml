@@ -1,0 +1,56 @@
+﻿@model AMS.Web.UI.Models.SubjectTypeMaster
+@{
+    ViewBag.Title = "Edit";
+}
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Subject Type Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Edit</legend>
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(model => model.ID)
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.SubjectTypeDescription)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.SubjectTypeDescription)
+                                    @Html.ValidationMessageFor(model => model.SubjectTypeDescription)
+                                </div>                               
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.SubjectShortName)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.SubjectShortName)
+                                    @Html.ValidationMessageFor(model => model.SubjectShortName)
+                                </div>
+                                <p>
+                                    <input type="submit" value="Save" />
+                                </p>
+                            }
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+
+</div>

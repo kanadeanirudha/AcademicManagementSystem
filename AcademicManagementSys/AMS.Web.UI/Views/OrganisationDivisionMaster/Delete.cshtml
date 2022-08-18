@@ -1,0 +1,29 @@
+﻿@model AMS.ViewModel.OrganisationDivisionMasterViewModel
+<form id="FormDeleteOrganisationDivisionMaster" method="post">
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.DivisionDescription)
+    @Html.HiddenFor(model => model.DivShortCode)
+    <div class="widget-block" style="width:233px;height:144px;">
+        <div class="widget-head">
+           <h5>@Resources.FormDelete_DivisionMaster</h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box">
+                <div class="control-group" style="padding: 10px;">
+                    &nbsp;&nbsp;<img src="~/Content/images/warning.png" />&nbsp;&nbsp;@Resources.DisplayName_DeleteMessage
+                        <div class="controls">
+                        </div>
+                </div>
+                <div class="" style="text-align:right;">
+                    <input type="button" id="DeleteOrganisationDivisionMasterRecord" value="@Resources.ButtonAction_Delete" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="update-message" class="error invisible"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationDivisionMaster.Initialize();
+    });
+</script>

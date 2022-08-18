@@ -1,0 +1,83 @@
+﻿@model AMS.ViewModel.InventoryEstimationMasterAndDetailsViewModel
+
+<div class="widget-block">
+    <div class="widget-head">
+        <h5>  View Estimation</h5>
+    </div>
+    <div class="widget-content">
+        <div class="widget-box">
+            <form class="form-horizontal well" id="FormViewInventoryEstimationMasterAndDetails" style="">
+                @Html.HiddenFor(m => m.ID)
+                <div class="nonboxy-widget">
+                    <div class="row control-group">
+                        <div class="span4">
+                            <div class="pull-right" style="float:left">
+                                <b>Customer Name : &nbsp;</b>
+                                @Model.CustomerName &nbsp;
+                                <br />
+                                <b>Adress : &nbsp;</b>
+                                @Model.CustomerAddress
+                                <br />
+                                <b>Mobile number : &nbsp;</b>
+                                @Model.CustomerMobileNumber
+                            </div>
+                           <br />
+
+                        </div>
+                        <div class="span4">
+                            <div class="pull-right" style="float:right">
+                                <b>Customer Name : &nbsp;</b>
+                                @Model.TransactionDate &nbsp;
+                                <br />
+                                <b>Estimation Amount : &nbsp;</b>
+                                &#x20B9; @Model.EstimationAmount
+                            </div>
+                        </div>
+                    </div>
+                    <fieldset>
+                        <div class="row">
+                            <div class="span8">
+                                <div id="DivAddRowTable">
+                                    <table id="tblData" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left; width: 38%">item</th>
+                                                <th style="text-align: left; width: 10%">rate</th>
+                                                <th style="text-align: left; width: 5%">unit</th>
+                                                <th style="text-align: center; width: 15%">quantity</th>
+                                                <th style="text-align: center; width: 15%">Discount Amount</th>
+                                                <th style="text-align: center; width: 20%">Tax Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="overflow: auto">
+
+                                            @foreach (var item in Model.InventoryEstimationMasterAndDetailsList)
+                                            {
+                                                <tr>
+                                                    <td>@item.ItemName</td>
+                                                    <td>@Math.Round(item.Rate, 2)</td>
+                                                    <td>@item.UnitCode</td>
+                                                    <td style="text-align:center">@Math.Round(@item.Quantity, 3)</td>
+                                                    <td style="text-align:center">@Math.Round(item.DiscountAmountForItem, 2)</td>
+                                                    <td style="text-align:center">@Math.Round(item.TotalTaxForItem, 2)</td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        InventoryEstimationMasterAndDetails.Initialize();
+    })
+
+</script>

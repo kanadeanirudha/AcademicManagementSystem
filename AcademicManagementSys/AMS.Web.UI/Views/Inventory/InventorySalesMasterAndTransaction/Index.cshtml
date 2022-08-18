@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AMS.ViewModel.InventorySalesMasterAndTransactionViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Inventory/InventorySalesMasterAndTransaction.js")" type="text/javascript"></script>
+<div id="ListViewModel"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventorySalesMasterAndTransaction.LoadList();
+    });
+</script>
+

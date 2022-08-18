@@ -1,0 +1,288 @@
+﻿@model AMS.ViewModel.CRMCallMasterAndDetailsViewModel
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_LayoutV2.cshtml";
+    }
+<style>
+    .size {
+        font-size: 12px;
+    }
+</style>
+<div class="container">
+    @Html.HiddenFor(m => Model.JobAllocationID)
+    @Html.HiddenFor(m => Model.SelectedJobCallerStatus)
+    @Html.HiddenFor(m => Model.JobID)
+    @Html.HiddenFor(m => Model.CalleeLocationID)
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Call Details</h2>
+        <ul class="actions">
+            <li>
+                <a href="@Url.Action("Index", "CRMCallMasterAndDetails", new { jobid = Model.JobID, callerJobStatus = Model.SelectedJobCallerStatus })" id="IconShowList"  title="Job List">
+                    <i class="zmdi zmdi-view-list zmdi-hc-fw"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+   
+   <div class="card">
+       <div class="card-body card-padding">
+           <h2 style="border-bottom: 2px solid #eaeaea; font-size: 18px;">New Admission Details</h2>
+           <div class="row">
+               <div class="col-sm-2">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>Title</label>
+                       @Html.DropDownListFor(model => model.CalleeTitle, (SelectList)ViewBag.GeneralTitleMasterList, "--Select Title --", new { @class = "form-control size" })
+                   </div>
+               </div>
+               <div class="col-sm-3">
+                   <div class="form-group fg-line">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>First Name</label>
+                       @Html.TextBoxFor(m => m.CalleeFirstName, new { @class = "form-control", placeholder = Resources.DisplayName_FirstName, maxlength = "20" })
+                   </div>
+               </div>
+               <div class="col-sm-3">
+                   <div class="form-group fg-line">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>Middle Name</label>
+                       @Html.TextBoxFor(m => m.CalleeMiddelName, new { @class = "form-control", placeholder = Resources.DisplayName_MiddleName, maxlength = "20" })
+                   </div>
+               </div>
+               <div class="col-sm-3">
+                   <div class="form-group fg-line">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>Last Name</label>
+                       @Html.TextBoxFor(m => m.CalleeLastName, new { @class = "form-control", placeholder = Resources.DisplayName_LastName, maxlength = "20" })
+                   </div>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label>@Html.LabelFor(model => model.CalleeMobileNo)</label>
+                       @Html.TextBoxFor(model => model.CalleeMobileNo, new { @class = "form-control", maxlength = "12", disabled = "disabled" })
+                   </div>
+               </div>
+
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>@Html.LabelFor(model => model.CalleeEmailID)</label>
+                       @Html.TextBoxFor(model => model.CalleeEmailID, new { @class = "form-control", maxlength = "50" })
+                   </div>
+                   @Html.ValidationMessageFor(m => m.CalleeEmailID, "")
+               </div>
+           </div>
+           
+
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label>@Html.LabelFor(model => model.CalleeGender, new {@class="radio" })</label><br/>
+                        @Html.RadioButtonFor(model => model.CalleeGender, true, new { @checked = true, id = "Male", @class="input-helper" })&nbsp;&nbsp;&nbsp; @Resources.DisplayName_Male &nbsp; &nbsp; &nbsp;
+                       @Html.RadioButtonFor(model => model.CalleeGender, false, new { id = "Female" , @class="input-helper" })&nbsp;&nbsp;&nbsp; @Resources.DisplayName_Female
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label>@Html.LabelFor(model => model.Source)</label>
+                       @Html.TextBoxFor(model => model.Source, new { @class = "form-control", maxlength = "50", @disabled = "disabled" })
+                   </div>
+               </div>
+           </div>
+
+
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label>@Html.LabelFor(model => model.CalleeLocation)</label>
+                       @Html.TextBoxFor(model => model.CalleeLocation, new { @class = "form-control", maxlength = "50"})
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label>Title</label>
+                       @Html.DropDownListFor(model => model.CalleeNationalityID, (SelectList)ViewBag.GeneralNationalityMaster, "--Select Nationality--", new { @class = "form-control size" })
+                   </div>
+               </div>
+           </div>
+
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label>@Html.LabelFor(model => model.CalleeOccupation)</label>
+                       @Html.TextBoxFor(m => m.CalleeOccupation, new { @class = "form-control", MaxLength = "30" })
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label>@Html.LabelFor(model => model.CalleeDesignation)</label>
+                       @Html.TextBoxFor(m => m.CalleeDesignation, new { @class = "form-control", MaxLength = "30" })
+                   </div>
+               </div>
+           </div>
+                 <div class="row">
+                     <div class="col-sm-6">
+                         <div class="form-group fg-line">
+                             <label>@Html.LabelFor(model => model.CalleeDepartment)</label>
+                             @Html.TextBoxFor(m => m.CalleeDepartment, new { @class = "form-control", MaxLength = "30"})
+                         </div>
+                     </div>
+                     <div class="col-sm-6">
+                         <div class="form-group fg-line">
+                             <label>@Html.LabelFor(model => model.CalleeExperience)</label>
+                             @Html.TextBoxFor(m => m.CalleeExperience, new { @class = "form-control", MaxLength = "30"})
+                         </div>
+
+                     </div>
+                 </div>
+
+         
+          <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>@Html.LabelFor(model => model.CalleeQualification)</label>
+                       @Html.DropDownList("CalleeQualification", ViewData["CalleeQualification"] as List<SelectListItem>, new { @class = "form-control size" })
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label>@Html.LabelFor(model => model.EnglishFluency)</label>
+                       @Html.DropDownList("EnglishFluency", ViewData["EnglishFluency"] as List<SelectListItem>, new { @class = "form-control size" })
+                   </div>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>@Html.LabelFor(model => model.CenterCode)</label>
+                       @Html.DropDownListFor(model => model.CenterCode, (SelectList)ViewBag.StudyCentreList, "--Select Study Centre --", new { @class = "form-control size" })
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>@Html.LabelFor(model =>model.UniversityID)</label>
+                       @Html.DropDownListFor(model => model.UniversityID, (SelectList)ViewBag.UniversityList, "--Select University--", new { @class = "form-control size" })
+                   </div>
+              </div>
+           </div>
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>@Html.LabelFor(model => model.BranchDetailID)</label>
+                       @Html.DropDownListFor(model => model.BranchDetailID, (SelectList)ViewBag.organisationBranchDetail, "--Select Course--", new { @class = "form-control size" })
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;" class="hiddenMandetory">*</span>@Html.LabelFor(model => model.StandardNumber)</label>
+                       @Html.DropDownListFor(model => model.StandardNumber, (SelectList)ViewBag.OrganisationStandardMaster, "--Select Standard--", new { @class = "form-control size" })
+                   </div>
+
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label>@Html.LabelFor(model => model.AdmissionPattern)</label>
+                       <select id="AdmissionPattern" class="form-control size">
+                           <option value="">--Select Admission Pattern--</option>
+                       </select>
+                   </div>
+               </div>
+          </div>
+          <br />
+           <h2 style="border-bottom: 2px solid #eaeaea; font-size: 18px;">Call Feedback</h2>
+          <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;">*</span>@Html.LabelFor(model => model.Interestlevel)</label>
+                       @Html.DropDownList("Interestlevel", ViewData["Interestlevel"] as List<SelectListItem>, new { @class = "form-control size" })
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line">
+                       <label>@Html.LabelFor(model => model.CalleeInterestedProgram)</label>
+                       @Html.TextBoxFor(m => m.CalleeInterestedProgram, new { @class = "form-control size", MaxLength = "30" })
+                   </div>
+                </div>
+            </div>
+
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;">*</span>@Html.LabelFor(model => model.ConcernArea)</label>
+                      @Html.DropDownList("ConcernArea", ViewData["ConcernArea"] as List<SelectListItem>, new { @class = "form-control size" })
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group fg-line select">
+                       <label><span style="color: red;">*</span>@Html.LabelFor(model => model.CallerJobStatus)</label>
+                       @Html.DropDownList("CallerJobStatus", ViewData["CallerJobStatus"] as List<SelectListItem>, new { @class = "form-control size" })
+                   </div>
+                </div>
+           </div>
+
+           <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group fg-line select">
+                       <label><span style="color: red;">*</span>@Html.LabelFor(model => model.CallStatus)</label>
+                       <div>
+                           <select class="form-control size" id="CallStatus">
+                               <option value="0" selected>--Select Call Job--</option>
+                           </select>
+                       </div>
+               </div>
+            </div>
+
+           <div class="row" id="DivNextCallDate" style="display: none">
+               <div class="col-sm-6" style="padding-left:0px;" >
+                   <div class="col-sm-10">
+                       <div class="form-group fg-line">
+                           <label><span style="color: red;">*</span>@Html.LabelFor(model => model.NextCallDate)</label>
+                           @Html.TextBoxFor(m => m.NextCallDate, new { @class = "form-control", placeholder = "Next Call Date" })
+
+                       </div>
+                   </div>
+                   <div class="col-sm-2" style="margin-top:7%;">
+                       <div class="form-group fg-line">
+                           <span class="btn btn-xs btn-success" title="Reset" style="height:30px; width:30px;" id="NextCallDate_Clear"><i class="zmdi zmdi-watch zmdi-hc-fw" style="padding-top:8px;"></i></span>
+                       </div>
+                    </div>
+                </div>
+               
+               <div class="col-sm-6" style="padding-left:3%;">
+                   <div class="form-group fg-line select">
+
+                       <label><span style="color: red;">*</span>@Html.LabelFor(model => model.CallTimeID)</label>
+                       @Html.DropDownListFor(m => m.CallTimeID, Model.ListGeneralTimeSlotItems, "--Select Call Time--", new { @class = "form-control size" })
+
+                   </div>
+               </div>
+           </div>
+        </div>
+           <div class="row">
+               <div class="col-sm-12" style="padding-left:2%; padding-right:3%">
+                   <div class="form-group fg-line">
+                       <label><span style="color: red;">*</span>@Html.LabelFor(model => model.CallerRemark)</label>
+                       @Html.TextAreaFor(m => m.CallerRemark, new { @class = "form-control", MaxLength = "250"})
+                   </div>
+               </div>
+          </div>
+           <br />
+         
+               <div class="row">
+                   <div class="col-sm-11">
+                       <button type="button" class="btn btn-primary" id="CreateNewAdmissionRecord">Submit</button>
+                   </div>
+               </div>
+       </div>
+     </div>
+  </div>
+<script src="@Url.Content("~/Scripts/AMS_Scripts/CRM/CRMCallMasterAndDetails.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMCallMasterAndDetails.Initialize();
+    });
+</script>
+
+
+

@@ -1,0 +1,58 @@
+﻿
+.ft-container {
+    position: absolute;
+}
+.ft-controls {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.ft-scaler {
+    height: 8px;
+    margin-left: -4px;
+    margin-top: -4px;
+    position: absolute;
+    width: 8px;
+}
+.ft-scaler-top {
+    top: 0;
+}
+.ft-scaler-mid {
+    top: 50%;
+}
+.ft-scaler-bottom {
+    top: 100%;
+}
+.ft-scaler-left {
+    left: 0;
+}
+.ft-scaler-center {
+    left: 50%;
+}
+.ft-scaler-right {
+    left: 100%;
+}
+.ft-rotator {
+    background-image: url("./rotate_ccw.png");
+    height: 16px;
+    position: absolute;
+    width: 16px;
+}
+body {
+    -moz-user-select: none;
+}
+.shape {
+    background-color: #b2d237;
+    color: #123456;
+    height: 250px;
+    width: 300px;
+}
+#bounds {
+    border: 1px solid red;
+    position: absolute;
+}
+.lineAngle {
+    height: 250px;
+    margin: 100px auto 0;
+    width: 300px;
+}

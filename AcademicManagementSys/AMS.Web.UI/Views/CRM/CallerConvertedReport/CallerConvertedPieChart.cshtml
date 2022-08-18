@@ -1,0 +1,77 @@
+﻿@model AMS.ViewModel.CRMCallMasterAndDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<div class="card" >
+    <div id="PieGraphContainer" style="min-width: 350px; height: 450px; max-width: 600px; padding-top: 30px; margin: 0 auto;"></div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            $.ajax({
+                url: 'CallerConvertedReport/CallerData',
+                dataType: "json",
+                type: "GET",
+                data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                contentType: 'application/json; charset=utf-8',
+                // async: false,
+                //  processData: false,
+                cache: false,
+                delay: 15,
+                success: function (data) {
+                    // alert(data);
+                    var series = new Array();
+                    for (var i in data) {
+                        var serie = new Array(data[i].callerFullName, data[i].convertedCount);
+                        series.push(serie);
+                    }
+                    DrawPieChart(series);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+
+
+
+        function DrawPieChart(series) {
+            $('#PieGraphContainer').highcharts({
+
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 1, //null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Employee Contribution'
+                    //    fontFamily: "Helvetica",
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Converted Students(%)',
+                    data: series
+                }]
+            });
+        }
+
+    </script>

@@ -1,0 +1,754 @@
+﻿@*
+    @model AMS.ViewModel.StudentIdentityCardViewModel
+
+    <link href="@Url.Content("~/Content/ImageArea.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jquery.imgareaselect.-1.0.0.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentIdentityCard.js")" type="text/javascript"></script>
+
+
+
+    <style>
+        .textboxAlignment {
+            width: 30%;
+        }
+
+        .lableAlignment {
+            width: 11%;
+        }
+    </style>
+    <style>
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .btn-file input[type=file] {
+                z-index: 1;
+                background-color: #faa732;
+                background-image: linear-gradient(to bottom, #fbb450, #f89406);
+                background-repeat: repeat-x;
+                border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+                color: #ffffff;
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+                border-image: none;
+                border-radius: 4px;
+                border-style: solid;
+                border-width: 1px;
+                box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+                cursor: pointer;
+                display: inline-block;
+                font-size: 14px;
+                width: 185px;
+            }
+    </style>
+    @Html.HiddenFor(model => model.X)
+    @Html.HiddenFor(model => model.Y)
+    @Html.HiddenFor(model => model.Width)
+    @Html.HiddenFor(model => model.Height)
+    @Html.HiddenFor(model => model.Flickr)
+    @Html.HiddenFor(model => model.StudentId)
+    <div class="span6">
+
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Student Information :  @Model.StudentFullName</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+
+                    <form class="form-horizontal well ucase">
+
+                        <form id="FormEditStudentIdentityCard" method="post">
+                            <div class="control-group">
+
+                                <div class="span6">
+                                 <span style="font-weight:bold; ">Photo </span>
+                                <div style="height: 128px; width: 125px; border: 2px solid #808080">
+
+                                    <span class="btn-file" style="">
+                                        @if (Model.StudentPhoto != null)
+                                        {
+                                            <img alt="Photo" style="height: 127px; width: 120px;" id="previewStudentPhoto" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.StudentPhoto, 0, Convert.ToInt32(Model.StudentPhotoFileSize))" />
+
+                                        }
+                                        else
+                                        {
+                                         <img alt="Photo" style="height: 127px; width: 120px;" id="previewStudentPhoto" src="~/Content/images/Avatar.png" />
+                                        }
+
+                                        @Html.FileFor(model => model.StudentPhotoFile)
+
+
+                                    </span>
+                                </div>
+                                </div>
+
+
+                                <div class="span6">
+                                   <span style="font-weight:bold; ">Signature </span>
+                                <div style="height: 60px; width: 225px; border: 2px solid #808080">
+
+                                    <span class="btn-file" style="">
+
+                                        @if (Model.StudentSignature != null)
+                                        {
+                                             <img alt="Photo" style="height: 60px; width: 200px;" id="previewStudentSignature" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.StudentSignature, 0, Convert.ToInt32(Model.StudentSignatureFileSize))" />
+
+
+                                        }
+                                        else
+                                        {
+
+                                           <img alt="StudentSignatureFile" style="height: 60px; width: 200px;" id="previewStudentSignature" src="~/Content/images/signature_scan.gif" />
+                                        }
+                                        @Html.FileFor(model => model.StudentSignatureFile)
+
+                                    </span>
+                                </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="control-group" style="margin-top: 10%; margin-bottom: 5px;">
+
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.PermanentAddressLine1, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.TextAreaFor(m => m.PermanentAddressLine1, new { @class = "input-large", MaxLength = "200", })
+
+                                </div>
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.PermanentAddressLine2, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.TextAreaFor(m => m.PermanentAddressLine2, new { @class = "input-large", MaxLength = "200" })
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="control-group" style="margin-bottom: 5px;">
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.Bloodgroup, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.DropDownList("Bloodgroup", ViewData["Bloodgroup"] as List<SelectListItem>, new { @class = "input-large text-tip" })
+                                </div>
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.DateOfBirth, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-large", ReadOnly = "True" })
+                                </div>
+
+
+                            </div>
+                            <div class="control-group" style="margin-bottom: 5px;">
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.StudentMobileNumber, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.TextBoxFor(m => m.StudentMobileNumber, new { @class = "input-large", MaxLength = "15" })
+
+                                </div>
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.ParentMobileNumber, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.TextBoxFor(m => m.ParentMobileNumber, new { @class = "input-large", MaxLength = "15" })
+
+
+                                </div>
+                            </div>
+                            <div class="control-group" style="margin-bottom: 5px;">
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.StudentCode, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.TextBoxFor(m => m.StudentCode, new { @class = "input-large", MaxLength = "30", ReadOnly="True" })
+
+                                </div>
+                                <div class="span6">
+                                    @Html.LabelFor(m => m.StudentIdentificationMark, new { @class = "control-label", style = "font-weight:bold;text-align: center;width: 100%;" })
+                                    @Html.TextBoxFor(m => m.StudentIdentificationMark, new { @class = "input-large", MaxLength = "30" })
+                                </div>
+                            </div>
+                            <input type="checkbox" id="aaa" style="display: none" />
+                            <div class="form-actions" style="text-align: right">
+
+                                <input type="button" id="SaveStudentIdentityCardRecord" value="Save" class="btn btn-primary" />
+
+
+                            </div>
+                        </form>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            StudentIdentityCard.Initialize();
+
+            //$(".ajax").colorbox();
+            var boxes = $('#aaa').attr('disabled', true);
+
+            //  What happens if the File changes?
+            $('#StudentPhotoFile').change(function (evt) {
+                //debugger;
+
+
+                var f = evt.target.files[0];
+                var reader = new FileReader();
+                var image = new Image();
+
+                if (!f.type.match('image.*')) {
+                    alert("The selected file does not appear to be an image.");
+                    return;
+                }
+                var filename = "StudentPhotoFile";
+                var maxSize = ValidateFileUpload(filename);
+                if (maxSize == 1) {
+                    alert("Maximum file size exceeds,Your photo size should be less than 50 kb");
+                }
+                else {
+                    setBox('#IsFile');
+                    reader.onload = function (e) { previewStudentPhoto.attr('src', e.target.result); };
+                    reader.readAsDataURL(f);
+                }
+            });
+
+            $('#StudentSignatureFile').change(function (evt) {
+                //debugger;
+
+
+                var f = evt.target.files[0];
+                var reader = new FileReader();
+                var image = new Image();
+
+                if (!f.type.match('image.*')) {
+                    alert("The selected file does not appear to be an image.");
+                    return;
+                }
+                var filename = "StudentSignatureFile";
+                var maxSize = ValidateFileUpload(filename);
+                if (maxSize == 1) {
+                    alert("Maximum file size exceeds,Your photo size should be less than 50 kb");
+                }
+                else {
+                    setBox('#IsFile');
+                    reader.onload = function (e) { previewStudentSignature.attr('src', e.target.result); };
+                    reader.readAsDataURL(f);
+                }
+            });
+
+
+            function ValidateFileUpload(fileName) {
+                //debugger;
+                var fuData = document.getElementById(fileName);
+                var FileUploadPath = fuData.value;
+
+
+                if (FileUploadPath == '') {
+                    alert("Please upload an image");
+
+                } else {
+                    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+                    if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+                                || Extension == "jpeg" || Extension == "jpg") {
+
+
+                        if (fuData.files && fuData.files[0]) {
+
+                            var size = fuData.files[0].size;
+                            //alert(size);
+
+                            if (size > 50000) {
+                                return 1;
+                            } else {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    $('#blah').attr('src', e.target.result);
+                                }
+
+                                reader.readAsDataURL(fuData.files[0]);
+                            }
+                        }
+
+                    }
+                    else {
+                        alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+                    }
+                }
+            }
+
+
+            //Check one of the checkboxes
+            var setBox = function (filter) {
+                $('button').attr('disabled', false);
+                boxes.attr('checked', false)
+                .filter(filter).attr({ 'checked': true, 'disabled': false });
+            };
+
+            //What happens if any checkbox is checked ?!
+            boxes.change(function () {
+                setBox(this);
+                $('#' + this.id.substr(2)).change();
+            });
+
+            var previewStudentPhoto = $('#previewStudentPhoto').load(function () {
+
+                //debugger;
+                setPreview();
+                ias.setOptions({
+                    x1: 0,
+                    y1: 0,
+                    x2: $(this).width(),
+                    y2: $(this).height(),
+                    show: true
+                });
+            });
+            var previewStudentSignature = $('#previewStudentSignature').load(function () {
+
+                setPreview();
+                ias.setOptions({
+                    x1: 0,
+                    y1: 0,
+                    x2: $(this).width(),
+                    y2: $(this).height(),
+                    show: true
+                });
+            });
+
+            //Set the 4 coordinates for the cropping
+            //debugger;
+            var setPreview = function (x, y, w, h) {
+                $('#X').val(x || 0);
+                $('#Y').val(y || 0);
+                $('#Width').val(w || preview[0].naturalWidth);
+                $('#Height').val(h || preview[0].naturalHeight);
+            };
+            var ias = previewStudentPhoto.imgAreaSelect({
+                handles: true,
+                instance: true,
+                parent: 'body',
+                onSelectEnd: function (s, e) {
+                    var scale = preview[0].naturalWidth / preview.width();
+                    var _f = Math.floor;
+                    setPreview(_f(scale * e.x1), _f(scale * e.y1), _f(scale * e.width), _f(scale * e.height));
+                }
+            });
+            var ias = previewStudentSignature.imgAreaSelect({
+                handles: true,
+                instance: true,
+                parent: 'body',
+                onSelectEnd: function (s, e) {
+                    var scale = preview[0].naturalWidth / preview.width();
+                    var _f = Math.floor;
+                    setPreview(_f(scale * e.x1), _f(scale * e.y1), _f(scale * e.width), _f(scale * e.height));
+                }
+            });
+            // Fetch Flickr images
+            var fetchImages = function (query) {
+                $.getJSON('http://www.flickr.com/services/feeds/photos_public.gne?jsoncallback=?', {
+                    tags: query,
+                    tagmode: "any",
+                    format: "json"
+                }, function (data) {
+                    var screen = $('<div />').addClass('waitScreen').click(function () {
+                        $(this).remove();
+                    }).appendTo('body');
+                    var box = $('<div />').addClass('flickrImages').appendTo(screen);
+                    $.each(data.items, function (i, v) {
+                        console.log(data.items[i]);
+                        $('<img />').addClass('flickrImage').attr('src', data.items[i].media.m).click(function () {
+                            $('#Flickr').val(this.src).change();
+                            screen.remove();
+                        }).appendTo(box);
+                    });
+                });
+            };
+
+            //   Flickr
+            $('#FlickrQuery').change(function () {
+                fetchImages(this.value);
+            });
+
+            $('#Flickr').change(function () {
+                setBox('#IsFlickr');
+                preview.attr('src', this.value);
+            });
+
+            //What happens if the URL changes?
+            $('#Url').change(function () {
+                setBox('#IsUrl');
+                preview.attr('src', this.value);
+            });
+            //Initial state of X, Y, Width and Height is 0 0 1 1
+            setPreview(0, 0, 1, 1);
+            $('button').attr('disabled', true);
+            $('form').submit(function () {
+                $('button').attr('disabled', true).text('Please wait ...');
+            });
+        });
+
+
+    </script>
+
+*@
+
+@model AMS.ViewModel.StudentIdentityCardViewModel
+
+<link href="@Url.Content("~/Content/ImageArea.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery.imgareaselect.-1.0.0.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentIdentityCard.js")" type="text/javascript"></script>
+
+@Html.HiddenFor(model => model.X)
+@Html.HiddenFor(model => model.Y)
+@Html.HiddenFor(model => model.Width)
+@Html.HiddenFor(model => model.Height)
+@Html.HiddenFor(model => model.Flickr)
+@Html.HiddenFor(model => model.StudentId)
+
+@*<div class="col-sm-6">*@
+    <h5>Student Information :  @Model.StudentFullName</h5>
+    <hr style=" border: solid 0.5px " />
+    
+    <form id="FormEditStudentIdentityCard" method="post">
+        <div class="col-sm-12">
+                <div class="col-sm-12">
+
+                    @*<div class="form-group">
+                        <label class="col-sm-3" style="padding: 14px 16px; width: 18%;" for="inputEmail3"><span style="color:red;">*</span>Upload Visiting Card</label>
+                        <div class="fileinput fileinput-new" data-provides="fileinput" style="padding-top: 11px;">
+                            <span class="btn btn-primary btn-file m-r-10">
+                                <span class="fileinput-new">Select file</span>
+                                <span class="fileinput-exists" style="padding-top: 11px;">Choose File</span>
+                                @Html.FileFor(model => model.StudentPhotoFile)
+                            </span>
+                            <span class="fileinput-filename"></span>
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="top:18px;">&times;</a>
+                        </div>
+                    </div>*@
+
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @if (Model.StudentPhoto != null)
+                            {
+                                <img alt="Photo" style="height: 127px; width: 120px;" id="previewStudentPhoto" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.StudentPhoto, 0, Convert.ToInt32(Model.StudentPhotoFileSize))" />
+
+                            }
+                            else
+                            {
+                                <img alt="Photo" style="height: 127px; width: 120px;" id="previewStudentPhoto" src="~/Content/images/Avatar.png" />
+                            }
+
+                            @*<label class="col-sm-3" style="padding: 14px 16px; width: 18%;" for="inputEmail3"><span style="color:red;">*</span>Upload Visiting Card</label>*@
+                            <div class="fileinput fileinput-new" data-provides="fileinput" style="padding-top: 11px;">
+                                <span class="btn btn-primary btn-file m-r-10">
+                                    <span class="fileinput-new">Select file</span>
+                                    <span class="fileinput-exists" style="padding-top: 11px;">Choose File</span>
+                                    @Html.FileFor(model => model.StudentPhotoFile)
+                                </span>
+                                <span class="fileinput-filename"></span>
+                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="top:18px;">&times;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @if (Model.StudentSignature != null)
+                            {
+                                <img alt="Photo" style="height: 60px; width: 200px;" id="previewStudentSignature" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.StudentSignature, 0, Convert.ToInt32(Model.StudentSignatureFileSize))" />
+
+
+                            }
+                            else
+                            {
+
+                                <img alt="StudentSignatureFile" style="height: 60px; width: 200px;" id="previewStudentSignature" src="~/Content/images/signature_scan.gif" />
+                            }
+                            <div class="fileinput fileinput-new" data-provides="fileinput" style="padding-top: 11px;">
+                                <span class="btn btn-primary btn-file m-r-10">
+                                    <span class="fileinput-new">Select file</span>
+                                    <span class="fileinput-exists" style="padding-top: 11px;">Choose File</span>
+                                    @Html.FileFor(model => model.StudentSignatureFile)
+                                </span>
+                                <span class="fileinput-filename"></span>
+                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="top:18px;">&times;</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.TextAreaFor(m => m.PermanentAddressLine1, new { @class = "form-control input-sm", Placeholder = "Permanant address line 1", MaxLength = "200", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Permanant address line 1" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.TextAreaFor(m => m.PermanentAddressLine2, new { @class = "form-control input-sm", Placeholder = "Permanant address line 2", MaxLength = "200", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Permanant address line 2" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.DropDownList("Bloodgroup", ViewData["Bloodgroup"] as List<SelectListItem>, new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Blood group" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line dtp-container">
+                        @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control input-sm", ReadOnly = "True", @style = "background-color: #ffffff;", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Date of birth" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.TextBoxFor(m => m.StudentMobileNumber, new { @class = "form-control input-sm", MaxLength = "15", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Student mobile number" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.TextBoxFor(m => m.ParentMobileNumber, new { @class = "form-control input-sm", MaxLength = "15", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Student mobile number" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.TextBoxFor(m => m.StudentCode, new { @class = "form-control input-sm", MaxLength = "30", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Code" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.TextBoxFor(m => m.StudentIdentificationMark, new { @class = "form-control input-sm", MaxLength = "30", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Student identification mark" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    @*<button type="button" id="SaveStudentIdentityCardRecord" class="btn btn-primary">@Resources.ButtonAction_Submit</button>*@
+                    <input type="button" id="SaveStudentIdentityCardRecord" value="Save" class="btn btn-primary" />
+                </div>
+
+
+            </div>
+
+
+
+</form>
+
+@*</div>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        StudentIdentityCard.Initialize();
+
+        //$(".ajax").colorbox();
+        var boxes = $('#aaa').attr('disabled', true);
+
+        //  What happens if the File changes?
+        $('#StudentPhotoFile').change(function (evt) {
+            //debugger;
+
+
+            var f = evt.target.files[0];
+            var reader = new FileReader();
+            var image = new Image();
+
+            if (!f.type.match('image.*')) {
+                alert("The selected file does not appear to be an image.");
+                return;
+            }
+            var filename = "StudentPhotoFile";
+            var maxSize = ValidateFileUpload(filename);
+            if (maxSize == 1) {
+                alert("Maximum file size exceeds,Your photo size should be less than 50 kb");
+            }
+            else {
+                setBox('#IsFile');
+                reader.onload = function (e) { previewStudentPhoto.attr('src', e.target.result); };
+                reader.readAsDataURL(f);
+            }
+        });
+
+        $('#StudentSignatureFile').change(function (evt) {
+            //debugger;
+
+
+            var f = evt.target.files[0];
+            var reader = new FileReader();
+            var image = new Image();
+
+            if (!f.type.match('image.*')) {
+                alert("The selected file does not appear to be an image.");
+                return;
+            }
+            var filename = "StudentSignatureFile";
+            var maxSize = ValidateFileUpload(filename);
+            if (maxSize == 1) {
+                alert("Maximum file size exceeds,Your photo size should be less than 50 kb");
+            }
+            else {
+                setBox('#IsFile');
+                reader.onload = function (e) { previewStudentSignature.attr('src', e.target.result); };
+                reader.readAsDataURL(f);
+            }
+        });
+
+
+        function ValidateFileUpload(fileName) {
+            //debugger;
+            var fuData = document.getElementById(fileName);
+            var FileUploadPath = fuData.value;
+
+
+            if (FileUploadPath == '') {
+                alert("Please upload an image");
+
+            } else {
+                var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+                if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+                            || Extension == "jpeg" || Extension == "jpg") {
+
+
+                    if (fuData.files && fuData.files[0]) {
+
+                        var size = fuData.files[0].size;
+                        //alert(size);
+
+                        if (size > 50000) {
+                            return 1;
+                        } else {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                $('#blah').attr('src', e.target.result);
+                            }
+
+                            reader.readAsDataURL(fuData.files[0]);
+                        }
+                    }
+
+                }
+                else {
+                    alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+                }
+            }
+        }
+
+
+        //Check one of the checkboxes
+        var setBox = function (filter) {
+            $('button').attr('disabled', false);
+            boxes.attr('checked', false)
+            .filter(filter).attr({ 'checked': true, 'disabled': false });
+        };
+
+        //What happens if any checkbox is checked ?!
+        boxes.change(function () {
+            setBox(this);
+            $('#' + this.id.substr(2)).change();
+        });
+
+        var previewStudentPhoto = $('#previewStudentPhoto').load(function () {
+
+            //debugger;
+            setPreview();
+            ias.setOptions({
+                x1: 0,
+                y1: 0,
+                x2: $(this).width(),
+                y2: $(this).height(),
+                show: true
+            });
+        });
+        var previewStudentSignature = $('#previewStudentSignature').load(function () {
+
+            setPreview();
+            ias.setOptions({
+                x1: 0,
+                y1: 0,
+                x2: $(this).width(),
+                y2: $(this).height(),
+                show: true
+            });
+        });
+
+        //Set the 4 coordinates for the cropping
+        //debugger;
+        var setPreview = function (x, y, w, h) {
+            $('#X').val(x || 0);
+            $('#Y').val(y || 0);
+            $('#Width').val(w || preview[0].naturalWidth);
+            $('#Height').val(h || preview[0].naturalHeight);
+        };
+        var ias = previewStudentPhoto.imgAreaSelect({
+            handles: true,
+            instance: true,
+            parent: 'body',
+            onSelectEnd: function (s, e) {
+                var scale = preview[0].naturalWidth / preview.width();
+                var _f = Math.floor;
+                setPreview(_f(scale * e.x1), _f(scale * e.y1), _f(scale * e.width), _f(scale * e.height));
+            }
+        });
+        var ias = previewStudentSignature.imgAreaSelect({
+            handles: true,
+            instance: true,
+            parent: 'body',
+            onSelectEnd: function (s, e) {
+                var scale = preview[0].naturalWidth / preview.width();
+                var _f = Math.floor;
+                setPreview(_f(scale * e.x1), _f(scale * e.y1), _f(scale * e.width), _f(scale * e.height));
+            }
+        });
+        // Fetch Flickr images
+        var fetchImages = function (query) {
+            $.getJSON('http://www.flickr.com/services/feeds/photos_public.gne?jsoncallback=?', {
+                tags: query,
+                tagmode: "any",
+                format: "json"
+            }, function (data) {
+                var screen = $('<div />').addClass('waitScreen').click(function () {
+                    $(this).remove();
+                }).appendTo('body');
+                var box = $('<div />').addClass('flickrImages').appendTo(screen);
+                $.each(data.items, function (i, v) {
+                    console.log(data.items[i]);
+                    $('<img />').addClass('flickrImage').attr('src', data.items[i].media.m).click(function () {
+                        $('#Flickr').val(this.src).change();
+                        screen.remove();
+                    }).appendTo(box);
+                });
+            });
+        };
+
+        //   Flickr
+        $('#FlickrQuery').change(function () {
+            fetchImages(this.value);
+        });
+
+        $('#Flickr').change(function () {
+            setBox('#IsFlickr');
+            preview.attr('src', this.value);
+        });
+
+        //What happens if the URL changes?
+        $('#Url').change(function () {
+            setBox('#IsUrl');
+            preview.attr('src', this.value);
+        });
+        //Initial state of X, Y, Width and Height is 0 0 1 1
+        setPreview(0, 0, 1, 1);
+        $('button').attr('disabled', true);
+        $('form').submit(function () {
+            $('button').attr('disabled', true).text('Please wait ...');
+        });
+    });
+
+
+</script>

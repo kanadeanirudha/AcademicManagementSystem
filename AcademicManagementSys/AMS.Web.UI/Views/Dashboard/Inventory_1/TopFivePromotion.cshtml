@@ -1,0 +1,120 @@
+﻿<script src="~/Scripts/plugin/GraphAndChart/highcharts.js"></script>
+@*<script src="~/Scripts/plugin/GraphAndChart/exporting.js"></script>*@
+<div class="card col-sm-6" style="background: rgba(0, 0, 0, 0) none repeat scroll 0 0;box-shadow: none;">
+    <div class="card-body">
+        <div class="">
+            <div id="TopFivePromotionGraphContainer" class=""></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: 'InventoryDashboardReport/GetTopFivePromotionsReport',
+            dataType: "json",
+            type: "GET",
+            //   data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+            contentType: 'application/json; charset=utf-8',
+            // async: false,
+            //  processData: false,
+            cache: false,
+            delay: 15,
+            success: function (data) {
+                debugger;
+                if (data.length > 0) {
+
+                     //  var chartData = [{ name: 'Honda', data: [0.00, 0.00, 0.00, 0.00, 0.00, 50000.00, 40000.00, 0.00, 0.00, 0.00, 0.00, 0.00] }];
+                    var chartCategories = [];
+
+                    var chartData = [];
+                    var chartData123 = [];
+                    var dataCount = data.length;
+                    for (var j = 0 ; j < dataCount ; j++) {
+                        chartCategories.push((data[j].SourceKey))
+
+                        var invoiceAmountList = [];
+                        var RL = data[j].PromotionAmount;
+                        invoiceAmountList.push(parseFloat(RL))
+
+                        chartData.push(invoiceAmountList)
+                    }
+
+                    //var chartCategories = monthArray;
+                    //var chartData = [];
+                    //var chartData123 = [];
+                    //for (var i = 0; i < data.length; i++) {
+                        
+                    //    //}
+                    //    chartData123 = invoiceAmountList;
+                    //    chartData.push(chartData123)
+                    //}
+
+                    DrawColumnChartForTopFivePromotion(chartCategories, chartData);
+                }
+                else {
+                    var chartData = "";///[{ name: 'Months', data: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00] }];
+                    var chartCategories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    DrawColumnChartForTopFivePromotion(chartCategories, chartData);
+                }
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    });
+
+
+
+    function DrawColumnChartForTopFivePromotion(chartCategories, invoiceAmountList) {
+        $('#TopFivePromotionGraphContainer').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Top Five Promotion Details',
+                x: -20 //center
+            },
+            //subtitle: {
+            //    text: 'Source: WorldClimate.com',
+            //    x: -20
+            //},
+            xAxis: {
+                categories: chartCategories
+            },
+            
+            yAxis: {
+                title: {
+                    text: 'Promotion Amount'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                pointFormat: '<tr><td style="color:{series.color};padding:0">Revenue: </td>' +
+                 '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        symbol: 'circle'
+                    }
+                }
+            },
+            series: [{
+                name: 'Promotion Name',
+                data: invoiceAmountList
+
+            }]
+
+        });
+    }
+</script>
+

@@ -1,0 +1,68 @@
+﻿@model AMS.ViewModel.InventoryDumpAndShrinkMasterAndDetailsViewModel
+
+<div class="widget-block">
+    <div class="widget-head">
+        <h5>  View Waste & Shrink</h5>
+    </div>
+    <div class="widget-content">
+        <div class="widget-box">
+            <form class="form-horizontal well" id="FormViewInventorySalesAndTransaction" style="">
+                <div class="nonboxy-widget">
+                    <fieldset>
+                        <div class="row">
+                            <div class="span10">
+                                <div id="DivAddRowTable" >
+                                    <table id="tblData" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left; width: 20%">item</th>
+                                                <th style="text-align: left; width: 8%">rate</th>
+                                                <th style="text-align: left; width: 8%">unit</th>
+                                                <th style="text-align: left; width: 10%">waste qty</th>
+                                                <th style="text-align: left; width: 10%">shrink qty</th>
+                                                <th style="text-align: left; width: 14%">Approved dump qty</th>
+                                                <th style="text-align: left; width: 17%">Approved shrink qty</th>
+                                                <th style="text-align: left; width: 5px;">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="overflow: auto">
+                                           
+                                                @foreach (var item in Model.DumpAndShrinkDetailList)
+                                                {
+                                                    <tr>
+                                                        <td>@item.ItemName</td>
+                                                        <td>@Math.Round(item.Rate,2)</td>
+                                                        <td>@item.UnitCode</td>
+                                                        <td>@Math.Round(@item.DumpQuantity,3)</td>
+                                                        <td>@Math.Round(@item.ShrinkQuantity,3)</td>
+                                                        <td>@Math.Round(@item.ApprovedDumpQty,3)</td>
+                                                        <td>@Math.Round(@item.ApprovedShrinkQty,3)</td>
+                                                        @if (item.ApprovedStatus == true)
+                                                        {
+                                                        <td><span class="label label-success">Approved</span> </td>
+                                                        }
+                                                        else
+                                                        {
+                                                        <td> <span class="label label-important">Pending</span></td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        InventoryDumpAndShrinkMasterAndDetails.Initialize();
+    })
+
+</script>

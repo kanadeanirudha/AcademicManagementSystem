@@ -1,0 +1,94 @@
+﻿@model AMS.ViewModel.CRMCallMasterAndDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<div class="card">
+    <br/>
+    <div id="ColumnBarGraphContainer" style="min-width: 400px; height: 400px; max-width: 700px; padding-top: 30px; margin: 0 auto;"></div>
+    <br/>
+</div>
+
+    <script type="text/javascript">
+        $(function () {
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            $.ajax({
+                url: 'CallerConvertedReport/CallerData',
+                dataType: "json",
+                type: "GET",
+                data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                contentType: 'application/json; charset=utf-8',
+                // async: false,
+                //  processData: false,
+                cache: false,
+                delay: 15,
+                success: function (data) {
+                    // alert(data);
+                    var series = new Array();
+                    for (var i in data) {
+                        var serie = new Array(data[i].callerFullName, data[i].totalCallCount, data[i].convertedCount);
+                        series.push(serie);
+                    }
+                    DrawColumnChart(series);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+
+
+
+        function DrawColumnChart(series) {
+            $('#ColumnBarGraphContainer').highcharts({
+
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Student Converted Report'
+                    //    fontFamily: "Helvetica",
+                },
+                xAxis: {
+                    categories: series.callerFullName,
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    min: 0,
+                    title: {
+                        text: 'Number of calls'
+                    }
+                },
+
+                //tooltip: {
+                //    formatter: function () {
+                //        return '<b>' + this.x + '</b><br/>' +
+                //            this.series.callerFullName + ': ' + this.y + '<br/>' +
+                //            'Total: ' + this.point.convertedCount;
+                //    }
+                //},
+
+                plotOptions: {
+                    column: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    type: 'column',
+                    name: 'Converted Student',
+                    data: series
+                },
+                {
+                    type: 'column',
+                    callerFullName: 'aa',
+                    data: series
+                }]
+            });
+        }
+
+
+
+    </script>

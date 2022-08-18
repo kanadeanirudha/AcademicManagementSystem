@@ -1,0 +1,555 @@
+﻿@*
+    @model AMS.ViewModel.PurchaseRequisitionMasterViewModel
+
+
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+
+<style>
+    .ui-front {
+        z-index: 9999;
+    }
+
+    .ui-datepicker {
+        font-size: 9pt !important;
+    }
+</style>
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+@Html.HiddenFor(m => m.DepartmentID)
+@Html.HiddenFor(m => m.ID)
+
+
+<div id="salesDiv" style="width:auto">
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>  Edit Purchase Requisition</h5>
+        </div>
+        <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+        <div class="widget-content">
+            <div class="widget-box">
+                <form class="form-horizontal well" id="FormEditPurchaseRequisitionMaster" style="">
+                    <div class="nonboxy-widget">
+                        <fieldset>
+                            <div class="row">
+                                <div class="span11">
+                                </div>
+                            </div>
+                            <div class="row control-group">
+                                <div class="span2">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.PurchaseRequisitionNumber, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span2" style="line-height: 25px">
+                                    @Html.TextBoxFor(model => model.PurchaseRequisitionNumber, new { @class = "txtbox", @readonly = "readonly", maxlength = "60", style = "font-Weight:Bold;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.PurchaseRequisitionNumber)
+
+                                </div>
+                                <div class="span2" style="margin-left: 10%">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.TransDate, new { Style = "font-size: 100%;font-weight:bold;" })
+
+                                </div>
+                                <div class="span2" style="line-height: 25px">
+                                    @Html.TextBoxFor(model => model.TransDate, new { @class = "txtbox", @readonly = "readonly", Style = "width:120px;font-weight:bold;margin-left: -10px;", disabled = "disabled" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.TransDate)
+
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="span11">
+
+                                    <div id="DivAddRowTableForEdit" style="height:auto; overflow: auto">
+                                        <table id="tblDataEdit" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left; width: 30%">item</th>
+                                                    <th style="text-align: left; width: 11%">Quantity</th>
+                                                    <th style="text-align: left; width: 10%">Rate</th>
+                                                    <th style="text-align: left; width: 15%">Expected Delivery Date</th>
+                                                    <th style="text-align: left; width: 11%">Priority</th>
+                                                    <th style="text-align: left; width: 14%">Location</th>
+                                                    <th style="text-align: left; width: 14%;display:none">DetailRequisitionID</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="overflow: auto">
+
+
+                                                @for (int i = 0; i < Model.PurchaseRequisitionMasterList.Count; i++)
+                                                {
+                                                    <tr id="@Convert.ToInt32(i)"  style="height: 2px;" >
+                                                        <td style="display:none">@Convert.ToInt32(i + 1)</td>
+                                                        <td>@Model.PurchaseRequisitionMasterList[i].ItemName<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].ItemID"></td>
+                                                        <td><input type="text" id="Quantity_@i" value="@Model.PurchaseRequisitionMasterList[i].Quantity" style="text-align:right; width: 60px; height: 15px;" /></td>
+                                                        <td><input type="text" id="Rate_@i" value="@Model.PurchaseRequisitionMasterList[i].Rate" style="text-align:right; width: 60px; height: 15px;" /></td>
+                                                        <td>@Model.PurchaseRequisitionMasterList[i].ExpectedDeliveryDate<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].ExpectedDeliveryDate"></td>
+                                                        
+                                                        @if (@Model.PurchaseRequisitionMasterList[i].PriorityFlag == 1)
+                                                        {
+                                                            <td>High<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PriorityFlag"></td>
+                                                        }
+                                                        else if (@Model.PurchaseRequisitionMasterList[i].PriorityFlag == 2)
+                                                        {
+                                                            <td>Medium<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PriorityFlag"></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>Low<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PriorityFlag"></td>
+                                                        }
+                                                        <td><input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].StorageLocationID">@Model.PurchaseRequisitionMasterList[i].LocationName</td>
+                                                        <td style="display:none"><input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].ID">@Model.PurchaseRequisitionMasterList[i].ID</td>
+                                                        <td style="display:none"><input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PurchaseRequisitionDetailsID">@Model.PurchaseRequisitionMasterList[i].PurchaseRequisitionDetailsID</td>
+                                                        <td style="display:none"><input type="text" id="TaxRate_@i" value="@Model.PurchaseRequisitionMasterList[i].TaxRate">@Model.PurchaseRequisitionMasterList[i].TaxRate;</td>
+                                                        <td id="amountIncludingtax" style="display:none"><input type="text" id="amountIncludingtax" value="@Model.PurchaseRequisitionMasterList[i].AmmountIncludingTax">@Model.PurchaseRequisitionMasterList[i].AmmountIncludingTax</td>
+                                                        <td style="display:none"><input type="text" id="amt"  value="@Model.PurchaseRequisitionMasterList[i].Ammount">@Model.PurchaseRequisitionMasterList[i].Ammount</td>
+                                                        <td style="display:none"><input type="text" id="ItemWiseTaxAmount" value="@Model.PurchaseRequisitionMasterList[i].ItemWiseTaxAmount">@Model.PurchaseRequisitionMasterList[i].ItemWiseTaxAmount</td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+
+                                <span style="float: left; margin-left: -145px; font-weight: bold;">
+                                    Freight
+                                    <input type="text" id="Freight" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" />
+                                </span>
+                                <span style="float: left; margin-left: -16px; font-weight: bold;">
+                                    Shipping/Handling
+                                    <input type="text" id="ShippingHandling" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" />
+                                </span>
+                                <span style="float: left; margin-left: 15px; font-weight: bold;">
+                                    Discount
+                                    <input type="text" id="discount" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" />
+                                </span>
+                                <span style="float: left; margin-left: 15px; font-weight: bold;">
+                                    TotalTaxAmount
+                                    <input type="text" id="TotalTaxAmount" disabled="disabled" value="@Model.TaxAmount" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6); " />
+                                </span>
+                                <span style="float: left; margin-left: 15px; font-weight: bold;">
+                                    TotalAmount
+                                    <input type="text" disabled="disabled" id="Amount" value="@Model.AmmountIncludingTax" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" />
+                                </span>
+                                <div class="span2" style="float: left; text-align: left; margin-left: 20px">
+                                    @Html.LabelFor(model => model.IsOpenForPO, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span1" style="margin-left: -70px">
+                                    @Html.CheckBoxFor(model => model.IsOpenForPO, new { style = "font-Weight:Bold;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.IsOpenForPO)
+                                </div>
+
+                                <input type="button" id="EditPurchaseRequisitionMaster" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        PurchaseRequisitionMaster.Initialize();
+        PurchaseRequisitionMaster.TotalTaxAmounttt();
+        PurchaseRequisitionMaster.TotalGrossAmmounttt();
+    })
+
+    $('input[id^=Quantity]').on("keydown", function (e) {
+        AMSValidation.AllowNumbersWithDecimalOnly(e);
+        AMSValidation.NotAllowSpaces(e);
+    });
+    $('input[id^=discount]').on("keydown", function (e) {
+        AMSValidation.AllowNumbersWithDecimalOnly(e);
+        AMSValidation.NotAllowSpaces(e);
+    });
+    $('input[id^=Rate]').on("keydown", function (e) {
+        AMSValidation.AllowNumbersWithDecimalOnly(e);
+        AMSValidation.NotAllowSpaces(e);
+    });
+    //On Dump Quantity Change
+    $("#tblDataEdit tbody").on("keyup", "tr td input[id^=Quantity_]", function () {
+      
+        var quantity = parseFloat($(this).closest('tr').find('td input[id^=Quantity_]').val()); 
+        var rate = parseFloat($(this).closest('tr').find('td input[id^=Rate_]').val());
+        if (parseFloat(quantity) == 0 || parseFloat(quantity) <= 0) {
+            $('#msgDiv').html("Please enter Quantity.");
+            $('#msgDiv').delay(400).slideDown(400).delay(2000).slideUp(400).css('background-color', "#FFCC80");
+
+        }
+        //calculating amount
+        var totalamount = ((quantity * rate).toFixed(2));
+        $(this).closest('tr').find('td').eq(11).text(parseFloat(totalamount));
+        var taxRate = parseFloat($(this).closest('tr').find('td input[id^=TaxRate_]').val());
+        var taxamount = ((totalamount * taxRate) / 100).toFixed(2);
+        $(this).closest('tr').find('td').eq(12).text(parseFloat(taxamount));
+        var variable = parseFloat(parseFloat(totalamount) + parseFloat(taxamount))
+        $(this).closest('tr').find('td').eq(10).text(variable);
+
+        //PurchaseRequisitionMaster.TotalBillAmount();
+        PurchaseRequisitionMaster.TotalTaxAmounttt();
+        PurchaseRequisitionMaster.TotalGrossAmmounttt();
+    });
+    $("#tblDataEdit tbody").on("keyup", "tr td input[id^=Rate_]", function () {
+       
+        var quantity = parseFloat($(this).closest('tr').find('td input[id^=Quantity_]').val());
+        var rate = parseFloat($(this).closest('tr').find('td input[id^=Rate_]').val());
+        if (parseFloat(rate) == 0 || parseFloat(rate) <= 0) {
+            $('#msgDiv').html("Please enter Quantity.");
+            $('#msgDiv').delay(400).slideDown(400).delay(2000).slideUp(400).css('background-color', "#FFCC80");
+
+        }
+        var totalamount = ((quantity * rate).toFixed(2));
+        $(this).closest('tr').find('td').eq(11).text(parseFloat(totalamount));
+        var taxRate = parseFloat($(this).closest('tr').find('td input[id^=TaxRate_]').val());
+        var taxamount = ((totalamount * taxRate) / 100).toFixed(2);
+        $(this).closest('tr').find('td').eq(12).text(parseFloat(taxamount));
+        var variable = parseFloat(parseFloat(totalamount) + parseFloat(taxamount))
+        $(this).closest('tr').find('td').eq(10).text(variable);
+
+        //PurchaseRequisitionMaster.TotalBillAmount();
+        PurchaseRequisitionMaster.TotalTaxAmounttt();
+        PurchaseRequisitionMaster.TotalGrossAmmounttt();
+    });
+
+    $("#discount").on("keyup", function () {
+      
+        var discount = 0, discountRate = 0, quantity = 0;
+        if ($("#discount").val() != "" && $("#discount").val() != 0 && $("#discount").val() <= 100 && $("#discount").val() > 0) {
+            discount = $("#discount").val();
+            var amountincludingtax = $("#Amount").val();
+            var discountRate = (parseFloat(amountincludingtax)) * (parseFloat(discount) / 100);
+            var amountincludingtax2 = parseFloat(parseFloat(amountincludingtax) - parseFloat(discountRate)).toFixed(2);
+
+            $("#Amount").val(amountincludingtax2);
+        }
+        else if ($("#discount").val() > 100) {
+            $("#Discount").val(0);
+            $('#msgDiv').html("Please enter discount less than 100.");
+            $('#msgDiv').delay(400).slideDown(400).delay(1200).slideUp(400).css('background-color', "#FFCC80");
+
+        }
+        //var amount = parseFloat($("#Rate").val()).toFixed(2) * parseFloat($("#Quantity").val()).toFixed(3);
+        //$("#BillAmount").val(amount - discountRate);
+    });
+</script>
+
+<style>
+    .hide_column {
+        display: none;
+    }
+
+    .paging_full_numbers {
+        display: none;
+    }
+
+    div.dataTables_paginate {
+        display: none;
+    }
+
+    .dataTables_paginate {
+        display: none;
+    }
+
+    div.dataTables_info {
+        display: none;
+    }
+
+    .dataTables_info {
+        display: none;
+    }
+</style>
+    *@
+
+
+@model AMS.ViewModel.PurchaseRequisitionMasterViewModel
+
+<div class="container" id="salesDiv">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.DepartmentID)
+    @Html.HiddenFor(m => m.ID)
+
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Edit Purchase Requisition</h2>
+    </div>
+
+    <div class="card">
+        <div class="" id="divContent">
+            <form id="FormEditPurchaseRequisitionMaster">
+                <div class="card-body card-padding">
+                    @Html.HiddenFor(model => model.ReplishmentCode)
+                    @Html.HiddenFor(model => model.CenterCode)
+                    @Html.HiddenFor(model => model.GeneralUnitsID)
+                    <div id="displayErrorMessage" role="alert" hidden class="alert">
+                        <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <p id="messageContent"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PurchaseRequisitionNumber, new { style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.PurchaseRequisitionNumber, new { @class = "form-control", @readonly = "readonly", maxlength = "60", style = "background-color:#fff;" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.PurchaseRequisitionNumber)
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.TransDate, new { Style = "" })
+                                <div class="form-group fg-line dtp-container">
+                                    @Html.TextBoxFor(model => model.TransDate, new { @class = "form-control", @readonly = "readonly", Style = "", disabled = "disabled" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.TransDate)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <hr/>
+                        <div id="DivAddRowTableForEdit">
+                            <div class="card-body table-responsive">
+                                <table id="tblDataEdit" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>UOM</th>
+                                            <th>Quantity</th>
+                                            <th>Rate</th>
+                                            <th>Expected Delivery Date</th>
+                                            <th style="display:none">Priority</th>
+                                            <th>Sub Location</th> @*Replace Location with Sub Location*@
+                                            <th style="display:none">DetailRequisitionID</th>
+                                            @*<th>Uom</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        @for (int i = 0; i < Model.PurchaseRequisitionMasterList.Count; i++)
+                                        {
+                                            <tr id="@Convert.ToInt32(i)" style="">
+                                                <td style="display:none">@Convert.ToInt32(i + 1)</td>
+                                                <td>@Model.PurchaseRequisitionMasterList[i].ItemName<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].ItemID"></td>
+                                                <td>@Model.PurchaseRequisitionMasterList[i].BaseUOMCode</td>
+                                                <td>
+                                                    <div class="form-group fg-line">
+                                                        <input class="form-control" type="text" id="Quantity_@i" value="@Math.Round(Model.PurchaseRequisitionMasterList[i].Quantity,3)" style="" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group fg-line">
+                                                        <input class="form-control" type="text" id="Rate_@i" value="@Math.Round(Model.PurchaseRequisitionMasterList[i].Rate,2)" style="" disabled="disabled" />
+                                                    </div>
+                                                </td>
+                                                <td>@Model.PurchaseRequisitionMasterList[i].ExpectedDeliveryDate<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].ExpectedDeliveryDate"></td>
+
+                                                @if (@Model.PurchaseRequisitionMasterList[i].PriorityFlag == 1)
+                                                  {
+                                                     <td style="display:none">High<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PriorityFlag"></td>
+                                                  }
+                                                else if (@Model.PurchaseRequisitionMasterList[i].PriorityFlag == 2)
+                                                {
+                                                    <td style="display:none">Medium<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PriorityFlag"></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="display:none">Low<input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PriorityFlag"></td>
+                                                }
+                                                <td><input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].StorageLocationID">@Model.PurchaseRequisitionMasterList[i].LocationName</td>
+                                                <td style="display:none"><input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].ID">@Model.PurchaseRequisitionMasterList[i].ID</td>
+                                                <td style="display:none"><input type="text" style="display:none" value="@Model.PurchaseRequisitionMasterList[i].PurchaseRequisitionDetailsID">@Model.PurchaseRequisitionMasterList[i].PurchaseRequisitionDetailsID</td>
+                                                <td style="display:none"><input type="text" id="TaxRate_@i" value="@Model.PurchaseRequisitionMasterList[i].TaxRate">@Model.PurchaseRequisitionMasterList[i].TaxRate;</td>
+                                                <td style="display:none"><input type="text" id="amountIncludingtax" value="@Model.PurchaseRequisitionMasterList[i].AmmountIncludingTax"></td>
+                                                <td id="ammount" style="display:none"><input type="text" id="amt" value="@Model.PurchaseRequisitionMasterList[i].Ammount">@Model.PurchaseRequisitionMasterList[i].Ammount</td>
+                                                <td style="display:none"><input type="text" id="ItemWiseTaxAmount" value="@Model.PurchaseRequisitionMasterList[i].ItemWiseTaxAmount">@Model.PurchaseRequisitionMasterList[i].ItemWiseTaxAmount</td>
+                                                @*<td>@Model.PurchaseRequisitionMasterList[i].BaseUOMCode</td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       
+                        <div class="col-sm-2">
+                                Freight
+                            <div class="form-group fg-line">
+                                <input class="form-control" type="text" id="Freight"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            Shipping/Handling
+                            <div class="form-group fg-line">
+                                <input class="form-control" type="text" id="ShippingHandling"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            Discount
+                            <div class="form-group fg-line">
+                                <input class="form-control" type="text" id="discount" maxlength="6"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            Tax Amount
+                            <div class="form-group fg-line">
+                                <input class="form-control" type="text" id="TotalTaxAmount" disabled="disabled" value="@Model.TaxAmount"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            Amount
+                            <div class="form-group fg-line">
+                                <input class="form-control" type="text" id="Amount" value="@Model.Ammount"/>
+                                
+                            </div>
+                        </div>
+                       
+                        @*<div class="col-sm-2">
+                            @Html.LabelFor(model => model.IsOpenForPO, new { style = "" })
+                            <div class="form-group fg-line">
+                                @Html.CheckBoxFor(model => model.IsOpenForPO, new { @class = "form-control", style = "" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.IsOpenForPO)
+                        </div>*@
+
+                        <div class="col-sm-2" style="display:none">
+                            <div class="checkbox m-b-15" style="padding-top:10%;">
+                                <label>
+                                    
+                                    <input type="checkbox" id="IsOpenForPO">
+                                    <i class="input-helper"></i>
+                                    @Html.LabelFor(model => model.IsOpenForPO)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 pull-left" style="padding-top: 2%;">
+                            <input class="btn bgm-green " style="margin-left:-10%" value="create PO" id="CreatePurchaseOrderByRequisition" type="button" />
+                           @if (@Model.ReplishmentCode == "ReplishmentCode")
+                           { 
+                             <input type="button" id="EditPurchaseRequisitionMaster" value="@Resources.ButtonAction_Submit" class="btn btn-primary" style="display:none;" />
+                           }
+                           else
+                           { 
+                             <input type="button" id="EditPurchaseRequisitionMaster" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                           }
+                            <input class="form-control" type="hidden" disabled="disabled" id="Amount1" value="@Model.Ammount" />
+                           
+                        </div>
+
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        PurchaseRequisitionMaster.Initialize();
+        $("#discount").on("keyup", function () {
+            debugger;
+
+            var discountRate = 0, quantity = 0;
+            var discount = parseFloat($("#discount").val());
+            //alert($("#discount_Amt").val());
+            if (discount != "" && discount != 0 && discount <= 100) {
+                var amountincludingtax = $("#Amount").val();
+                var abc = $("#Amount1").val();
+                var discountRate = (parseFloat(abc)) * (parseFloat(discount) / 100);
+                var amountincludingtax2 = parseFloat(parseFloat(abc) - parseFloat(discountRate)).toFixed(2);
+                $("#Amount").val(amountincludingtax2);
+
+            }
+            else if (discount > 100) {
+                
+                $("#displayErrorMessage p").text("Please Enter Discount Value Less Than 100.").closest('div').fadeIn().closest('div').addClass('alert-' + "warning");
+                return false;
+            }
+            
+        });
+       
+        //PurchaseRequisitionMaster.TotalTaxAmounttt();
+        //PurchaseRequisitionMaster.TotalGrossAmmounttt();
+    })
+
+    $('input[id^=Quantity]').on("keydown", function (e) {
+        AMSValidation.AllowNumbersWithDecimalOnly(e);
+        AMSValidation.NotAllowSpaces(e);
+    });
+    $('input[id^=discount]').on("keydown", function (e) {
+        AMSValidation.AllowNumbersWithDecimalOnly(e);
+        AMSValidation.NotAllowSpaces(e);
+
+    });
+    $('input[id^=Rate]').on("keydown", function (e) {
+        AMSValidation.AllowNumbersWithDecimalOnly(e);
+        AMSValidation.NotAllowSpaces(e);
+    });
+    //On Dump Quantity Change
+    $("#tblDataEdit tbody").on("keyup", "tr td input[id^=Quantity_]", function () {
+        debugger;
+        var quantity = parseFloat($(this).closest('tr').find('td input[id^=Quantity_]').val());
+        var rate = parseFloat($(this).closest('tr').find('td input[id^=Rate_]').val());
+        if (parseFloat(quantity) == 0 || parseFloat(quantity) <= 0 || parseFloat(quantity) == "") {
+           // notify("Please enter Quantity","danger");
+            $("#displayErrorMessage").text("Please enter Quantity").closest('div').fadeIn().closest('div').addClass('alert-' + "danger");
+            $("#displayErrorMessage").delay(400).slideDown(400).delay(1500).slideUp(400).css('background-color', "#FFCC80");
+            return false;
+        }
+        //calculating amount
+        var totalamount = ((quantity * rate).toFixed(2));
+        $(this).closest('tr').find('td ').eq(12).find('input[id^=amt]').val(parseFloat(totalamount));
+        //$(this).closest('tr').find('td input[id=amt]').val(parseFloat(quantity * rate).toFixed(2));
+
+        var taxRate = parseFloat($(this).closest('tr').find('td input[id^=TaxRate_]').val());
+        var taxamount = ((totalamount * taxRate) / 100).toFixed(2);
+        $(this).closest('tr').find('td ').eq(13).find('input[id^=ItemWiseTaxAmount]').val(parseFloat(taxamount));
+        //$(this).closest('tr').find('td input[id=ItemWiseTaxAmount]').val(parseFloat(taxamount));
+
+        var variable = parseFloat(parseFloat(totalamount) + parseFloat(taxamount))
+        $(this).closest('tr').find('td').eq(11).val(variable);
+        //$(this).closest('tr').find('td input[id=amountIncludingtax]').val(variable);
+
+        //PurchaseRequisitionMaster.TotalBillAmount();
+        PurchaseRequisitionMaster.TotalTaxAmounttt();
+        PurchaseRequisitionMaster.TotalGrossAmmounttt();
+    });
+
+
+    $("#tblDataEdit tbody").on("keyup", "tr td input[id^=Rate_]", function () {
+
+        var quantity = parseFloat($(this).closest('tr').find('td input[id^=Quantity_]').val());
+        var rate = parseFloat($(this).closest('tr').find('td input[id^=Rate_]').val());
+        if (parseFloat(rate) == 0 || parseFloat(rate) <= 0) {
+            notify("Please enter Quantity", "danger");
+
+        }
+        var totalamount = ((quantity * rate).toFixed(2));
+        $(this).closest('tr').find('td').eq(11).val(parseFloat(totalamount));
+        //$(this).closest('tr').find('td input[id=amt]').val(parseFloat(quantity * rate).toFixed(2));
+
+        var taxRate = parseFloat($(this).closest('tr').find('td input[id^=TaxRate_]').val());
+        var taxamount = ((totalamount * taxRate) / 100).toFixed(2);
+
+        $(this).closest('tr').find('td').eq(12).val(parseFloat(taxamount));
+       // $(this).closest('tr').find('td input[id=ItemWiseTaxAmount]').val(parseFloat(taxamount));
+        var variable = parseFloat(parseFloat(totalamount) + parseFloat(taxamount))
+        $(this).closest('tr').find('td').eq(10).val(variable);
+       // $(this).closest('tr').find('td input[id=amountIncludingtax]').val(variable);
+
+        //PurchaseRequisitionMaster.TotalBillAmount();
+        PurchaseRequisitionMaster.TotalTaxAmounttt();
+        PurchaseRequisitionMaster.TotalGrossAmmounttt();
+    });
+   
+
+</script>

@@ -1,0 +1,218 @@
+﻿@model AMS.ViewModel.InventoryDailySaleReportViewModel
+
+@{
+    var group1 = string.Empty;
+    var group2 = string.Empty;
+    var group3 = string.Empty;
+    var group4 = string.Empty;
+    var group5 = string.Empty;
+    var group6 = string.Empty;
+    int Count = 1;
+}
+
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        background: transparent;
+        width: 100%;
+        border: none;
+        border-top: solid 2px #aaaaaa;
+    }
+</style>
+
+
+<div class="widget-content">
+    <div class="widget-box">
+        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+            <div class="table_content">
+                <div id="printablediv">
+                    <div style="border: 2px solid #aaaaaa;">
+                        @if (Model.ListInventoryReportHeader != null)
+                        {
+                            <table id="myDataTable" class="table user-tbl" style="height: 103px;">
+                                <thead>
+                                    <tr>
+                                        <td class="center">
+                                            <span style="font-weight:lighter;color:#000; font-size:15px;"><br />@Model.ListInventoryReportHeader[0].PrintingLine1<br /></span>
+                                            <span style="font-weight: bold; color: red; font-size: 25px;">@Model.ListInventoryReportHeader[0].PrintingLine2 <br /></span>
+                                            <span style="font-weight: lighter; color: #000; font-size: 15px; ">@Model.ListInventoryReportHeader[0].PrintingLine4</span>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <hr />
+                        }
+                        <table id="myDataTable" class="table user-tbl">
+                            <thead>
+                                <tr>
+                                    <th class="center" style="font-weight:bold;color:#000" rowspan="2">Bill </th>
+                                    <th class="center" style="font-weight:bold;color:#000" rowspan="2">Customer</th>
+                                    <th class="center" style="font-weight:bold;color:#000" rowspan="2">Customer Type</th>
+                                    <th class="center" style="font-weight:bold;color:#000" colspan="2">Amount</th>
+                                </tr>
+                            </thead>
+                            @if (Model.ListInventoryDailySaleReport.Count > 0)
+                            {
+                                foreach (var item in Model.ListInventoryDailySaleReport)
+                                {
+                                    <tbody id="Level0" style="overflow: scroll;">
+                                        @if (group5 != item.TransactionDate && group5 != string.Empty)
+                                        {
+                                            <tr>
+                                                <td style="text-align: right; padding-right: 102px; font-weight: bold; " colspan="3">Total</td>
+                                                <td style="text-align: center; font-weight: lighter" colspan="4">
+                                                    @group6
+                                                </td>
+                                            </tr>
+                                            group5 = item.TransactionDate;
+                                        }
+
+                                        @if (group1 != item.AccBalsheetHeadDesc)
+                                        {
+                                            <tr>
+                                                <td style="text-align: left; font-weight: bold; color: brown;">@item.AccBalsheetHeadDesc</td>
+                                                <td style=" padding-left: 70px; font-weight: bold"></td>
+                                                <td style=" padding-left: 70px; font-weight: bold"></td>
+                                                <td style=" padding-left: 70px; font-weight: bold"></td>
+                                            </tr>
+                                            group1 = item.AccBalsheetHeadDesc;
+                                        }
+
+                                        @if (group2 != item.LocationName)
+                                        {
+                                            <tr>
+                                                <td style=" padding-left: 38px; font-weight: bold; color: steelblue;">
+                                                    @item.LocationName
+                                                </td>
+                                                <td style=" padding-left: 38px; font-weight: bold"></td>
+                                                <td style=" padding-left: 38px; font-weight: bold"></td>
+                                                <td style=" padding-left: 38px; font-weight: bold"></td>
+                                            </tr>
+                                            group2 = item.LocationName;
+                                        }
+
+                                        @if (group3 != item.TransactionDate)
+                                        {
+                                            <tr>
+                                                <td style=" padding-left: 70px; font-weight: bold">
+                                                    @item.TransactionDate
+                                                </td>
+                                                <td style=" padding-left: 70px; font-weight: bold"></td>
+                                                <td style=" padding-left: 70px; font-weight: bold"></td>
+                                                <td style=" padding-left: 70px; font-weight: bold"></td>
+                                            </tr>
+                                            group3 = item.TransactionDate;
+                                            group5 = item.TransactionDate;
+                                            group6 = item.TotalDailySaleAmount.ToString("0.00");
+                                        }
+
+                                        <tr>
+                                            <td style="padding-left: 100px; font-weight: lighter">
+                                                @item.BillNumber
+                                            </td>
+                                            <td style="text-align: center; font-weight: lighter">
+                                                @item.CustomerName
+                                            </td>
+                                            <td style="text-align: center; font-weight: lighter">
+                                                @item.CustomerType
+                                            </td>
+                                            <td style="text-align: center; font-weight: lighter">
+                                                @item.BillAmount.ToString("0.00")
+
+                                            </td>
+                                        </tr>
+                                        @if (Model.ListInventoryDailySaleReport.Count == Convert.ToInt32(Count++))
+                                        {
+                                            <tr>
+                                                <td style="text-align: right; padding-right: 102px; font-weight: bold; " colspan="3">Total</td>
+                                                <td style="text-align: center; font-weight: lighter" colspan="4">
+                                                    @group6
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                }
+                            }
+                            else
+                            {
+                                <tbody style="overflow: scroll;">
+                                    <tr>
+                                        <td class="center" style="font-weight:bold;color:#000" colspan="4">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+                @if (Model.ListInventoryDailySaleReport.Count > 0)
+                {
+                    <hr />
+                    <center>
+                        <input type="button" style="width:10%;" id="Print" value="Print" onclick="javascript: printDiv('printablediv')" class="btn btn-primary" />
+                    </center>
+                    <br />
+
+                }
+            </div>
+            <div class="widget-bottom">
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script language="javascript" type="text/javascript">
+    function printDiv(divID) {
+        ////Get the HTML of div
+        //var divElements = document.getElementById(divID).innerHTML;
+        ////Get the HTML of whole page
+        //var oldPage = document.body.innerHTML;
+
+        ////Reset the page's HTML with div's HTML only
+        //document.body.innerHTML =
+        //  "<html><head><title></title></head><body>" +
+        //  divElements + "</body>";
+
+        ////Print Page
+        //window.print();
+
+        ////Restore orignal HTML
+        //document.body.innerHTML = oldPage;
+
+        //Get the HTML of div
+        var divElements = document.getElementById(divID).innerHTML;
+        var htmlToPrint = '' +
+       '<style type="text/css">' +
+       'table th, table td {' +
+       'border:1px solid #000;' +
+       'padding;0.5em;' +
+       '}' +
+       '</style>';
+        htmlToPrint += divElements.innerHTML;
+        //Get the HTML of whole page
+        var oldPage = document.body.innerHTML;
+
+        //Reset the page's HTML with div's HTML only
+        document.body.innerHTML =
+          "<html><head><title></title></head><body>" +
+          divElements + "</body>";
+
+        //Print Page
+        window.print();
+
+        //Restore orignal HTML
+        document.body.innerHTML = oldPage;
+
+    }
+</script>

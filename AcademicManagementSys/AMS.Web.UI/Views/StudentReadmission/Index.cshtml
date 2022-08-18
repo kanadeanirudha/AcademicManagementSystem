@@ -1,0 +1,156 @@
+﻿@model AMS.ViewModel.StudentReadmissionViewModel
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentReadmission.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+@*<link href="@Url.Content("~/Content/Progressbar.css")" rel="stylesheet" type="text/css" />*@
+
+
+<style>
+    /*hr.style-one {
+        border: 0;
+        height: 1px;
+        background: #333;
+        background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+        background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+        background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+        background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+    }*/
+    .ui-front {
+        /*z-index:10000;*/
+        z-index: 10000;
+    }
+
+    hr {
+        display: block;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: inset;
+        border-width: 1px;
+    }
+    input[placeholder] {
+        font-weight: 600;
+        
+    }
+
+</style>
+@*<div id="content">
+    <span class="expand"></span>
+</div>*@
+
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li>Student<span class="divider">»</span></li>
+        <li>Student Re-Admission</li>
+    </ul>
+    <div id="SuccessMessage" style="display:none;color:#000;" class="alert"></div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5> @Resources.Headers_SelectStudentToReAdmit</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <form class="form-horizontal well" id="FormCreateStudentReadmission">
+                            <fieldset>
+                                <br />
+                                @Html.HiddenFor(m => m.SessionID)
+                                @Html.HiddenFor(m => m.CentreCode)
+                                @*<div class="row control-group">
+                    <div class="span2">
+                        @Html.LabelFor(m => m.StudentName, new { style="font-weight:bold" ,@class="control-label"})
+                    </div>
+                    <div class="span2" style="line-height: 25px">
+                        <div class="input-append">@Html.TextBoxFor(m => m.StudentName, new { placeholder= "Search Student"})<span class="add-on margin-fix"><i class="icon-search"></i></span></div>
+                    </div>
+
+
+
+                </div>*@
+
+                                <div class="control-group">
+                                    <div class="span1">
+                                        <label class="control-label">&nbsp;</label>
+                                    </div>
+                                    <div class="span2">
+                                        @Html.LabelFor(m => m.CentreName, new { @class = "control-label", style = "font-weight:bold" })
+                                    </div>
+                                    <div class="span2" style="line-height: 25px">
+                                        @Html.DisplayFor(m => m.CentreName, new { @class = "control-label", style = "font-weight:bold" })
+                                    </div>
+                                    <div class="span1">
+                                        <label class="control-label">&nbsp;</label>
+                                    </div>
+                                    <div class="span2">
+                                        @Html.LabelFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })
+                                    </div>
+
+                                    <div class="span2" style="line-height: 25px">
+                                        @if (Model.SessionName != "Session not defined !")
+                                        {
+                                            @Html.DisplayFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })
+                                        }
+                                        else
+                                        {
+                                            <b style="color:red;">@Html.DisplayFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })</b>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="span1">
+                                        <label class="control-label">&nbsp;</label>
+                                    </div>
+                                    <div class="span2">
+                                        @Html.LabelFor(m => m.StudentName, new { @class = "control-label", style = "font-weight:bold" })
+                                    </div>
+                                    <div class="span2" style="line-height: 25px">
+                                        <div class="input-append">@Html.TextBoxFor(m => m.StudentName, new { placeholder = "Search Student" })@*<span class="add-on margin-fix"><i class="icon-search"></i></span>*@</div>
+                                    </div>
+                                    <div class="span1">
+                                        <label class="control-label">&nbsp;</label>
+                                    </div>
+                                    <div class="span2">
+
+                                    </div>
+                                    <div class="span2" style="line-height: 25px">
+
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+    @Html.Partial("StudentDetails")
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        StudentReadmission.Initialize();
+    });
+
+  
+</script>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,213 @@
+﻿@*@model AMS.ViewModel.GeneralTaskReportingDetailsViewModel
+<script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+<div class="widget-block">
+    <div class="widget-head">
+        <h5 id="hFive"> @Resources.FormCreate_FeeCriteriaMasterAndDetails   </h5>
+    </div>
+    <div class="widget-content">
+        <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+        <form id="FormEditApprovalStageDetails" method="post" class="form-horizontal well">
+
+            @Html.HiddenFor(m => m.GeneralTaskReportingDetailsID)
+            @Html.HiddenFor(m => m.CentreCode)
+            @Html.HiddenFor(m => m.RoleID)
+
+            <div class="row">
+                <div class="span10">
+                    <div class="row control-group">
+
+                        <div class="spanFullName span2" style="padding-left: 15px;">
+                            @Html.LabelFor(model => model.EmployeeName, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                          <b>  @Html.DisplayFor(model => model.EmployeeName, new { maxlength = "50", Value = "", tabindex = "0", style = "font-Weight:Bold;", min = "1" })</b>
+                        </div>
+                        <div class="spanFullName span2">
+                           &nbsp;
+                        </div>
+                        <div class="span2">
+                           &nbsp;
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="span10">
+                    <div class="row control-group">
+
+                        <div class="spanFullName span2" style="padding-left: 15px;">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                            @Html.LabelFor(model => model.RangeFrom, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.RangeFrom, new { maxlength = "50", tabindex = "0", style = "font-Weight:Bold;", min = "1" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.RangeFrom)
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                            @Html.LabelFor(model => model.RangeUpto, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.RangeUpto, new { maxlength = "50", tabindex = "0", style = "font-Weight:Bold;", min = "1" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.RangeFrom)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="span10">
+                    <div class="row control-group">
+
+                        <div class="spanFullName span2" style="padding-left: 15px; ">
+                            <span style="color: red; float: left;  font-weight: bold">*</span>
+                            @Html.LabelFor(m => m.DepartmentName, new { style = "font-weight:bold;" })
+                        </div>
+                        <div class="span3">
+                            <div id="checkboxlistFeeCriteriaParameters" class="controls input-xlarge text-tip" style="float: right">
+                                <p id="e5_f">
+
+                                    <select id="checkboxlist1" class="w500" multiple="multiple" style="width: 264%; height: 170px;">
+                                        @foreach (var item in Model.OrganisationDepartmentList)
+                                        {
+                                              if (item.StatusFlag == true)
+                                            {
+                                                 <option id="@item.DepartmentID" value="@item.DepartmentID~@item.DepartmentName" selected>@item.DepartmentName</option>    
+                                            }
+                                            else
+                                            {
+                                                <option id="@item.DepartmentID" value="@item.DepartmentID~@item.DepartmentName">@item.DepartmentName</option>
+                                            }
+                                        }
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions" style="padding-left: 0px; padding-bottom: 0px; text-align: right">
+                <button type="button" id="EditApprovalStageDetailsRecord" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        GeneralTaskReportingDetails.Initialize();
+        $('#checkboxlist1').multipleSelect();
+    });
+</script>*@
+
+@*-------new code------------*@
+
+@model AMS.ViewModel.GeneralTaskReportingDetailsViewModel
+@*<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />*@
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormCreate_FeeCriteriaMasterAndDetails</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+            <form id="FormEditApprovalStageDetails">
+                @Html.HiddenFor(m => m.GeneralTaskReportingDetailsID)
+                @Html.HiddenFor(m => m.CentreCode)
+                @Html.HiddenFor(m => m.RoleID)
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.EmployeeName, new { })
+                        <div class="form-group fg-line">
+                            <b>@Html.DisplayFor(model => model.EmployeeName, new { @class = "form-control", maxlength = "50", Value = "", tabindex = "0", style = "", min = "1" })
+                            </b>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.RangeFrom, new { })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(model => model.RangeFrom, new { @class = "form-control", maxlength = "50", tabindex = "0", style = "", min = "1" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.RangeFrom)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.RangeUpto, new { })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(model => model.RangeUpto, new { @class = "form-control", maxlength = "50", tabindex = "0", style = "", min = "1" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.RangeUpto)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    
+                    <div class="col-sm-6">
+                        <div id="checkboxlistFeeCriteriaParameters" class="form-group">
+                            @Html.LabelFor(model => model.DepartmentName, new { style = "" })
+                            <p id="e5_f">
+                                <select id="checkboxlist1" class="form-group selectpicker" multiple name="selectCent">
+                                    @foreach (var item in Model.OrganisationDepartmentList)
+                                    {
+                                        if (item.StatusFlag == true)
+                                        {
+                                            <option id="@item.DepartmentID" value="@item.DepartmentID~@item.DepartmentName" selected>@item.DepartmentName</option>
+                                        }
+                                        else
+                                        {
+                                            <option id="@item.DepartmentID" value="@item.DepartmentID~@item.DepartmentName">@item.DepartmentName</option>
+                                        }
+                                    }
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group" style="margin-left: 2%; padding-top:48%; ">
+                    <button type="button" id="EditApprovalStageDetailsRecord" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        GeneralTaskReportingDetails.Initialize();
+
+
+        $('#checkboxlist1').selectpicker();
+
+        //$('.selectpicker').selectpicker();
+
+        //$('#checkboxlist1').multipleSelect();
+    });
+
+</script>

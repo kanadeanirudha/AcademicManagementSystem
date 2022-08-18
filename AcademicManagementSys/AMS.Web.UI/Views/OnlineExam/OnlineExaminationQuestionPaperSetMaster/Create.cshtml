@@ -1,0 +1,109 @@
+﻿@model AMS.ViewModel.OnlineExaminationQuestionPaperSetMasterViewModel
+
+<div id="salesDiv">
+    <div class="widget-block">
+        <div class="widget-head">
+            @if (Model.IsViewOnly)
+            {
+                <h5>  View Paper Set</h5>
+            }
+            else
+            {
+                <h5>  Create Paper Set</h5>
+            }
+
+        </div>
+        <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+        <div class="widget-content">
+            <div class="widget-box">
+                <form class="form-horizontal well" id="FormCreateOnlineExaminationQuestionPaperSetMaster" style="">
+                    <div class="nonboxy-widget">
+                        <fieldset>
+                            <div class="row">
+                                <div class="span9">
+                                </div>
+                            </div>
+                            @Html.HiddenFor(m => m.OnlineExamExaminationMasterID)
+                            @Html.HiddenFor(m => m.TotalQuestion)
+                            @Html.HiddenFor(m => m.PaperSetCode)
+                            <div class="row control-group">
+                                <div class="span1">
+                                    @Html.LabelFor(m => m.ExaminationName, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span2" style="">
+                                    <b> @Html.DisplayFor(model => model.ExaminationName, new { style = "font-Weight:Bold;" })</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="span9">
+                                    <table id="tblData" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left; width: 10%">Sr. No.</th>
+                                                <th style="text-align: left; width: 90%; line-height: 30px">
+                                                    Question
+                                                    @if (!Model.IsViewOnly)
+                                                    {
+                                                        if (Model.ApplicableQuestionList[0].TotalQuestion == Model.ApplicableQuestionList[0].TotalRecords)
+                                                        {
+                                                            <input type="button" id="btnSpin" style="float:right" value="Spin" class="btn btn-primary" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="button" id="btnSpin" style="float:right" value="Spin" class="btn btn-primary" disabled />
+                                                        }
+                                                    }
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @Html.Partial("~/Views/OnlineExam/OnlineExaminationQuestionPaperSetMaster/QuestionList.cshtml", (Model.ApplicableQuestionList))
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            @if (!Model.IsViewOnly)
+                            {
+                                if (Model.ApplicableQuestionList[0].TotalQuestion == Model.ApplicableQuestionList[0].TotalRecords)
+                                {
+                                    <div class="row">
+                                        <div class="span9">
+                                            <div class="form-actions " style="border: 1px solid #e5e5e5;text-align:right">
+                                                <input type="button" id="CreateOnlineExaminationQuestionPaperSetMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="span9">
+                                            <div class="form-actions " style="border: 1px solid #e5e5e5;text-align:right">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="span9">
+                                        <div class="form-actions " style="border: 1px solid #e5e5e5;text-align:right">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        OnlineExaminationQuestionPaperSetMaster.Initialize();
+    })
+</script>

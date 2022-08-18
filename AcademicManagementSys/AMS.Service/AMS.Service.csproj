@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3D7C1F7-7F51-4E56-A778-6C0F75D2A64B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMS.Service</RootNamespace>
+    <AssemblyName>AMS.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AcademicManagementSys|AnyCPU'">
+    <OutputPath>bin\AcademicManagementSys\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enum\ErrorCodeEnum.cs" />
+    <Compile Include="Enum\StatusCodeEnum.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\AMS.Base.DTO\AMS.Base.DTO.csproj">
+      <Project>{a574a086-4b01-4dcb-9a06-74b29b8c0b5c}</Project>
+      <Name>AMS.Base.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\AMS.ExceptionManager\AMS.ExceptionManager.csproj">
+      <Project>{94f0aa67-c554-463b-b0bc-932bcb80810c}</Project>
+      <Name>AMS.ExceptionManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.Business\AMS.Business.csproj">
+      <Project>{294bcab4-d5f4-4533-b510-03ff5729a7b9}</Project>
+      <Name>AMS.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.DTO\AMS.DTO.csproj">
+      <Project>{4c258527-e8c6-476d-bade-c5b5211067f2}</Project>
+      <Name>AMS.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.ServiceAccess\AMS.ServiceAccess.csproj">
+      <Project>{b8f01e73-c8e9-483d-97c9-b63b7eb1cb9f}</Project>
+      <Name>AMS.ServiceAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.ViewModel\AMS.ViewModel.csproj">
+      <Project>{9e374571-b9a5-486d-b0f7-f8ee0d24e16d}</Project>
+      <Name>AMS.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataContract\" />
+    <Folder Include="OperationContract\" />
+    <Folder Include="ServiceContract\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,228 @@
+﻿@*@model AMS.ViewModel.FeeTypeAndSubTypeViewModel
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div class="widget-block">
+    <div class="widget-head">
+        <h5 id="hFive"> @Resources.DisplayName_CreateFeeSubType </h5>
+    </div>
+    <div class="widget-content">
+        <form id="FormCreateFeeSubTypeMaster" method="post" class="form-horizontal well">
+            @Html.HiddenFor(model => model.ID)
+            <div class="row">
+                <div class="span10">
+                    <div class="row control-group">
+
+                        <div class="spanFullName span2" style="padding-left: 15px;">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                            @Html.LabelFor(model => model.FeeTypeDesc, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            <b>@Html.DisplayFor(model => model.FeeTypeDesc, new { @class = "txtbox" })</b>   
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                            @Html.LabelFor(model => model.SelectedBalanceSheet, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                        <b>    @Html.DisplayFor(model => model.SelectedBalanceSheet, new { @class = "txtbox" })</b>   
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="span10">
+                    <div class="row control-group">
+
+                        <div class="spanFullName span2" style="padding-left: 15px; ">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.FeeSubTypeDesc, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.FeeSubTypeDesc, new { @class = "txtbox", style = "font-Weight:Bold;", maxlength = "50" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.FeeSubTypeDesc)
+
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.FeeSubShortDesc, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.FeeSubShortDesc, new { @class = "txtbox", style = "font-Weight:Bold;", maxlength = "10" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.FeeSubShortDesc)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span10">
+                    <div class="row control-group">
+
+                        <div class="spanFullName span2" style="padding-left: 15px; ">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.AccountID,new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.DropDownListFor(model => model.AccountID, Model.AccountMasterListItems, Resources.ddlHeaders_Address, new { @class = "txtbox", style = "font-weight:bold" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.AccountID)
+
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                            @Html.LabelFor(model => model.FeeSource, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.DropDownList("FeeSource", ViewData["FeeSource"] as List<SelectListItem>, new { style = "font-Weight:Bold;width:210px;", @class = "" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span10">
+                    <div class="row control-group">
+
+                        <div class="spanFullName span2" style="padding-left: 15px;">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                            @Html.LabelFor(model => model.CarryForwardFeeSubtypeID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.DropDownListFor(model => model.CarryForwardFeeSubtypeID, Model.FeeSubTypeListItems, Resources.ddlHeaders_SelectCarryFwdSubType, new { style = "font-weight:bold" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.CarryForwardFeeSubtypeID)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">&nbsp;</span>
+                            @Html.LabelFor(model => model.SubTypeIdentification, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.DropDownList("SubTypeIdentification", ViewData["SubTypeIdentification"] as List<SelectListItem>, new { style = "font-Weight:Bold;width:210px;", @class = "" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-actions" style="padding-left: 0px; padding-bottom: 0px; text-align: right">
+                <button type="button" id="CreateFeeSubTypeRecord" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        FeeTypeAndSubType.Initialize();
+    });
+</script>*@
+
+
+@model AMS.ViewModel.FeeTypeAndSubTypeViewModel
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp;@Resources.DisplayName_CreateFeeSubType</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateFeeSubTypeMaster" method="post" role="form" class="row">
+                @Html.HiddenFor(model => model.ID)
+                
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.FeeTypeDesc)</label>
+                            @Html.TextBoxFor(model => model.FeeTypeDesc, new { @class = "form-control input-sm", disabled = "disabled", style = "background-color:white;" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            <label>@Html.LabelFor(model => model.SelectedBalanceSheet)</label>
+                            @Html.TextBoxFor(model => model.SelectedBalanceSheet, new { @class = "form-control input-sm", disabled = "disabled", style = "background-color:white;" })
+                        </div>
+
+                    </div>
+                </div>
+                
+              
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label><span style="color:red">*</span>@Html.LabelFor(model => model.FeeSubTypeDesc)</label>
+                           @Html.TextBoxFor(model => model.FeeSubTypeDesc, new { @class = "form-control input-sm", maxlength = "50" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.FeeSubTypeDesc)
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label><span style="color:red">*</span>@Html.LabelFor(model => model.FeeSubShortDesc, new { style = "font-Weight:Bold;" })</label>
+                            @Html.TextBoxFor(model => model.FeeSubShortDesc, new { @class = "form-control", maxlength = "10" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.FeeSubShortDesc)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            <label><span style="color:red">*</span>@Html.LabelFor(model => model.AccountID, new { style = "font-Weight:Bold;" })</label>
+                            @Html.DropDownListFor(model => model.AccountID, Model.AccountMasterListItems, "---Select  Account---", new { @class = "form-control" })
+                        </div>
+                       @Html.ValidationMessageFor(m => m.AccountID)
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            <label>@Html.LabelFor(model => model.FeeSource)</label>
+                            @Html.DropDownList("FeeSource", ViewData["FeeSource"] as List<SelectListItem>, new { @class = "form-control" })
+                        </div>
+                       
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            <label>@Html.LabelFor(model => model.CarryForwardFeeSubtypeID)</label>
+                            @Html.DropDownListFor(model => model.CarryForwardFeeSubtypeID, Model.FeeSubTypeListItems, Resources.ddlHeaders_SelectCarryFwdSubType, new { @class = "form-control" })
+                        </div>
+                       @Html.ValidationMessageFor(m => m.CarryForwardFeeSubtypeID)
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            <label>@Html.LabelFor(model => model.SubTypeIdentification)</label>
+                           @Html.DropDownList("SubTypeIdentification", ViewData["SubTypeIdentification"] as List<SelectListItem>, new { @class = "form-control" })
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+
+              <div class="form-group col-sm-12" style="margin-left:1%">
+                    <button type="button" id="CreateFeeSubTypeRecord" class="btn btn-primary">@Resources.ButtonAction_Submit</button>&nbsp;
+                    <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        FeeTypeAndSubType.Initialize();
+    });
+</script>

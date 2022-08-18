@@ -1,0 +1,30 @@
+﻿@model AMS.ViewModel.GeneralCategoryMasterViewModel
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<div id="update-message" class="error invisible"></div>
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.ID)
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.CategoryName)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.CategoryName)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.CategoryCode)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.CategoryCode)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.CategoryType)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.CategoryType)
+</div>
+
+

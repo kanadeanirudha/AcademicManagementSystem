@@ -1,0 +1,401 @@
+﻿@*@model AMS.ViewModel.OrganisationCourseYearDetailsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.BranchID)
+@Html.HiddenFor(model => model.CentreCode)
+@Html.HiddenFor(model => model.StreamID)
+<div id="update-message" class="error invisible"></div>
+<div class="widget-block">
+    <div class="widget-head">
+        <h5>@Resources.FormCreate_CreateCourseYearDeatail </h5>
+    </div>
+
+    <div class="widget-content">
+        <form id="FormCreateOrganisationCourseYearDetails" method="post" class="form-horizontal well">
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.CentreName, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            <b>@Html.DisplayFor(model => model.CentreName)</b>
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.StreamID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(m => m.StreamDescription, new { @readonly = "readonly", style = "font-weight:bold" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.StandardID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.DropDownListFor(model => model.StandardID, (SelectList)ViewBag.OrganisationStandardMaster, Resources.ddlHeaders_StandardName, new { style = "font-weight:bold" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.StandardID)
+                        </div>
+                        <div class="spanFullName span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.MediumID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+
+                            @Html.DropDownListFor(model => model.MediumID, (SelectList)ViewBag.OrganisationMediumMaster, Resources.ddlHeaders_MediumName, new { style = "font-weight:bold" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.MediumID)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.DegreeName, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(m => m.DegreeName, new { style = "font-weight:bold", maxlength = "100" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.DegreeName)
+
+
+                        </div>
+                        <div class="spanFullName span2">
+                               <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.Description, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(m => m.Description, new { style = "font-weight:bold", maxlength = "240" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.CourseYearCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(m => m.CourseYearCode, new { style = "font-weight:bold", maxlength = "20" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.CourseYearCode)
+                        </div>
+                        <div class="spanFullName span2">
+                            @Html.LabelFor(model => model.ExamApplicable, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.DropDownList("ExamApplicable", ViewData["ApplicableType"] as List<SelectListItem>, Resources.ddlHeaders_ApplicationTypeName, new { style = "font-weight:bold" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.ExamApplicable)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(m => m.ExamPattern, new { style = "font-weight:bold", id = "SemesterApplicable" })
+                        </div>
+                        <div class="span3">
+                            @Html.RadioButtonFor(model => model.ExamPattern, 'S', new { @checked = true, id = "Semester" })&nbsp;&nbsp;&nbsp; Semister &nbsp;&nbsp;&nbsp;
+                        @Html.RadioButtonFor(model => model.ExamPattern, 'Y', new { id = "Yearly" })&nbsp;&nbsp;&nbsp;Yearly
+             
+                        </div>
+                        <div class="spanFullName span2">
+                               <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.SectionCapacity, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.SectionCapacity, new {Value="",  min = 1, maxlength = 3 })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.SectionCapacity)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(m => m.Duration, new { style = "font-weight:bold", id = "SemesterApplicable" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.Duration, new {Value="", min = 1, maxlength = 4 })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Duration)
+                        </div>
+                        <div class="spanFullName span2">
+
+                            @Html.LabelFor(model => model.SemesterApplicable, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2" id="checkboxlist">
+                           <p id="e5_f">
+
+                            <select id="checkboxlist1" class="w500" multiple="multiple" style="height: 180px; font-weight: bold">
+                                @foreach (var item in Model.OrganisationSemesterMasterList)
+                                {
+                                    <option id="@item.SemesterType" value="@item.ID~@item.SemesterType"> @item.OrgSemesterName (@item.SemesterType)</option>         
+                                 
+                                }
+                            </select>
+                        </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-actions" style="padding-left: 0px; padding-bottom: 0px; text-align: right">
+               <input id="CreateOrganisationCourseYearDetailsRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" style="width:50px;"/>
+                <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationCourseYearDetails.Initialize();
+
+    });
+
+    $('#checkboxlist1').multipleSelect();
+    //$("#SemesterIDs").multipleSelect({
+    //    filter: true,
+    //    //multiple: true,
+    //    multipleWidth: 100,
+    //    width: '100%',
+    //    height: '280px',
+    //    //keepOpen: true
+    //});
+    //function check() {
+    //    $("#BranchActive").checked = true
+    //}
+
+
+
+</script>*@
+
+@*<style>
+    .span1 {
+        width: 115px;
+    }
+
+    .span2 {
+        width: 136px;
+    }
+</style>*@
+
+
+@*------------new code-------------*@
+
+@model AMS.ViewModel.OrganisationCourseYearDetailsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormCreate_CreateCourseYearDeatail</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateOrganisationCourseYearDetails">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.BranchID)
+                @Html.HiddenFor(model => model.CentreCode)
+                @Html.HiddenFor(model => model.StreamID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group  fg-line">
+                        @Html.LabelFor(model => model.CentreName, new { style = "" }):    
+                            <b>@Html.DisplayFor(model => model.CentreName)</b>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.StreamID, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.StreamDescription, new { @class = "form-control", @readonly = "readonly", style = "background-color:#fff;" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.StandardID, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.StandardID, (SelectList)ViewBag.OrganisationStandardMaster, Resources.ddlHeaders_StandardName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.StandardID)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.MediumID, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(model => model.MediumID, (SelectList)ViewBag.OrganisationMediumMaster, Resources.ddlHeaders_MediumName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MediumID)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.DegreeName, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.DegreeName, new { @class = "form-control", style = "", maxlength = "100" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.DegreeName)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Description, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", style = "", maxlength = "240" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Description)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.CourseYearCode, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.CourseYearCode, new { @class = "form-control", style = "", maxlength = "20" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.CourseYearCode)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.ExamApplicable, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownList("ExamApplicable", ViewData["ApplicableType"] as List<SelectListItem>, Resources.ddlHeaders_ApplicationTypeName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ExamApplicable)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.ExamPattern, new { style = "", id = "SemesterApplicable" })
+                        <div class="form-group  fg-line">
+                            <label class="radio radio-inline m-r-20">
+                                @Html.RadioButtonFor(model => model.ExamPattern, 'S', new { @checked = true, id = "Semester" })&nbsp; 
+                                <i class="input-helper"></i>
+                                <b> Semister  </b>
+                            </label>
+
+                            <label class="radio radio-inline m-r-20">
+                                @Html.RadioButtonFor(model => model.ExamPattern, 'Y', new { id = "Yearly" })&nbsp;
+                                <i class="input-helper"></i>
+                                <b> Yearly</b>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.SectionCapacity, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.SectionCapacity, new { @class = "form-control", Value = "", min = 1, maxlength = 3 })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SectionCapacity)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.Duration, new { style = "", id = "SemesterApplicable" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.Duration, new { @class = "form-control", Value = "", min = 1, maxlength = 4 })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Duration)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div id="checkboxlist" class="form-group">
+                            @Html.LabelFor(model => model.SemesterApplicable, new { style = "" })
+                            <p id="e5_f">
+                                <select id="checkboxlist1" class="form-group selectpicker" multiple name="selectCent">
+                                    @*data-live-search="true"*@
+                                    @foreach (var item in Model.OrganisationSemesterMasterList)
+                                    {
+                                        <option id="@item.SemesterType" value="@item.ID~@item.SemesterType"> @item.OrgSemesterName (@item.SemesterType)</option>
+
+                                    }
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateOrganisationCourseYearDetailsRecord" type="button" />
+                    <input name="" id="reset" type="submit" class="btn btn-default" value="@Resources.ButtonAction_Reset" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker();
+        OrganisationCourseYearDetails.Initialize();
+
+    });
+
+    //$('#checkboxlist1').multipleSelect();
+</script>
+
+
+

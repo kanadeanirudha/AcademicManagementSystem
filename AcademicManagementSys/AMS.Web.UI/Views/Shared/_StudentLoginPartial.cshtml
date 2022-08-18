@@ -1,0 +1,51 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <div class="profile-menu">
+        <a href="">
+            <div class="profile-pic">
+                @if (HttpContext.Current.Session["ProfilePhoto"] != null)
+                {
+                    <img alt="" class="" style="" id="" src="data:image/jpeg;base64,@Convert.ToBase64String((byte[])(HttpContext.Current.Session["ProfilePhoto"]), 0, Convert.ToInt32(HttpContext.Current.Session["ProfilePhotoSize"]))" />
+                }
+                else
+                {
+                    <img alt="" style="" id="" src="~/Content/materialtheme/img/login.png" />
+                }
+            </div>
+
+            <div class="profile-info" id="LoginPartialID">
+                @HttpContext.Current.Session["UserName"]
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </a>
+
+        <ul class="main-menu">
+            @*<li>
+                <a href="/EmployeeInformation/PersonalInformationHome/@HttpContext.Current.Session["PersonID"]"><i class="zmdi zmdi-account"></i>@Resources.DisplayName_ViewProfile</a>
+            </li>*@
+         
+            <li>
+                <a class="mfpAjaxModal" href="@Url.Action("_ChangePasswordV2", "EmployeeInformation", new { ID = Convert.ToInt32(HttpContext.Current.Session["UserID"]) })"><i class="zmdi zmdi-settings"></i>Change Password</a>
+            </li>
+           
+            <li>
+                @*<a id="Logout" href=""><i class="zmdi zmdi-time-restore"></i> @Resources.DisplayName_Logout</a>*@
+                <a href="javascript:document.getElementById('logoutForm').submit()"><i class="zmdi zmdi-time-restore"></i><strong>@Resources.DisplayName_Logout</strong></a>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "margin: 0px;background-color:#808080; color:#fff;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="latitude" value="" />
+                    <input type="hidden" id="longitude" value="" />
+                }
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+}
+

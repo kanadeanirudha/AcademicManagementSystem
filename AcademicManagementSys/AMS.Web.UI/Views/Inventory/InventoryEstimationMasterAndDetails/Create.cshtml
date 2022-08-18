@@ -1,0 +1,176 @@
+﻿@model AMS.ViewModel.InventoryEstimationMasterAndDetailsViewModel
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<style>
+    .ui-front {
+        z-index: 9999;
+    }
+
+    .ui-datepicker {
+        font-size: 9pt !important;
+    }
+</style>
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div id="salesDiv">
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>  Create Estimation</h5>
+        </div>
+        <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+        <div class="widget-content">
+            <div class="widget-box">
+                <form class="form-horizontal well" id="FormCreateInventoryEstimationMasterAndDetails" style="">
+                    <div class="nonboxy-widget">
+                        <fieldset>
+                            <div class="row">
+                                <div class="span9">
+                                </div>
+                            </div>
+                            <div class="row control-group">
+                                <div class="span2">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.HiddenFor(m => m.CustomerID)
+                                    @Html.LabelFor(model => model.CustomerName, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span2" style="line-height: 25px">
+                                    @Html.TextBoxFor(model => model.CustomerName, new { @class = "txtbox", maxlength = "60", style = "font-Weight:Bold;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.CustomerName)
+
+                                </div>
+                                <div class="span2" style="margin-left: 10%">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CustomerMobileNumber, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span2" style="line-height: 25px">
+                                    @Html.TextBoxFor(model => model.CustomerMobileNumber, new { @class = "txtbox", maxlength = "20", style = "font-Weight:Bold;" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.CustomerMobileNumber)
+
+                                </div>
+                            </div>
+                            <div class="row control-group">
+                                <div class="span2">
+                                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                    @Html.LabelFor(model => model.CustomerAddress, new { style = "font-Weight:Bold;" })
+                                </div>
+                                <div class="span2" style="line-height: 25px">
+                                    @Html.TextBoxFor(model => model.CustomerAddress, new { @class = "txtbox", maxlength = "100", style = "font-Weight:Bold;width:389%" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.CustomerAddress)
+
+                                </div>
+                            </div>
+                            
+                            <hr />
+
+                            <div class="row">
+                                <div class="span9">
+                                    <div class="row control-group">
+                                        @Html.HiddenFor(model => model.ItemID)
+                                        <div class="span">
+                                            @Html.LabelFor(model => model.ItemName, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.ItemName, new { @class = "txtbox", style = "font-weight:bold" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.Rate, new { Style = "font-size: 100%;font-weight:bold ;" })
+                                            @Html.TextBoxFor(model => model.Rate, new { @class = "txtbox", style = "width:70px;text-align:right;font-weight:bold;margin-left: -10px;-webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.UnitCode, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.UnitCode, new { @class = "txtbox", Style = "width:60px;text-align:right;font-weight:bold;margin-left: -10px; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.Quantity, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.Quantity, new { @class = "txtbox", maxlength = "10", Style = "width:70px;text-align:right;font-weight:bold;margin-left: -10px" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.EstimationAmount, new { Style = "font-size: 100%;font-weight:bold;margin-left: -10px" })
+                                            @Html.TextBoxFor(model => model.EstimationAmount, new { @class = "txtbox", Style = "width:70px;text-align:right;font-weight:bold;margin-left: -10px; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.HiddenFor(model => model.taxpercentage)
+                                            @Html.HiddenFor(model => model.GenTaxGroupMasterID)
+                                            @Html.LabelFor(model => model.TotalTaxAmount, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.TotalTaxAmount, new { @class = "txtbox", Style = "width:70px;text-align:right;font-weight:bold;margin-left: -26px; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", disabled = "disabled" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.HiddenFor(model => model.RateDecreaseByPercentage)
+                                            @Html.LabelFor(model => model.TotalDiscountAmount, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.TotalDiscountAmount, new { @class = "txtbox", maxlength = "7", Style = "width:70px;text-align:right;font-weight:bold;margin-left: -10px", })
+                                        </div>
+                                        <div class="spanFullName">
+                                            <label for="input01">&nbsp;</label>
+                                            <input type="button" id="addItem" class="btn btn-primary" style="height: 28px; margin-left: -25px;" value="Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="span9">
+                                    
+                                    <div id="DivAddRowTable" style="height: 200px; overflow: auto">
+                                        <table id="tblData" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left; width: 30%">item</th>
+                                                    <th style="text-align: left; width: 15%">rate</th>
+                                                    <th style="text-align: left; width: 13%">unit</th>
+                                                    <th style="text-align: left; width: 16%">quantity</th>
+                                                 
+                                                    <th style="display:none"> Tax percentage</th>
+                                                    <th style="display:none"> Tax</th>
+                                                    <th style="display:none"> Tax</th>
+                                                    <th style="display: none"> Discount</th>
+                                                    <th style="text-align: left; width: 13%">total</th>
+                                                    <th style="text-align: center; width: 5px;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="span9">
+                                    <div class="form-actions " style="border: 1px solid #e5e5e5;text-align:right">
+                                        <span style="float: left; margin-left: -150px; font-weight: bold;">
+                                            Total Item
+                                            <input type="text" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" disabled id="TotalItem" value="0"/>
+                                        </span>
+                                        <span style="float: left; margin-left: 20px; font-weight: bold;">
+                                            Total Estimation Amount
+                                            <input type="text" style="width: 70px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6); " disabled id="TotalBillAmount" value="0" />
+                                        </span>
+                                        <span style="float: left; margin-left: 20px; display:none; font-weight: bold;">
+                                            Total taxAmount
+                                            <input type="text" style="width: 70px; font-weight: bold; display: none; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" disabled id="TotalTaxAmountt" value="0" />
+                                        </span>
+                                        <span style="float: left; margin-left: 20px; display: none; font-weight: bold;">
+                                            Total Discount Amount
+                                            <input type="text" style="width: 70px; font-weight: bold; display: none; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" disabled id="TotalDiscountAmountt" value="0" />
+                                        </span>
+
+                                        <input type="button" id="CreateInventoryEstimationMasterAndDetails" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        InventoryEstimationMasterAndDetails.Initialize();
+    })
+
+</script>

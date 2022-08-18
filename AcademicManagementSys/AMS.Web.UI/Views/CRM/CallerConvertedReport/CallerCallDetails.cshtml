@@ -1,0 +1,95 @@
+﻿@model AMS.ViewModel.CRMCallMasterAndDetailsViewModel
+<div class="card" id="DivBranchWiseJobOrder">
+    <div class="card-header">
+        <h2> Call Details :@Html.DisplayFor(m => Model.CallerFullName, new { style = "font-weight: bold;" })</h2>
+
+        <ul class="actions">
+            <li class="dropdown action-show">
+                <a data-toggle="dropdown" href="#" style="cursor: pointer" title="Back" id="CallDetailsBack">
+                    <i class="zmdi zmdi-long-arrow-return zmdi-hc-fw"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped" id="myDataTable">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Students Name</th>
+                    <th>Mobile No</th>
+                    <th>Email</th>
+                    <th>Source</th>
+                    <th>Status</th>
+
+                </tr>
+            </thead>
+            @if (Model.ListCRMCalleeCallDetails != null)
+            {
+                <tbody>
+                    @for (int i = 0; i < Model.ListCRMCalleeCallDetails.Count; i++)
+                    {
+
+                        <tr role="row" class="odd">
+                            <td>@Convert.ToInt32(i + 1)</td>
+                            <td>@Model.ListCRMCalleeCallDetails[i].CalleeFullName</td>
+                            <td>@Model.ListCRMCalleeCallDetails[i].CalleeMobileNo</td>
+                            <td>@Model.ListCRMCalleeCallDetails[i].CalleeEmailID</td>
+                            <td>@Model.ListCRMCalleeCallDetails[i].Source</td>
+                            @if (Model.ListCRMCalleeCallDetails[i].CallerJobStatus == 1 && Model.ListCRMCalleeCallDetails[i].CallStatus == 1)
+                            {
+                                <td>
+                                    <a href="/CallerConvertedReport/NewAdmission?CallMasterID=@Model.ListCRMCalleeCallDetails[i].CallMasterID" style="text-decoration: none !important;" class="mfpAjaxModal"><span style="text-align: center;" class="btn btn-xs btn-success">Completed</span></a>
+                                </td>
+                            }
+                            @if (Model.ListCRMCalleeCallDetails[i].CallerJobStatus == 1 && (Model.ListCRMCalleeCallDetails[i].CallStatus == 3 || Model.ListCRMCalleeCallDetails[i].CallStatus == 2))
+                            {
+                                <td>
+                                    <a href="/CallerConvertedReport/NewAdmission?CallMasterID=@Model.ListCRMCalleeCallDetails[i].CallMasterID" style="text-decoration: none !important;" class="mfpAjaxModal"><span style="text-align: center;" class="btn btn-xs btn-danger">Completed</span></a>
+                                </td>
+                            }
+                            @if (Model.ListCRMCalleeCallDetails[i].CallerJobStatus == 2)
+                            {
+                                <td>
+                                    <a href="/CallerConvertedReport/NewAdmission?CallMasterID=@Model.ListCRMCalleeCallDetails[i].CallMasterID" style="text-decoration: none !important;" class="mfpAjaxModal"><span style="text-align: center;" class="btn btn-xs btn-warning">In Progress</span></a>
+                                </td>
+                            }
+                            @if (Model.ListCRMCalleeCallDetails[i].CallerJobStatus == 3)
+                            {
+                                <td><span style="text-align: center;" class="btn btn-xs bgm-lightblue">Pending</span></td>
+                            }
+                            @if (Model.ListCRMCalleeCallDetails[i].CallerJobStatus == 4)
+                            {
+                                <td><span style="text-align: center;" class="btn-xs btn bgm-lightblue">Pending</span></td>
+                            }
+
+
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#CallDetailsBack').click(function () {
+            $('#Hidden_Table_Chart').val("Table");
+            var valuFromDate = $('#FromDate').val();
+            var ValuUptoDate = $('#UptoDate').val();
+            $.ajax(
+                    {
+                    cache: false,
+                    type: "POST",
+                    data: { FromDate: valuFromDate, UptoDate: ValuUptoDate },
+                    dataType: "html",
+                    url: '/CallerConvertedReport/CallerConvertedTable',
+                    success: function (data) {
+                        //Rebind Grid Data
+                        $('#ListViewModel').html(data);
+                    }
+                    });
+        });
+    });
+</script>

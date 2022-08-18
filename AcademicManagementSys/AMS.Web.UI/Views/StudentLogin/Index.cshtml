@@ -1,0 +1,142 @@
+﻿@model AMS.ViewModel.StudentLoginViewModel
+
+
+@{
+    ViewBag.Title = "Log in";
+    // Layout = "~/Views/Shared/_LandingStudent.cshtml";
+    Layout = null;
+}
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @HttpContext.Current.Session["ProjectName"] @Resources.DisplayName_InformationSystem</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../Content/images/favicon.ico">
+    <script src="../Scripts/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Content/Theme/css/bootstrap-admin-theme.css" rel="stylesheet" />
+    <link href="../Content/Theme/css/site.css" rel="stylesheet" />
+    <link href="../Content/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
+    <script src="../Scripts/plugin/colorbox/jquery.colorbox.js" type="text/javascript"></script>
+    <script src="../Scripts/modernizr-2.6.2.js"></script>
+
+    <title>Student LogIn</title>
+    <section class="social" id="socialLoginForm">
+    </section>
+    <style>
+        .YourBackgroundClass {
+            background: #fff;
+            border-radius: 3px 3px;
+            width: 300px;
+            border: 1px solid #808080;
+        }
+
+
+        .ErrorMsg {
+            color: #930707;
+            font-size: 2px;
+        }
+    </style>
+</head>
+<body style="background: url('../Content/images/CoverPage-EIS.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <div class="alert" style="text-align: center; font-size: x-large; background-color: #FFF; opacity: 0.9; color: #1b74e0; font-weight: BOLD; font-size: 28px;">
+        @* @Resources.AppName*@
+        Student Registration Login
+        <div style="float: right;">
+            <a class="ajax cboxElement" href="@Url.Action("Login", "StudentLogin")">
+                <h6 style="color: #1b74e0;font-size:14px;"><i class="icon-plus" style="padding-left: 7px;"></i>Sign-In</h6>
+            </a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" align="center">
+
+            <section id="loginForm" style="width: 60%; text-align: left">
+                <div class="bootstrap-admin-login-form" style="max-width: 100%; padding-bottom: 20px">
+
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <div class="row" style="margin: 0;">
+                            <h3 style="text-align: center; color: #820000; margin-bottom: 0; margin-top: 0;">Pre-Admission Online Registration </h3>
+                            <hr />
+                        </div>
+                        <div class="row">
+                            <div class="row" style="font-size: 14px; color: #1b74e0; margin: 0;">
+                                <p>For regular under-graduate and post-graduate courses, the admissions are offered at affiliated colleges, recognized institutes, and university departments.</p>
+                                <p>
+                                    Applicants aspiring admissions need to apply in respective college, institute, or department. From academic year 2016-17 application for admission has been made available online by the University. Applicants may use this facility to the fullest for their benefit. The output of the 
+                                <strong>'Pre-Admission Online Registration</strong>
+                                    will be a printout of application form to be submitted in colleges.
+                                </p>
+                                <p>
+                                    Applicants from states other than Maharashtra, and foreign nationals may also use this facility. However, foreign nationals may have to undergo additional mandatory procedures by contacting the University.
+                                <br>
+                                </p>
+                            </div>
+                            <div class="row" align="center">
+                                <a href="/StudentSelfRegistration/AgreementPage" target="_parent">
+                                    <button class="btn btn-lg btn-block btn-primary " type="submit" value="Submit" style="height: 45px; width: 350px;">Click Here To Apply</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            @*<section id="loginForm" style="float: right">
+                <div class="bootstrap-admin-login-form" style="background: url('/../Content/images/loginBg.png')">
+
+                    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                    {
+             
+                        <h2 style="text-align: left">Login</h2>
+                
+                        <hr />
+                        <div style="color: #ff0000; text-align: left;">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            @Html.ValidationMessageFor(m => m.EmailID)
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(m => m.EmailID, new { @class = "YourBackgroundClass", Placeholder = "Email-ID" })<br />
+                            </div>
+                            <div class="col-lg-10" style="color: #ff0000;">
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+           
+                        <div class="form-group">
+                            <div class="col-lg-4">
+
+                                @Html.PasswordFor(m => m.Password, new { @class = "YourBackgroundClass", Placeholder = "Password" })<br />
+                            </div>
+                            <div class="col-lg-10" style="color: #ff0000; text-align: left; width: 350px;">
+                                @Html.ValidationMessageFor(m => m.Password)
+
+                            </div>
+                        </div>
+                        <br />
+                        <br />          
+                        <div class="col-lg-4">
+                            <button class="btn btn-lg btn-block btn-primary " type="submit" value="Submit" style="height: 40px; width: 300px;">Sign In</button>
+                        </div>             
+                        <br />
+                        <br />
+                        
+                    }
+                </div>
+            </section>*@
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".ajax").colorbox();
+    });
+</script>

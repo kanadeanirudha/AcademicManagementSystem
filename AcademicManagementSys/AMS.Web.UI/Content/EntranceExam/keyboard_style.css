@@ -1,0 +1,46 @@
+﻿
+.vKeyboardSplKeys {
+    background-color: #dedbe4;
+    border: 1px solid #666666;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    margin: 2px;
+    padding: 3px 6px;
+}
+.vKeyboardSplKeysHover {
+    background-color: #8cb82b;
+}
+.vKeyboardSplKeys:active {
+    position: relative;
+    top: 1px;
+}
+.vKeyboardKeys {
+    background-color: #eeeeee;
+    border: 1px solid #666666;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    margin: 2px;
+    padding: 3px 8px;
+    width: 24px;
+}
+.vKeyboardKeysHover {
+    background-color: #cee9fc;
+}
+.vKeyboardKeys:active {
+    position: relative;
+    top: 1px;
+}
+.space {
+    padding: 3px 40px;
+}
+#vKeyboard {
+    background-color: #f4f4f4;
+    padding: 5px;
+    text-align: center;
+}

@@ -1,0 +1,58 @@
+﻿@model AMS.ViewModel.CRMSaleReportViewModel
+
+
+<div class="card">
+    <div class="card-header ch-alt m-b-20">
+        <h2>Today's Enquiry </h2>
+
+    </div>
+
+    <div class="card-body">
+        <div class="listview">
+            @if (ViewBag.ListCRMSaleEnquiryMasterAndAccountDetails.Count > 0)
+            {
+                foreach (var item in ViewBag.ListCRMSaleEnquiryMasterAndAccountDetails)
+                {
+                    <div class="lv-item">
+                        <div class="media">
+                            <div class="media-body">
+
+                                <div class="lv-title">
+                                    @if (@item.EnquiryProgressStatus == 1)
+                                    {
+                                        <button class='btn bgm-amber btn-xs'>New</button>
+                                    }
+                                    else if (@item.EnquiryProgressStatus == 2)
+                                    {
+                                        <button class='btn bgm-teal btn-xs'>Follow-up</button>
+                                    }
+                                    else if (@item.EnquiryProgressStatus == 3)
+                                    {
+                                        <button class='btn bgm-indigo btn-xs'>Coverted</button>
+                                    }
+                                    else if (@item.EnquiryProgressStatus == 4)
+                                    {
+                                        <button class='btn bgm-purple btn-xs'>Lost</button>
+                                    }
+                                </div>
+                                <small class="p-l-10" style="color: #a9a9a9; font-size:13px;">@item.EnquiryDesription</small>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="lv-item">
+                    <div class="media">
+                        <div class="media-body">
+                            <small class="p-l-20" style="color: #a9a9a9; font-size:14px;">Sorry.. No Enquiry For Today.</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

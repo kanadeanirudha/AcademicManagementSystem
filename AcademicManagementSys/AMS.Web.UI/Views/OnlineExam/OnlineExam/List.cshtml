@@ -1,0 +1,256 @@
+﻿@model AMS.ViewModel.OnlineExamViewModel
+<div class="block-header">
+    <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Online Exams</h2>
+</div>
+<div class="card">
+    <div class="card-header">
+        <ul class="actions" style="display:none;">
+            <li class="dropdown">
+                <a href="" data-toggle="dropdown">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="mfpAjaxModal" title="Add New" href="@Url.Action("Create","GeneralPaperSetMaster")">
+                            <i class="zmdi zmdi-plus-square"></i>&nbsp;Add New
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    @*   <button title="Refresh" type="button" class="btn btn-default">
+                            <span class="zmdi icon zmdi zmdi-refresh zmdi-hc-fw"></span>
+                        </button>*@
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                            @*<li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="-1">All</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="Question Type">
+                                        Online Exam<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name=" Related With">
+                                        Date<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name=" Related With">
+                                        Time<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="Action">
+                                        @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive">
+        <thead>
+            <tr>
+                <th>Online Exam</th>
+                <th>Subject</th>
+                <th style="text-align:center;">Examination Start Date</th>
+                <th style="text-align:center;">Examination End Date</th>
+                <th style="text-align:center;">Start Time</th>
+                <th style="text-align:center;">End Time</th>
+                <th style="text-align:center;">@Resources.TableHeaders_Action</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var oTable;
+        OnlineExam.Initialize();
+
+        oTable = $('#myDataTable').DataTable({
+
+            "bServerSide": true,
+            "sAjaxSource": "OnlineExam/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "columnDefs": [
+                              {
+                                  "targets": 0, "visible": false,
+                              },
+                              {
+                                  "targets": 1,
+                                  "bSortable": false,
+                                  "data": null,
+                                  "render": function (data, type, full, meta) {
+                                      var result = "<p  style=' height:5px;'>" + data[7] + "</p>";
+                                      return result;
+                                  }
+                              },
+                               {
+                                   "targets": 2,
+
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       if (data[1] != "") {
+                                           var result = "<p  style=' height:5px;'>" + data[3] + "</p>";
+                                           return result;
+                                       }
+                                       else {
+                                           return null;
+                                       }
+                                   }
+                               },
+                                 {
+                                     "targets": 3,
+
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         if (data[1] != "") {
+                                             var result = "<p  style=' height:5px;'>" + data[12] + "</p>";
+                                             return result;
+                                         }
+                                         else {
+                                             return null;
+                                         }
+                                     }
+                                 },
+                                                               {
+                                   "targets": 4,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       if (data[1] != "") {
+                                           var result = "<p  style=' height:5px;'>" + data[4] + "</p>";
+                                           return result;
+                                       }
+                                       else {
+                                           return null;
+                                       }
+                                   }
+                               },
+                               {
+                                   "targets": 5,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       if (data[1] != "") {
+                                           var result = "<p  style=' height:5px;'>" + data[5] + "</p>";
+                                           return result;
+                                       }
+                                       else {
+                                           return null;
+                                       }
+                                   }
+                               },
+                               {
+
+                                   "targets": 6,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+
+                                       if (data[6] == 'False' && data[8] == 'True') {
+                                           var URL = '@Url.Action("Instructions", "OnlineExam", null, Request.Url.Scheme)';
+                                           result = '<a href="javascript:void(0)" onclick="OpenNewWindowForExam(' + data[0] + ')" ><span class="btn btn-default waves-effect" title="Start Exam">Start Exam</span></a>'
+                                       } else if (data[6] == 'True') {
+                                           //result = ' <a class="btn btn-default waves-effect" href="/OnlineExamResult/Index?OnlineExamIndStudentExamInfoID='+ data[0] +'"><span title="View Result">View Result</span></a>'
+                                           result = ' <a  href="javascript:void(0)"><span class="btn btn-default waves-effect" title="Completed">Completed</span></a>'
+                                       } else if (data[8] == 'False') {
+                                           result = ' <a href="javascript:void(0)"><span class="btn btn-default waves-effect" title="Not Started">Not Started</span></a>'
+                                       }
+                                       return result;
+
+                                   }
+                               }
+            ],
+            "drawCallback": function (settings) {
+                debugger;
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                var groupArray = '';
+                api.column(1, { page: 'current' }).data().each(function (group, i) {
+
+                    var array = String(group).split(',');
+
+                    if (last !== array[1]) {
+
+                        var ExamResult = '<tr class="group"><td colspan="5"  style="font-weight:bold;font-size:12px;font-family: verdana;" >' + array[2] + '</td>';
+                        if (array[10] == 'True') {
+                            ExamResult += '<td style="font-weight:bold;font-size:12px;font-family: verdana;text-align:left"><a class="" href="/StudentReportCard/Index?OnlineExamExaminationCourseApplicableID=' + array[11] + '"><span class=\"btn btn-default waves-effect\" title ="View Result">View Result</span></a></td></tr>';
+                        } else {
+                            ExamResult += '<td style="font-weight:bold;font-size:12px;font-family: verdana;text-align:left"></td></tr>';
+                        }
+
+                        $(rows).eq(i).before(
+                            ExamResult
+                        );
+                        last = array[1];
+                    }
+                });
+            }
+        });
+        DataTableSettings(oTable, 'myDataTable', 'toggleTableColumn');
+    });
+
+    function OpenNewWindowForExam(OnlineExamIndStudentExamInfoID) {
+        var url = '@Url.Action("Instructions", "OnlineExam", new { OnlineExamIndStudentExamInfoID = "OnlineExamIndStudentExamInfoID1" }, Request.Url.Scheme)'
+        url = url.replace("OnlineExamIndStudentExamInfoID1",OnlineExamIndStudentExamInfoID);
+        window.open(url, '_blank');
+    }
+</script>

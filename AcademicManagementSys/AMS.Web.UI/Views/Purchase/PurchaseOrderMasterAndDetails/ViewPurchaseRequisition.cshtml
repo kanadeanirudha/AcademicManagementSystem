@@ -1,0 +1,231 @@
+﻿@*
+    @model AMS.ViewModel.PurchaseRequisitionMasterViewModel
+    <link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+
+    <style>
+        .ui-front {
+            z-index: 9999;
+        }
+
+        .ui-datepicker {
+            font-size: 9pt !important;
+        }
+    </style>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.DepartmentID)
+    @Html.HiddenFor(m => m.ID)
+
+
+    <div id="salesDiv" style="width:1100px">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>  View Purchase Requisition</h5>
+            </div>
+            <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <form class="form-horizontal well" id="FormViewPurchaseRequisitionMaster" style="">
+                        <div class="nonboxy-widget">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="span11">
+                                    </div>
+                                </div>
+                                <div class="row control-group">
+                                    <div class="span2">
+                                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                        @Html.LabelFor(model => model.PurchaseRequisitionNumber, new { style = "font-Weight:Bold;" })
+                                    </div>
+                                    <div class="span2" style="line-height: 25px">
+                                        @Html.TextBoxFor(model => model.PurchaseRequisitionNumber, new { @class = "txtbox", @readonly = "readonly", maxlength = "60", style = "font-Weight:Bold;" })
+                                        <br />
+                                        @Html.ValidationMessageFor(model => model.PurchaseRequisitionNumber)
+
+                                    </div>
+                                    <div class="span2" style="margin-left: 10%">
+                                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                        @Html.LabelFor(model => model.TransDate, new { Style = "font-size: 100%;font-weight:bold;" })
+
+                                    </div>
+                                    <div class="span2" style="line-height: 25px">
+                                        @Html.TextBoxFor(model => model.TransDate, new { @class = "txtbox", @readonly = "readonly", Style = "width:120px;font-weight:bold;margin-left: -10px;", disabled = "disabled" })
+                                        <br />
+                                        @Html.ValidationMessageFor(model => model.TransDate)
+
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="span11">
+
+                                        <div id="DivAddRowTable" style="height:auto; overflow: auto">
+                                            <table id="tblData" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: left; width: 30%">item</th>
+                                                        <th style="text-align: left; width: 11%">Quantity</th>
+                                                        <th style="text-align: left; width: 10%">Rate</th>
+                                                        <th style="text-align: left; width: 15%">Expected Delivery Date</th>
+                                                        <th style="text-align: left; width: 11%">Priority</th>
+                                                        <th style="text-align: left; width: 14%">Location</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="overflow: auto">
+
+                                                    @foreach (var item in Model.PurchaseRequisitionMasterList)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.ItemName<input type="text" style="display:none" value="@item.ItemID"></td>
+                                                            <td>@item.Quantity<input type="text" style="display:none" value="@item.Rate"></td>
+                                                            <td>@item.Rate<input type="text" style="display:none" value="@item.Rate"></td>
+                                                            <td>@item.ExpectedDeliveryDate<input type="text" style="display:none" value="@item.ExpectedDeliveryDate"></td>
+
+                                                            @if (item.PriorityFlag == 1)
+                                                            {
+                                                                <td>High<input type="text" style="display:none" value="@item.PriorityFlag"></td>
+                                                            }
+                                                            else if (item.PriorityFlag == 2)
+                                                            {
+                                                                <td>Medium<input type="text" style="display:none" value="@item.PriorityFlag"></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>Low<input type="text" style="display:none" value="@item.PriorityFlag"></td>
+                                                            }
+                                                            <td><input type="text" style="display:none" value="@item.StorageLocationID">@item.LocationName</td>
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        .hide_column {
+            display: none;
+        }
+
+        .paging_full_numbers {
+            display: none;
+        }
+
+        div.dataTables_paginate {
+            display: none;
+        }
+
+        .dataTables_paginate {
+            display: none;
+        }
+
+        div.dataTables_info {
+            display: none;
+        }
+
+        .dataTables_info {
+            display: none;
+        }
+    </style>
+
+*@
+
+@model AMS.ViewModel.PurchaseRequisitionMasterViewModel
+
+<div class="container" id="salesDiv">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.DepartmentID)
+    @Html.HiddenFor(m => m.ID)
+
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;View Purchase Requisition</h2>
+    </div>
+
+    <div class="card">
+        <div class="" id="divContent">
+            <form id="FormViewPurchaseRequisitionMaster">
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PurchaseRequisitionNumber, new { style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.PurchaseRequisitionNumber, new { @class = "form-control", @readonly = "readonly", maxlength = "60", style = "background-color:#fff;" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.PurchaseRequisitionNumber)
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.TransDate, new { Style = "" })
+                                <div class="form-group fg-line dtp-container">
+                                    @Html.TextBoxFor(model => model.TransDate, new { @class = "form-control", @readonly = "readonly", Style = "", disabled = "disabled" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.TransDate)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <hr />
+                        <div id="DivAddRowTable">
+                            <div class="card-body table-responsive">
+                                <table id="tblData" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>item</th>
+                                            <th>Quantity</th>
+                                            <th>Rate</th>
+                                            <th>Expected Delivery Date</th>
+                                            <th>Priority</th>
+                                            <th>Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        @foreach (var item in Model.PurchaseRequisitionMasterList)
+                                        {
+                                            <tr>
+                                                <td>@item.ItemName<input type="text" style="display:none" value="@item.ItemID"></td>
+                                                <td>@Math.Round(item.Quantity,3)<input type="text" style="display:none" value="@item.Rate"></td>
+                                                <td>@Math.Round(item.Rate,2)<input type="text" style="display:none" value="@item.Rate"></td>
+                                                <td>@item.ExpectedDeliveryDate<input type="text" style="display:none" value="@item.ExpectedDeliveryDate"></td>
+
+                                                @if (item.PriorityFlag == 1)
+                                                {
+                                                    <td>High<input type="text" style="display:none" value="@item.PriorityFlag"></td>
+                                                }
+                                                else if (item.PriorityFlag == 2)
+                                                {
+                                                    <td>Medium<input type="text" style="display:none" value="@item.PriorityFlag"></td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Low<input type="text" style="display:none" value="@item.PriorityFlag"></td>
+                                                }
+                                                <td><input type="text" style="display:none" value="@item.StorageLocationID">@item.LocationName</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,300 @@
+﻿@model AMS.ViewModel.InventoryItemMasterViewModel
+
+
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<style>
+    .ui-front {
+        z-index: 9999;
+    }
+
+    .ui-datepicker {
+        font-size: 9pt !important;
+    }
+    
+    .span1 {
+        width: 115px;
+    }
+
+    .span2 {
+        width: 115px;
+    }
+
+   
+</style>
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div id="update-message" class="error invisible"></div>
+<div class="widget-block">
+    <div class="widget-head">
+        <h5>Create Item </h5>
+    </div>
+
+    <div class="widget-content">
+        <form id="FormCreateInventoryItemMaster" method="post" class="form-horizontal well">
+            @Html.HiddenFor(model => model.ItemFamilyMasterID)
+            @Html.HiddenFor(model => model.ItemPackingUnitMasterID)
+            @Html.HiddenFor(model=>model.ItemPackingTypeMasterID)
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.ItemFamily, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.ItemFamily, new { maxlength = "50", style = "font-Weight:Bold;", @placeholder = "Select item family" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.ItemFamily)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            @Html.LabelFor(model => model.PackingUnit, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.PackingUnit, new { maxlength = "20", style = "font-Weight:Bold;", @placeholder = "Select packing unit" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.PackingUnit)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.PackingType, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.PackingType, new { maxlength = "50", style = "font-Weight:Bold;", @placeholder = "Select packing type" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.PackingType)
+
+                        </div>
+                        <div class="spanFullName span2">
+                           &nbsp;
+                        </div>
+                        <div class="span2">
+                           &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.ItemCategoryCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.DropDownListFor(m => m.ItemCategoryCode, Model.InventoryItemCategoryListItems, "-----Select Category-----", new { style = "width:210px;font-Weight:Bold" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.ItemCategoryCode)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.UnitID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.DropDownListFor(m => m.UnitID, Model.GeneralUnitMasterListItems, "-----Select Unit-----", new {disabled ="disabled", style = "width:210px;font-Weight:Bold" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.UnitID)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.ItemName, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.ItemName, new { disabled = "disabled", maxlength = "50", style = "font-Weight:Bold;  -webkit-text-fill-color: rgba(0, 0, 0, 0.5);" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.ItemName)
+
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.ItemCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.ItemCode, new { disabled = "disabled", maxlength = "20", style = "font-Weight:Bold;  -webkit-text-fill-color: rgba(0, 0, 0, 0.5);" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.ItemCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.RetailRate, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.RetailRate,  new { maxlength = "15",  style = "font-Weight:Bold; text-align: right;",Value="" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.RetailRate)
+                        </div>
+                        <div class="spanFullName span2">
+                            @Html.LabelFor(model => model.WholeSaleRate, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.WholeSaleRate, new { maxlength = "15", style = "font-Weight:Bold; text-align: right;"  })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.SpecialRate, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.SpecialRate, new { maxlength = "15", style = "font-Weight:Bold; text-align: right;" })
+
+                        </div>
+                        <div class="spanFullName span2">
+                            @Html.LabelFor(model => model.MaximumRetialPrice, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.MaximumRetialPrice, new { maxlength = "15", style = "font-Weight:Bold; text-align: right;" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.CurrencyCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.DropDownListFor(m => m.CurrencyCode, Model.GeneralCurrencyListItems, new { style = "width:210px;font-Weight:Bold" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.CurrencyCode)
+                        </div>
+                        <div class="spanFullName span2">
+                            @Html.LabelFor(model => model.GenTaxGroupMasterID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.DropDownListFor(m => m.GenTaxGroupMasterID, Model.GeneralTaxGroupListItems,  "-----Select Tax Group-----", new { style = "width:210px;font-Weight:Bold" })
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.IsSaleRateDependOnPuchase, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                           @Html.CheckBoxFor(model => model.IsSaleRateDependOnPuchase, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                          @Html.LabelFor(model => model.MinIndentLevel, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.MinIndentLevel, new { maxlength = "8", style = "font-Weight:Bold; text-align: right;" , Value =""})
+                            <br />
+                            @Html.ValidationMessageFor(model => model.MinIndentLevel)
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="row" id ="Div_SaleRateDependOnPuchase" style="display:none;">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.SaleRateFactorInPercentage, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(model => model.SaleRateFactorInPercentage, new { maxlength = "5", style = "font-Weight:Bold; text-align: right;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.SaleRateFactorInPercentage)
+                        </div>
+                        <div class="spanFullName span2">
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                            @Html.LabelFor(model => model.RetailRateFactorInPercentage, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(model => model.RetailRateFactorInPercentage, new { maxlength = "5", style = "font-Weight:Bold; text-align: right;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.RetailRateFactorInPercentage)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <div class="row control-group">
+                        <div class="span">&nbsp;</div>
+                        <div class="spanFullName span1">
+                            @Html.LabelFor(model => model.IsExpiry, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span3">
+                            @Html.CheckBoxFor(model => model.IsExpiry, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="spanFullName span2">
+                            @Html.LabelFor(model => model.IsTaxInclusive, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span2">
+                            @Html.CheckBoxFor(model => model.IsTaxInclusive, new { style = "font-Weight:Bold;" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions" style="padding-left: 0px; padding-bottom: 0px; text-align: right">
+                <input id="CreateInventoryItemMasterRecord" type="button" value="@Resources.ButtonAction_Submit" class="btn btn-primary"  />
+                <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventoryItemMaster.Initialize();
+     
+        
+       
+    });
+    
+</script>
+

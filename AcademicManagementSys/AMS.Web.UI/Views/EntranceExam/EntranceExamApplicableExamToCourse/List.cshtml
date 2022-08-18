@@ -1,0 +1,246 @@
+﻿@model AMS.ViewModel.EntranceExamApplicableExamToCourseViewModel
+
+<script src="@Url.Content("~/Scripts/fnGetColumnData.js")" type="text/javascript"></script>
+<div class="container-fluid">
+   
+    <ul class="breadcrumb">
+        <li><a href="#">@Resources.MainMenu_EntranceExam</a><span class="divider">»</span></li>
+        <li class="active">@Resources.FormName_EntranceExamApplicableExamToCourse</li>
+    </ul>
+    @Html.HiddenFor(m => m.SessionID)
+    <ul class="breadcrumb" style="height: 30px;">
+    
+        <li>
+            &nbsp;&nbsp;&nbsp;
+            <span style="color: red;  padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;">@Resources.TableHeaders_CentreName &nbsp; &nbsp;&nbsp;</span>
+            @Html.DropDownListFor(m => m.CentreCode, (SelectList)ViewBag.StudyCentreList, Resources.ddlHeaders_CentreName, new { id = "CentreCode", @class = "form-control chosen-select", style = "font-weight:bold;" })
+            @Html.HiddenFor(m => m.CentreCode)
+            @Html.HiddenFor(m => m.CentreName)
+            
+        </li>
+        <li id="LiSessionName" style="display:none">
+            &nbsp;&nbsp; &nbsp;&nbsp;  <span style="font-size: 12px; font-weight: bold;">@Resources.TableHeaders_Session &nbsp; &nbsp;&nbsp;</span>
+            @if (Model.SessionName != "Session not defined !")
+            {
+                <b>@Html.DisplayFor(m => m.SessionName, new { style = "font-size: 12px;" })</b>
+            }
+            else
+            {
+                <b style="color: red;">@Html.DisplayFor(m => m.SessionName, new { style = "font-size: 12px;" })</b>
+            }
+
+        </li>
+
+        <li>
+           
+            <input type="button" value="@Resources.GlobalProperties_ShowList" style="margin-bottom: 9px" class="btn btn-primary" id="btnShowList" />
+        </li>
+    </ul>
+    <div id="SuccessMessage" style="display:none;color:#000;" class="alert"></div>
+    <div class="row-fluid">
+        <div class="span12">
+
+            <div class="widget-block">
+                <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+
+                <div class="widget-head">
+                    <h5 id="hFive"><i class="black-icons users"></i>&nbsp;@Resources.FormName_EntranceExamApplicableExamToCourse </h5>
+                    <div class="pull-right" style="margin: -24px 60px 0px 10px;">
+                        <div class="input-append" id="" style="float: right;">
+                            <div style="display: none;">
+                                <input type="hidden" name="_method" value="POST">
+                            </div>
+                            <div>
+                                <select name="data[User][searchby]" class="" id="showrecord" tabindex="16" style="float: left;">
+                                    <option value="10">@Resources.GlobalProperties_ShowRecords</option>
+                                    <option value="10">10</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                &nbsp;&nbsp;
+                                <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearch">
+                                <button class="btn" type="button" id="searchBtn"><i class="icon-search"></i></button>
+                            </div>
+
+                            @*<div class="widget-control pull-right">
+                                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="ajax cboxElement" href="@Url.Action("Create", "EntranceExamApplicableExamToCourse")">
+                                                <h6 style="color: #000;"><i class="icon-plus" style="padding-left: 7px;"></i>@Resources.DisplayName_AddNew</h6>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>*@
+
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table table-striped table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            @*<th style="text-align: center">OnlineExamExaminationMasterID</th>hidden*@
+                                            
+                                            @*<th style="text-align: center">CourseYearDetailID</th> hidden*@
+                                            <th style="text-align: center"> @Resources.TableHeaders_Course</th>
+                                            <th style="text-align: center"> @Resources.TableHeaders_ExamName</th>
+                                            <th style="text-align: center;" @Resources.TableHeaders_ExamFromDate </th>
+                                            <th style="text-align: center;">@Resources.TableHeaders_ExamUptoDate</th>
+                                            <th style="text-align: center; width: 30px; line-height: 40px">@Resources.DisplayName_Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        EntranceExamApplicableExamToCourse.Initialize();
+        //var isReloadedFromCookies;
+        var oTable = $('#myDataTable').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "EntranceExamApplicableExamToCourse/AjaxHandler",
+            "bProcessing": true,
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "CentreCode", "value": $("#CentreCode").val() }),
+                aoData.push({ "name": "CurrentSessionID", "value": $("#SessionID").val() });
+            },
+           
+
+            "columnDefs": [
+
+                             {
+
+                                 "visible": false, "targets": 0,
+                                 //Hidden Field PolicyRange
+                             },
+
+
+                              {
+
+                                  //"targets": 1,//Course
+                                  //"bSearchable": true,
+
+                                  "targets": 1,
+                                  "data": null,
+                                  
+                                  "render": function (data, type, full, meta) {
+                                      if (data[1] != null) {
+                                          var result = "<p  style='text-align: center; height:5px;'>" + data[1] + "</p>";
+                                      }
+                                      else {
+                                          result = '';
+                                      }
+                                      return result;
+                                  }
+
+                              },
+
+                            {
+
+                                //Examination From Date
+                                "targets": 2,
+                                "data": null,
+                                "bSortable": false,
+                                "render": function (data, type, full, meta) {
+                                    if (data[2] != null) {
+                                        var result = "<p  style='text-align: center; height:5px;'>" + data[2] + "</p>";
+                                    }
+                                    else {
+                                        result = '';
+                                    }
+                                    return result;
+                                }
+
+
+                            },
+                             {
+
+                                 //Examination upto Date
+                                 "targets": 3,
+                                 "data": null,
+                                 "bSortable": false,
+                                 "render": function (data, type, full, meta) {
+                                     if (data[3] != null) {
+                                         var result = "<p  style='text-align: center; height:5px;'>" + data[3] + "</p>";
+                                     }
+                                     else {
+                                         result = '';
+                                     }
+                                     return result;
+                                 }
+
+
+                             },
+                            {
+                                "targets": 4,
+                                "bSortable": false,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                       if (data[1] != null) {
+                                          var result1 = '@Html.ActionLink("Edit1", "Edit", new { ID = "ID1", CourseName = "ID2" }, new { @class = "ajax  cboxElement" })';
+                                           result1 = result1.replace("ID1", data[4]);
+                                           //result1 = result1.replace("ID2", data[6]);
+                                           result1 = result1.replace("ID2", data[6].replace(/ /g, "~"));
+                                       result1 = result1.replace("Edit1", '<i class="icon-list-alt" title = "@Resources.ToolTip_Details"></i>');
+            
+
+
+                                       var result = "<p  style='text-align: center; height:5px;'>" + result1 + "</p>";
+
+                                       }
+                                       else {
+                                           result = '';
+                                       }
+
+                                       return result;
+
+                                   }
+
+
+                               }
+            ],
+            "drawCallback": function (settings) {
+                debugger;
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                api.column(1, { page: 'current' }).data().each(function (group, i) {
+                    var array = String(group).split(',');
+                    if (last != array[0]) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="3" style="font-weight:bold;background-color:rgba(128,128,128,0.2);color:#000;font-size:12px;font-family: verdana;">' + array[0] +
+                            @*'</td><td style="text-align:center"><a class="ajax cboxElement" href="/EntranceExamApplicableExamToCourse/Create?EntranceExamApplicableExamToCourseString=' + array[5].replace(/ /g, "$") + '&CentreCode=' + $("#CentreCode :selected").val().replace(/ /g, "$") + "~" + $('#CentreCode :selected').text().replace(/ /g, "$") + '&SessionID=' + $("#SessionID :selected").val().replace(/ /g, "$") + "~" + $('#SessionID :selected').text().replace(/ /g, "$") + '"><i class="icon-plus" title="@Resources.ToolTip_Create"></i></a></td></tr>'*@
+                            '</td><td style="text-align:center"><a class="ajax cboxElement" href="/EntranceExamApplicableExamToCourse/Create?EntranceExamApplicableExamToCourseString=' + array[5].replace(/ /g, "$") + '&CentreCode=' + $("#CentreCode :selected").val().replace(/ /g, "$") + "~" + $('#CentreCode :selected').text().replace(/ /g, "$") + '"><i class="icon-plus" title="@Resources.ToolTip_Create"></i></a></td></tr>'
+                        );
+                        last = array[0];
+                    }
+                });
+            }
+
+    });
+    });
+</script>

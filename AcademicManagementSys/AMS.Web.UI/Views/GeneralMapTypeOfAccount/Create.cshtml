@@ -1,0 +1,135 @@
+﻿@model AMS.ViewModel.GeneralMapTypeOfAccountViewModel
+<div id="custom-content">
+    @*@Html.HiddenFor(model => model.GeneralMapTypeOfAccountID)
+    @Html.HiddenFor(model => model.GeneralItemGeneralDataID)*@
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp; General Map Type Account</h2>
+    </div>
+    
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateGeneralMapTypeOfAccount" role="form" class="row">
+
+
+                <div class="col-sm-6">
+                    <div class="form-group select fg-line">
+                        <span style="color:red">*</span>
+                        @Html.LabelFor(model => model.ModuleName, new { })
+                        @Html.DropDownListFor(model => model.ModuleName, (SelectList)ViewBag.UserModuleMasterList, "--Select Module Name--", new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ModuleName)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group select fg-line">
+                        <span style="color:red">*</span>
+                        @Html.LabelFor(model => model.MenuName, new { })
+                        @Html.DropDownListFor(model => model.MenuName, (SelectList)ViewBag.UserMenuMasterList, "--Select Menu Name--", new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.MenuName)
+                </div>
+
+                <div class="col-sm-12 row">
+                    <div id="ListViewModel1" class="table-responsive">
+                        <div id="DivAddRowTable">
+                            <table id="tblData" class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="display: none"></th>
+                                        <th class="center">
+                                            @*<input type="checkbox" id="Check" class="checkall-user" name="checkbox12" disabled="disabled">*@
+                                            <div class="checkbox m-b-15" style="">
+                                                <label style="">
+                                                    <input type="checkbox" id="Check" class="checkall-user" name="checkbox12">
+                                                    <i class="input-helper"></i>
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <th>Account Type</th>
+                                        <th>Debit/Credit</th>
+                                        <th>Control Name</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                        @foreach (var item in Model.GeneralMapTypeOfAccountListForAccountType)
+                                        {
+                                            <tr>
+                                                <td style="vertical-align:middle;">
+                                                    <input id="check_1" type=checkbox class=check-user name=checkbox12 onclick="CheckedSingle()">
+                                                </td>
+                                                <td style="display:none">@item.GeneralTypeOfAccountId<input type="text" style="display:none" value="@item.GeneralTypeOfAccountId"></td>
+                                                <td style="vertical-align:middle;">@item.AccountName<input type="text" style="display:none" value="@item.AccountName"></td>
+                                                <td class="form-control-dropdown" id="selectmultiple">
+                                                 <select id="SelectedStatus" style="width:100px" class="form-control input-sm valid">
+                                                        <option value="1">Debit</option>
+                                                        <option value="0">Credit</option>
+                                                    </select>
+                                                </td>
+                                                <td><input type="text" class="form-control" id="txtControl"></td>
+                                            </tr>
+                                        }
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+     
+                <div class="form-group col-sm-12">
+                    <input class="btn btn-primary" style="margin-left:1%" value="@Resources.ButtonAction_Submit" id="CreateGeneralMapTypeOfAccountRecord" type="button" />
+                </div>
+        </form>
+    </div>
+
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GeneralMapTypeOfAccount.Initialize();
+        GeneralMapTypeOfAccount.CheckedAll();
+       
+        $(".checkall-user").prop("disabled", false);
+        $("#tblData").on("click", "tbody tr td .check-user", function () {
+            var a = (parseInt($(".check-user").length));
+            var b = parseInt($(".check-user:checked").length);
+            if (a != b) {
+                $("input[class=checkall-user]").attr("checked", false);
+            }
+            else {
+                $("input[class=checkall-user]").prop("checked", true);
+            }
+        });
+
+       
+
+        function CheckedSingle() {
+
+            $("#tblData tbody tr td  input[class='check-user']").on('click', function () {
+
+                var CheckedArray = [];
+                debugger
+                var table = $('#tblData').DataTable();
+                var data = table.$("input[class='check-user']").each(function () {
+                    CheckedArray.push($(this).val());
+                    var $this = $(this);
+                    if ($this.is(":checked")) {
+                        CheckedArray.push($(this).val());
+                    }
+
+                });
+            });
+        }
+
+      
+
+    });
+</script>

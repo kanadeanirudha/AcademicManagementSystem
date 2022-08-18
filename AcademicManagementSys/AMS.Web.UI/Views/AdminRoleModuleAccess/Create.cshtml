@@ -1,0 +1,1381 @@
+﻿@*@model AMS.ViewModel.AdminRoleModuleAccessViewModel
+
+<style>
+    .paging_full_numbers .ui-button {
+        padding: 2px 6px;
+        margin: 0;
+        cursor: pointer;
+        * cursor: hand;
+    }
+    .columnDisplay {
+        display: none;
+    }
+    .rceDataTable * {
+        box-sizing: initial;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+
+
+
+<div id="createSpecialRights" class="widget-block">
+    <div class="widget-head">
+        <h5>@Resources.DisplayNames_CreateSpecialRights</h5>
+    </div>
+   <div id="update-message"></div>
+    <div class="widget-box">
+        <form id="FormCreateAdminRoleModuleAccess" method="post" class="form-horizontal well">
+            <fieldset>
+                <legend style="display: none;"></legend>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.AdminRoleMasterID)
+                @Html.HiddenFor(model => model.AdminRoleCode)
+                @Html.HiddenFor(model => model.MonitoringLevel)
+                @Html.HiddenFor(model => model.Entity)
+                @Html.HiddenFor(model => model.CentreCode)
+                @Html.HiddenFor(model => model.DepartmentIdWithName)
+                @Html.HiddenFor(model => model.CentreCodeWithName)
+                @Html.HiddenFor(model => model.ID)
+                  
+
+               
+                <div class="nonboxy-widget">
+                    <div class="row">
+                        <div class="span9">
+                            <h5>@Resources.DisplayName_RoleDetails</h5>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="span2">
+                            <label for="input01" class="control-label" style="font-weight:bold">@Resources.DsiplayNames_AdminRoleCode</label>                             
+                        </div>
+                        <div class="span2">
+                            <input type="text" id="input01" placeholder="@Html.DisplayFor(model => model.AdminRoleCode, new { @class = "span3" })" disabled="disabled" class="input-xlarge disabled">
+                        </div>
+                        <div class="span2">
+                            <label for="input01" class="control-label" style="font-weight:bold">@Resources.TableHeaders_DesignationType</label>
+                        </div>
+                        <div class="span2">
+                            <input type="text" id="input02" placeholder="@Html.DisplayFor(model => model.DesignationType)" disabled="disabled" class="input-xlarge disabled">
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="span2">
+                            <label for="input01" class="control-label" style="font-weight:bold">@Resources.DisplayName_DepartmentName</label>
+                        </div>
+                        <div class="span2">
+                            <input type="text" id="input03" placeholder="  @Html.DisplayFor(model => model.DepartmentName)" disabled="disabled" class="input-xlarge disabled">
+                        </div>
+                        <div class="span2">
+                            <label for="input01" class="control-label" style="font-weight:bold">@Resources.DisplayName_CentreName</label>
+                        </div>
+                        <div class="span2">
+                            <input type="text" id="input04" placeholder="@Html.DisplayFor(model => model.CentreName)" disabled="disabled" class="input-xlarge disabled">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="nonboxy-widget">
+                    <div class="row">
+                        <div class="span2">
+                            <label for="input01" class="control-label" style="font-weight:bold">@Resources.DisplayNames_AccessibleCentreList</label>
+                        </div>
+                        <div class="span2">
+                            @Html.DropDownListFor(m => m.AccessibleCentreCode, Model.AccessibleCentreListItems, Resources.ddlHeaders_CentreName)
+
+                        </div>
+                        <div class="span2">
+                            <label for="input01" class="control-label" style="font-weight:bold">@Resources.DisplayName_Entity</label>
+                        </div>
+                        <div class="span2">
+                            @Html.DropDownListFor(m => m.EntityType, Model.EntityListItems, Resources.ddlHeaders_SelectEntiry)
+                        </div>
+
+                    </div>
+                </div>
+                <div class="nonboxy-widget">
+                    <div class="row">
+                        <div class="span2">
+                            <label for="input01" class="control-label" style="font-weight:bold">@Resources.DisplayName_IsActive</label>
+                        </div>
+                        <div class="span2">
+                            @Html.EditorFor(m => m.IsActive)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nonboxy-widget">
+
+                    <div class="widget-content">
+                        <div class="widget-box">
+                            <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                                <div id="abc" class="table_content">
+                                    @if (Model.EntityType == "DEPARTMENT")
+                                    {                                        
+                                        <table id="myCreateDataTable" class="table table-striped table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center; width: 80px;">@Resources.TableHeaders_ApprovalStatus</th>
+                                                    <th style="text-align: center;">@Resources.TableHeaders_Department</th>
+                                                    <th style="text-align: center; width: 80px;">@Resources.DisplayName_IsAcadMgr</th>
+                                                    <th style="text-align: center; width: 80px;">@Resources.TableHeaders_EstablishmentManager</th>
+                                                    <th style="text-align: center; width: 80px;">Sales Manager</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    }
+                                    else if (Model.EntityType == "SECTION")
+                                    {
+                                       <table id="myCreateDataTable" class="table table-striped table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center">@Resources.TableHeaders_ApprovalStatus</th>
+                                                    <th>@Resources.TableHeaders_Section</th>
+                                                    <th style="text-align: center">@Resources.DisplayName_IsAcadMgr</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    }
+                                    else if (Model.EntityType == "COURSEYEAR")
+                                    {
+                                       <table id="myCreateDataTable" class="table table-striped table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center">@Resources.TableHeaders_ApprovalStatus</th>
+                                                    <th>@Resources.TableHeaders_CourseYear</th>
+                                                    <th style="text-align: center">@Resources.DisplayName_IsAcadMgr</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    }
+                                    else if (Model.EntityType == "BALSHEET")
+                                    {
+                                        <table id="myCreateDataTable" class="table table-striped table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center">@Resources.TableHeaders_ApprovalStatus</th>
+                                                    <th>@Resources.TableHeaders_Balancesheet</th>
+                                                    <th style="text-align: center">@Resources.DisplayName_IsFinMgr</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    }
+                                    else if (Model.EntityType == "STORE")
+                                    {
+                                      <table id="myCreateDataTable" class="table table-striped table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center">@Resources.TableHeaders_ApprovalStatus</th>
+                                                    <th>@Resources.TableHeaders_Store</th>
+                                                    <th style="text-align: center">@Resources.TableHeaders_AdminManager</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    }
+                                </div>
+
+                                <div class="widget-bottom" style="text-align: right;padding-top:5px">
+                                    
+                                    <input type="button" id="CreateAdminRoleModuleAccessRecord" value="Submit" class="btn btn-primary" " />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+       
+        AdminRoleModuleAccess.Initialize();
+        var entity_type = $('input[name=Entity]').val();
+        var centreCode = $('#AccessibleCentreCode :selected').val();
+       
+        if (entity_type == "DEPARTMENT") {
+        
+            var oTable = $('#myCreateDataTable').dataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('input[name=Entity]').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "bPaginationType": false,                
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+               
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+                                    
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[4] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[5] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+                                 {
+                                     "targets": 1,
+                                   
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+
+                                         if (data[1] != "-" || data[1] != null) {
+                                             if (data[6] == "True") {
+                                                 chkStatus = 'checked';
+                                             }
+                                             else {
+                                                 chkStatus = '';
+                                             }
+                                             var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                         } else {
+                                             var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                         }
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 2,
+                                    
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+                                          var result = '';
+                                          if (data[0] == "True" && data[2] == "True") {
+                                              chkStatus = 'checked';
+                                              result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive1" value="' + data[4] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[5] + '"  class="CheckBox1" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                          }
+                                          else {
+                                              chkStatus = '';
+                                              result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive1" value="' + data[4] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[5] + '" disabled="disabled" class="CheckBox1" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                          }
+                                          //  var result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive1" value="' + data[4] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[5] + '" disabled="disabled" class="CheckBox1" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 3,
+                                     
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[3] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[3] + '~' + centreCode + '~' + chkStatus + '~IsEstMgr' + '~' + data[5] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[3] + '~' + centreCode + '~' + chkStatus + '~IsEstMgr' + '~' + data[5] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+                                    {
+                                        "targets": 4,
+
+                                        "data": null,
+                                        "render": function (data, type, full, meta) {
+                                            var chkStatus = '';
+                                            var result = '';
+                                            if (data[0] == "True" && data[6] == "True") {
+                                                chkStatus = 'checked';
+                                                result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[6] + '~' + centreCode + '~' + chkStatus + '~IsSuperUser' + '~' + data[5] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                            }
+                                            else {
+                                                chkStatus = '';
+                                                result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[6] + '~' + centreCode + '~' + chkStatus + '~IsSuperUser' + '~' + data[5] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                            }
+
+                                            return result;
+
+                                        }
+                                    },
+                ],
+            });
+        }
+        else if (entity_type == "SECTION") {
+            var oTable = $('#myCreateDataTable').dataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+               
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+                                     "bSortable": false,
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+                                      "bSortable": false,
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+                                       "bSortable": false,
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+
+        }
+        else if (entity_type == "COURSEYEAR") {
+            var oTable = $('#myCreateDataTable').dataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+               
+
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+                                    
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+                                      
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+                                       
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+
+
+        }
+
+        else if (entity_type == "BALSHEET") {
+
+            var oTable = $('#myCreateDataTable').dataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+               
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+                                     
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+                                     
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+                                      
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsFinMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsFinMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+
+        }
+        else if (entity_type == "STORE") {
+            var oTable = $('#myCreateDataTable').dataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+             
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+                                    
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+                                      
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+                                      
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAdmMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAdmMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+
+        }
+         
+    });
+    $('#myCreateDataTable_info').hide();
+    $('#myCreateDataTable_paginate').hide();
+</script>*@
+
+
+@*-------------new code---------*@
+
+@model AMS.ViewModel.AdminRoleModuleAccessViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<style>
+    .bootgrid-header {
+        padding: 0 25px 90px;
+    }
+
+    div.dataTables_filter {
+        display: none;
+        text-align: right;
+    }
+
+    div.dataTables_length {
+        display: none;
+    }
+
+</style>
+<div class="">
+
+    <div id="createSpecialRights">
+        <div class="block-header">
+            <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.DisplayNames_CreateSpecialRights</h2>
+        </div>
+        <div class="card">
+            
+            <form id="FormCreateAdminRoleModuleAccess" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.AdminRoleMasterID)
+                @Html.HiddenFor(model => model.AdminRoleCode)
+                @Html.HiddenFor(model => model.MonitoringLevel)
+                @Html.HiddenFor(model => model.Entity)
+                @Html.HiddenFor(model => model.CentreCode)
+                @Html.HiddenFor(model => model.DepartmentIdWithName)
+                @Html.HiddenFor(model => model.CentreCodeWithName)
+                @Html.HiddenFor(model => model.ID)
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <h5>&nbsp;@Resources.DisplayName_RoleDetails</h5>
+                        <hr>
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <span>@Resources.DsiplayNames_AdminRoleCode</span>
+                                <div class="form-group fg-line">
+                                    <input type="text" id="input01" placeholder="@Html.DisplayFor(model => model.AdminRoleCode, new { @class = "" })" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <span>@Resources.TableHeaders_DesignationType</span>
+                                <div class="form-group fg-line">
+                                    <input type="text" id="input02" placeholder="@Html.DisplayFor(model => model.DesignationType)" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <span>@Resources.DisplayName_DepartmentName</span>
+                                <div class="form-group fg-line">
+                                    <input type="text" id="input03" placeholder="@Html.DisplayFor(model => model.DepartmentName)" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <span>@Resources.DisplayName_CentreName</span>
+                                <div class="form-group fg-line">
+                                    <input type="text" id="input04" placeholder="@Html.DisplayFor(model => model.CentreName)" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <span>@Resources.DisplayNames_AccessibleCentreList</span>
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownListFor(m => m.AccessibleCentreCode, Model.AccessibleCentreListItems, Resources.ddlHeaders_CentreName, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <span>@Resources.DisplayName_Entity</span>
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownListFor(m => m.EntityType, Model.EntityListItems, Resources.ddlHeaders_SelectEntiry, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            @if (Model.AdminRoleModuleAccessDTO.IsActive)
+                            {
+                            
+                                <div class="col-sm-6">
+                                    <div class="checkbox m-b-15" style="padding-top:8%;">
+                                        <label>
+                                            <input type="checkbox" id="IsActive" checked>
+                                            <i class="input-helper"></i>
+                                            @Resources.DisplayName_IsActive
+                                        </label>
+                                    </div>
+                                </div>
+                            
+                            }else{
+                                
+                                <div class="col-sm-6">
+                                    <div class="checkbox m-b-15" style="padding-top:8%;">
+                                        <label>
+                                            <input type="checkbox" id="IsActive">
+                                            <i class="input-helper"></i>
+                                            @Resources.DisplayName_IsActive
+                                        </label>
+                                    </div>
+                                </div>
+                            
+                            }
+                            
+                        </div>
+
+                    </div>
+                </div>
+                <h5>&nbsp;@Resources.DisplayMessage_AllocateAdditionalRole</h5>
+                <hr>
+
+                <div class="bootgrid-header container-fluid" id="data-table-command-header">
+                    @* DataTables_Table_1_wrapper*@
+                    <div class="row" id="abc">
+                        @if (Model.EntityType == "DEPARTMENT")
+                        {
+
+                            <table id="myCreateDataTable" class="table table-striped table-vmiddle table-responsive ">
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.TableHeaders_ApprovalStatus</th>
+                                        <th>@Resources.TableHeaders_Department</th>
+                                        <th>@Resources.DisplayName_IsAcadMgr</th>
+                                        <th>@Resources.TableHeaders_EstablishmentManager</th>
+                                        <th>Sales Manager</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        }
+                        else if (Model.EntityType == "SECTION")
+                        {
+                            <table id="myCreateDataTable" class="table table-striped table-vmiddle table-responsive ">
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.TableHeaders_ApprovalStatus</th>
+                                        <th>@Resources.TableHeaders_Section</th>
+                                        <th>@Resources.DisplayName_IsAcadMgr</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        }
+                        else if (Model.EntityType == "COURSEYEAR")
+                        {
+
+                            <table id="myCreateDataTable" class="table table-striped table-vmiddle table-responsive ">
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.TableHeaders_ApprovalStatus</th>
+                                        <th>@Resources.TableHeaders_CourseYear</th>
+                                        <th>@Resources.DisplayName_IsAcadMgr</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        }
+                        else if (Model.EntityType == "BALSHEET")
+                        {
+
+                            <table id="myCreateDataTable" class="table table-striped table-vmiddle table-responsive ">
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.TableHeaders_ApprovalStatus</th>
+                                        <th>@Resources.TableHeaders_Balancesheet</th>
+                                        <th>@Resources.DisplayName_IsFinMgr</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        }
+                        else if (Model.EntityType == "STORE")
+                        {
+
+                            <table id="myCreateDataTable" class="table table-striped table-vmiddle table-responsive ">
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.TableHeaders_ApprovalStatus</th>
+                                        <th>@Resources.TableHeaders_Store</th>
+                                        <th>@Resources.TableHeaders_AdminManager</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        }
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-3" style="margin-top:-45px">
+                    <button type="button" id="CreateAdminRoleModuleAccessRecord" class="btn btn-primary" style="">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+        var oTable;
+        AdminRoleModuleAccess.Initialize();
+        var entity_type = $('input[name=Entity]').val();
+        var centreCode = $('#AccessibleCentreCode :selected').val();
+
+        if (entity_type == "DEPARTMENT") {
+
+            oTable = $('#myCreateDataTable').DataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('input[name=Entity]').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "bPaginationType": false,
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[4] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[5] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+                                 {
+                                     "targets": 1,
+
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+
+                                         if (data[1] != "-" || data[1] != null) {
+                                             if (data[6] == "True") {
+                                                 chkStatus = 'checked';
+                                             }
+                                             else {
+                                                 chkStatus = '';
+                                             }
+                                             var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                         } else {
+                                             var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                         }
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 2,
+
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+                                          var result = '';
+                                          if (data[0] == "True" && data[2] == "True") {
+                                              chkStatus = 'checked';
+                                              result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive1" value="' + data[4] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[5] + '"  class="CheckBox1" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                          }
+                                          else {
+                                              chkStatus = '';
+                                              result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive1" value="' + data[4] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[5] + '" disabled="disabled" class="CheckBox1" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                          }
+                                          //  var result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive1" value="' + data[4] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[5] + '" disabled="disabled" class="CheckBox1" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 3,
+
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[3] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[3] + '~' + centreCode + '~' + chkStatus + '~IsEstMgr' + '~' + data[5] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[3] + '~' + centreCode + '~' + chkStatus + '~IsEstMgr' + '~' + data[5] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+                                    {
+                                        "targets": 4,
+
+                                        "data": null,
+                                        "render": function (data, type, full, meta) {
+                                            var chkStatus = '';
+                                            var result = '';
+                                            if (data[0] == "True" && data[6] == "True") {
+                                                chkStatus = 'checked';
+                                                result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[6] + '~' + centreCode + '~' + chkStatus + '~IsSuperUser' + '~' + data[5] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                            }
+                                            else {
+                                                chkStatus = '';
+                                                result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive2" value="' + data[4] + '~' + data[6] + '~' + centreCode + '~' + chkStatus + '~IsSuperUser' + '~' + data[5] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                            }
+
+                                            return result;
+
+                                        }
+                                    },
+                ],
+            });
+            DataTableSettings(oTable, "myCreateDataTable", "toggleTableColumn");
+        }
+        else if (entity_type == "SECTION") {
+             oTable = $('#myCreateDataTable').DataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+                                     "bSortable": false,
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         //var result = "<p  class='checkbox' style='margin-left: 10%; margin-top: 0%;'>" + '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" type="checkbox"  ' + chkStatus + ' /><i class="input-helper"></i>' + "</p>";
+
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+                                      "bSortable": false,
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+                                       "bSortable": false,
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                               //result = "<p  class='checkbox' style='margin-left: 10%; margin-top: 0%;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '" type="checkbox"  ' + chkStatus + ' /><i class="input-helper"></i>' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                               //result = "<p  class='checkbox' style='margin-left: 10%; margin-top: 0%;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '" type="checkbox"  ' + chkStatus + ' /><i class="input-helper"></i>' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+             DataTableSettings(oTable, "myCreateDataTable", "toggleTableColumn");
+        }
+        else if (entity_type == "COURSEYEAR") {
+             oTable = $('#myCreateDataTable').DataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+
+
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         //var result = "<p  class='checkbox' style='margin-left: 10%; margin-top: 0%;'>" + '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" type="checkbox" disabled ' + chkStatus + ' /><i class="input-helper"></i>' + "</p>";
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAcadMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+             DataTableSettings(oTable, "myCreateDataTable", "toggleTableColumn");
+
+        }
+
+        else if (entity_type == "BALSHEET") {
+
+           oTable = $('#myCreateDataTable').DataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsFinMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsFinMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+           DataTableSettings(oTable, "myCreateDataTable", "toggleTableColumn");
+        }
+        else if (entity_type == "STORE") {
+            oTable = $('#myCreateDataTable').DataTable({
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "AccessibleCentreCode", "value": $('#AccessibleCentreCode :selected').val() });
+                    aoData.push({ "name": "MonitoringLevel", "value": $('input[name=MonitoringLevel]').val() });
+                    aoData.push({ "name": "EntityType", "value": $('#EntityType :selected').val() });
+                    aoData.push({ "name": "AdminRoleMasterID", "value": $('input[name=ID]').val() });
+                },
+                "bServerSide": true,
+                "sAjaxSource": "AdminRoleModuleAccess/AjaxHandlerForCreate",
+                "bJQueryUI": true,
+                "sScrollY": false,
+                "bProcessing": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sInfoEmpty": "No entries to show",
+                },
+
+                "columnDefs": [
+                                 {
+                                     "targets": 0,
+
+                                     "data": null,
+                                     "render": function (data, type, full, meta) {
+                                         var chkStatus = '';
+                                         if (data[0] == "True") {
+                                             chkStatus = 'checked';
+                                         }
+                                         else {
+                                             chkStatus = '';
+                                         }
+                                         var result = '<input id="IsActive1" value="' + data[3] + '~' + data[0] + '~' + centreCode + '~' + chkStatus + '~' + data[4] + '~Select_Row' + '" class="chkStatus_TF" type="checkbox" ' + chkStatus + ' />';
+                                         return result;
+
+                                     }
+                                 },
+
+                                  {
+                                      "targets": 1,
+
+                                      "data": null,
+                                      "render": function (data, type, full, meta) {
+                                          var chkStatus = '';
+
+                                          if (data[1] != "-" || data[1] != null) {
+                                              if (data[0] == "True") {
+                                                  chkStatus = 'checked';
+                                              }
+                                              else {
+                                                  chkStatus = '';
+                                              }
+                                              var result = "<p  style='text-align: center;'>" + data[1] + "</p>";
+                                          } else {
+                                              var result = "<p  style='text-align: center;'>" + "" + "</p>";
+                                          }
+                                          return result;
+
+                                      }
+                                  },
+                                   {
+                                       "targets": 2,
+
+                                       "data": null,
+                                       "render": function (data, type, full, meta) {
+                                           var chkStatus = '';
+                                           var result = '';
+                                           if (data[0] == "True" && data[2] == "True") {
+                                               chkStatus = 'checked';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAdmMgr' + '~' + data[4] + '"class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+
+                                           }
+                                           else {
+                                               chkStatus = '';
+                                               result = "<p  style='text-align: center; height:5px;'>" + '<input id="IsActive" value="' + data[3] + '~' + data[2] + '~' + centreCode + '~' + chkStatus + '~IsAdmMgr' + '~' + data[4] + '"disabled="disabled" class="CheckBox2" type="checkbox" ' + chkStatus + ' />' + "</p>";
+                                           }
+
+                                           return result;
+
+                                       }
+                                   },
+
+                ],
+            });
+            DataTableSettings(oTable, "myCreateDataTable", "toggleTableColumn");
+        }
+
+    });
+    $('#myCreateDataTable_info').hide();
+    $('#myCreateDataTable_paginate').hide();
+</script>
+
+
+
+

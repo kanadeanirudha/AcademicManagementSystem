@@ -1,0 +1,78 @@
+﻿@model AMS.ViewModel.CRMSaleEnquiryMasterAndAccountDetailsViewModel
+
+@*<script src="@Url.Content("~/Scripts/AMS_Scripts/CRMSales/CRMSaleEnquiryAccountMaster.js")" type="text/javascript"></script>*@
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;View Account Details</h2>
+    </div>
+
+    <div class="card" style="box-shadow: 0 0 0px rgba(0, 0, 0, 0.15);">
+        <div class="card-body card-padding">
+
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormViewCRMSaleEnquiryAccountMaster" role="form">
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.AccountName, new { })
+                        @Html.TextBoxFor(model => model.AccountName, new { maxlength = "80", @class = "form-control input-sm typeahead" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.ApproxAnnualAmount, new { })
+                        @Html.TextBoxFor(model => model.ApproxAnnualAmount, new { maxlength = "12", @class = "form-control input-sm typeahead" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.GeneralIndustryMasterID, new { })
+                        @Html.DropDownListFor(model => model.GeneralIndustryMasterID, (SelectList)ViewBag.GeneralIndustryMasterList, "---Select Service ---", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "" })
+                        @*@Html.TextBoxFor(model => model.IndustryName, new { maxlength = "200", @class = "form-control input-sm typeahead", disabled = "disabled" })*@
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.CRMAccountProgressTypeID, new { })
+                        @Html.DropDownListFor(model => model.CRMAccountProgressTypeID, (SelectList)ViewBag.CRMSaleAccountProgressTypeMasterList, "---Select Progess Type ---", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "" })
+                        @*@Html.TextBoxFor(model => model.ProgressType, new { maxlength = "200", @class = "form-control input-sm typeahead", disabled = "disabled" })*@
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryAccountMasterAddress, new { })
+                        @Html.TextBoxFor(model => model.EnquiryAccountMasterAddress, new { maxlength = "200", @class = "form-control input-sm typeahead" })
+                    </div>
+                </div>
+                <div class="col-sm-6" style="margin-bottom:3%;">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryAccountMasterCity, new { })
+                        @Html.TextBoxFor(model => model.EnquiryAccountMasterCity, new { maxlength = "30", @class = "form-control input-sm typeahead" })
+                    </div>
+                </div>
+                <div class="col-sm-6" style="margin-bottom:3%;">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.EnquiryAccountMasterCountry, new { })
+                        @Html.TextBoxFor(model => model.EnquiryAccountMasterCountry, new { maxlength = "30", @class = "form-control input-sm typeahead" })
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        CRMSaleEnquiryAccountMaster.Initialize();
+    });
+</script>

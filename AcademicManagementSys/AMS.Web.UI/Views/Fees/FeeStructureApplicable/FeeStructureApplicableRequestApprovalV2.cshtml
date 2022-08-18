@@ -1,0 +1,180 @@
+﻿@model AMS.ViewModel.FeeStructureApplicableViewModel
+@{
+
+    Layout = null;
+    decimal totalDebit = 0;
+    decimal totalCredit = 0;
+}
+<script src="~/Scripts/AMS_Scripts/Fees/FeeStructureApplicableV2.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@*<script src="~/Scripts/AMS_Scripts/Dashboard/FSAAPendingRequest.js"></script>
+
+    *@
+<style type="text/css">
+    .mfp-content {
+        width: 60%;
+    }
+    @@media (max-width:768px) {
+        .mfp-content {
+            width: 100% !important;
+        }
+    }
+    .sweet-overlay {
+        z-index: 1043 !important;
+    }
+</style>
+
+<div id="custom-content">
+
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i> Fee Structure Request Approval</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body card-padding">
+            <form id="FormFeeStructureRequestAppronal" method="post">
+                @Html.HiddenFor(m => m.FeeStructureMasterID)
+                @Html.HiddenFor(m => m.AccBalanceSheetID)
+                @Html.HiddenFor(m => m.AccountSessionID)
+                @Html.HiddenFor(m => m.FeeStructureApplicableHistoryID)
+                @Html.HiddenFor(m => m.StudentID)
+
+                @Html.HiddenFor(m => m.PersonID)
+                @Html.HiddenFor(m => m.StageSequenceNumber)
+                @Html.HiddenFor(m => m.TaskNotificationMasterID)
+                @Html.HiddenFor(m => m.TaskNotificationDetailsID)
+                @Html.HiddenFor(m => m.GeneralTaskReportingDetailsID)
+                @Html.HiddenFor(m => m.IsLastRecord)
+
+                <div class="row">
+                    <div class="col-sm-4" id="upload-choices">
+                        @if (Model.FeeStructureCriteriaApprovalList.Count > 0)
+                        {
+                            if (Model.FeeStructureCriteriaApprovalList[0].StudentPhoto != null)
+                            {
+                                <img alt="Field for image cutting" class="my-picture" style="" id="preview" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.FeeStructureCriteriaApprovalList[0].StudentPhoto, 0, Convert.ToInt32(Model.FeeStructureCriteriaApprovalList[0].StudentPhotoFileSize))" />
+                            }
+                            else
+                            {
+                                <img alt="Field for image cutting" class="my-picture" style="" id="preview" src="~/Content/images/Avatar.png" />
+                            }
+                        }
+                    </div>
+                    <div class="col-sm-8">
+                        <table class="table table-hover">
+                            <tr>
+                                <td class="size" width="30%;"><b>Name </b></td>
+                                <td>
+                                    <b>@Html.DisplayFor(model => model.StudentName, new { style = "font-Weight:Bold;" })</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="size"><b>Section </b></td>
+                                <td>
+                                    <b>@Html.DisplayFor(model => model.SectionDescription, new { style = "font-Weight:Bold;" })</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="size"><b>Academic Year </b></td>
+                                <td>
+                                    <b>@Html.DisplayFor(model => model.AdmitAcademicYear, new { style = "font-Weight:Bold;" })</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="size"><b>Admission Type </b></td>
+                                <td>
+                                    <b>@Html.DisplayFor(model => model.AdmissionPattern, new { style = "font-Weight:Bold;" })</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row" id="tblFeeStructure" style="">
+                    <div class="card">
+                        <div class="card-header ch-alt">
+                            <h2>Fee Structure</h2>
+                        </div>
+
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="tblFeeStructure" class="table table-hover" style="">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #fff; text-align: center; width: 40%" aria-controls="DataTables_Table_0" rowspan="2">Fees Type </th>
+                                            <th style="background-color: #fff; text-align: center" aria-controls="DataTables_Table_0" colspan="2">Amount </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="background-color: #fff; text-align: center" aria-controls="DataTables_Table_0">Debit </th>
+                                            <th style="background-color: #fff; text-align: center" aria-controls="DataTables_Table_0">Credit </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody aria-relevant="all" aria-live="polite" role="alert">
+                                        @foreach (var item in Model.FeeStructureCriteriaApprovalList)
+                                        {
+                                            <tr class="odd">
+                                                <td style="text-align: left">@item.FeeSubTypeDesc</td>
+                                                @if (@item.CrDrStatus == true)
+                                                {
+                                                    <td style="">@item.Amount.ToString("0.00") </td>
+                                                    Convert.ToInt32(totalDebit += @item.Amount);
+                                                }
+                                                else
+                                                {
+                                                    <td style=""></td>
+                                                }
+                                                @if (@item.CrDrStatus == false)
+                                                {
+                                                    <td style="">@item.Amount.ToString("0.00") </td>
+                                                    Convert.ToInt32(totalCredit += item.Amount);
+                                                }
+                                                else
+                                                {
+                                                    <td style=""></td>
+                                                }
+                                                @*<td style="display:none"><input value="@item.FeeSubTypeAmount" id="FeeSubTypeAmount" type="text" style="display:none" /></td>*@
+                                                <td style="display: none">
+                                                    <input value="@item.AccountID" id="accountID" type="text" style="display:none" />
+                                                    <input value="@item.CrDrStatus.ToString()" id="crDrStatus" type="text" style="display:none" />
+                                                    <input value="@item.Amount.ToString()" id="Amount" type="text" style="display:none" />
+                                                    <input value="@item.StudentID" id="studentID" type="text" style="display:none" />
+
+                                                    @* <input value="@item.FeeReceivableVoucherStructureID" id="feeReceivableVoucherStructureID" type="text" style="display:none" />
+                            <input value="@item.AccountType" id="accountType" type="text" style="display:none" />
+                                                    *@
+                                                    @*  <input value="@item.FeeStructureMasterID" id="feeStructureMasterID" type="text" style="display:none" />
+                            <input value="@item.SubTypeMasterID" id="subTypeMasterID" type="text" style="display:none" />
+                            <input value="@item.FeeSubTypeDesc" id="feeSubTypeDesc" type="text" style="display:none" />
+                            <input value="@item.Source" id="source" type="text" style="display:none" />
+                            <input value="@item.FeeStructureApplicableHistoryID" id="feeStructureApplicableHistoryID" type="text" style="display:none" />*@
+
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td class="size" style="text-align: left">Total :</td>
+                                            <td><b><span style="">@totalDebit.ToString("0.00")</span></b></td>
+                                            <td><b><span style="">@totalCredit.ToString("0.00")</span></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="text-align: right; padding-top: 15px;" class="col-sm-12">
+                                    <input id="CreateFeeStructureApproval" type="button" value="Approve" class="btn btn-primary" style="" />
+                                    <input name="" id="RejectFeeStructureApproval" type="button" class="btn btn-secondary" style="" value="Reject" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        FeeStructureApplicable.Initialize();
+    });
+
+</script>

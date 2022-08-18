@@ -1,0 +1,90 @@
+﻿@model AMS.Web.UI.Models.StreamMaster.StreamMaster
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+<div id='dlgEdit'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="navbar navbar-default bootstrap-admin-navbar-thin">
+                <ol class="breadcrumb bootstrap-admin-breadcrumb">
+                    <li>
+                        <a href="#">Organisation</a>
+                    </li>
+                    <li>
+                        <a href="#">Academic Structure</a>
+                    </li>
+                    <li><a href="#">Add General Course Details</a></li>
+                    <li class="active">Stream Master</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Stream Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>Edit</legend>
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(model => model.ID)
+
+                                
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">@Html.LabelFor(model => model.StreamDescription) </label>
+                                    <div class="col-lg-8">
+                                        <span class="">@Html.EditorFor(model => model.StreamDescription) @Html.ValidationMessageFor(model => model.StreamDescription)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">@Html.LabelFor(model => model.DivisionID)</label>
+                                    <div class="col-lg-8">
+                                        <span class="">   @Html.DropDownList("My Drop Down",(SelectList) ViewBag.DropDownValues) @Html.ValidationMessageFor(model => model.DivisionID)</span>
+                                    </div>
+                                </div> 
+                                
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">@Html.LabelFor(model => model.ShortCode)</label>
+                                    <div class="col-lg-8">
+                                        <span class="">@Html.EditorFor(model => model.ShortCode) @Html.ValidationMessageFor(model => model.ShortCode)</span>
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">@Html.LabelFor(model => model.PrintCode)</label>
+                                    <div class="col-lg-8">
+                                        <span class="">@Html.EditorFor(model => model.PrintCode) @Html.ValidationMessageFor(model => model.PrintCode)</span>
+                                    </div>
+                                </div>        
+ 
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">&nbsp;</label>
+                                    <div class="col-lg-8">
+                                        <span class="">
+                                            <button class="btn btn-sm btn-default">Save</button></span>
+                                    </div>
+                                </div>   
+                                   
+                               
+                            }
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+
+</div>

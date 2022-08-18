@@ -1,0 +1,118 @@
+﻿@*@model AMS.ViewModel.InventoryItemCategoryMasterViewModel
+<form id="FormEditInventoryItemCategoryMaster" method="post">
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="update-message" class="error invisible"></div>
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+
+    <div class="widget-block" style="width: auto; height: auto;">
+        <div class="widget-head">
+            <h5>Update Inventory Item </h5>
+        </div>
+         
+            <div class="widget-content">
+                <div class="widget-box" style="padding: 15px">
+
+                    <div class="control-group control-label">
+                        @Html.LabelFor(model => model.CategoryDescription, new { style = "font-Weight:Bold;" })
+
+                        <div class="controls input-xlarge text-tip">
+                            @Html.TextBoxFor(model => model.CategoryDescription, new {  style = "font-Weight:Bold;", maxlength = "50" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.CategoryDescription)
+                        </div>
+                    </div>
+                    <div class="control-group control-label">
+                        @Html.LabelFor(model => model.CategoryCode, new { style = "font-Weight:Bold;" })
+
+                        <div class="controls input-xlarge text-tip">
+                            @Html.TextBoxFor(model => model.CategoryCode, new { style = "font-Weight:Bold; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);", maxlength = "20", ReadOnly = "true" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.CategoryCode)
+                        </div>
+                    </div>
+                     
+
+                    <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+
+                        <input type="button" id="EditInventoryItemCategoryMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+
+                    </div>
+
+                </div>
+            </div>
+        
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventoryItemCategoryMaster.Initialize();
+    });
+</script>*@
+
+@*----------new code------------*@
+
+@model AMS.ViewModel.InventoryItemCategoryMasterViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Update Item Category</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormEditInventoryItemCategoryMaster">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.ID)
+
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.CategoryDescription, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.CategoryDescription, new { @class = "form-control", maxlength = "50", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CategoryDescription)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.CategoryCode, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(model => model.CategoryCode, new { @class = "form-control", maxlength = "2", minlength = "2", style = "background-color:#fff;", ReadOnly = "true" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CategoryCode)
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="EditInventoryItemCategoryMasterRecord" type="button" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventoryItemCategoryMaster.Initialize();
+    });
+</script>
+
+

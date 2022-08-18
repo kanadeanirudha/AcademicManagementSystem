@@ -1,0 +1,142 @@
+﻿@model AMS.ViewModel.FeeReceiptMasterViewModel
+<style>
+    .text-align-right {
+        text-align:right;
+    }
+    .text-align-center {
+        text-align: right;
+    }
+</style>
+@{ int _group = 0; 
+   decimal _feeSubTypeAmount = 0;
+   decimal _receivedAmount = 0;
+   decimal _feeReceivedDueAmount = 0;
+   decimal _scolarShipAmount = 0;
+}
+@Html.HiddenFor(m=>m.CentreCode)
+@Html.HiddenFor(m => m.IsLumpsum)
+@Html.HiddenFor(m => m.AccSessionId)
+@Html.HiddenFor(m => m.FeeStructureMasterID)
+@Html.HiddenFor(m => m.NextFeeReceivableDueListDetailsID)
+<table id="tblStuPaymentDetails" class="table  table-vmiddle  table-condensed ">
+    <thead>
+        <tr>
+            <th>Fee Type</th>
+            <th>Fee Amount</th>
+            <th>Discount/ScholarShip</th>
+            <th>Received Amount</th>
+            <th>Due Amount</th>
+            <th>Deposite Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.StudentPaymentDetails.Count > 0)
+        {
+            @*if (Model.IsScholarShipApplicable == true)
+            {
+                 _scolarShipAmount = Model.ScholarShipOrDiscountAmount;
+                for (int i = 0; i < Model.StudentPaymentDetails.Count; i++)
+                {
+                   
+                    if (_group != Model.StudentPaymentDetails[i].InstallmentNumber)
+                    {
+                         <tr>
+                             <td colspan="5" style="font-weight: bold; background-color: rgba(128,128,128,0.2); color: #000; font-size: 12px; font-family: verdana; text-align: left"  >
+                                 Installment Number -  @Model.StudentPaymentDetails[i].InstallmentNumber
+                             </td>
+                         </tr>
+                        _group = Model.StudentPaymentDetails[i].InstallmentNumber;
+                    }
+
+                    if (_isScholarShipRemaining)
+                    {
+                        if (Model.StudentPaymentDetails[i].FeeSubTypeAmount > _scolarShipAmount)
+                        {
+                            Model.StudentPaymentDetails[i].FeeSubTypeAmount = Convert.ToDecimal(Model.StudentPaymentDetails[i].FeeSubTypeAmount - _scolarShipAmount);
+                            Model.StudentPaymentDetails[i].FeeReceivedDueAmount = Convert.ToDecimal(Model.StudentPaymentDetails[i].FeeReceivedDueAmount - _scolarShipAmount);
+                            _isScholarShipRemaining = false;
+                        }
+                        else
+                        {
+                            _scolarShipAmount = Convert.ToDecimal(_scolarShipAmount - Model.StudentPaymentDetails[i].FeeSubTypeAmount);
+                            Model.StudentPaymentDetails[i].FeeSubTypeAmount = 0;
+                            Model.StudentPaymentDetails[i].FeeReceivedDueAmount = 0;
+                            _isScholarShipRemaining = true;
+                        }
+                    }
+                    
+                    <tr>
+                        <td>@Model.StudentPaymentDetails[i].FeeSubTypeDesc</td>
+                        <td>@string.Format("{0:0.00}", @Model.StudentPaymentDetails[i].FeeSubTypeAmount)</td>
+                        <td>@string.Format("{0:0.00}",@Model.StudentPaymentDetails[i].ReceivedAmount)</td>
+                        <td>@string.Format("{0:0.00}",@Model.StudentPaymentDetails[i].FeeReceivedDueAmount)</td>
+                        <td class="text-align-right"><div class="fg-line"> <input type="text" class="form-control text-align-right input-sm" value="0.00" disabled></div></td>
+                        @{ Convert.ToDecimal(_feeSubTypeAmount += Model.StudentPaymentDetails[i].FeeSubTypeAmount);}
+                        @{Convert.ToDecimal(_receivedAmount += Model.StudentPaymentDetails[i].ReceivedAmount);}
+                        @{Convert.ToDecimal(_feeReceivedDueAmount += Model.StudentPaymentDetails[i].FeeReceivedDueAmount);}
+                    </tr>
+                }
+            }*@
+                for (int i = 0; i < Model.StudentPaymentDetails.Count; i++)
+                {
+
+                    if (_group != Model.StudentPaymentDetails[i].InstallmentNumber)
+                    {
+                        <tr>
+                            <td colspan="6" style="font-weight: bold; background-color: rgba(128,128,128,0.2); color: #000; font-size: 12px; font-family: verdana; text-align: left">
+                                Installment Number -  @Model.StudentPaymentDetails[i].InstallmentNumber
+                            </td>
+                        </tr>
+                        _group = Model.StudentPaymentDetails[i].InstallmentNumber;
+                    }
+
+                    <tr>
+                        <td>@Model.StudentPaymentDetails[i].FeeSubTypeDesc</td>
+                        <td>@string.Format("{0:0.00}", @Model.StudentPaymentDetails[i].FeeSubTypeAmount)</td>
+                        <td>@string.Format("{0:0.00}", @Model.StudentPaymentDetails[i].ScholarShipOrDiscountAmount)</td>
+                        <td>@string.Format("{0:0.00}", @Model.StudentPaymentDetails[i].ReceivedAmount)</td>
+                        <td>@string.Format("{0:0.00}", @Model.StudentPaymentDetails[i].FeeReceivedDueAmount)</td>
+                        <td>
+                            <div class="fg-line"> 
+                                <input type="text" class="form-control text-align-right input-sm" style="font-weight:bold" value="0.00" disabled>
+                            </div>
+                            <input type="hidden" id="_feeReceivableDueListMasterID" value="@Model.StudentPaymentDetails[i].FeeReceivableDueListMasterID" />
+                            <input type="hidden" id="_feeReceivableDueListDetailsID" value="@Model.StudentPaymentDetails[i].FeeReceivableDueListDetailsID" />
+                            <input type="hidden" id="_feeReceivableDueListFeeTypeDetailsID" value="@Model.StudentPaymentDetails[i].FeeReceivableDueListFeeTypeDetailsID" />
+                            <input type="hidden" id="_installmentNumber" value="@Model.StudentPaymentDetails[i].InstallmentNumber" />
+                            <input type="hidden" id="_feeStructureInstallmentMasterIDOrStructureDetailsID" value="@Model.StudentPaymentDetails[i].FeeStructureInstallmentMasterID" />
+                            <input type="hidden" id="_feeSubTypeID" value="@Model.StudentPaymentDetails[i].FeeSubTypeID" />
+                            <input type="hidden" id="_feeSubTypeAmount" value="@Model.StudentPaymentDetails[i].FeeSubTypeAmount" />
+                        </td>
+                        
+                        @{ Convert.ToDecimal(_feeSubTypeAmount += Model.StudentPaymentDetails[i].FeeSubTypeAmount);}
+                        @{ Convert.ToDecimal(_scolarShipAmount += Model.StudentPaymentDetails[i].ScholarShipOrDiscountAmount);}
+                        @{Convert.ToDecimal(_receivedAmount += Model.StudentPaymentDetails[i].ReceivedAmount);}
+                        @{Convert.ToDecimal(_feeReceivedDueAmount += Model.StudentPaymentDetails[i].FeeReceivedDueAmount);}
+                    </tr>
+                }
+
+            <tr>
+                <td style="font-weight: bold;">Total</td>
+                <td style="font-weight: bold;">@string.Format("{0:0.00}", _feeSubTypeAmount)</td>
+                <td style="font-weight: bold;">@string.Format("{0:0.00}", _scolarShipAmount)</td>
+                <td style="font-weight: bold;">@string.Format("{0:0.00}", _receivedAmount)</td>
+                <td style="font-weight: bold;">@string.Format("{0:0.00}", _feeReceivedDueAmount)</td>
+                <td style="font-weight: bold;">
+                    <div class="fg-line">
+                        <input type="text" id="totalDepositeAmount" value="0.00" disabled class="form-control text-align-right input-sm">
+                    </div>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" style="text-align:center">
+                    No data available
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

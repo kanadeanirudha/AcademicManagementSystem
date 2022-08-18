@@ -1,0 +1,68 @@
+﻿@model AMS.ViewModel.OnlineExamQuestionBankMasterAndDetailsViewModel
+@{
+    ViewBag.Title = "CreateQuestionBank";
+}
+
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Create Question Bank</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding" style="padding-bottom:0%;">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateQuestionBank" class="row" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+
+                <div class="col-sm-12">
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Center, new { style = "" })
+                        <div class="form-group fg-line select">
+                            @Html.DropDownListFor(model => model.Center, Model.ApplicableCenters,"--Select Centre--", new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Center)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.CourseType, new { style = "" })
+                        <div class="form-group fg-line select">
+                            @Html.DropDownListFor(model => model.CourseType, Model.CourseTypeListMasterItem, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CourseType)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.SubjectGroupType, new { style = "" })
+                        <div class="form-group fg-line select">
+                            @Html.DropDownListFor(model => model.SubjectGroupType, Model.SubjectGroupListItem, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SubjectGroupType)
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <input id="CreateQuestionBankRecord" type="button" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                        <input name="" id="resetQuestionBankRecord" type="button" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OnlineExamQuestionBankMasterAndDetails.Initialize();
+
+    });
+</script>

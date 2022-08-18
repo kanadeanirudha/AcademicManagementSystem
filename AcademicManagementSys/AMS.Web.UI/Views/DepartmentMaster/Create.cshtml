@@ -1,0 +1,152 @@
+﻿@model AMS.Web.UI.Models.DepartmentMaster.DepartmentMaster
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#AcademiCheck").change(function () {
+            $("#State").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetStates")', // we are calling json method
+                dataType: 'json',
+                data: { id: $("#AcademiCheck").val() },
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(states, function (i, state) {
+                        $("#State").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+
+<div id='dlgLogin'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Department Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <legend>Create</legend>
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DepartmentName)
+                                </div>
+                                <div class="editor-field">
+                                        
+                                       @Html.EditorFor(model => model.DepartmentName)
+                                    @Html.ValidationMessageFor(model => model.DepartmentName) 
+                                </div>
+                                                <br />                        
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DepartmentShortCode)
+                                </div>
+                                <div class="editor-field">
+                                    
+                             
+                                    @Html.EditorFor(model => model.DepartmentShortCode)
+                                    @Html.ValidationMessageFor(model => model.DepartmentShortCode)
+                             
+                                     </div>
+                                            <br />
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DepartmentPrintCode)
+                                </div>
+                                <div class="editor-field">
+                                   
+                                    @Html.EditorFor(model => model.DepartmentPrintCode)
+                                    @Html.ValidationMessageFor(model => model.DepartmentPrintCode)  
+                                </div>
+
+                                            <br />
+                                
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.AcademicNonAcademic)
+                                </div>
+                                <div class="">
+                                     @Html.DropDownList("Departments", new List<SelectListItem>
+                                    { 
+                                        new SelectListItem { Text = "Academic", Value = "1", Selected=true},
+                                        new SelectListItem { Text = "Non-Academic", Value = "2"}
+                                    }) 
+                                </div>
+                                <br />
+                                 <div class="editor-label">
+                                    @Html.LabelFor(model => model.TeachingActivity)
+                                </div>
+                                <div class="editor-field">
+                                   
+                                    @Html.CheckBox("CheckTeachingActivity",true)
+                                    @Html.ValidationMessageFor(model => model.TeachingActivity)  
+                                </div>
+
+
+                                <br />
+                                <p>
+                                    <input type="submit" value="Create" />
+                                </p>
+                            </fieldset>
+                        }
+                      
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*script for popup*@
+<script type="text/javascript">
+    $(function () {
+        $("#dlgLogin").dialog({
+            modal: true,
+            autoOpen: true,
+            resizable: false,
+            buttons: {
+                Create: function () {
+                    // perform login
+                    $.post("@Url.Action("Login", "MediumMaster")",
+				    {
+				        StandardName: $('#StandardName').val(),
+				        StandardNumber: $('#StandardNumber').val(),
+				        ShortCode: $('#ShortCode').val(),
+				        PrintCode: $('#PrintCode').val()
+				    },
+				    function (data, status, xhr) {
+				        if (data.Success) {
+				            alert('great'); // do something
+				            $('#dlgLogin').dialog("close");
+				            $('#divLoginButton').load("@Url.Action("GetLoginButton", "MediumMaster")");
+                        } else {
+				            // do something else
+                        }
+				    });
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+</script>
+
+@* End othe Script*@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

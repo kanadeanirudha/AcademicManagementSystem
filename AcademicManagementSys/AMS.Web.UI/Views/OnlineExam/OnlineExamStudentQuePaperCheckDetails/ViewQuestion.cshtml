@@ -1,0 +1,108 @@
+﻿@model AMS.ViewModel.OnlineExamStudentQuePaperCheckDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/OnlineExam/OnlineExamStudentQuePaperCheckDetails.js")" type="text/javascript"></script>
+
+<div class="container">
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp; Question Answer for Examination</h2>
+    </div>
+    <div class="card" style="margin-bottom: 0px;">
+        <div class="card-header">
+            <ul class="actions">
+                <li class="dropdown">
+                    <a ID="BackLoadStudentList" href="@Url.Action("StudentList", "OnlineExamStudentQuePaperCheckDetails", new { OnlineExamSubjectGroupScheduleID=Model.OnlineExamSubjectGroupScheduleID,OnlineExamQuestionPaperCheckerID=Model.OnlineExamQuestionPaperCheckerID})">
+                        <i class="zmdi zmdi-long-arrow-return"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="ListViewModel"></div>
+</div>
+<div class="container">
+    <div>
+        @Html.LabelFor(model => model.MarkObtained, new { @class = "", style = "font-Weight:Bold;" })
+    </div>
+    <div class="span6">
+        @Html.TextBoxFor(model => model.MarkObtained, new { style = "width: 19%; height: 37px; padding-left: 11px;" })
+        &nbsp
+        <button type="button" id="Save" class="btn btn-primary" style="height: 37px; width: 78px;">Save</button>
+        <button type="button" id="IsChecked" class="btn btn-primary pull-right" style="height: 37px; width: 91px;">Submit</button>
+        @Html.ValidationMessageFor(model => model.MarkObtained)
+    </div>
+</div>
+@Html.HiddenFor(m => m.OnlineExamIndStudentExamInfoID)
+@Html.HiddenFor(m => m.OnlineExamSubjectGroupScheduleID)
+@Html.HiddenFor(m => m.OnlineExamIndQuestionPaperID)
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        OnlineExamStudentQuePaperCheckDetails.LoadViewQuestionList();
+//--------------------------Marks Obtain on Save Button ------------------------------
+        $('#Save').on("click", function () {
+            var MarkObtained = $('#MarkObtained').val();
+            var OnlineExamIndQuestionPaperID = $('#OnlineExamIndQuestionPaperID').val();
+            $.ajax(
+            {
+                cache: false,
+                type: "POST",
+                dataType: "json",
+                data: { "MarkObtained": MarkObtained, "OnlineExamIndQuestionPaperID": OnlineExamIndQuestionPaperID },
+                url: '/OnlineExamStudentQuePaperCheckDetails/MarksObtainInExamination',
+                success: function (data) {
+                    var splitData = data.split(',');
+                    notify(splitData[0], splitData[1]);
+                }
+
+            });
+        });
+
+// -------------------------------- Submit button IsCheked Falg Cheked-----------------------
+        $('#IsChecked').on("click", function () {
+            debugger
+            swal({
+                title: "Submit Question Paper",
+                text: "Once Question Paper Submitted, Marks Can not be Changed. ",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: true,
+                confirmButtonClass: "btn-warning",
+                confirmButtonText: "Submit"
+            },
+       function (isConfirm) {
+           if (isConfirm) {
+               var OnlineExamIndStudentExamInfoID = $('#OnlineExamIndStudentExamInfoID').val();
+               var OnlineExamSubjectGroupScheduleID = $('#OnlineExamSubjectGroupScheduleID').val();
+               $.ajax(
+               {
+                   cache: false,
+                   type: "POST",
+                   dataType: "json",
+                   data: { "OnlineExamIndStudentExamInfoID": OnlineExamIndStudentExamInfoID, "OnlineExamSubjectGroupScheduleID": OnlineExamSubjectGroupScheduleID },
+                   url: '/OnlineExamStudentQuePaperCheckDetails/OnlineDescriptiveIsCheckedQuestion',
+                   success: function (data) {
+                       debugger
+                       var splitData = data.split(',');
+                       notify(splitData[0], splitData[1]);
+                       var href = $('#BackLoadStudentList').attr('href');
+                       window.location = href;
+                   }
+
+               });
+           }
+       
+         });
+        });
+    });
+</script>
+
+
+
+

@@ -1,0 +1,28 @@
+﻿<style>
+    .h2 {
+        font-size: 18px;
+    }
+</style>
+<div class="card" id="weeklyPlanner">
+    <div class="card-header bgm-cyan">
+        <h2>Weekly Planner</h2>
+    </div>
+    <div class="p-15">
+        <div id='calendarWeekLy'></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#calendarWeekLy').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+            },
+            defaultView: 'agendaWeek',
+            events: "/CRMSaleDashboard/GetWicklyStatusByEmployee/"
+        });
+    });
+</script>

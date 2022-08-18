@@ -1,0 +1,155 @@
+﻿@model AMS.ViewModel.HMAppointmentTransactionViewModel
+<input type="hidden" id="TaskCode" value="HMAppointmentTransaction" />
+@Html.HiddenFor(model => model.TaskCode)
+@Html.HiddenFor(model => model.TransactionDate)
+@Html.HiddenFor(model => model.IsNewPatient)
+@Html.HiddenFor(model => model.CaseHistoryNumber)
+@Html.HiddenFor(model => model.ConsultantID)
+@Html.HiddenFor(model => model.GeneralPatientMasterId)
+@Html.HiddenFor(model => model.CentreCode)
+@Html.HiddenFor(model => model.IsCaseClosed)
+@Html.HiddenFor(model => model.HMOPDHealthCentreID)
+@Html.HiddenFor(model => model.OPDName)
+@*@Html.HiddenFor(model => model.Gender)*@
+<div id="custom-content">
+    <div class="card">
+        <div class="card-body card-padding">
+            <form id="FormCreateHMAppointmentTransaction" role="form" class="row">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line"><span style="color:red">*</span>
+                            @Html.LabelFor(model => model.Name, new { })
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm" ,disabled="disabled"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line"><span style="color:red">*</span>
+                            @Html.LabelFor(model => model.Status, new { })
+                            @Html.DropDownList("Status", ViewData["Status"] as List<SelectListItem>, "---Select Status---",new { @class = "form-control input-sm" ,disabled = "disabled"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Status)
+                    </div>
+                  
+                    <div class="col-sm-4" id="DivLastAppointmentDate">
+                        <div class="form-group fg-line"><span style="color:red">*</span>
+                            @Html.LabelFor(model => model.LastAppointmentDate, new { })
+                            @Html.TextBoxFor(model => model.LastAppointmentDate, new { @class = "form-control input-sm", disabled = "disabled" })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.LastAppointmentDate)
+                    </div>
+                   
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line"><span style="color:red">*</span>
+
+                            @Html.LabelFor(model => model.Age, new { })
+                            @Html.TextBoxFor(model => model.Age, new { @class = "form-control input-sm ", disabled = "disabled" })
+
+                        </div>
+                        @Html.ValidationMessageFor(model =>model.Age)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            <span style="color:red">*</span>
+
+                            @Html.LabelFor(model => model.Gender, new { })
+                            @Html.TextBoxFor(model => model.Gender, new { @class = "form-control input-sm ", disabled = "disabled" })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Gender)
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group fg-line"><span style="color:red">*</span>
+                            @Html.LabelFor(model => model.Symtomp, new { })
+                            @Html.TextBoxFor(model => model.Symtomp, new { maxlength = "50", @class = "form-control input-sm " })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Symtomp)
+                    </div>
+                  
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line"><span style="color:red">*</span>
+                            @Html.LabelFor(model => model.NextAppointmentDate, new { })
+                            @Html.TextBoxFor(model => model.NextAppointmentDate, new { maxlength = "50", @class = "form-control input-sm "})
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.NextAppointmentDate)
+                    </div>
+                    <div class="col-sm-4"><span style="color:red">*</span>
+                        @Html.LabelFor(model => model.OPDName, new { })
+                        <div class="form-group fg-line select">
+                            @Html.DropDownListFor(model => model.SelectedHMOPDHealthCentreID, (SelectList)ViewBag.GetListHMOPDHealthCentre, "--Select OPD Name--", new { @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.OPDName)
+                    </div>  
+                    <div class="form-group col-sm-12">
+                        <input class="btn btn-primary" style="margin-left:1%" value="@Resources.ButtonAction_Submit" id="CreateHMAppointmentTransactionRecord" type="button" />
+                        @*<input class="btn bgm-green " style="margin-left:1%" value="Save" id="SaveVendorMasterRecord" type="button" />*@
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        HMAppointmentTransaction.Initialize();
+
+        $("#NextAppointmentDate").datetimepicker({
+            format: 'DD MM YYYY',
+            minDate: moment(),
+        });
+
+        $("#NextAppointmentDate").on("keydown", function () {
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode != 9) {
+                return false;
+            }
+        });
+        //for OPD name
+        $("#CentreCode").change(function () {
+            debugger;
+            //  alert('Hiii')
+            var selectedItem = $(this).val();
+            var $ddlOPDName = $("#SelectedHMOPDHealthCentreID");
+            var $OPDNameProgress = $("#states-loading-progress");
+            $OPDNameProgress.show();
+            if ($("#CentreCode").val() != "") {
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/HMAppointmentTransaction/GetOPDNameByCentreCode",
+
+                    data: { "CentreCode": selectedItem },
+                    success: function (data) {
+                        $ddlOPDName.html('');
+                        $ddlOPDName.append('<option value="">-----Select OPD Name-----</option>');
+                        $.each(data, function (id, option) {
+
+                            $ddlOPDName.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        $OPDNameProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve Departments.');
+                        $OPDNameProgress.hide();
+                    }
+                });
+            }
+            else {
+                $('#myDataTable tbody').empty();
+                $('#SelectedHMOPDHealthCentreID').find('option').remove().end().append('<option value>-----Select OPD Name-----</option>');
+            }
+
+        });
+     
+    });
+</script>
+

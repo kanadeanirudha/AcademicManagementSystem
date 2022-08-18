@@ -1,0 +1,245 @@
+﻿@*----------------------------------------------------------AuthoriseStudentSectionChangeRequest Form----------------------------------------------------------------------------*@
+
+@*
+
+    @model AMS.ViewModel.StudentReadmissionViewModel
+    @{
+
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/AuthoriseStudentSectionChangeRequest.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+
+
+
+    <style>
+        .ui-front {
+            /*z-index:10000;*/
+            z-index: 10000;
+        }
+
+        hr {
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 1px;
+        }
+
+        input[placeholder] {
+            font-weight: 600;
+        }
+    </style>
+
+
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li>Employee<span class="divider">»</span></li>
+            <li>Authorise Student Section Change Request</li>
+        </ul>
+        <div id="SuccessMessage" style="display:none;color:#000;" class="alert"></div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-block">
+                    <div class="widget-head">
+                        <h5>Search Student </h5>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-box">
+                            <form class="form-horizontal white-box well" id="FormCreateAuthoriseStudentSectionChangeRequest">
+                                <fieldset>
+                                    <br />
+                                    @Html.HiddenFor(m => m.SessionID)
+                                    @Html.HiddenFor(m => m.CentreCode)
+
+
+
+                                    <div class="control-group">
+                                        <div class="span1">
+                                            <label class="control-label">&nbsp;</label>
+                                        </div>
+                                        <div class="span2">
+                                            @Html.LabelFor(m => m.CentreName, new { @class = "control-label", style = "font-weight:bold" })
+                                        </div>
+                                        <div class="span2" style="line-height: 25px">
+                                            @Html.DropDownListFor(m => m.SelectedCentreCode, Model.StudyCentreListMasterItems,  new { @class = "", style = "font-weight:bold;width:210px" })
+                                            <br />
+                                            @Html.ValidationMessageFor(m => m.SelectedCentreCode)
+                                        </div>
+                                        <div class="span1">
+                                            <label class="control-label">&nbsp;</label>
+                                        </div>
+                                        <div class="span2">
+                                            @Html.LabelFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })
+                                        </div>
+
+                                        <div id="sessionName" class="span2" style="line-height: 25px">
+
+                                            @if (Model.SessionName != "Session not defined !")
+                                            {
+                                                @Html.DisplayFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })
+                                            }
+                                            else
+                                            {
+                                                <b style="color:red;">@Html.DisplayFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })</b>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="span1">
+                                            <label class="control-label">&nbsp;</label>
+                                        </div>
+                                        <div class="span2">
+                                            @Html.LabelFor(m => m.StudentName, new { @class = "control-label", style = "font-weight:bold" })
+                                        </div>
+                                        <div class="span2" style="line-height: 25px">
+                                            <div class="input-append">@Html.TextBoxFor(m => m.StudentName, new { placeholder = "Search Student" })</div>
+                                        </div>
+                                        <div class="span1">
+                                            <label class="control-label">&nbsp;</label>
+                                        </div>
+                                        <div class="span2">
+
+                                        </div>
+                                        <div class="span2" style="line-height: 25px">
+
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @Html.Partial("/Views/Student/AuthoriseStudentSectionChangeRequest/StudentDetails.cshtml")
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            AuthoriseStudentSectionChangeRequest.Initialize();
+        });
+
+
+    </script>
+
+*@
+
+@model AMS.ViewModel.StudentReadmissionViewModel
+@{
+
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style type="text/css">
+    .mfp-content {
+        width: 60%;
+    }
+</style>
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Student/AuthoriseStudentSectionChangeRequest.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+
+
+@*<div id="ListViewModel" class="container">
+    </div>*@
+
+
+<div class="container">
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Search Student</h2>
+    </div>
+    <div class="card">
+        <form class="" id="FormCreateAuthoriseStudentSectionChangeRequest">
+            @Html.HiddenFor(m => m.SessionID)
+            @Html.HiddenFor(m => m.CentreCode)
+            <div class="card-body card-padding">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group fg-line select">
+                                @Html.DropDownListFor(m => m.SelectedCentreCode, Model.StudyCentreListMasterItems, new { @class = "form-control", style = "", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Centre*" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.SelectedCentreCode)
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="">
+                                @Html.LabelFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })
+                            </div>
+
+                            <div id="sessionName" class="" style="">
+                                @if (Model.SessionName != "Session not defined !")
+                                {
+                                    @Html.DisplayFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })
+                                }
+                                else
+                                {
+                                    <b style="color:red;">@Html.DisplayFor(m => m.SessionName, new { @class = "control-label", style = "font-weight:bold" })</b>
+                                }
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        @*<div class="col-sm-6">
+                            <div class="form-group fg-line select">
+                                @Html.DropDownList("IsCurrentYearStudent", ViewData["IsCurrentYearStudent"] as List<SelectListItem>, new { @class = "form-control", style = "", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Student Type*" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.IsCurrentYearStudent)
+                        </div>*@
+
+                        <div class="col-sm-6">
+                            <div class="form-group fg-line">
+                                <div class="input-append">@Html.TextBoxFor(m => m.StudentName, new { @class = "form-control typeahead", placeholder = "Search Student" })</div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    @Html.Partial("/Views/Student/AuthoriseStudentSectionChangeRequest/StudentDetails.cshtml")
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        AuthoriseStudentSectionChangeRequest.Initialize();
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

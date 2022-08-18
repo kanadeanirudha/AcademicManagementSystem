@@ -1,0 +1,93 @@
+﻿@model AMS.Web.UI.Models.DivisionMaster
+@{
+    ViewBag.Title = "Create";
+}
+
+<div id='dlgLogin'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Division Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <legend>Create</legend>
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DivisionName)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.DivisionName)
+                                    @Html.ValidationMessageFor(model => model.DivisionName)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DivisionShortCode)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.DivisionShortCode)
+                                    @Html.ValidationMessageFor(model => model.DivisionShortCode)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.DivisionPrintCode)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.DivisionPrintCode)
+                                    @Html.ValidationMessageFor(model => model.DivisionPrintCode)
+                                </div>
+
+                                <p>
+                                    <input type="submit" value="Create" />
+                                </p>
+                            </fieldset>
+                        }
+                      
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*script for popup*@
+<script type="text/javascript">
+    $(function () {
+        $("#dlgLogin").dialog({
+            modal: true,
+            autoOpen: true,
+            resizable: false,
+            buttons: {
+                Create: function () {
+                    // perform login
+                    $.post("@Url.Action("Login", "DivisionMaster")",
+				    {
+				        DivisionName: $('#DivisionName').val(),
+				        DivisionShortCode: $('#DivisionShortCode').val(),
+				        DivisionPrintCode: $('#DivisionPrintCode').val()
+				    },
+				    function (data, status, xhr) {
+				        if (data.Success) {
+				            alert('great'); // do something
+				            $('#dlgLogin').dialog("close");
+				            $('#divLoginButton').load("@Url.Action("GetLoginButton", "DivisionMaster")");
+                        } else {
+				            // do something else
+                        }
+				    });
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+</script>
+
+@* End othe Script*@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

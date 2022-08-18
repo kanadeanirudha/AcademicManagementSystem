@@ -1,0 +1,86 @@
+﻿@model AMS.ViewModel.SalaryPayScaleMasterViewModel
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Edit Salary Pay Scale</h2>
+    </div>
+    <div class="card">
+        <div id="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormEditSalaryPayScaleMaster">
+                @Html.HiddenFor(m => m.ID)
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.DesignationID, new { })
+                        @Html.DropDownListFor(model => model.DesignationID, (SelectList)ViewBag.DesignationIDsList, "---Select Designation ---", new { @class = "form-control input-sm" })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DesignationID)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.SalaryPayRulesID, new { })
+                        @Html.DropDownListFor(model => model.SalaryPayRulesID, (SelectList)ViewBag.SalaryPayRulesIDsList, "---Select Salary Pay Rules---" ,new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.SalaryPayRulesID)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.PayScaleRange, new { })
+                        @Html.TextBoxFor(model => model.PayScaleRange, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PayScaleRange)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.RangeFrom, new { })
+                        @Html.TextBoxFor(model => model.RangeFrom, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.RangeFrom)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.RangeUpto, new { })
+                        @Html.TextBoxFor(model => model.RangeUpto, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.RangeUpto)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.PayBandIncrementPercent, new { })
+                        @Html.TextBoxFor(model => model.PayBandIncrementPercent, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PayBandIncrementPercent)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.PaybandPeriodSpan, new { })
+                        @Html.TextBoxFor(model => model.PaybandPeriodSpan, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PaybandPeriodSpan)
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group fg-line">
+                        @Html.LabelFor(model => model.PaybandPeriodUnit, new { })
+                        @Html.DropDownList("PaybandPeriodUnit", ViewData["PaybandPeriodUnit"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PaybandPeriodUnit)
+                </div>
+                <div class="col-sm-12 m-t-30">
+                    <input class=" btn btn-primary btn-sm m-t-12 waves-effect" value="@Resources.ButtonAction_Submit" id="EditSalaryPayScaleMasterRecord" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        SalaryPayScaleMaster.Initialize();
+    })
+</script>

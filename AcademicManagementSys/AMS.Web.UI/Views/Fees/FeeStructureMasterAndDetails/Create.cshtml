@@ -1,0 +1,154 @@
+﻿@model AMS.ViewModel.FeeStructureMasterAndDetailsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp;@Resources.DisplayName_FeeStructure</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateFeeStructureMasterAndDetails" method="post" class="row">
+                @Html.HiddenFor(model => model.FeeCriteriaValueCombinationMasterID)
+                @Html.HiddenFor(model => model.FeeAccountTypeMasterID)
+                @Html.HiddenFor(model => model.FeeAccountSubTypeMasterID)
+                @Html.HiddenFor(model => model.AccountIDForFeeAccountSubTypeMaster)
+                @Html.HiddenFor(model => model.AccountID)
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label>@Html.LabelFor(model => model.FeeCriteriaCombinationName)</label>
+                            @Html.TextBoxFor(model => model.FeeCriteriaCombinationName, new { @class = "form-control", disabled = "disabled", style = "background-color:white;" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label>@Html.LabelFor(model => model.TotalFeeAmount)</label>
+                            @Html.TextBoxFor(model => model.TotalFeeAmount, new { @class = "form-control", disabled = "disabled", Value = "0.00", style = "text-align:right; background-color:white;" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            <label>@Html.LabelFor(model => model.PaymentMode)</label>
+                            @Html.DropDownList("PaymentMode", ViewData["PaymentMode"] as List<SelectListItem>, new { style = " background-color:white", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6" id="DivNumberOfInstallment" style="display: none">
+                        <div class="form-group fg-line select">
+                            <label><span style="color:red">*</span>@Html.LabelFor(model => model.NumberOfInstallment)</label>
+                            @Html.DropDownList("NumberOfInstallment", ViewData["NumberOfInstallment"] as List<SelectListItem>, new { style = " background-color:white", @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12" style="display: none" id="DivLateFeeApplicable">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label>@Html.LabelFor(model => model.IsLateFeeApplicable)</label>
+                            @Html.CheckBoxFor(model => model.IsLateFeeApplicable, new { style = "background-color:white", @class = "checkbox input-helper" })
+                        </div><i class="input-helper"></i>
+                    </div>
+                    <div class="col-sm-6" id="DivLateFeeID" style="display: none">
+                        <div class="form-group fg-line">
+                            <label><span style="color:red">*</span>@Html.LabelFor(model => model.LateFeeID)</label>
+                            @Html.DropDownListFor(model => model.LateFeeID, Model.AccountMasterListItems, Resources.ddlHeaders_SelectAccount, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.LateFeeID)
+                    </div>
+                </div>
+
+                <div class="col-sm-12" style="border-bottom: 2px solid #eaeaea; padding-bottom: 2%;">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label>@Html.LabelFor(model => model.FeeAccountSubTypeDesc)</label>
+                            @Html.TextBoxFor(model => model.FeeAccountSubTypeDesc, new { @class = "form-control typeahead", id = "FeeAccountSubTypeDesc", maxlength = "50", @placeholder = "Search Fee Account" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FeeAccountSubTypeDesc)
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-12" style="border-bottom: 2px solid #eaeaea; padding-top: 2%; padding-bottom:2%">
+                    @Html.HiddenFor(m => m.FeeSubTypeID)
+                    <div class="col-sm-5">
+                        <div class="form-group fg-line">
+                            <label>@Html.LabelFor(model => model.FeeSubTypeName)</label>
+                            @Html.TextBoxFor(model => model.FeeSubTypeName, new {placeholder="Search Fee Sub Type",@class = "form-control typeahead", id = "FeeSubTypeName" })
+                        </div>
+                           @Html.ValidationMessageFor(model => model.FeeSubTypeName)
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group fg-line">
+                            <label>@Html.LabelFor(model => model.FeeSubTypeAmount)</label>
+                            @Html.TextBoxFor(model => model.FeeSubTypeAmount, new { @class = "form-control", style = "text-align:right;" })
+                        </div>
+                          @Html.ValidationMessageFor(model => model.FeeSubTypeAmount)
+                    </div>
+                    <div class="col-sm-2" style="margin-top:3%">
+                        <input type="button" id="addFeeSubType" class="btn btn-primary" value="Add" />
+                        <input type="button" id="addFeeSubTypeInstallMent" class="btn btn-primary" style="display: none" value="Add" />
+                    </div>
+                </div>
+
+                <div class="col-sm-12" id="DivLumpsumFee" style="border-bottom: 2px solid #eaeaea; padding-top: 2%; padding-bottom:2%">
+                    <div style="border: 1px solid; border-color: #EDECEC" class="table-responsive">
+                        <table id="tblDataLumpsum" class="table">
+                            <thead>
+                                <tr style="border-bottom:0" class="">
+                                    <th style="text-align: left; width: 70%">Fee SubType</th>
+                                    <th style="text-align: left; width: 25%">Fee Amount</th>
+                                    <th style="text-align: right; width: 10%;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-sm-12" style="display: none;" id="DivInstallMentFee">
+                    <div style="border: 1px solid; border-color: #EDECEC" class="table-responsive">
+                        <table id="tblDataInstallMent" class="table">
+                            <thead>
+
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class=" col-sm-12" style="padding-top: 2%;">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <label>Total Fee Amount</label>
+                            @Html.TextBoxFor(model => model.TotalAmount, new { id = "TotalAmount", disabled = "disabled", Value = "0.00", @class = "form-control", style = "text-align:right;" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class=" col-sm-12" style="padding-top: 2%;">
+                    <button type="button" id="CreateFeeStructureMasterAndDetailsRecord" class="btn btn-primary pull-left">@Resources.ButtonAction_Submit</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        FeeStructureMasterAndDetails.Initialize();
+    });
+</script>
+
+

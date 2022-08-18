@@ -1,0 +1,183 @@
+﻿@model AMS.ViewModel.GeneralRunningNumbersForAccountViewModel
+@Html.HiddenFor(m=>m.CentreCode)
+<div class="card">
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor:pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="10">10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="25">25</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="50">50</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="FiscalYear">
+                                        Fiscal Year<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="DisplayFormat"> 
+                                        Display Format<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name="StartNumber"> 
+                                        Start Number<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="EndNumber"> 
+                                        End Number<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>                          
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>Fiscal Year</th>
+                <th>Display Format</th>               
+                <th>Start Number</th>
+                <th>End Number</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var oTable;
+        oTable = $('#myDataTable').DataTable({
+            "bServerSide": true,
+            "sAjaxSource": "GeneralRunningNumbersForAccount/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "centreCode", "value": $("#CentreCode :selected").val() });
+            },
+            "columnDefs": [
+                             {
+                                 "visible": true,
+                                 "targets": 0,
+                                 "data": null,
+                                 "render": function (data, type, full, meta) {
+                                     if (data[0] != "") {
+                                         var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[0] + "</p>";
+                                         return result;
+                                     }
+                                     else {
+                                         return null;
+                                     }
+                                 }
+                             },
+
+                            {
+                                "visible": true,
+                                "targets": 1,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    if (data[1] != "") {
+                                        var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[1] + "</p>";
+                                        return result;
+                                    }
+                                    else {
+                                        return null;
+                                    }
+                                }
+                            },
+                            {
+                                "visible": true, "targets": 2,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    if (data[2] != "") {
+                                        var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[2] + "</p>";
+                                        return result;
+                                    }
+                                    else {
+                                        return null;
+                                    }
+                                }
+                            },
+                              {
+                                  "visible": true,
+                                  "targets": 3,
+                                  "bSearchable": false,                                 
+                                  "data": null,
+                                  "render": function (data, type, full, meta) {
+                                      if (data[3] != "") {
+                                          var result = "<p  style=' height:5px;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + data[3] + "</p>";
+                                          return result;
+                                      }
+                                      else {
+                                          return null;
+                                      }
+                                  }
+                              },
+                            
+            ],
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                var groupArray = '';
+                api.column(0, { page: 'current' }).data().each(function (group, i) {
+                    var dataArray = String(group).split(',');
+                    if (last !== dataArray[4]) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="4"  style="font-weight:bold;font-size:12px;font-family: verdana;" >' + dataArray[4] + '</td></tr>'
+                        );
+                        last = dataArray[4];
+                    }
+                });
+            }
+        });
+        DataTableSettings(oTable);
+    });
+</script>

@@ -1,0 +1,462 @@
+﻿@*@model AMS.ViewModel.OrganisationMasterViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div id="update-message" class="error invisible"></div>
+<div class="widget-block" style="height: auto">
+    <div class="widget-head">
+        <h5>@Resources.FormCreate_Organization</h5>
+    </div>
+    <div class="widget-box">
+        <form id="FormCreateOrganisationMaster" method="post" class="form-horizontal well">
+            <fieldset>
+                <legend style="display: none;"></legend>
+
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="nonboxy-widget">
+                    <div class="row">
+                        <div class="span9">
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  @Html.LabelFor(model => model.OrgName, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(model => model.OrgName, new { maxlength = "120", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.OrgName)
+                        </div>
+
+
+                        <div class="span2">
+                                 @Html.LabelFor(model => model.EstablishmentCode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(model => model.EstablishmentCode, new { maxlength = "120", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.EstablishmentCode)
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>      @Html.LabelFor(model => model.FounderMember, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.FounderMember, new { maxlength = "60", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.FounderMember)
+                        </div>
+
+
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>    @Html.LabelFor(model => model.FoundationDatetime, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.FoundationDatetime, new { id = "FoundationDatetime", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.FoundationDatetime)
+
+
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>      @Html.LabelFor(model => model.PlotNumber, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.PlotNumber, new { maxlength = "15", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.PlotNumber)
+                        </div>
+
+
+                        <div class="span2">
+                            @Html.LabelFor(model => model.StreetNumber, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.StreetNumber, new { maxlength = "15", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.StreetNumber)
+
+
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>         @Html.LabelFor(model => model.Address1, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextAreaFor(m => m.Address1, new { maxlength = "120", @class = "input-large", style = "font-Weight:Bold; width: 200px;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Address1)
+                        </div>
+
+
+                        <div class="span2">
+                            @Html.LabelFor(model => model.Address2, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextAreaFor(m => m.Address2, new { maxlength = "120", @class = "input-large", style = "font-Weight:Bold;width: 200px;" })
+
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>       @Html.LabelFor(model => model.SelectedLocationID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.DropDownListFor(m => m.SelectedLocationID, (SelectList)ViewBag.GeneralLocationMaster, Resources.ddlHeaders_LocationName, new { style = "font-Weight:Bold; width: 210px;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.SelectedLocationID)
+                        </div>
+
+
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>   @Html.LabelFor(model => model.Pincode, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.Pincode, new { min = "3", maxlength = "10", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Pincode)
+
+
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            
+                                 @Html.LabelFor(model => model.FaxNumber, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.FaxNumber, new { maxlength = "30", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.FaxNumber)
+                        </div>
+
+
+                        <div class="span2">
+
+                            
+                           @Html.LabelFor(model => model.MobileNumber, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.MobileNumber, new { maxlength = "20", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.MobileNumber)
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>      @Html.LabelFor(model => model.OfficePhone1, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.OfficePhone1, new { maxlength = "30", style = "font-Weight:Bold;" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.OfficePhone1)
+                        </div>
+
+
+                        <div class="span2">
+                            @Html.LabelFor(model => model.OfficePhone2, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.OfficePhone2, new { maxlength = "30", style = "font-Weight:Bold;" })
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>        @Html.LabelFor(model => model.EmailID, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.EmailID, new { style = "font-Weight:Bold;", maxlength = "60" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.EmailID)
+                        </div>
+
+
+                        <div class="span2">
+
+                            <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>          @Html.LabelFor(model => model.Url, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextBoxFor(m => m.Url, new { maxlength = "60" ,style = "font-Weight:Bold;"})
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Url)
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="span2">
+                            @Html.LabelFor(model => model.OfficeComment, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextAreaFor(m => m.OfficeComment, new { maxlength = "4000", style = "font-Weight:Bold;width: 200px;" })
+
+                        </div>
+
+
+                        <div class="span2">
+                            @Html.LabelFor(model => model.MissionStatement, new { style = "font-Weight:Bold;" })
+                        </div>
+                        <div class="span">
+                            @Html.TextAreaFor(m => m.MissionStatement, new { maxlength = "4000", style = "font-Weight:Bold;width: 200px;" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+                        <input id="CreateOrganisationMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" style="width: 50px;" />
+                        
+                    </div>
+
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationMaster.Initialize();
+        var table = $('#example').DataTable();
+
+    });
+
+
+</script>*@
+
+@*------------new code-------------*@
+
+@model AMS.ViewModel.OrganisationMasterViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormCreate_Organization</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateOrganisationMaster">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.OrgName, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.OrgName, new { @class = "form-control", maxlength = "120", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.OrgName)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.EstablishmentCode, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.EstablishmentCode, new { @class = "form-control", maxlength = "120", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EstablishmentCode)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.FounderMember, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.FounderMember, new { @class = "form-control", maxlength = "60", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FounderMember)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.FoundationDatetime, new { style = "" })
+                        <div class="form-group  fg-line dtp-container">
+                            @Html.TextBoxFor(m => m.FoundationDatetime, new { @class = "form-control", id = "FoundationDatetime", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FoundationDatetime)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.PlotNumber, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control", maxlength = "15", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PlotNumber)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.StreetNumber, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.StreetNumber, new { @class = "form-control", maxlength = "15", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.StreetNumber)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Address1, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextAreaFor(m => m.Address1, new { maxlength = "120", @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Address1)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Address2, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextAreaFor(m => m.Address2, new { maxlength = "120", @class = "form-control", style = "" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.SelectedLocationID, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(m => m.SelectedLocationID, (SelectList)ViewBag.GeneralLocationMaster, Resources.ddlHeaders_LocationName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SelectedLocationID)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Pincode, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", min = "3", maxlength = "10", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Pincode)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.FaxNumber, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.FaxNumber, new { @class = "form-control", maxlength = "30", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FaxNumber)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.MobileNumber, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", maxlength = "20", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MobileNumber)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.OfficePhone1, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.OfficePhone1, new { @class = "form-control", maxlength = "30", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.OfficePhone1)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.OfficePhone2, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.OfficePhone2, new { @class = "form-control", maxlength = "30", style = "" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.EmailID, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", style = "", maxlength = "60" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EmailID)
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.Url, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.Url, new { @class = "form-control", maxlength = "60", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Url)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.OfficeComment, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextAreaFor(m => m.OfficeComment, new { @class = "form-control", maxlength = "4000", style = "" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.MissionStatement, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextAreaFor(m => m.MissionStatement, new { @class = "form-control", maxlength = "4000", style = "" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateOrganisationMasterRecord" type="button" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationMaster.Initialize();
+        var table = $('#example').DataTable();
+
+    });
+</script>
+
+
+
+

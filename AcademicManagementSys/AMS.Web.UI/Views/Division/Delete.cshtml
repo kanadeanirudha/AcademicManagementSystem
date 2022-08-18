@@ -1,0 +1,31 @@
+﻿@model AMS.Web.UI.Models.Division.Division
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div id="update-message" class="error invisible"></div>
+
+@using (Ajax.BeginForm("Delete", "Division", null,
+        new AjaxOptions
+        {
+            UpdateTargetId = "update-message",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @Id = "deleteDivisionForm" }))
+   {
+
+
+  
+
+    @Html.HiddenFor(model => model.Id)  
+
+   
+  
+
+    
+ <b> <img src="~/Content/images/warning.png" />&nbsp;&nbsp;Are you sure to delete?  </b>
+  
+   
+
+}

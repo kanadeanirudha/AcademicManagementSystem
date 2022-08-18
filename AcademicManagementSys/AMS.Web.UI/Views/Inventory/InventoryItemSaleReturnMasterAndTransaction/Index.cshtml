@@ -1,0 +1,18 @@
+﻿
+@model AMS.ViewModel.InventoryItemSaleReturnMasterViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/Vendors")
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Inventory/InventoryItemSaleReturnMasterAndTransaction.js")" type="text/javascript"></script>
+
+<div id="ListViewModel">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventoryItemSaleReturnMasterAndTransaction.LoadList();
+    });
+</script>
+

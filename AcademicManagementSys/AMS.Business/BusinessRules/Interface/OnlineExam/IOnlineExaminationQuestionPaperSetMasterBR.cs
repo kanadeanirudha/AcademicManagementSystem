@@ -1,0 +1,11 @@
+﻿using AMS.Base.DTO;
+using AMS.DTO;
+namespace AMS.Business.BusinessRules
+{
+	public interface IOnlineExaminationQuestionPaperSetMasterBR
+	{
+		IValidateBusinessRuleResponse InsertOnlineExaminationQuestionPaperSetMasterValidate(OnlineExaminationQuestionPaperSetMaster item);
+		IValidateBusinessRuleResponse UpdateOnlineExaminationQuestionPaperSetMasterValidate(OnlineExaminationQuestionPaperSetMaster item);
+		IValidateBusinessRuleResponse DeleteOnlineExaminationQuestionPaperSetMasterValidate(OnlineExaminationQuestionPaperSetMaster item);
+	}
+}

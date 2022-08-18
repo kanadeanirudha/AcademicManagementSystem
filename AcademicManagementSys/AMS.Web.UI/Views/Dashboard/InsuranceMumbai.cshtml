@@ -1,0 +1,225 @@
+﻿
+<link href="~/Content/admin/styles.css" rel="stylesheet" />
+<script src="~/Scripts/plugin/GraphAndChart/canvasjs.min.js"></script>
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .cl {
+        height: auto;
+        clear: both;
+    }
+</style> 
+   <div class="row-fluid" id="DivMumbaiBranchEnquiryBarChart"  >
+         <div class="span3">
+            <div id="MumbaiBranchEnquiryBarChart" style="height: 100%; width: 90%;"></div>
+        </div>
+        <div  class="span3">
+            <div id="MumbaiInsurenceTypeBarChart" style="height: 100%; width: 90%;"></div>
+        </div>
+        <div class="span6">
+            <div id="MumbaiBranchPieChart" style="height: 100%; width: 90%;"></div>
+        </div>
+    </div>
+
+<script>
+
+    $(document).ready(function () {
+        //     //----------------------Mumbai chart--------------------
+             var chart = new CanvasJS.Chart("MumbaiBranchEnquiryBarChart",
+        {
+            theme: "theme3",
+            animationEnabled: true,
+            title: {
+                text: "Enquiry - Requested Vs Issued",
+                fontSize: 14,
+                fontFamily: "Helvetica",
+            },
+            animationEnabled: true,
+            legend: {
+                verticalAlign: "bottom",
+                horizontalAlign: "center",
+                fontSize: 14,
+                fontFamily: "Helvetica",
+                cursor: "pointer",
+                itemclick: function (e) {
+                    if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                        e.dataSeries.visible = false;
+                    }
+                    else {
+                        e.dataSeries.visible = true;
+                    }
+                    chart.render();
+                }
+            },
+            axisY: {
+                title: ""
+            },
+            toolTip: {
+                shared: true,
+                content: function (e) {
+                    var str = '';
+                    var total = 0;
+                    var str3;
+                    var str2;
+                    for (var i = 0; i < e.entries.length; i++) {
+                        var str1 = "<span style= 'color:" + e.entries[i].dataSeries.color + "'> " + e.entries[i].dataSeries.name + "</span>: <strong>" + e.entries[i].dataPoint.y + "</strong> <br/>";
+                        total = e.entries[i].dataPoint.y + total;
+                        str = str.concat(str1);
+                    }
+                    str2 = "<span style = 'color:DodgerBlue; '><strong>" + e.entries[0].dataPoint.label + "</strong></span><br/>";
+                    //str3 = "<span style = 'color:Tomato '>Total: </span><strong>" + total + "</strong><br/>";
+
+                    return (str2.concat(str));
+                }
+
+            },
+            data: [
+            {
+                type: "column",
+                showInLegend: true,
+                name: "Requested",
+                color: "#3366ff",
+                dataPoints: [
+                { y: 15, label: "Mumbai" }
+
+                ]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                name: "Issued",
+                color: "green",
+                dataPoints: [
+                { y: 10, label: "Mumbai" }
+                ]
+            },
+             {
+                 type: "column",
+                 showInLegend: true,
+                 name: "Cancelled",
+                 color: "Tomato",
+                 dataPoints: [
+                 { y: 5, label: "Mumbai" }
+                 ]
+             }
+
+            ]
+        });
+             chart.render();
+             $('.canvasjs-chart-credit').hide();
+
+             var chart = new CanvasJS.Chart("MumbaiInsurenceTypeBarChart",
+           {
+               theme: "theme3",
+               animationEnabled: true,
+               title: {
+                   text: "Domestic Vs International",
+                   fontSize: 14,
+                   fontFamily: "Helvetica",
+               },
+               animationEnabled: true,
+               legend: {
+                   verticalAlign: "bottom",
+                   horizontalAlign: "center",
+                   fontSize: 14,
+                   fontFamily: "Helvetica",
+                   cursor: "pointer",
+                   itemclick: function (e) {
+                       if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                           e.dataSeries.visible = false;
+                       }
+                       else {
+                           e.dataSeries.visible = true;
+                       }
+                       chart.render();
+                   }
+               },
+               axisY: {
+                   title: ""
+               },
+               toolTip: {
+                   shared: true,
+                   content: function (e) {
+                       var str = '';
+                       var total = 0;
+                       var str3;
+                       var str2;
+                       for (var i = 0; i < e.entries.length; i++) {
+                           var str1 = "<span style= 'color:" + e.entries[i].dataSeries.color + "'> " + e.entries[i].dataSeries.name + "</span>: <strong>" + e.entries[i].dataPoint.y + "</strong> <br/>";
+                           total = e.entries[i].dataPoint.y + total;
+                           str = str.concat(str1);
+                       }
+                       str2 = "<span style = 'color:DodgerBlue; '><strong>" + e.entries[0].dataPoint.label + "</strong></span><br/>";
+                       //str3 = "<span style = 'color:Tomato '>Total: </span><strong>" + total + "</strong><br/>";
+
+                       return (str2.concat(str));
+                   }
+
+               },
+               data: [
+               {
+                   type: "column",
+                   showInLegend: true,
+                   name: "Domestic",
+                   color: "#3366ff",
+                   dataPoints: [
+                   { y: 7, label: "Mumbai" }
+
+                   ]
+               },
+               {
+                   type: "column",
+                   showInLegend: true,
+                   name: "International",
+                   color: "green",
+                   dataPoints: [
+                   { y: 3, label: "Mumbai" }
+                   ]
+               }
+
+
+               ]
+           });
+             chart.render();
+             $('.canvasjs-chart-credit').hide();
+
+
+             var chart = new CanvasJS.Chart("MumbaiBranchPieChart",
+           {
+               title: {
+                   text: "Policy Status",
+                   fontSize: 20,
+                   fontFamily: "Helvetica"
+               },
+               animationEnabled: true,
+               legend: {
+                   verticalAlign: "bottom",
+                   horizontalAlign: "center",
+                   fontSize: 14,
+                   fontFamily: "Helvetica"
+               },
+               theme: "theme2",
+               data: [
+               {
+                   type: "pie",
+                   indexLabelFontFamily: "Garamond",
+                   indexLabelFontSize: 14,
+                   indexLabel: "{label} {y}%",
+                   startAngle: 0,
+                   showInLegend: true,
+                   toolTipContent: "{legendText} {y}%",
+                   dataPoints: [
+                       { y: 90, legendText: "Policy Received", label: "Policy Received", color: "#5bb75b" },
+                       { y: 10, legendText: "Policy Pending", label: "Policy Pending", color: "#faa732" },
+                   ]
+               }
+               ]
+           });
+             chart.render();
+             $('.canvasjs-chart-credit').hide();
+        //-----------------------------------------------
+    });
+</script>

@@ -1,0 +1,147 @@
+﻿@model AMS.ViewModel.DashboardViewModel
+@{
+    Layout = null;
+}
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/General_Script/EmployeeDashboard.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AMS_Scripts/General_Script/_Header.js")" type="text/javascript"></script>
+@Html.HiddenFor(m => m.TaskCode)
+<div id="aaa">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li>@Resources.MainMenu_Dashboard</><span class="divider">»</span></li>
+        </ul>
+        @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "" || "0" == "0")
+        {
+            int j = 0;
+            for (int i = 0; i < Model.ModuleList.Count; i = i + 4)
+            {
+            
+            <div class="dashboard-widget">
+                <div class="row-fluid">
+                    <div class="span2">
+                        @*<div class="dashboard-wid-wrap">
+                                    <div class="dashboard-wid-content"> <a href="#"> <i class="dashboard-icons computer_imac_blk"></i> <span class="dasboard-icon-title">Job Order</span> </a> </div>
+                                </div>*@
+                    </div>
+                    @for (j = i; j <= i + 3; j++)
+                    {
+                        if (j < Model.ModuleList.Count)
+                        { 
+                        <div class="span2">
+                            <div class="dashboard-wid-wrap">
+
+                                <div class="dashboard-wid-content" id="@Model.ModuleList[j].ModuleCode"><a href="#"><i class="@Model.ModuleList[j].ModuleIconName"></i><span class="dasboard-icon-title">@Model.ModuleList[j].ModuleName</span> </a></div>
+                            </div>
+                        </div>
+                        }
+                    }
+                    <div class="span2">
+                        @*<div class="dashboard-wid-wrap">
+                                        <div class="dashboard-wid-content"> <a href="#"> <i class="dashboard-icons help_blk"></i> <span class="dasboard-icon-title">Accounts</span> </a> </div>
+                                    </div>
+                                </div>*@
+
+                    </div>
+                </div>
+            </div>
+          
+            }
+@*<div class="dashboard-widget">
+                <div class="row-fluid">
+                    <div class="span2">
+                       <div class="dashboard-wid-wrap">
+                            <div class="dashboard-wid-content"> <a href="#"> <i class="dashboard-icons computer_imac_blk"></i> <span class="dasboard-icon-title">Job Order</span> </a> </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        <div class="dashboard-wid-wrap">
+                            <div class="dashboard-wid-content"> <a href="@Url.Action("JobOrderEmployeePerfomance", "Dashboard")"> <i class="dashboard-icons-colors hire_me_sl"></i> <span class="dasboard-icon-title">Employee Performance</span> </a> </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        <div class="dashboard-wid-wrap">
+                            <div class="dashboard-wid-content"> <a href="#"> <i class="dashboard-icons-colors billing_sl"></i> <span class="dasboard-icon-title">Accounts</span> </a> </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        <div class="dashboard-wid-wrap">
+                            <div class="dashboard-wid-content"> <a href="@Url.Action("PendingRequestList", "Home")"> <i class="dashboard-icons-colors attibutes_sl"></i> <span class="dasboard-icon-title">Leave</span> </a> </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        <div class="dashboard-wid-wrap">
+                            <div class="dashboard-wid-content"> <a href="@Url.Action("Index", "CallerConvertedReport")"> <i class="dashboard-icons-colors customers_sl"></i> <span class="dasboard-icon-title">CRM</span> </a> </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        <div class="dashboard-wid-wrap">
+                            <div class="dashboard-wid-content"> <a href="#"> <i class="dashboard-icons help_blk"></i> <span class="dasboard-icon-title">Accounts</span> </a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        }
+    </div>
+    <hr />
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        EmployeeDashboard.Initialize();
+
+        if ($('#ModuleCountFlag').val() == '0') {
+            $.ajax(
+               {
+                   cache: false,
+                   type: "GET",
+                   dataType: "html",
+                   data: { "LogoutType": 'Successfully', "Command": '' },
+                   url: 'Account/LogOff',
+                   success: function (result) {
+                       debugger;
+                       // Menus are not assigned to role,please contact administrator                       
+                       location.reload(true);
+                   }
+               });
+        }
+
+        $('.dashboard-wid-content').click(function () {
+            debugger;
+            //var ModuleID = $(this).attr('id');
+            var ModuleCode = $(this).attr('id');
+            var ModuleName = $(this).text().trim();
+            $.ajax(
+                {
+                    cache: false,
+                    type: "GET",
+                    dataType: "html",
+                    url: 'Base/CheckSessionStatus',
+                    success: function (result) {
+                        sessionStatus = result;
+                        if (sessionStatus == "1") {
+                            // _Header.LoadMenuListByModuleID(ModuleID, ModuleName);
+                            _Header.LoadMenuListByModuleCode(ModuleCode, ModuleName);
+
+                        }
+                        else if (sessionStatus != "1") {
+                            location.reload();
+                        }
+
+                    }
+                });
+        });
+    });
+</script>
+
+<style>
+    /*.sorting, .sorting_asc, .sorting_desc {
+            background: none;
+        }
+
+        table.dataTable {
+            clear: both;
+            margin-bottom: 6px !important;
+            margin-top: 0px !important;
+            max-width: none !important;
+        }*/
+</style>

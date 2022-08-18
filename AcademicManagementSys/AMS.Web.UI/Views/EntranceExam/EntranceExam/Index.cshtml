@@ -1,0 +1,556 @@
+﻿@*@{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <title>Student Self Registration</title>
+        <link href="~/Content/admin/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/admin/styles.css" rel="stylesheet" />
+        <link href="~/Content/admin/themes.css" rel="stylesheet" />
+        <link href=" @Url.Content("~/Content/admin/jquery-ui-1.css") " rel=" stylesheet" type="text/css" />
+        <script src="@Url.Content("~/Scripts/jquery/jquery-2.1.1.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentSelfRegistration.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+        <link href=" @Url.Content("~/Content/jquery-ui.theme.css") " rel=" stylesheet" type="text/css" />
+        <script src="Scripts/jquery.colorbox.js"></script>
+
+
+
+    </head>
+    <body>
+        <div id="ViewData">
+            <form id="FormCreateStudentSelfRegistration" method="post">
+
+                <!--Top Navigation Start -->
+
+                <div class="navbar navbar-fixed-top">
+                    <div class="navbar-inner">
+                        <div class="container-fluid">
+                            @*  <div class="branding">
+                                    <div class="logo">
+                                        <a href="index.html">
+                                            <!--<img src="img/logo.png" alt="Logo" height="40" width="168">-->
+                                            <h2 style="color: #ffffff;">Site Logo</h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            @* <ul class="nav pull-right">
+                                    <li><a href="#"><i class="icon-share-alt icon-white"></i>Go to Main Site</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Top Navigation End -->
+                <!-- Middle Content Start -->
+                <div class="container-fluid">
+                    <div class="">
+                        <blockquote>
+                            <p>
+                                Cras erat diam, consequat quis tincidunt nec, eleifend a turpis. Aliquam ultrices feugiat metus, ut imperdiet erat mollis at. Curabitur mattis risus sagittis nibh lobortis vel.
+                            </p>
+                        </blockquote>
+                        <blockquote class="quote_blue">
+                            <p>
+                                Cras erat diam, consequat quis tincidunt nec, eleifend a turpis. Aliquam ultrices feugiat metus, ut imperdiet erat mollis at. Curabitur mattis risus sagittis nibh lobortis vel.
+                            </p>
+                        </blockquote>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <div class="index-graph">
+                                <div class="chart-block">
+                                    <div class="row-fluid">
+                                        <h3>Dropcap</h3>
+                                        <p>
+                                            <span class="dropcap">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus elit in tortor rhoncus blandit. Nunc aliquet urna lorem, eu tempor risus. Donec felis urna, tempus elementum ultrices a, convallis ut mauris. In hac habitasse platea dictumst. In non quam id lectus blandit rutrum. Mauris venenatis dignissim felis, sed blandit magna egestas et. Sed in eleifend lorem. Maecenas sollicitudin ultrices orci, at sodales metus egestas rutrum. Proin tempus pretium lacus et consequat. Nulla ultricies viverra est eu mattis. Cras eu enim ante. Cras non sem eget risus congue gravida et vitae orci. Nam dapibus mi sed sem tempus gravida. Pellentesque fermentum augue imperdiet nunc elementum vel hendrerit elit vestibulum. Vivamus et tellus orci, id condimentum arcu. Nam turpis lorem, luctus eget ultrices ut, tristique vel nulla.
+                                        </p>
+                                        <p>
+                                            <span class="dropcapM">P</span>ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc enim orci, fringilla auctor pellentesque ut, consequat non mauris. Nunc vitae arcu sed dui venenatis tincidunt. Cras eu enim ante. Cras non sem eget risus congue gravida et vitae orci. Nam dapibus mi sed sem tempus gravida. Pellentesque fermentum augue imperdiet nunc elementum vel hendrerit elit vestibulum. Vivamus et tellus orci, id condimentum arcu. Nam turpis lorem, luctus eget ultrices ut, tristique vel nulla.
+                                        </p>
+                                        <p>
+                                            <span class="dropcapB">N</span>am porta faucibus risus ac vehicula. Suspendisse potenti. Ut volutpat eros ac urna venenatis dapibus. Nam at laoreet justo. Donec quis faucibus mauris. Proin eros eros, adipiscing eget viverra vel, bibendum et felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse eleifend laoreet orci in fringilla. Curabitur vel euismod lacus. Morbi quis sem et magna sagittis pulvinar. Fusce vel odio et purus convallis pulvinar vitae et metus. Curabitur nec mi ut magna malesuada vehicula eget et justo. Duis rutrum, diam vitae tempus venenatis, mauris lacus auctor libero, at cursus quam velit eu eros. In scelerisque purus ut sem dignissim convallis. Ut cursus eleifend magna, a interdum neque euismod adipiscing. Nam commodo mollis nibh, a suscipit justo fermentum nec. Maecenas nisi odio, lobortis at pretium feugiat, ornare sed augue. Phasellus velit massa, blandit a laoreet at, consectetur quis augue.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="summary">
+                                <ul>
+                                    <li><span class="summary-icon"><img width="36" height="36" alt="New Accounts" src="img/user-accounts.png"></span><span class="count">3645</span><span class="summary-title"> New Accounts</span></li>
+                                    <li><span class="summary-icon"><img width="36" height="36" alt="New Items" src="img/items.png"></span><span class="count">250</span><span class="summary-title"> New Items</span></li>
+                                    <li><span class="summary-icon"><img width="36" height="36" alt="New Posts" src="img/posts.png"></span><span class="count">123</span><span class="summary-title"> New Post</span></li>
+                                    <li><span class="summary-icon"><img width="36" height="36" alt="New Orders" src="img/orders.png"></span><span class="count">215</span><span class="summary-title"> New Orders</span></li>
+                                    <li><span class="summary-icon"><img width="36" height="36" alt="Order Shipped" src="img/shipped.png"></span><span class="count">124</span><span class="summary-title"> Orders Shipped</span></li>
+                                    <li><span class="summary-icon"><img width="36" height="36" alt="Order Completed" src="img/complete.png"></span><span class="count">100</span><span class="summary-title"> Orders Completed</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Middle Content End -->
+            </form>
+        </div>
+    </body>
+    </html>
+    <script type="text/javascript">
+
+
+
+    </script>*@
+@{
+    Layout = null;
+
+}
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Assessment Examination Center</title>
+    <!--CSS for protactor-->
+    <link href="@Url.Content("~/Content/EntranceExam/jplayer.blue.monday.css")" rel="stylesheet" type="text/css" />
+    <link href="~/Content/EntranceExam/mock_style.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/EntranceExam/calc.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/EntranceExam/nanoscroller.css" rel="stylesheet">
+    <link href="~/Content/EntranceExam/style.css" media="all" type="text/css" rel="stylesheet">
+    <link href="~/Content/EntranceExam/thickbox.css" type="text/css" rel="stylesheet">
+    <script src="~/Scripts/EntranceExam/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/EntranceExam/top.js" type="text/javascript"></script>
+    <script src="~/Scripts/EntranceExam/jquery.nanoscroller.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/EntranceExam/thickbox-compressed.js" type="text/javascript"></script>
+    <script>
+        window.onresize = function(event) {
+            quizPageHeight();
+        }
+
+        $( document ).ready(function() {
+            quizPageHeight();
+
+            jQuery(document).on("click",".collapse_icon",function(){
+                $(".collapsebel_panel").hide();
+                $(".expand_icon").show();
+            });
+            jQuery(document).on("click",".expand_icon",function(){
+                $(".collapsebel_panel").show();
+                $(".expand_icon").hide();
+                quizPageHeight();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="minwidth">
+            <div id="header" style="background-color: rgb(45, 112, 182);">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td align="left" id="bannerImage">
+                                <div style="float:left" id="bannerImg"><img height="45px" src="~/Content/images/banner.jpg"></div>
+
+                                <div align="center" style="margin-top:10px; font-weight:bold;" id="bannerText"><font size="4" color="#ffffff"><span> महात्मा गांधी अंतरराष्ट्रीय हिंदी विश्वविद्यालय, वर्धा</span></font></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="sub-header">
+                <div class="exam_name">
+                    <span class="test-header"></span>
+                </div>
+                <div class="helpinstruction_div">
+                    <div style="display:none;" id="usefulDataDiv" class="help_div">
+                        <span class="help_icon"></span><a onclick="showHelpContent(event);" href=".TB_inline2?height=&amp;width=520&amp;inlineId=hiddenModal4&amp;modal=true" class="test-instruct thickbox"><span class="auditlogButton UF">Useful Data</span></a>
+                    </div>
+                    <div title="Read instructions" class="instruction_div">
+                        <span class="instruction_icon">
+                        </span><a onclick="showModule('instructionsDiv');activeLink(this.id)" href=".TB_inline2?height=&amp;width=520&amp;inlineId=hiddenModal1&amp;modal=true" class="test-instruct thickbox"><span class="auditlogButton" id="VI">Instructions</span></a>
+                    </div>
+                    <div id="viewQPTD" class="viewquestion_div"><span class="questionpaper_icon"></span><a onclick="showQP();activeLink(this.id)" href=".TB_inline2?height=&amp;width=520&amp;inlineId=hiddenModal3&amp;modal=true" class="test-instruct thickbox"><span title="View Entire Question Paper" class="auditlogButton" id="viewQPButton">Question Paper</span></a></div>
+                </div>
+            </div>
+            <!-- header ends-->
+            <div class="profile-header-tablet" style="">
+                <div class="welcome-name">Welcome&nbsp;&nbsp;&nbsp;<span class="candidate-name candOriginalName">John Smith</span></div>
+                <div id="viewProfile_tablet"><a href=".TB_inline2?height=&amp;width=420&amp;inlineId=hiddenModal2&amp;modal=true" class="viewProfile thickbox auditlogButton" id="VP">Profile</a></div>
+            </div>
+            <div class="toolbar-header-tablet" style="">
+                <div class="components-section">
+                    <div style="display:none;" onclick="loadCalculator()" title="Calculator" class="component-icon-container calculator-icon-container"><div align="center"><span class="icon-0"></span></div></div>
+                    <div style="display:none;" title="Notepad" class="component-icon-container textarea-icon-container"><div align="center"><span class="icon-1"></span></div></div>
+                    <div style="display:none;" title="scratchPad" class="component-icon-container scratchpad-icon-container"><div align="center"><span class="icon-2"></span></div></div>
+                    <div style="display:none;" title="Ruler" class="component-icon-container ruler-icon-container"><div align="center"><span class="icon-3"></span></div></div>
+                    <div style="display:none;" title="Protractor" class="component-icon-container protactor-icon-container"><div align="center"><span class="icon-4"></span></div></div>
+                    <!--<div class="component-icon-container zoom-icon-container"><div align="center"><span class="icon-5"></span></div></div>-->
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--Container starts-->
+            <div class="Container">
+                <!--Center Container Starts-->
+                <div id="questionContent" style="height: 310px;">
+                    <div class="profile-grouping-section">
+                        <div id="col2" class="Rght_Section column">
+                            <div id="User_Hldr">
+                                <div class="profile_image">
+                                    <img width="94" align="absmiddle" height="101" class="candidateImg" src="~/Content/images/NewCandidateImage.jpg">
+                                </div>
+                                <div class="profile_details">
+                                    <div class="candOriginalName" id="Username">John Smith</div>
+                                    <div id="viewProButton" title="View Profile"><a onclick="showModule('profileDiv');activeLink(this.id)" href=".TB_inline2?height=&amp;width=420&amp;inlineId=hiddenModal2&amp;modal=true" class="viewProfile auditlogButton thickbox" id="VPT">Profile</a></div>
+
+                                </div>
+                                <div class="clear"></div>
+
+                            </div>
+                        </div>
+                        <div id="col1" class="Lft_Section column">
+                            <div class="nav-container">
+                                <span class="collapse_icon"></span>
+                                <div style="width: 985px;" class="group-panel">
+                                    <div class="group-arrow-left-disabled"></div>
+                                    <div id="groups"><div><div title="Group 1" id="g0" class="allSections currentSectionSelected">Group <a class="tooltip tooltipSelected" href="#"> <div class="subject_instruction_icon1"></div><span class="subject_information_div1"><table style="text-align:left" class="subject_name"><tbody><tr><td><b>Group </b></td></tr></tbody></table><table style="background:#e5f6fc none repeat scroll 0 0" class="notation_type_description diff_type_notation_area_inner"><tbody><tr class="notation_typeDiv"><td><span class="answered">0</span></td><td style="text-align:left" class="type_title" id="grpAnswered">Answered</td></tr><tr class="notation_typeDiv"><td><span class="not_answered">1</span></td><td style="text-align:left" id="grpNotAnswered" class="type_title">Not Answered</td></tr><tr class="notation_typeDiv"><td><span class="not_visited">89</span></td><td id="grpNotAttempted" style="text-align:left" class="type_title">Not Visited</td></tr><tr class="notation_typeDiv"><td><span class="review">0</span></td><td id="grpMarkReview" style="text-align:left" class="type_title">Marked for Review</td></tr><tr class="notation_typeDiv"><td><span class="review_marked">0</span></td><td id="grpMarkedAndAnswered" style="text-align:left" class="type_title">Answered &amp; Marked for Review</td></tr></tbody></table></span></a></div></div></div>
+                                </div>
+                                <div class="group-panel-mobile">
+                                    <div class="group-arrow-right-disabled"></div>
+                                </div>
+                                <div class="time-details">
+                                    <div style="float:right;" id="showTime"><b>Time Left :<span id="timeInMins">179:36</span></b></div>
+                                </div>
+                            </div>
+                            <div class="section-timepanel">
+                                <div id="sectionsField" class="section-details">
+                                    <span class="sect">Section</span><span style="display:none" id="showOptionalSecSummary">[Attempt any <span id="maxOptSec"></span>&nbsp;of the <span id="noOptSec"></span>&nbsp;optional sections.Please click on the Check Box to attempt the section]</span>
+                                </div>
+                                <div class="time-details">
+                                    <div style="float:right;" id="showTime"><b>Time Left :<span id="timeInMins">179:36</span></b></div>
+                                </div>
+                            </div>
+                            <div class="subject-selection" style="width: 1068px;">
+                                <div class="subject-arrow-left-disabled"></div>
+                                <div id="sections"><div><div title="Physics" id="s0" class="subject-name selectedsubject">Physics</div><div title="Chemistry" id="s1" class="subject-name">Chemistry</div><div title="Mathematics" id="s2" class="subject-name">Mathematics</div></div></div>
+                            </div>
+                            <div class="subject-section-rightarrow">
+                                <div class="subject-arrow-right-disabled"></div>
+                            </div>
+                            <div class="clear"></div>
+
+
+                        </div>
+                    </div>
+
+                    <div id="rightDivision" class="question_description_number_panel">
+                        <div id="col2" class="Rght_Section column">
+                            <div class="collapsebel_panel">
+                                <span class="collapse_icon"></span>
+                                <div class="diff_type_notation_area_outer">
+                                    <div class="diff_type_notation_area_inner">
+                                        <div class="notation_type_description">
+                                            <div class="notation_typeDiv leftdiv_notation"> <span id="answeredCount" class="answered">0</span> <span id="answeredLabel" class="type_title">Answered</span> </div>
+                                            <div class="notation_typeDiv"> <span id="notAnsweredCount" class="not_answered">1</span> <span id="notAnsweredLabel" class="type_title">Not Answered</span> </div>
+
+                                            <div class="clear"></div>
+                                            <div class="notation_typeDiv leftdiv_notation"> <span id="notVisitedCount" class="not_visited">29</span> <span id="notVisitedLabel" class="type_title">Not Visited</span> </div>
+                                            <div class="notation_typeDiv"> <span id="markedCount" class="review">0</span> <span id="markedLabel" class="type_title">Marked for Review</span> </div>
+
+                                            <div class="clear"></div>
+                                            <div class="notation_typeDiv answered_review_container"> <span id="markedReviewCount" class="review_marked">0</span> <span id="markedAndAnsweredLabel" class="type_title">Answered &amp; Marked for Review</span> </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="rightSectionDiv1" class="rightSectionDiv">
+
+                                    <div class="content">
+
+                                    </div>
+                                </div>
+                                <div id="rightSectionDiv2" class="rightSectionDiv">
+                                    <div class="header">
+                                        &nbsp;<span id="viewSection"><b title="Physics">Physics</b> </span>
+                                    </div>
+                                    <div id="chooseQuestion" class="subheader">Choose a Question</div>
+                                    <div style="height: 0px;" id="question_area" class="content nano has-scrollbar">
+                                        <div class="question_area nano-content" tabindex="0" style="right: -17px;"> <div id="numberpanelQues"><center><div valign="top" border="0" cellpadding="0" class="question_area " cellspacing="0" style="margin-top:-2%;"><div></div><div><div id="qtd0"><span onclick="javascript:changeQues(0);" id="0" class="not_answered auditlog" title="Not Answered"> 1</span></div><div id="qtd1"><span onclick="javascript:changeQues(1);" id="1" class="not_visited auditlog" title="Not Visited"> 2</span></div><div id="qtd2"><span onclick="javascript:changeQues(2);" id="2" class="not_visited auditlog" title="Not Visited"> 3</span></div><div id="qtd3"><span onclick="javascript:changeQues(3);" id="3" class="not_visited auditlog" title="Not Visited"> 4</span></div></div><div><div id="qtd4"><span onclick="javascript:changeQues(4);" id="4" class="not_visited auditlog" title="Not Visited"> 5</span></div><div id="qtd5"><span onclick="javascript:changeQues(5);" id="5" class="not_visited auditlog" title="Not Visited"> 6</span></div><div id="qtd6"><span onclick="javascript:changeQues(6);" id="6" class="not_visited auditlog" title="Not Visited"> 7</span></div><div id="qtd7"><span onclick="javascript:changeQues(7);" id="7" class="not_visited auditlog" title="Not Visited"> 8</span></div></div><div><div id="qtd8"><span onclick="javascript:changeQues(8);" id="8" class="not_visited auditlog" title="Not Visited"> 9</span></div><div id="qtd9"><span onclick="javascript:changeQues(9);" id="9" class="not_visited auditlog" title="Not Visited"> 10</span></div><div id="qtd10"><span onclick="javascript:changeQues(10);" id="10" class="not_visited auditlog" title="Not Visited"> 11</span></div><div id="qtd11"><span onclick="javascript:changeQues(11);" id="11" class="not_visited auditlog" title="Not Visited"> 12</span></div></div><div><div id="qtd12"><span onclick="javascript:changeQues(12);" id="12" class="not_visited auditlog" title="Not Visited"> 13</span></div><div id="qtd13"><span onclick="javascript:changeQues(13);" id="13" class="not_visited auditlog" title="Not Visited"> 14</span></div><div id="qtd14"><span onclick="javascript:changeQues(14);" id="14" class="not_visited auditlog" title="Not Visited"> 15</span></div><div id="qtd15"><span onclick="javascript:changeQues(15);" id="15" class="not_visited auditlog" title="Not Visited"> 16</span></div></div><div><div id="qtd16"><span onclick="javascript:changeQues(16);" id="16" class="not_visited auditlog" title="Not Visited"> 17</span></div><div id="qtd17"><span onclick="javascript:changeQues(17);" id="17" class="not_visited auditlog" title="Not Visited"> 18</span></div><div id="qtd18"><span onclick="javascript:changeQues(18);" id="18" class="not_visited auditlog" title="Not Visited"> 19</span></div><div id="qtd19"><span onclick="javascript:changeQues(19);" id="19" class="not_visited auditlog" title="Not Visited"> 20</span></div></div><div><div id="qtd20"><span onclick="javascript:changeQues(20);" id="20" class="not_visited auditlog" title="Not Visited"> 21</span></div><div id="qtd21"><span onclick="javascript:changeQues(21);" id="21" class="not_visited auditlog" title="Not Visited"> 22</span></div><div id="qtd22"><span onclick="javascript:changeQues(22);" id="22" class="not_visited auditlog" title="Not Visited"> 23</span></div><div id="qtd23"><span onclick="javascript:changeQues(23);" id="23" class="not_visited auditlog" title="Not Visited"> 24</span></div></div><div><div id="qtd24"><span onclick="javascript:changeQues(24);" id="24" class="not_visited auditlog" title="Not Visited"> 25</span></div><div id="qtd25"><span onclick="javascript:changeQues(25);" id="25" class="not_visited auditlog" title="Not Visited"> 26</span></div><div id="qtd26"><span onclick="javascript:changeQues(26);" id="26" class="not_visited auditlog" title="Not Visited"> 27</span></div><div id="qtd27"><span onclick="javascript:changeQues(27);" id="27" class="not_visited auditlog" title="Not Visited"> 28</span></div></div><div><div id="qtd28"><span onclick="javascript:changeQues(28);" id="28" class="not_visited auditlog" title="Not Visited"> 29</span></div><div id="qtd29"><span onclick="javascript:changeQues(29);" id="29" class="not_visited auditlog" title="Not Visited"> 30</span></div></div></div></center></div> </div>
+                                        <div class="nano-pane" style="display: block;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: none; text-align: center; background: rgb(229, 246, 253) none repeat scroll 0px 0px;" id="typingSubmit">
+                                    <span width="100%;" id="submitTD"><input type="button" disabled="" title="Submit Group" value="Submit" onclick="fnSubmit('NEXT');calculateEllapsedTime();submitConfirmation('submit');activeLink(this.id);" id="finalTypingSub" class="typingTestButtonDisabled btn btn-primary-blue auditlogButton"></span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Center Container Ends-->
+                    <div class="Questn_Area">
+                        <span class="expand_icon" style="display: none;"></span>
+                        <div class="Questn_Innr_Div ">
+                            <div id="questionCont" style="height: 196px;">
+                                <div id="currentQues" style="height: 147px; overflow: hidden;"><div class="questionTypeCont"><span class="questiontype-details"><span id="questionType">Question Type :</span>Multiple Choice Question</span></div><div id="Questn_Innr_Div_section"></div><div id="quesOuterDiv" style="height: 71px; overflow: auto;"><div style="width: 99.6%; height: 63px;" class="leftDiv"><div class="divHeader"><b><span class="questionNumber">Question No</span>. 1</b></div><div style="overflow:auto;" class="Ans_Area ZeroLevelZoom" id="quesAnsContent"><div style="width:98%;margin-left:5px;font-family:Arial,verdana,helvetica,sans-serif;padding-bottom:10px;padding-top:10px;"> <img src="~/Content/UploadedFiles/QuestionImage/01_e_79414.jpg "></div><div style="width:100%;font-family:Arial,verdana,helvetica,sans-serif;margin-top:5px;"><div><label><span><input type="radio" value="1" name="answers" class="answer" onclick="if (this.check) this.checked = false" onmousedown="this.check = this.checked"> </span><span style="font-family:Arial,verdana,helvetica,sans-serif;width:95%;"><img src="~/Content/UploadedFiles/AnswerImage/01_e_79414_01.jpg "> </span></label><label><span><input type="radio" value="2" name="answers" class="answer" onclick="if (this.check) this.checked = false" onmousedown="this.check = this.checked"> </span><span style="font-family:Arial,verdana,helvetica,sans-serif;width:95%;"><img src="~/Content/UploadedFiles/AnswerImage/01_e_79414_02.jpg "> </span></label><label><span><input type="radio" value="3" name="answers" class="answer" onclick="if (this.check) this.checked = false" onmousedown="this.check = this.checked"> </span><span style="font-family:Arial,verdana,helvetica,sans-serif;width:95%;"><img src="~/Content/UploadedFiles/AnswerImage/01_e_79414_03.jpg "> </span></label><label><span><input type="radio" value="4" name="answers" class="answer" onclick="if (this.check) this.checked = false" onmousedown="this.check = this.checked"> </span><span style="font-family:Arial,verdana,helvetica,sans-serif;width:95%;"><img src="~/Content/UploadedFiles/AnswerImage/01_e_79414_04.jpg "> </span></label></div></div></div></div></div></div>
+                                <div class="buttons-div">
+                                    <div id="Bttn_Area2" class="Bttn_Area">
+                                        <div align="center" id="submitTD " class="finalSubmit">
+                                            <input disabled="disabled" title="Submit Group" value="Submit" onclick="submitConfirmation('submit')" style="width:45%;" id="finalSubmit" class="btn btn-primary-blue">
+                                        </div>
+                                        <div class="save_buttoncontainer">
+                                            <input type="button" style="display:none" value="Next" class="progrmngBtn btn btn-primary auditlogSaveAndNext auditlog" onclick="fnSubmit('NEXT')" id="saveProgram" title="Next">
+                                            <input type="button" style="display:none" value="Compile" class="progrmngBtn btn btn-primary auditlog" id="compileCodeBtn" onclick="compileCode();" title="Compile">
+                                            <input type="button" style="display:none" value="Submit Code" class="progrmngBtn btn btn-primary btnEnabled auditlog" id="submitCodeBtn" onclick="executeCode();" title="Submit Code">
+                                            <input type="button" value="Save &amp; Next" class="normalBtn btn btn-primary-orange  btnEnabled auditlog" onclick="fnSubmit('NEXT')" id="savenext" style="margin-left: 5px;" title="Save &amp; Next">
+                                        </div>
+                                        <div class="other_buttoncontainer">
+                                            <input type="button" style="margin-left: 1%;" value="Clear Response" class="normalBtn btn btn-primary auditlog" onclick="resetOption()" id="clearResponse" title="Clear Response">
+                                            <input type="button" style="display:none" value="Reset" class="progrmngBtn btn btn-primary auditlog" onclick="resetProgramming()" id="reset" title="Reset">
+                                            <input type="button" style="" value="Mark for Review &amp; Next" class="normalBtn btn btn-primary auditlog" id="underreview" onclick="fnSubmit('MARK')" title="Mark for Review &amp; Next">
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sectionSummaryDiv" style="height: 193px;"></div>
+                    <div align="center" style="display: none; height: 310px;" id="breakTimeDiv">
+                        <div style="border: 1px solid rgb(195, 195, 193); height: 200px;" id="breakContentDiv">
+                            <div id="breakTimeCountDiv" style="width:100%;padding:10px 0px;border-bottom:1px solid #c3c3c1">
+                                <div id="breakTimeCounter" style="width:100%;"> &nbsp;</div>
+                            </div>
+                            <div style="height: 198px;" id="breakSummaryDiv"></div>
+                        </div>
+                        <div class="buttonDiv" id="brkPrcdBtnDiv"><input type="button" value="Proceed to Next Group" class="btn btn-primary" onclick="submitGroup()" id="proceedToNextGrp"></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div style="display:none;position:fixed;z-index:999;padding-top:1%;" id="loadCalc"></div>
+                </div>
+                <div align="center" style="display: none; height: 310px;" id="scoreCardDiv">
+                    <div id="scoreSummaryDiv"></div>
+                    <div style="text-align:center;" id="scoreCardBtnDiv"><input type="button" value="Proceed" class="btn btn-primary" id="scoreCardPrcdBtn" onclick="moveToFeedback();"></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Container Ends---->
+        <!-- Footer Starts ---->
+        <div id="footer"></div>
+        <!-- Footer Ends ---->
+    </div>
+    <div class="clear"></div>
+    <!---------------------Popup Content Starts ----------------------->
+    <div style="display: none;" id="hiddenModal1" class="portlet">
+        <div class="portlet_topper">
+            <div class="popupheader sysInstruLabel">Instructions</div>
+            <div class="arrowplace"><a onclick="tb_remove();removeActiveLinks()" href="#">Close</a> </div>
+        </div>
+        <div class="popup_content">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <div id="instructionsDiv" class="content" style="height: 196px;">
+                                <div style="height: 200px;padding-top:5px">
+                                    <center><span><b><font size="4em" color="#2F72B7" class="sysInstruLabel">Instructions</font></b></span></center>
+                                    <div style="padding:2px" id="firstPage">
+                                        <span style="float: right;"><span class="viewIn">View in :</span><select onchange="changeSysInst(this.value,'sysInstText','cusInstText')" id="basInst"><option value="sysInstText1">English</option><option value="sysInstText2">Hindi</option></select></span>
+                                        <br>
+                                        <br>
+                                        <div style="" class="sysInstText1"><p> <strong><u>General Instructions:</u></strong></p> <ol style="TEXT-ALIGN: left; LIST-STYLE-TYPE: decimal; PADDING-LEFT: 4%; PADDING-TOP: 3px"> <li> Total duration of examination is <span class="completeDuration">180</span> minutes.</li> <li> The clock will be set at the server. The countdown timer in the top right corner of screen will display the remaining time available for you to complete the examination. When the timer reaches zero, the examination will end by itself. You will not be required to end or submit your examination.</li> <li> The Question Palette displayed on the right side of screen will show the status of each question using one of the following symbols: <table style="FONT-SIZE: 100%" class="instruction_area"> <tbody> <tr> <td> <span title="Not Visited" class="not_visited">1</span></td> <td> You have not visited the question yet.</td> </tr> <tr> <td> <span title="Not Answered" class="not_answered">3</span></td> <td> You have not answered the question.</td> </tr> <tr> <td> <span title="Answered" class="answered">5</span></td> <td> You have answered the question.</td> </tr> <tr> <td> <span title="Not Answered &amp; Mark for Review" class="review">7</span></td> <td> You have NOT answered the question, but have marked the question for review.</td> </tr> <tr> <td> <span title="Answered &amp; Mark for Review" class="review_answered">9</span></td> <td> You have answered the question, but marked it for review.</td> </tr> </tbody> </table> </li> <li style="LIST-STYLE-TYPE: none"> The Marked for Review status for a question simply indicates that you would like to look at that question again. <font color="red"><i>If a question is answered and Marked for Review, your answer for that question will be considered in the evaluation. </i></font></li> </ol> <p> <br> <b><u>Navigating to a Question : </u></b></p> <ol style="TEXT-ALIGN: left; LIST-STYLE-TYPE: decimal; PADDING-LEFT: 4%; PADDING-TOP: 3px" start="4"> <li> To answer a question, do the following: <ol type="a" style="TEXT-ALIGN: left; PADDING-LEFT: 4%; PADDING-TOP: 3px"> <li> Click on the question number in the Question Palette to go to that numbered question directly.</li> <li> Click on <strong>Save &amp;Next</strong> to save your answer for the current question and then go to the next question.</li> <li> Click on <strong>Mark for Review &amp; Next</strong> to save your answer for the current question, mark it for review, and then go to the next question.<br> <span style="color:#ff0000;">Caution: Note that your answer for the current question will not be saved, if you navigate to another question directly by clicking on its question number.</span></li> </ol> </li> <li> You can view all the questions by clicking on the Question Paper button. Note that the options for multiple choice type questions will not be shown.</li> </ol> <p> <br> <b><u>Answering a Question : </u></b></p> <ol style="TEXT-ALIGN: left; LIST-STYLE-TYPE: decimal; PADDING-LEFT: 4%; PADDING-TOP: 3px" start="6"> <li> Procedure for answering a multiple choice type question: <ol type="a" style="TEXT-ALIGN: left; PADDING-LEFT: 4%; PADDING-TOP: 3px"> <li> To select your answer, click on the button of one of the options.</li> <li> To deselect your chosen answer, click on the button of the chosen option again or click on the <b>Clear Response</b> button.</li> <li> To change your chosen answer, click on the button of another option.</li> <li> To save your answer, you MUST click on the <b>Save &amp; Next</b> button.</li> <li> To mark the question for review, click on the <b>Mark for Review &amp; Next</b> button.<br> <em><span style="color:#ff0000;">If an answer is selected for a question that is 'Marked for Review', that answer will be considered in the evaluation even if it is not marked as 'Save &amp; Next', at the time of final submission</span>.</em></li> </ol> </li> <li> To change your answer to a question that has already been answered, first select that question for answering and then follow the procedure for answering that type of question.</li> <li> Note that questions for which option has been chosen and answers are saved or marked for review will be considered for evaluation.</li> <li> <em><span style="color:#ff0000;">¼ (one fourth) marks i.e. one mark will be deducted for indicating incorrect response of each question. No deduction from the total score will be made if no response is indicated for a question</span></em>.</li> </ol></div><div style="display:none;" class="sysInstText2"><div id="instHindi"> <div> <h5> <b><u>सामान्य अनुदेश</u></b></h5> </div> <ol style="TEXT-ALIGN: left; LIST-STYLE-TYPE: decimal; PADDING-LEFT: 4%; PADDING-TOP: 3px"> <li> सभी प्रश्नों को हल करने के लिए आपको <b><span class="completeDuration">180</span></b> मिनट का समय दिया जाएगा।</li> <li> सर्वर पर घड़ी लगाई गई है तथा आपकी स्क्रीन के दाहिने कोने में शीर्ष पर काउंटडाउन टाइमर में आपके लिए परीक्षा समाप्त करने के लिए शेष समय प्रदर्शित होगा। परीक्षा समय समाप्त होने पर, आपको अपनी परीक्षा बंद या जमा करने की जरूरत नहीं है । यह स्वतः बंद या जमा हो जाएगी।</li> <li> स्क्रीन के दाहिने कोने पर प्रश्न पैलेट, नंबर दिए प्रत्येक प्रश्न के लिए निम्न में से कोई एक स्थिति प्रकट करती है: <table style="FONT-SIZE: 100%" class="instruction_area"> <tbody> <tr> <td> <span title="Not Visited" class="not_visited">1</span></td> <td> आप अभी तक प्रश्न पर नहीं गए हैं।</td> </tr> <tr> <td> <span title="Not Answered" class="not_answered">3</span></td> <td> आपने प्रश्न का उत्तर नहीं दिया है।</td> </tr> <tr> <td> <span title="Answered" class="answered">5</span></td> <td> आप प्रश्न का उत्तर दे चुके हैं।</td> </tr> <tr> <td> <span title="Not Answered &amp; Mark for Review" class="review">7</span></td> <td> आपने प्रश्न का उत्तर नहीं दिया है पर प्रश्न को पुनर्विचार के लिए चिन्हित किया है।</td> </tr> <tr> <td> <span title="Answered &amp; Mark for Review" class="review_answered">9</span></td> <td> आप प्रश्न का उत्तर दे चुकें हैं पर प्रश्न को पुनर्विचार के लिए चिन्हित किया है।</td> </tr> </tbody> </table> </li> <li style="LIST-STYLE-TYPE: none"> पुनर्विचार के लिए चिन्हित स्थिति सामान्यत अनुस्मारक के रूप में कार्य करती है जोकि आपने प्रश्न को दुबारा देखने के लिए सेट किया है। <font color="red"><i>दि किसी प्रश्न के लिए उत्तर चुना हो जोकि पुनर्विचार के लिए चिन्हित किया है, तब अंतिम मूल्यांकन में उस उत्तर पर ध्यान दिया जाएगा।</i></font></li> </ol> <br> <b><u>किसी प्रश्न पर जाना : </u></b> <ol style="TEXT-ALIGN: left; LIST-STYLE-TYPE: decimal; PADDING-LEFT: 4%; PADDING-TOP: 3px" start="4"> <li> उत्तर देने हेतु कोई प्रश्न चुनने के लिए, आप निम्न में से कोई एक कार्य कर सकते हैं: <ol type="a" style="TEXT-ALIGN: left; PADDING-LEFT: 4%; PADDING-TOP: 3px"> <li> स्क्रीन के दांयी ओर प्रश्न पट्टिका में प्रश्न पर सीधे जाने के लिए प्रश्न संख्या पर क्लिक करें। ध्यान दें कि इस विकल्प का प्रयोग करने से मौजूदा प्रश्न के लिए आपका उत्तर सुरक्षित नहीं होता है।</li> <li> वर्तमान प्रश्न का उत्तर सुरक्षित करने के लिए और क्रम में अगले प्रश्न पर जाने के लिए<b> Save and Next</b> पर क्लिक करें।</li> <li> वर्तमान प्रश्न का उत्तर सुरक्षित करने के लिए, पुनर्विचार के लिए चिन्हित करने और क्रम में अगले प्रश्न पर जाने के लिए <b>Mark for Review and Next</b> पर क्लिक करें।</li> </ol> </li> <li> आप <b>Question Paper</b> बटन पर क्लिक करके संपूर्ण प्रश्नपत्र को देख सकते हैं। ध्यान दें कि एकाधिक पसंद सवालों के प्रकार के लिए विकल्प नहीं दिखाया जाएगा।</li> </ol> <br> <b><u>प्रश्नों का उत्तर देना : </u></b> <ol style="TEXT-ALIGN: left; LIST-STYLE-TYPE: decimal; PADDING-LEFT: 4%; PADDING-TOP: 3px" start="6"> <li> बहुविकल्प प्रकार प्रश्न के लिए <ol type="a" style="TEXT-ALIGN: left; PADDING-LEFT: 4%; PADDING-TOP: 3px"> <li> अपना उत्तर चुनने के लिए, विकल्प बटनों में से किसी एक पर क्लिक करें।</li> <li> अपना उत्तर बदलने के लिए, अन्य वांछित विकल्प बटन पर क्लिक करें।</li> <li> अपना उत्तर सुरक्षित करने के लिए, आपको <b>Save &amp; Next</b> पर क्लिक करना जरूरी है।</li> <li> चयनित उत्तर को अचयनित करने के लिए, चयनित विकल्प पर दुबारा क्लिक करें या <b>Clear Response</b> बटन पर क्लिक करें।</li> <li> किसी प्रश्न को पुनर्विचार के लिए चिन्हित करने हेतु <b>Mark for Review &amp; Next</b> पर क्लिक करें। <font color="red"><i>यदि किसी प्रश्न के लिए उत्तर चुना हो जोकि पुनर्विचार के लिए चिन्हित किया है, तब अंतिम मूल्यांकन में उस उत्तर पर ध्यान दिया जाएगा, यहां तक कि अगर यह 'Save and Next' के रूप में' अंतिम जमा करने के समय पर चिह्नित नहीं है।</i></font></li> </ol> </li> <li> किसी प्रश्न का उत्तर बदलने के लिए, पहले प्रश्न का चयन करें, फिर नए उत्तर विकल्प पर क्लिक करने के बाद Save &amp; Next बटन पर क्लिक करें।</li> <li> उत्तर देने के बाद जो प्रश्न सुरक्षित हैं या पुनर्विचार के लिए चिन्हित है, सिर्फ उन पर ही मूल्यांकन के लिए ध्यान दिया जाएगा।</li> <li> <span style="color:#ff0000;"><em>¼ ( One Fourth Negative Marking ) : प्रत्येक प्रश्न का गलत जवाब देने पर चार मार्क्स से एक मार्क्स काटा जायेगा। यदि प्रश्न का कोई भी उत्तर नहीं दिया गया होगा तो उस प्रश्न में से कोई भी मार्क्स नहीं कटा जायेगा ।</em></span></li> </ol> </div> <p> </p></div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <center><span><b><font size="4em" color="#2F72B7" id="otherInstruLabel">Other Important Instructions</font></b></span></center>
+                                    <div style="padding:2px" id="secondPagep1">
+                                        <span style="float: right;"><span class="viewIn">View in :</span><select onchange="changeSysInst(this.value,'cusInstText','sysInstText')" id="cusInst"><option value="cusInstText1">English</option><option value="cusInstText2">Hindi</option></select></span>
+                                        <br>
+                                        <br>
+                                        <div style="" class="cusInstText1"><p style="text-align: center;"> <u><strong>Exam specific Instructions</strong></u></p> <ol> <li> This is a Mock test. The Question paper displayed is for practice purposes only. Under no circumstances should this be presumed as a sample paper.</li> <li> There will be 90 questions and 180 minutes duration will be given to attempt these questions.</li> <li> There are three sections in the question paper consisting of Physics, Chemistry, Mathematics. Each section consists of 30 questions.response.</li> <li> Each question is allocated 4 (four) marks for each correct.</li> <li> One fourth marks will be deducted for incorrect response of each question. No deduction from the total score will be made if no answer is given.</li> <li> There is only one correct answer for each question.</li> </ol> <p style="text-align: center;"> </p> <p> </p></div><div style="display:none;" class="cusInstText2"><p style="text-align: center;"> <u><strong>परीक्षा सम्बंधित निर्देश</strong></u></p> <ol> <li> यह एक दिखावटी परिक्षण है । पर्दर्शित प्रश्न पत्र केवल अभ्यास के लिए है । किसी भी परिस्तिथि में इस प्रश्न पत्र को परीक्षा में उत्तीर्ण होने की लिए अभ्यास पत्र न माना जाये ।</li> <li> प्रश्न पत्र में कुल 90 प्रश्न है जिनको हल करने क लिए आपको 180 मिनट्स दिया जायेगा ।</li> <li> प्रश्न पत्र में कुल 3 भाग है ( भौतिकी , रसायन विज्ञानं और गणित ) । प्रत्येक भाग में कुल 30 प्रश्न है ।</li> <li> प्रत्येक प्रश्न के सही उत्तर पे 4 मार्क्स दिए जायेंगे ।</li> <li> प्रश्न का गलत जवाब देने पर 1/4 मार्क्स काटा जायेगा। यदि प्रशन का कोई भी उत्तर नहीं दिया गया होगा तो उस प्रश्न में से कोई भी मार्क्स नहीं काटा जायेगा ।</li> <li> प्रत्येक प्रश्न के लिए केवल एक ही सही उत्तर है ।</li> </ol> <p style="text-align: justify;"> </p> <p> </p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="display: none;" id="hiddenModal3" class="portlet">
+        <div class="portlet_topper">
+            <div class="popupheader">Question Paper</div>
+            <div class="arrowplace"><a onclick="tb_remove();removeActiveLinks()" href="#">Close</a> </div>
+        </div>
+        <div class="popup_content">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <div id="QPDiv" class="content" style="height: 196px;">
+                                <div style="" id="viewQPDiv">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="display: none;" id="hiddenModal4" class="portlet">
+        <div class="portlet_topper">
+            <div class="popupheader UF">Useful Data</div>
+            <div class="arrowplace"><a onclick="tb_remove();removeActiveLinks()" href="#">Close</a> </div>
+        </div>
+        <div class="popup_content">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <div id="sectionSummary" class="content">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="display: none;" id="hiddenModal2" class="portlet">
+        <div class="portlet_topper">
+            <div class="popupheader">Profile</div>
+            <div class="arrowplace"><a onclick="tb_remove();removeActiveLinks()" href="#">Close</a> </div>
+        </div>
+        <div class="popup_content">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <div class="userimage"><img width="94" align="absmiddle" height="101" class="candidateImg" src="~/Content/images/NewCandidateImage.jpg"></div><div id="profileDiv" class="content">
+                                <table width="200" cellspacing="0" cellpadding="10" border="0" class="candidateDetailstbl">
+                                    <tbody>
+                                        <tr>
+                                            <td width="27%" align="right" id="loginName" class="head1">Roll No </td>
+                                            <td align="left"><strong>: <span id="candId">11111</span></strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="27%" align="right" id="candName" class="head1">Name</td>
+                                            <td align="left"><strong>: <span class="candOriginalName">John Smith</span></strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" id="emailIdText" class="head1">Email ID</td>
+                                            <td align="left"><strong> <span id="emailId"><b> : </b>somebody@gmail.com </span></strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" id="contactNoText" class="head1">Contact No</td>
+                                            <td align="left"><strong>  <span id="contactNo"><b> : </b>9999999999</span></strong></td>
+                                        </tr>
+                                        <tr style="display:none" id="multilingualDropdown">
+                                            <td align="right" class="cngLang  head1">Change Language :</td>
+                                            <td>
+                                                <select align="right" onclick="this.size=0;" onmousedown="if(this.options.length&gt;8){this.size=8;}" onchange="selLang(this.value);" id="languageSelect"><option value="English">English</option></select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!---------------------Popup Content Ends ----------------------->
+    <div style="display:none;" class="overlay"></div>
+    <div style="display:none;" class="overlayForInterruption"></div>
+    <!-------- warning popup starts --------------->
+    <div id="warningPopup" class="confrmPopup">
+        <div class="cnfPopHdr">
+            <div id="warning" class="cnfPopHdrLbl">
+                Warning
+            </div>
+            <a onclick="isOkClicked1()" class="fRight popCloseSubmit1" href="javascript:void(0)">Close</a>
+            <div class="float-clear"></div>
+        </div>
+        <div class="cnfPopBdy">
+            <img class="warning-icon" style=" margin-right: 10px;" src="~/Content/images/warning-icon.png"><span id="seterror" class="warning-lbl"></span>
+        </div>
+        <div class="cnfPopBtnPnl">
+            <a onclick="isOkClicked1()" class="greenBtn cnfPopNo1" href="javascript:void(0)">Ok</a>
+        </div>
+    </div>
+    <!----------
+    <!---------------------Popup Content Ends ----------------------->
+    <!-------- info popup starts --------------->
+    <div id="InfoPopup" class="confrmPopup">
+        <div class="cnfPopHdr">
+            <div class="cnfPopHdrLbl info">Info</div>
+            <a class="fRight popClose" href="javascript:void(0)">Close</a>
+            <div class="float-clear"></div>
+        </div>
+        <div class="cnfPopBdy">
+            <img class="info-icon" style="vertical-align: middle; margin-right: 10px;" src="~/Content/images/info.gif"><span class="info-lbl" id="infoMsg2"></span>
+        </div>
+        <div class="cnfPopBtnPnl">
+            <a class="greenBtn cnfPopNo" href="javascript:void(0)">Ok</a>
+        </div>
+    </div>
+    <!-------- info popup ends --------------->
+    <!-------- submit popup ends --------------->
+    <div id="SubmitPopup" class="confrmPopup">
+        <div class="cnfPopHdr">
+            <div class="cnfPopHdrLbl info">Info</div>
+            <a onclick="submitMock(&quot;&quot;)" class="fRight popCloseSubmit" href="javascript:void(0)">Close</a>
+            <div class="float-clear"></div>
+        </div>
+        <div class="cnfPopBdy">
+            <img class="info-icon" style="vertical-align: middle; margin-right: 10px;" src="~/Content/images/info.gif"><span class="info-lbl" id="submitMsg"></span>
+        </div>
+        <div class="cnfPopBtnPnl">
+            <a onclick="submitMock(&quot;&quot;)" class="greenBtn" href="javascript:void(0)">Ok</a>
+        </div>
+    </div>
+    <!-------- submit popup ends --------------->
+    <!-------- saveBackup alert starts --------------->
+    <div id="backupAlerts" class="confrmPopup">
+        <div class="cnfPopHdr">
+            <div class="cnfPopHdrLbl info">Info</div>
+            <a onclick="window.close()" class="fRight popCloseSubmit" href="javascript:void(0)">Close</a>
+            <div class="float-clear"></div>
+        </div>
+        <div class="cnfPopBdy">
+            <img class="info-icon" style="vertical-align: middle; margin-right: 10px;" src="~/Content/images/info.gif"><span class="info-lbl" id="backupAlertMsg"></span>
+        </div>
+        <div class="cnfPopBtnPnl">
+            <a onclick="window.close()" class="greenBtn" href="javascript:void(0)">Ok</a>
+        </div>
+    </div>
+    <!-------- saveBackup alert ends --------------->
+    <!-------- Online submit popup ends --------------->
+    <div id="submitOnlineAssessment" class="confrmPopup">
+        <div class="cnfPopHdr">
+            <div class="cnfPopHdrLbl info">Info</div>
+            <a onclick="submitOnlineAssessment()" class="fRight popCloseSubmit" href="javascript:void(0)">Close</a>
+            <div class="float-clear"></div>
+        </div>
+        <div class="cnfPopBdy">
+            <img class="info-icon" style="vertical-align: middle; margin-right: 10px;" src="~/Content/images/info.gif"><span class="info-lbl" id="submitOnlineMsg"></span>
+        </div>
+        <div class="cnfPopBtnPnl">
+            <a onclick="submitOnlineAssessment()" class="greenBtn" href="javascript:void(0)">Ok</a>
+        </div>
+    </div>
+    <!-------- Online submit popup ends --------------->
+    <!--Scratch Pad Starts Here-->
+    <div class="scratch-pad-container" style="display: none;">
+        <div id="closeButton_scratchpad" class="scratch-pad-close">X</div>
+        <div class="tools">
+            <a title="Click to select Marker" data-tool="marker" href="#simple_sketch">Marker</a>
+        </div>
+        <canvas height="300" width="800" id="simple_sketch"></canvas>
+    </div>
+</body>
+</html>

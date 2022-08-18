@@ -1,0 +1,132 @@
+﻿@*@model AMS.ViewModel.OrganisationSectionDetailsViewModel
+
+<form id="FormCreateOrganisationSectionDetails" method="post" style="height: auto;width:auto">
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+
+    <div id="update-message" class="error invisible"></div>
+     
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>@Resources.FormName_NextSectionSetting</h5>
+        </div>
+        <div class="widget-content">
+            <div class="widget-box" style="padding: 15px">
+
+                 <div class="control-group control-label">
+                 @Html.LabelFor(m=>m.IsFinalCourseYear)   
+                    <div class="controls input-xlarge text-tip">
+                        @Html.CheckBoxFor(m => m.IsFinalCourseYear)
+                    </div>
+                </div>
+
+                <div class="control-group control-label">
+               
+                    @Html.LabelFor(m => m.NextSectionDetailID)
+                    <div class="controls input-xlarge text-tip">
+                         @Html.DropDownListFor(m => m.NextSectionDetailID, Model.ListOrgSectionDetailsItems, new { @class = "form-control chosen-select" })  
+                        <br />
+                        @Html.ValidationMessageFor(model => model.NextSectionDetailID)
+                       
+                    </div>
+                </div>
+                
+            
+                <div class="form-actions" style="border: 1px solid #e5e5e5; text-align:right">
+                    <input type="button" id="CreateOrganisationSectionDetailsRecord" value="@Resources.ButtonAction_NextSection" class="btn btn-primary" />
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationSectionDetails.Initialize();
+    });
+</script>*@
+
+
+@*------------new code-------------*@
+
+@model AMS.ViewModel.OrganisationSectionDetailsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormName_NextSectionSetting</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateOrganisationSectionDetails">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.ID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        @if (Model.OrganisationSectionDetailsDTO.IsFinalCourseYear == true) { 
+                        <div class="checkbox m-b-15" style="padding-top:8%;">
+                            <label>
+                                <input type="checkbox" id="IsFinalCourseYear" checked>
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.IsFinalCourseYear)
+                            </label>
+                        </div>
+                        }
+                        else { 
+                        
+                            <div class="checkbox m-b-15" style="padding-top:8%;">
+                                <label>
+                                    <input type="checkbox" id="IsFinalCourseYear">
+                                    <i class="input-helper"></i>
+                                    @Html.LabelFor(model => model.IsFinalCourseYear)
+                                </label>
+                            </div>
+                        
+                        }
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.LabelFor(m => m.NextSectionDetailID)
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(m => m.NextSectionDetailID, Model.ListOrgSectionDetailsItems, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.NextSectionDetailID)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    
+                </div>
+
+
+                <div class="form-group" style="margin-left: 2%; ">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_NextSection" id="CreateOrganisationSectionDetailsRecord" type="button" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationSectionDetails.Initialize();
+    });
+</script>
+
+
+

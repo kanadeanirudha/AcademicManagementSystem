@@ -1,0 +1,133 @@
+﻿@model AMS.ViewModel.AccountTransactionMasterViewModel
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@Html.HiddenFor(m => m.AccSessionID)
+<div class="card" id="DivPostVoucher">
+    <div class="card-body card-padding">
+        <form id="FormEditAccountTransactionMaster" method="post" style="height: auto" class="">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="row">
+                <div id="DivAddRowTable">
+                    <div class="card-body table-responsive">
+                        <table id="example" class="table">
+                            <thead>
+                                <tr class="active">
+                                    <th>@Resources.TableHeaders_Account</th>
+                                    <th>@Resources.TableHeaders_Narration</th>
+                                    <th>@Resources.TableHeaders_Debit</th>
+                                    <th>@Resources.TableHeaders_Credit</th>
+                                    <th>@Resources.DisplayName_Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ListAccountTransactionMaster)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="fg-line"><input id="AccName" value='@item.BankName' maxlength="200" type="text" class="input-sm form-control typeahead" /></div>
+                                            <div class="fg-line"><input type="hidden" value='@item.AccTransDetailsID' id="TransactionSubID" class="input-sm form-control" /></div>
+                                            <div class="fg-line"><input type="hidden" value='@item.AccountID' id="AccID" class="input-sm form-control" /></div>
+                                            <div class="fg-line"><input type="text" id="SubLedger" placeholder="Search Sub-Ledger Account" style="display: none;" maxlength="200" class="input-sm form-control typeahead" /></div>
+                                            <div class="fg-line"><input type="text" value='@item.BranchName' id="AccBranchName" placeholder="Enter Branch" style="display:none;" maxlength="30" class="input-sm form-control" /></div>
+                                        </td>
+                                        <td>
+                                            <div class="fg-line"><input type="text" value='@item.TransactionMasterNarration' maxlength="500" class="input-sm form-control" /></div>
+                                            <div class="fg-line"><input type="text" value='@item.ChequeNo' class="input-sm form-control" id="AccChequeNumber" placeholder="Enter Cheque Number" style="display:none;" maxlength="20" /></div>
+                                        </td>
+                                        <td>
+                                            @if (@item.DebitCreditFlag == "D")
+                                            {
+                                                <div class="fg-line"><input type="text" id="debitBal" style="text-align:right;" value='@item.TransactionAmount' maxlength="10" class="input-sm form-control" /></div>
+                                                <div class="fg-line"><input type="text" value='@item.ChequeDatetime' id="AccChequeDate" placeholder="Cheque Date" style="display:none;" class="input-sm form-control" /></div>
+                                            }
+                                            else if (@item.DebitCreditFlag == "C")
+                                            {
+                                                <div class="fg-line">
+                                                    <input type="text" id="debitBal" style="text-align: right;" value="0" maxlength="10" class="input-sm form-control" />
+                                                </div>
+                                                <div class="fg-line">
+                                                    <input type="text" value='@item.ChequeDatetime' id="AccChequeDate" placeholder="Cheque Date" style="display:none;" class="input-sm form-control" />
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@item.DebitCreditFlag == "C")
+                                            {
+                                                <div class="fg-line">
+                                                    <input type="text" value='@item.TransactionAmount' id="creditBal" style="text-align:right ;" maxlength="10" class="input-sm form-control" />
+                                                </div>
+                                                <div class="fg-line">
+                                                    <input type="hidden" value='@item.PersonID' id="PersonID" class="input-sm form-control" />
+                                                </div>
+                                                <div class="fg-line">
+                                                    <input type="hidden" value='@item.PersonType.Trim()' id="PersonType" class="input-sm form-control" />
+                                                </div>
+                                                <div class="fg-line">
+                                                    <input type="hidden" value='@item.CashBankFlag' id="CashBankFlag" class="input-sm form-control" />
+                                                </div>
+
+                                            }
+                                            else if (@item.DebitCreditFlag == "D")
+                                            {
+                                                <div class="fg-line">
+                                                    <input type="text" value='0' id="creditBal" style="text-align: right;" maxlength="10" class="input-sm form-control" />
+                                                </div>
+                                                <div class="fg-line">
+                                                    <input type="hidden" value='@item.PersonID' id="PersonID" class="input-sm form-control" />
+                                                </div>
+                                                <div class="fg-line">
+                                                    <input type="hidden" value='@item.PersonType.Trim()' id="PersonType" class="input-sm form-control" />
+                                                </div>
+                                                <div class="fg-line">
+                                                    <input type="hidden" value='@item.CashBankFlag' id="CashBankFlag" class="input-sm form-control" />
+                                                </div>
+
+
+                                            }
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-default"><i class="zmdi zmdi-edit"></i></a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                            <tfoot id="tableDebitCredit">
+                                <tr>
+                                    <th>&nbsp;&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>
+                                        <div class="fg-line"><input type="text" id="debitBal" value="0" class="input-sm form-control" style="text-align: right" disabled="disabled" /></div>
+                                    </th>
+                                    <th>
+                                        <div class="fg-line">
+                                            <input type="text" id="creditBal" disabled="disabled" class="input-sm form-control" style="text-align: right" value="0" />
+                                        </div>
+
+                                    </th>
+                                    <th style="text-align: center; padding: 3px;">&nbsp;</th>
+                                </tr>
+                            </tfoot>
+
+                                
+                        </table>
+                    </div>
+                   </div>
+                @**@
+                <div class="btn-demo pull-right">
+                    <button type="button" id="EditAccountTransactionMasterRecord" disabled="disabled" value="@Resources.ButtonAction_ProcessEntry" class="btn btn-primary">@Resources.ButtonAction_ProcessEntry</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // AccountTransactionMaster.Initialize();
+    });
+</script>
+
+
+

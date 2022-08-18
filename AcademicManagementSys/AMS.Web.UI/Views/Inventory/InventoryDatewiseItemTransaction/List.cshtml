@@ -1,0 +1,155 @@
+﻿@model AMS.ViewModel.InventoryDatewiseItemTransactionViewModel
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li><a href="#">Inventory</a><span class="divider">»</span></li>
+        <li class="active">Update Sale Rate</li>
+    </ul>
+
+    <ul class="breadcrumb" style="height: 30px;">
+        <li>
+            <span style="color: red;padding-left: 1px; font-weight: bold">*</span>
+            <span style="font-size: 12px; font-weight: bold;"> Category &nbsp; &nbsp;&nbsp;</span>
+            @Html.DropDownListFor(m => m.CategoryCode, Model.ListGetCategoryCodeItems, "--------Select Category-------", new { @class = "form-control chosen-select", style = "font-weight:bold;" })
+
+        </li>
+        <li>
+            <input type="button" value="Show List" style="margin-bottom:9px" class="btn btn-primary" id="btnShowList" />
+        </li>
+        <li style="float: right;"><span style="font-size: 12px; font-weight:bold">Date : &nbsp;@String.Format("{0: d-MMM-yyyy}", DateTime.Now)&nbsp;</span> </li>
+    </ul>
+
+
+
+    <div class="row-fluid">
+        <div class="span12">
+
+            <div class="widget-block">
+                <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+
+                <div class="widget-head">
+                    <h5 id="hFive">
+                        <i class="black-icons users"></i>&nbsp; Manage Sale Rate
+                        @*<span style="font-size: 12px; font-weight: bold;margin-left: 15%;">Category &nbsp; &nbsp;&nbsp;</span>*@
+                        @*@Html.DropDownListFor(m => m.SelectedCategoryCode, Model.ListGetAdminRoleApplicableCentreItems, "--Select Category--", new { @class = "form-control chosen-select", style = "font-weight:bold;" })*@
+                    </h5>
+                    <div class="pull-right" style="margin: -24px 5px 0px 10px;">
+                        <div class="input-append" >
+                            @*<div style="display: none;">
+                                <input type="hidden" name="_method" value="POST">
+                            </div>*@
+                            <div>                                                             
+                                <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearch">
+                                <button class="btn" type="button" id="searchBtn"><i class="icon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table table-striped table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center; width: 10%;">Item Name</th>
+                                            <th style="text-align: center; width: 25%; line-height: 40px">Sale Rate</th>
+                                            <th style="text-align: center; width: 25%; line-height: 40px">Quantity</th>
+                                            @*  <th style="text-align: center; width: 30px; line-height: 40px">@Resources.DisplayName_Actions</th>*@
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            @*<div class="widget-bottom">
+                                    <br>
+                                    <br>
+                                </div>*@
+                        </div>
+                        <div id="divSubmit">
+                            <ul class="breadcrumb" style="text-align: center">
+                                <li>
+                                    <input type="button" id="CreateInventoryDatewiseItemTransactionRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                                </li>
+                            </ul>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InventoryDatewiseItemTransaction.Initialize();
+        var oTable = $('#myDataTable').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "InventoryDatewiseItemTransaction/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            //"pagingType": "full_numbers",
+            //"scrollY": "300px",
+            //"dom": "frtiS",
+            //"deferRender": true,
+            //paging: false,
+            'iDisplayLength': 1000000000,
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+
+            "fnServerParams": function (aoData) {
+
+                aoData.push({ "name": "CategoryCode", "value": $("#CategoryCode").val() });
+            },
+            "columnDefs": [
+
+                            {
+                                "targets": 0,
+                                "visible": true,
+                                "bSortable": true,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    var result = "<div style='text-align:right'  >" + data[0] + "</div>" + "<input type='text' style='display:none' value=" + data[4] + "  style=' font-weight: bold;text-align:right;'   /><input type='text' style='display:none' value=" + data[3] + "  style=' font-weight: bold;text-align:right;'   /><input type='text' style='display:none' value=" + data[0].replace(/ /g, "~") + "  style=' font-weight: bold;text-align:right;'   />";
+                                    return result;
+                                }
+                            },
+                           {
+
+                               "targets": 1,
+                               "bSortable": false,
+                               "data": null,
+                               "render": function (data, type, full, meta) {
+
+                                   var result = "<div  style='text-align: left;'>" + "<input id='saleRate' type='text' maxlength='8' value=" + data[1] + "  style=' font-weight: bold;text-align:right;margin-bottom:0px'   /> <input type='hidden' value=" + data[1] + " />" + "</div>";
+                                   $('input[id^=saleRate]').on("keydown keyup keypress", function (e) {
+                                       AMSValidation.AllowNumbersWithDecimalOnly(e);
+                                       AMSValidation.NotAllowSpaces(e);
+                                       parseFloat($('input[id^=saleRate]').val()).toFixed(3);
+
+                                       var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+                                       if (inputKeyCode == 45 || inputKeyCode == 95) {
+                                           return false;
+                                       }
+                                   });
+
+                                   return result;
+                               }
+                           },
+                              {
+                                  "visible": false, "targets": 2,
+                              },
+
+            ]
+        });
+
+    });
+
+
+</script>
+
+<style>
+    .myClass {
+        display: none;
+    }
+</style>

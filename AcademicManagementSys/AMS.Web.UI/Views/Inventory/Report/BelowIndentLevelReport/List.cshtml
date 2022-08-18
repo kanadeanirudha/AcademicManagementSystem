@@ -1,0 +1,162 @@
+﻿@model AMS.ViewModel.InventoryReportMasterViewModel
+
+@{
+    var group1 = string.Empty;
+    var group2 = string.Empty;
+}
+
+<style type="text/css">
+    .ui-widget-header {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .item {
+        margin-left: 15%;
+    }
+    hr {
+        display: block;
+        height: 1px;
+        background: transparent;
+        width: 100%;
+        border: none;
+        border-top: solid 2px #aaaaaa;
+    }
+</style>
+
+<div class="widget-content">
+    <div class="widget-box">
+        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+            <div class="table_content">
+                <div id="printablediv">
+                    <div style="border: 2px solid #aaaaaa;">
+                    @if (Model.ListInventoryReportHeader != null)
+                    {
+                        <table id="myDataTable" class="table user-tbl" style="height: 103px;">
+                            <thead>
+                                <tr>
+                                    <td class="center">
+                                        <span style="font-weight:lighter;color:#000; font-size:15px;"><br />@Model.ListInventoryReportHeader[0].PrintingLine1<br /></span>
+                                        <span style="font-weight: bold; color: red; font-size: 25px;">@Model.ListInventoryReportHeader[0].PrintingLine2 <br /></span>
+                                        <span style="font-weight: lighter; color: #000; font-size: 15px; ">@Model.ListInventoryReportHeader[0].PrintingLine4</span>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <hr />
+                    }
+                    <table id="myDataTable" class="table user-tbl">
+                        <thead>
+                            <tr>
+                                <th class="center" style="font-weight:bold;color:#000" rowspan="2">Category</th>
+                                <th class="center" style="font-weight:bold;color:#000" rowspan="2">Current Quantity</th>
+                                <th class="center" style="font-weight:bold;color:#000" rowspan="2">Indent Quantity</th>
+                                <th class="center" style="font-weight:bold;color:#000" colspan="2">Min Indent Level</th>
+                            </tr>
+                        </thead>
+                        @if (Model.ListInventoryBelowIndentReport.Count > 0)
+                        {
+                            foreach (var item in Model.ListInventoryBelowIndentReport)
+                            {
+                                <tbody id="Level0" style="overflow: scroll;">
+
+                                    @if (group1 != item.LocationName)
+                                    {
+                                        <tr>
+                                            <td style="text-align: left; font-weight: bold; color: brown;">
+                                                @item.LocationName
+                                            </td>
+                                            <td style="text-align: left; font-weight: bold"></td>
+                                            <td style="text-align: left; font-weight: bold"></td>
+                                            <td style="text-align: left; font-weight: bold"></td>
+                                        </tr>
+                                        group1 = item.LocationName;
+                                        group2 = "";
+                                    }
+
+                                    @if (group2 != item.Category)
+                                    {
+                                        <tr>
+                                            <td style=" padding-left: 38px; font-weight: bold; color: steelblue;">
+                                                @item.Category
+                                            </td>
+                                            <td style="text-align: left; font-weight: bold"></td>
+                                            <td style="text-align: left; font-weight: bold"></td>
+                                            <td style="text-align: left; font-weight: bold"></td>
+                                        </tr>
+                                        group2 = item.Category;
+                                    }
+
+                                    <tr>
+                                        <td style="padding-left: 70px; font-weight: lighter">
+                                            @item.ItemName
+                                        </td>
+                                        <td style="text-align: center; font-weight: lighter">
+                                            @item.CurrentQuantity.ToString("0.00")
+                                        </td>
+                                        <td style="text-align: center; font-weight: lighter">
+                                            @item.IndendQuantity.ToString("0.00")
+                                        </td>
+                                        <td style="text-align: center; font-weight: lighter">
+                                            @item.MinIndentLevel.ToString("0.00")
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        }
+                        else
+                        {
+                            <tbody style="overflow: scroll;">
+                                <tr>
+                                    <td class="center" style="font-weight:bold;color:#000" colspan="4">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                    </div>
+                </div>
+
+                @if (Model.ListInventoryBelowIndentReport.Count > 0)
+                {
+                    <hr />
+                    <center>
+                        <input type="button" style="width:10%;" id="Print" value="Print" onclick="javascript: printDiv('printablediv')" class="btn btn-primary" />
+                    </center>
+                    <br />
+
+                }
+            </div>
+            <div class="widget-bottom">
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <br>
+    <br>
+</div>
+
+<script language="javascript" type="text/javascript">
+    function printDiv(divID) {
+        //Get the HTML of div
+        var divElements = document.getElementById(divID).innerHTML;
+        //Get the HTML of whole page
+        var oldPage = document.body.innerHTML;
+
+        //Reset the page's HTML with div's HTML only
+        document.body.innerHTML =
+          "<html><head><title></title></head><body>" +
+          divElements + "</body>";
+
+        //Print Page
+        window.print();
+
+        //Restore orignal HTML
+        document.body.innerHTML = oldPage;
+
+    }
+</script>

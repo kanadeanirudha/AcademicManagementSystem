@@ -1,0 +1,65 @@
+﻿@model AMS.ViewModel.OnlineExamAllocateSupportStaffViewModel
+<script src="@Url.Content("~/Scripts/AMS_Scripts/OnlineExam/OnlineExamAllocateSupportStaff.js")" type="text/javascript"></script>
+@Html.HiddenFor(model => model.EmployeeID)
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;View Employee Details</h2>
+    </div>
+    <div class="card">
+
+        <div id="displayErrorMessage" role="alert" hidden class="alert">
+            <button class="close" type="button"><span aria-hidden="true">×</span></button>
+            <p id="messageContent"></p>
+        </div>
+        <form id="FormCreateOnlineExamAllocateSupportStaff" role="form">
+            <div class="col-sm-6">
+                <div class="form-group fg-line">
+                    @Html.LabelFor(model => model.EmployeeFullName, new { })
+                    @Html.TextBoxFor(model => model.EmployeeFullName, new { maxlength = "80", @class = "form-control input-sm typeahead", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group fg-line">
+                    @Html.LabelFor(model => model.AllotedJobName, new { })
+                    @Html.TextBoxFor(model => model.AllotedJobName, new { maxlength = "12", @class = "form-control input-sm typeahead", disabled = "disabled" })
+                </div>
+            </div>
+         
+            <div class="col-sm-6">
+                <div class="form-group fg-line">
+                    @Html.LabelFor(model => model.AllotedJobCode, new { })
+                    @Html.TextBoxFor(model => model.AllotedJobCode, new { maxlength = "80", @class = "form-control input-sm typeahead", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.JobStartDate, new { })
+                <div class="form-group fg-line">
+                    
+                    @Html.TextBoxFor(model => model.JobStartDate, new {  @class = "form-control",disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                @Html.LabelFor(model => model.JobEndDate, new { })
+                <div class="form-group fg-line">
+                   
+                    @Html.TextBoxFor(model => model.JobEndDate, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        OnlineExamAllocateSupportStaff.Initialize();
+    });
+</script>

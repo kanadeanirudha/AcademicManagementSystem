@@ -1,0 +1,291 @@
+﻿
+html body div.CodeMirror-code > div {
+}
+.CodeMirror-activeline {
+}
+.CodeMirror {
+    font-family: monospace;
+    height: 100%;
+}
+.CodeMirror-scroll {
+    overflow: auto;
+}
+.CodeMirror-lines {
+    padding: 4px 0;
+}
+.CodeMirror pre {
+    padding: 0 4px;
+}
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+    background-color: white;
+}
+.CodeMirror-gutters {
+    background-color: #f7f7f7;
+    border-right: 1px solid #ddd;
+    white-space: nowrap;
+}
+.CodeMirror-linenumbers {
+}
+.CodeMirror-linenumber {
+    box-sizing: content-box;
+    color: #999;
+    min-width: 20px;
+    padding: 0 3px 0 5px;
+    text-align: right;
+}
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid black;
+}
+.CodeMirror div.CodeMirror-secondarycursor {
+    border-left: 1px solid silver;
+}
+.CodeMirror.cm-keymap-fat-cursor div.CodeMirror-cursor {
+    background: #7e7 none repeat scroll 0 0;
+    border: 0 none;
+    width: auto;
+}
+div.CodeMirror-overwrite div.CodeMirror-cursor {
+}
+.cm-tab {
+    display: inline-block;
+}
+.CodeMirror-ruler {
+    border-left: 1px solid #ccc;
+    position: absolute;
+}
+.cm-s-default .cm-keyword {
+    color: #708;
+}
+.cm-s-default .cm-atom {
+    color: #219;
+}
+.cm-s-default .cm-number {
+    color: #164;
+}
+.cm-s-default .cm-def {
+    color: #00f;
+}
+.cm-s-default .cm-variable, .cm-s-default .cm-punctuation, .cm-s-default .cm-property, .cm-s-default .cm-operator {
+}
+.cm-s-default .cm-variable-2 {
+    color: #05a;
+}
+.cm-s-default .cm-variable-3 {
+    color: #085;
+}
+.cm-s-default .cm-comment {
+    color: #a50;
+}
+.cm-s-default .cm-string {
+    color: #a11;
+}
+.cm-s-default .cm-string-2 {
+    color: #f50;
+}
+.cm-s-default .cm-meta {
+    color: #555;
+}
+.cm-s-default .cm-qualifier {
+    color: #555;
+}
+.cm-s-default .cm-builtin {
+    color: #30a;
+}
+.cm-s-default .cm-bracket {
+    color: #997;
+}
+.cm-s-default .cm-tag {
+    color: #170;
+}
+.cm-s-default .cm-attribute {
+    color: #00c;
+}
+.cm-s-default .cm-header {
+    color: blue;
+}
+.cm-s-default .cm-quote {
+    color: #090;
+}
+.cm-s-default .cm-hr {
+    color: #999;
+}
+.cm-s-default .cm-link {
+    color: #00c;
+}
+.cm-negative {
+    color: #d44;
+}
+.cm-positive {
+    color: #292;
+}
+.cm-header, .cm-strong {
+    font-weight: bold;
+}
+.cm-em {
+    font-style: italic;
+}
+.cm-link {
+    text-decoration: underline;
+}
+.cm-s-default .cm-error {
+    color: #f00;
+}
+.cm-invalidchar {
+    color: #f00;
+}
+div.CodeMirror span.CodeMirror-matchingbracket {
+    color: #0f0;
+}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {
+    color: #f22;
+}
+.CodeMirror-activeline-background {
+    background: #e8f2ff none repeat scroll 0 0;
+}
+.CodeMirror {
+    background: white none repeat scroll 0 0;
+    color: black;
+    line-height: 1;
+    overflow: hidden;
+    position: relative;
+}
+.CodeMirror-scroll {
+    box-sizing: content-box;
+    height: 100%;
+    outline: medium none;
+    position: relative;
+    width: 100%;
+}
+.CodeMirror-sizer {
+    box-sizing: content-box;
+    position: relative;
+}
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+    display: none;
+    position: absolute;
+    z-index: 6;
+}
+.CodeMirror-vscrollbar {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    right: 0;
+    top: 0;
+}
+.CodeMirror-hscrollbar {
+    bottom: 0;
+    left: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.CodeMirror-scrollbar-filler {
+    bottom: 0;
+    right: 0;
+}
+.CodeMirror-gutter-filler {
+    bottom: 0;
+    left: 0;
+}
+.CodeMirror-gutters {
+    left: 0;
+    padding-bottom: 30px;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
+.CodeMirror-gutter {
+    box-sizing: content-box;
+    display: inline-block;
+    height: 100%;
+    white-space: normal;
+}
+.CodeMirror-gutter-elt {
+    cursor: default;
+    position: absolute;
+    z-index: 4;
+}
+.CodeMirror-lines {
+    cursor: text;
+}
+.CodeMirror pre {
+    background: transparent none repeat scroll 0 0;
+    border-radius: 0;
+    border-width: 0;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    position: relative;
+    white-space: pre;
+    word-wrap: normal;
+    z-index: 2;
+}
+.CodeMirror-wrap pre {
+    white-space: pre-wrap;
+    word-break: normal;
+    word-wrap: break-word;
+}
+.CodeMirror-linebackground {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+}
+.CodeMirror-linewidget {
+    overflow: auto;
+    position: relative;
+    z-index: 2;
+}
+.CodeMirror-widget {
+}
+.CodeMirror-wrap .CodeMirror-scroll {
+    overflow-x: hidden;
+}
+.CodeMirror-measure {
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+    width: 100%;
+}
+.CodeMirror-measure pre {
+    position: static;
+}
+.CodeMirror div.CodeMirror-cursor {
+    border-right: medium none;
+    position: absolute;
+    width: 0;
+}
+div.CodeMirror-cursors {
+    position: relative;
+    visibility: hidden;
+    z-index: 3;
+}
+.CodeMirror-focused div.CodeMirror-cursors {
+    visibility: visible;
+}
+.CodeMirror-selected {
+    background: #d9d9d9 none repeat scroll 0 0;
+}
+.CodeMirror-focused .CodeMirror-selected {
+    background: #d7d4f0 none repeat scroll 0 0;
+}
+.CodeMirror-crosshair {
+    cursor: crosshair;
+}
+.cm-searching {
+    background: rgba(255, 255, 0, 0.4) none repeat scroll 0 0;
+}
+.CodeMirror span {
+}
+.cm-force-border {
+    padding-right: 0.1px;
+}
+@media print {
+.CodeMirror div.CodeMirror-cursors {
+    visibility: hidden;
+}
+}

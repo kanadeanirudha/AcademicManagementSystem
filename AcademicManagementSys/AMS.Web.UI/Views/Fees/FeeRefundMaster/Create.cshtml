@@ -1,0 +1,190 @@
+﻿@model AMS.ViewModel.FeeRefundMasterViewModel
+@Html.HiddenFor(m => m.CentreCode)
+@Html.HiddenFor(m => m.AcademicYearID)
+@Html.HiddenFor(m => m.AccSessionID)
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.AccountIDForStudentOutStanding)
+@Html.HiddenFor(m => m.RefundAmount)
+@Html.HiddenFor(m => m.StudentID)
+@Html.HiddenFor(m => m.AccBalsheetID)
+<form id="FormCreateFeeRefundMaster" role="form">
+    <div id="custom-content">
+        <div class="block-header">
+            <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Refund </h2>
+        </div>
+        <div class="card">
+
+            <div class="card-header">
+                <div id="displayErrorMessage" role="alert" hidden class="alert">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <p id="messageContent"></p>
+                </div>
+                <div class="media">
+                    <div class="pull-left">
+                        @if (Model.StudentPaymentDetails.Count > 0 && Model.StudentPhoto != null)
+                        {
+                            <img id="imgStuPhoto" alt="" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.StudentPaymentDetails[0].StudentPhoto, 0, Convert.ToInt32(Model.StudentPaymentDetails[0].StudentPhotoFileSize))" class="lv-img">
+                        }
+                        else
+                        {
+                            <img id="imgStuPhoto" alt="" src="~/Content/materialtheme/img/login.png" class="lv-img">
+                        }
+
+                    </div>
+
+                    <div class="media-body m-t-5">
+                        <h2 id="stuName">@Html.DisplayFor(m => m.StudentName) <small id="stuEmailID">@Html.DisplayFor(m => m.EmailID) </small></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body card-padding" style="">
+
+                <div class="row">
+                    <div class="col-sm-6 m-b-20">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge" id="stuAcadYear">@Html.DisplayFor(m => m.AcademicYear) </span>
+                                AcademicYear
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge" id="stuCourse">@Html.DisplayFor(m => m.Course)</span>
+                                Course
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge" id="stuSection">@Html.DisplayFor(m => m.Section)</span>
+                                Section
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge" id="stuAdmissionPattern">@Html.DisplayFor(m => m.AdmissionPattern)</span>
+                                AdmissionPattern
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-6 m-b-20">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge" id="stuEnrollNumber">@Html.DisplayFor(m => m.EnrollmentNumber)</span>
+                                EnrollmentNumber
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge" id="stuStdNumber">@Html.DisplayFor(m => m.StandardNumber)</span>
+                                StandardNumber
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge" id="stuAdmitAcadYear">@Html.DisplayFor(m => m.AdmitAcademicYear)</span>
+                                AdmitAcademicYear
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge" id="stuGender">@Html.DisplayFor(m => m.Gender)</span>
+                                Gender
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <table id="tblStuPaymentDetails" style="border: 1px solid; border-color: #EDECEC; margin-bottom: 3%; margin-left: 0%; margin-right: 2%; " class="table  table-vmiddle  table-condensed ">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Particulars</th>
+                            <th style="text-align:center" colspan="2"> Amount</th>
+                        </tr>
+                        <tr>
+                            <th >Accounts</th>
+                            <th style="text-align:center">Debit</th>
+                            <th style="text-align:center"> Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.StudentPaymentDetails.Count > 0 && Model.AccountList.Count > 0)
+                        {
+                            <tr>
+                                <td>@Model.StudentPaymentDetails[0].AccountName</td>
+                                <td style="text-align:center">@string.Format("{0:0.00}", @Model.StudentPaymentDetails[0].RefundAmount)</td>
+                                <td style="text-align:center"></td>
+                            </tr>
+                            <tr>
+                                <td id="tdPaymentFromAccountName">@Model.AccountList[0].AccountName</td>
+                                <td style="text-align:center"></td>
+                                <td style="text-align:center">@string.Format("{0:0.00}", @Model.StudentPaymentDetails[0].RefundAmount)</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Total</td>
+                                <td style="font-weight: bold;text-align:center">@string.Format("{0:0.00}", @Model.StudentPaymentDetails[0].RefundAmount)</td>
+                                <td style="font-weight: bold;text-align:center">@string.Format("{0:0.00}", @Model.StudentPaymentDetails[0].RefundAmount)</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" style="text-align:center">
+                                    No data available
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+                <div class="col-sm-6 m-b-20">
+                    <div data-ts-color="blue" class="toggle-switch">
+                        <label class="ts-label" for="ts4">Payment By Cheque</label>
+                        <input type="checkbox" id="ts4">
+                        <label class="ts-helper" for="ts4"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputEmail3">Payment Account</label>
+                    <div class="col-sm-4" style="margin-top:-1%">
+                        <div class="fg-line select">
+                            @Html.DropDownListFor(m => m.AccountID, Model.AccountListItems, new { maxlength = "60", @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AccountID)
+                    </div>
+                </div>
+
+                <div id="divBankDetails">
+                    <div class="col-sm-12">
+                        <div class="form-group  fg-line">
+                            @Html.LabelFor(model => model.ChequeDate, new { })
+                            @Html.TextBoxFor(m => m.ChequeDate, new { maxlength = "60", @readonly = "readonly", @style = "background-color: #ffffff;", @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ChequeDate)
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.ChequeNumber, new { })
+                            @Html.TextBoxFor(m => m.ChequeNumber, new { maxlength = "60", @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ChequeNumber)
+                    </div>            
+                    <div class="col-sm-12">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.Remark, new { })
+                            @Html.TextBoxFor(m => m.Remark, new { maxlength = "60", @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Remark)
+                    </div>                                        
+                </div>
+                <div class="form-group" style="padding-left:2%">
+                    <button type="button" id="CreateFeeRefundMasterRecord" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                </div>
+            </div>            
+        </div>
+    </div>
+</form>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        FeeRefundMaster.Initialize();
+        $('#ChequeDate').datetimepicker({
+            format: 'DD MMMM YYYY',
+            ignoreReadonly: true
+        });
+    });
+</script>

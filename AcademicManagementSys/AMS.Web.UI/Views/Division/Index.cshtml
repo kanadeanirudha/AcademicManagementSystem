@@ -1,0 +1,280 @@
+﻿@model IEnumerable<AMS.Web.UI.Models.Division.Division>
+@{
+    ViewBag.Title = "Index";
+}
+@Styles.Render("~/Content/Vendors")
+@Html.Partial("_LeftMenu")
+
+
+
+
+<div class="col-md-10">
+
+    <div class="row">
+        <div class="panel panel-default bootstrap-admin-no-table-panel">
+            <div class="panel-heading">
+                <div class="text-muted bootstrap-admin-box-title">Division Master</div>
+            </div>
+
+            <div class=" bootstrap-admin-panel-content collapse in">
+  @Html.ActionLink("Create New Division", "Create", null, new { @class = "createLink" })<br /><br />
+                <form class="form-horizontal">
+                  
+                    <table class="table table-striped">
+                        <tr>
+                            <th style="text-align: center;">Division Name
+                            </th>
+                            <th style="text-align: center;">Division Print Code
+                            </th>
+                            <th style="text-align: center;">Division Short Code</th>
+                            <th style="text-align: center;">Action</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        { 
+                            <tr>
+                                <td>
+                                    <span class="divisionName">@item.DivisionName</span>
+                                </td>
+                                <td>
+
+                                    <span class="divisionPrintCode">@item.DivisionPrintCode</span>
+
+                                </td>
+                                <td>
+
+                                    <span class="divisionShortCode">@item.DivisionShortCode</span>
+                                   
+
+                                </td>
+                                <td style="text-align: center;">
+
+                                    <a href="@Url.Action("Edit", "Division", new { id = item.Id })" { class = "editLink" }>
+                                        <img src="~/Content/images/index.jpg" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="@Url.Action("Details", "Division", new { id = item.Id })" { class = "detailsLink" }>
+                                        <img src="~/Content/images/view_details_icon.gif" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="@Url.Action("Delete", "Division", new { id = item.Id })" { class = "deleteLink" }>
+                                        <img src="~/Content/images/indexDelete.jpg" /></a>
+
+
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="updateDialog" title="Edit Division "></div>
+<div id="createDialog" title="Create Division"></div>
+<div id="detailsDialog" title="Details Division"></div>
+<div id="deleteDialog" title="Delete Division"></div>
+<script type="text/javascript">
+
+    var linkObj;
+    $(function () {
+
+        //$(".editLink").button();
+
+        $('#updateDialog').dialog({
+            autoOpen: false,
+            width: 400,
+            resizable: false,
+            modal: true,
+            show: { effect: 'drop', direction: "up" },
+            buttons: {
+                "Update": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updateDivisionForm").submit();
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $('#createDialog').dialog({
+            autoOpen: false,
+            width: 400,
+            resizable: false,
+            modal: true,
+            show: { effect: 'drop', direction: "up" },
+            buttons: {
+                "Create": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue      
+
+                    $("#createDivisionForm").submit();
+                   // $(this).dialog("close");
+
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $('#detailsDialog').dialog({
+            autoOpen: false,
+            width: 400,
+            resizable: false,
+            modal: true,
+            show: { effect: 'drop', direction: "up" },
+            buttons: {
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $('#deleteDialog').dialog({
+            autoOpen: false,
+            width: 400,
+            resizable: false,
+            modal: true,
+            show: { effect: 'drop', direction: "up" },
+            buttons: {
+                "Delete": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue      
+
+                    $("#deleteDivisionForm").submit();
+                 $(this).dialog("close");
+
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".editLink").click(function () {
+            //change the title of the dialgo
+            linkObj = $(this);
+            var dialogDiv = $('#updateDialog');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#updateDivisionForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                $form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+
+
+        $(".createLink").click(function () {
+            //change the title of the dialgo
+            linkObj = $(this);
+            var dialogDiv = $('#createDialog');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#createDivisionForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                //Re add validation with changes
+                $form.validate($form.data("unobtrusiveValidation").options);
+                // open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+        $(".detailsLink").click(function () {
+            //change the title of the dialgo
+            linkObj = $(this);
+            var dialogDiv = $('#detailsDialog');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#detailsDivisionForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                $form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+        $(".deleteLink").click(function () {
+
+            //change the title of the dialgo
+            linkObj = $(this);
+            var dialogDiv = $('#deleteDialog');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#deleteDivisionForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                $form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+
+    });
+
+    function updateSuccess() {
+
+        var parent = linkObj.closest("tr");
+        parent.find(".divisionName").html($("#DivisionName").val());
+        parent.find(".divisionPrintCode").html($("#DivisionPrintCode").val());
+        parent.find(".divisionShortCode").html($("#DivisionShortCode").val());
+
+        if ($("#update-message").html() == "Update") {
+            //now we can close the dialog
+            $('#updateDialog').dialog('close');
+            //twitter type notification        
+            $('#commonMessage').html("Update Complete").css('color', '#F0F0F5');
+            $('#commonMessage').delay(400).slideDown(400).delay(3000).slideUp(400).css('background-color', '#5C8AE6');
+        }
+        if ($("#update-message").html() == "Create") {
+            //now we can close the dialog
+            $('#createDialog').dialog('close');
+            //twitter type notification        
+            $('#commonMessage').html("Created Successfully").css('color', '#F0F0F5');
+            $('#commonMessage').delay(400).slideDown(400).delay(3000).slideUp(400).css('background-color', '#5C8AE6');
+        }
+        if ($("#update-message").html() == "Delete") {
+            //now we can close the dialog
+
+            //twitter type notification        
+            $('#commonMessage').html("Deleted Successfully").css('color', '#F0F0F5');
+            $('#commonMessage').delay(400).slideDown(400).delay(3000).slideUp(400).css('background-color', '#5C8AE6');
+        }
+        else {
+            $("#update-message").show();
+        }
+    }
+
+</script>
+
+
+

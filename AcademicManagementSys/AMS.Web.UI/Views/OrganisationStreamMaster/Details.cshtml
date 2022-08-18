@@ -1,0 +1,30 @@
+﻿@model AMS.ViewModel.OrganisationStreamMasterViewModel
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<div id="update-message" class="error invisible"></div>
+@Html.ValidationSummary(true)
+
+@Html.HiddenFor(model => model.ID)
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.StreamDescription)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.StreamDescription)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.StreamShortCode)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.StreamShortCode)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.PrintShortCode)
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.PrintShortCode)
+</div>
+
+

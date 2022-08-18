@@ -1,0 +1,545 @@
+﻿@*@model AMS.ViewModel.OrganisationUniversityMasterViewModel
+
+<form id="FormCreateOrganisationUniversityMaster" method="post">
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="update-message" class="error invisible"></div>
+
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>@Resources.FormCreate_University </h5>
+        </div>
+    </div>
+    <div class="widget-content">
+        <div class="widget-box" style="padding-left: 15px">
+
+            <div style="width: 800px">
+
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">
+                         <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityName, new { style = "font-Weight:Bold;" })
+                    </div>
+                   
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(model => model.UniversityName, new { maxlength = "100", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.UniversityName)
+
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left">  <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                       @Html.LabelFor(model => model.EstablishmentCode, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(model => model.EstablishmentCode, new { maxlength = "100" , style = "font-Weight:Bold;" })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.EstablishmentCode)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">  <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                         @Html.LabelFor(model => model.UniversityFounderMember, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.UniversityFounderMember, new { maxlength = "60" , style = "font-Weight:Bold;" })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.UniversityFounderMember)
+
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left">  <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityFoundationDatetime, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.UniversityFoundationDatetime, new { Value = "", @readonly = "readonly" })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.UniversityFoundationDatetime)
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">  <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityAddress1, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextAreaFor(m => m.UniversityAddress1, new { style = "width:200px;font-Weight:Bold;", maxlength = "200" })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.UniversityAddress1)
+
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left"></div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                       @Html.LabelFor(model => model.PlotNumber, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.PlotNumber, new { maxlength = "15", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.PlotNumber)
+
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.StreetNumber, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.StreetNumber, new { maxlength = "15", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.StreetNumber)
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                    
+                        @Html.LabelFor(model => model.CityID, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.DropDownListFor(m => m.SelectedCityID, (SelectList)ViewBag.GeneralCityMaster, Resources.ddlHeaders_CityName, new { style = "width:210px;font-Weight:Bold;" })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.SelectedCityID)
+
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                      @Html.LabelFor(model => model.Pincode, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.Pincode, new { maxlength = "15", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.Pincode)
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.FaxNumber, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.FaxNumber, new { maxlength = "30" , style = "font-Weight:Bold;" })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.FaxNumber)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.PhoneNumberOffice, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.PhoneNumberOffice, new { maxlength = "30" , style = "font-Weight:Bold;" })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.PhoneNumberOffice)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.Extention, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.Extention, new { maxlength = "30", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.Extention)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.CellPhone, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.CellPhone, new { maxlength = "30", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.CellPhone)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.EmailID, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.EmailID, new { maxlength = "60", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.EmailID)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left"><span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.Url, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.Url, new { maxlength = "60", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.Url)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">
+                        @Html.LabelFor(model => model.OfficeComment, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.OfficeComment, new { maxlength = "4000" , style = "font-Weight:Bold;" })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.OfficeComment)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left">
+                        @Html.LabelFor(model => model.MissionStatement, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.MissionStatement, new { maxlength = "4000", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.MissionStatement)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">
+                        @Html.LabelFor(model => model.UniversityReportPath, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.UniversityReportPath, new { maxlength = "100", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.UniversityReportPath)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left">
+                        @Html.LabelFor(model => model.UniversityShortName, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.TextBoxFor(m => m.UniversityShortName, new { maxlength = "15", style = "font-Weight:Bold;"  })
+                        <br />
+                        @Html.ValidationMessageFor(m => m.UniversityShortName)
+                    </div>
+                </div>
+            </div>
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">
+                        @Html.LabelFor(model => model.DefaultFlag, new { style = "font-Weight:Bold;" })
+                    </div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(m => m.DefaultFlag)
+                        <br />
+                        @Html.ValidationMessageFor(m => m.DefaultFlag)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+
+                    <div style="width: 150px; float: left"></div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                    </div>
+                </div>
+            </div>
+            <div style="width: 800px; float: left">
+                <div class="form-actions" style="border: 1px solid #e5e5e5;text-align:right">
+                    <input type="button" id="CreateOrganisationUniversityMasterRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                  <input name="" id="reset" type="submit" class="btn btn-secondary" value="@Resources.ButtonAction_Reset" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationUniversityMaster.Initialize();
+    });
+
+</script>*@
+
+@*----------new code------------*@
+
+@model AMS.ViewModel.OrganisationUniversityMasterViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fnReloadAjax.js")" type="text/javascript"></script>
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;@Resources.FormCreate_University </h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateOrganisationUniversityMaster">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityName, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.UniversityName, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.UniversityName)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.EstablishmentCode, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(model => model.EstablishmentCode, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EstablishmentCode)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityFounderMember, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.UniversityFounderMember, new { @class = "form-control", maxlength = "60", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UniversityFounderMember)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityFoundationDatetime, new { style = "" })
+                        <div class="form-group fg-line dtp-container">
+                            @Html.TextBoxFor(m => m.UniversityFoundationDatetime, new { @class = "form-control", Value = "", @readonly = "readonly",style="background-color:#fff;" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UniversityFoundationDatetime)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityAddress1, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextAreaFor(m => m.UniversityAddress1, new { @class = "form-control", style = "", maxlength = "200" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UniversityAddress1)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.PlotNumber, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control", maxlength = "15", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.PlotNumber)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.StreetNumber, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.StreetNumber, new { @class = "form-control", maxlength = "15", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.StreetNumber)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.CityID, new { style = "" })
+                        <div class="form-group  fg-line select">
+                            @Html.DropDownListFor(m => m.SelectedCityID, (SelectList)ViewBag.GeneralCityMaster, Resources.ddlHeaders_CityName, new { @class = "form-control", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.SelectedCityID)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.Pincode, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", maxlength = "15", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Pincode)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.FaxNumber, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.FaxNumber, new { @class = "form-control", maxlength = "30", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.FaxNumber)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.PhoneNumberOffice, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.PhoneNumberOffice, new { @class = "form-control", maxlength = "30", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.PhoneNumberOffice)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.Extention, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.Extention, new { @class = "form-control", maxlength = "30", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Extention)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.CellPhone, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control", maxlength = "30", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.CellPhone)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.EmailID, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", maxlength = "60", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.EmailID)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.Url, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.Url, new { @class = "form-control", maxlength = "60", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Url)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.OfficeComment, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.OfficeComment, new { @class = "form-control", maxlength = "4000", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.OfficeComment)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.MissionStatement, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.MissionStatement, new { @class = "form-control", maxlength = "4000", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.MissionStatement)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityReportPath, new { style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.UniversityReportPath, new { @class = "form-control", maxlength = "100", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UniversityReportPath)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(model => model.UniversityShortName, new { style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.UniversityShortName, new { @class = "form-control", maxlength = "15", style = "" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UniversityShortName)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="checkbox m-b-15" style="padding-top:8%;">
+                            <label>
+                                <input type="checkbox" id="DefaultFlag">
+                                <i class="input-helper"></i>
+                                @Html.LabelFor(model => model.DefaultFlag)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-left: 2%; ">
+                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateOrganisationUniversityMasterRecord" type="button" />
+                    <input name="" id="reset" type="button" class="btn btn-default btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Reset" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        OrganisationUniversityMaster.Initialize();
+    });
+
+</script>
+
+

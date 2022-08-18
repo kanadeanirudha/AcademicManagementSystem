@@ -1,0 +1,111 @@
+﻿@model AMS.ViewModel.GeneralSupplierMasterViewModel
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li><a href="#">Organisation</a><span class="divider">»</span></li>
+        <li class="active">Manage Supplier</li>
+    </ul>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-block">
+                <div style="display:none"> @Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+                <div class="widget-head">
+                    <h5 id="hFive"><i class="black-icons users"></i> &nbsp; Manage Supplier</h5>
+                    <div class="pull-right" style="margin: -24px 60px 0px 10px;">
+                        <div  class="input-append" id="" style="float: right;" >
+                            <div style="display: none;">
+                                <input type="hidden" name="_method" value="POST">
+                            </div>
+                            <div>
+                            <select name="data[User][searchby]" class="" id="showrecord" tabindex="16" style="float: left;">
+                                <option value="10">Show Records</option>
+                                <option value="10">10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="Search..." size="16" autocomplete="off" id="UserSearch">
+                            <button class="btn" type="button" id="searchBtn"><i class="icon-search"></i></button>
+                            </div>
+                            <div class="widget-control pull-right">
+                                <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="ajax cboxElement" title="Add New" href="@Url.Action("Create", "GeneralSupplierMaster")"> <h6 style="color:#000;"><i class="icon-plus" style="padding-left:7px;"></i> Add New</h6></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                            <div class="table_content">
+                                <table id="myDataTable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center">
+                                                Full Name
+                                            </th>
+                                            <th style="text-align:center">
+                                                Vendor Description
+                                            </th>
+                                            <th style="text-align:center">
+                                                Phone Number
+                                            </th>
+                                            <th style="text-align:center">
+                                                CST
+                                            </th>
+                                            <th style="text-align:center">
+                                                VAT
+                                            </th>
+                                            <th style="text-align:center">
+                                                Reference Number
+                                            </th>
+                                            <th style="text-align:center">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="widget-bottom">
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GeneralSupplierMaster.Initialize();
+        debugger;
+        var oTable = $('#myDataTable').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "GeneralSupplierMaster/AjaxHandler",
+            "bProcessing": true,
+            "pagingType": "full_numbers",
+            "columnDefs": [
+                            {
+                                "targets": 6,
+
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    var result1 = '@Html.ActionLink("Edit1", "Edit", new { ID = '1' }, new { @class = "ajax  cboxElement" })';
+                                    result1 = result1.replace('1', data[6]);
+                                    result1 = result1.replace("Edit1", '<i class="icon-edit"></i>');
+
+                                    var result2 = '@Html.ActionLink("Delete1", "Delete", new { ID = '1' }, new { @class = "ajax  cboxElement" })';
+                                    result2 = result2.replace('1', data[6]);
+                                    result2 = result2.replace("Delete1", '<i class="icon-trash"></i>');
+
+                                    var result = "<p  style='text-align: center; height:5px;'>" + result1 + "&nbsp;|&nbsp; " + result2 + "</p>";
+                                    return result;
+                                }
+                            }
+                          ] 
+        });
+    });
+</script>

@@ -1,0 +1,641 @@
+﻿@*
+
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+    @model AMS.ViewModel.StudentSelfRegistrationViewModel
+    <html>
+    <head>
+
+        <title>Student Self Registration</title>
+
+        <link href="~/Content/admin/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/admin/styles.css" rel="stylesheet" />
+        <link href="~/Content/admin/themes.css" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+
+
+        <script src="@Url.Content("~/Scripts/jquery/jquery-2.1.1.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentSelfRegistration.js")" type="text/javascript"></script>
+        <script  src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
+        <script  src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+        <link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+        <script src="Scripts/jquery.colorbox.js"></script>
+
+
+        <style>
+            .ui-front {
+                /*z-index:10000;*/
+                z-index: 10000;
+            }
+
+            hr {
+                display: block;
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+                margin-left: auto;
+                margin-right: auto;
+                border-style: inset;
+                border-width: 1px;
+            }
+
+            input[placeholder] {
+                font-weight: 600;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ViewData">
+            <form id="FormCreateStudentSelfRegistration" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <!--Top Navigation Start -->
+                <div class="navbar navbar-fixed-top">
+                    <div class="navbar-inner">
+                        <div class="container-fluid">
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--Top Navigation End -->
+
+
+                <!-- Middle Content Start -->
+                <div style="margin-left: 28%;">
+                   <div class="row-fluid">
+                        <div class="span8">
+                            <div class="widget-block">
+                                <div class="widget-head">
+                                    <h5>@Resources.FormName_SelfRegistration</h5>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="widget-box">
+
+                                        <fieldset style="margin-left: 26%; margin-top: 4%;">
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.Title, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.DropDownListFor(model => model.Title, (SelectList)ViewBag.GeneralTitleMasterList, "--Select Title --", new { @class = "input-xlarge text-tip", style = "font-Weight:Bold;" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.Title, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.Name, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "input-small", placeholder = Resources.DisplayName_FirstName, maxlength = "20", minlength = "2" })
+                                                    @Html.TextBoxFor(m => m.MiddleName, new { @class = "input-small text-tip", placeholder = Resources.DisplayName_MiddleName, maxlength = "20", minlength = "2" })
+                                                    @Html.TextBoxFor(m => m.LastName, new { @class = "input-small text-tip", placeholder = Resources.DisplayName_LastName, maxlength = "20", minlength = "2" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.FirstName, null, new { style = "color: red" }) &nbsp;
+
+                                                    @Html.ValidationMessageFor(m => m.LastName, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.EmailID, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(m => m.EmailID, new { @class = "input-xlarge text-tip ", maxlength = "80", minlength = "5" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.EmailID, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.Password, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(m => m.Password, new { @class = "input-xlarge text-tip", type = "password", maxlength = "30", minlength = "6" })
+                                                    <span id="result"></span>
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.Password, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                <label for="input502" class="control-label"><b>Confirm Password </b></label>
+                                                <div class="controls">
+
+                                                    <input name="pass2" class="input-xlarge text-tip" id="pass2" onkeyup="checkPass(); return false;" type="password">
+                                                    <span id="confirmMessage" class="confirmMessage"></span>
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.Gender, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.RadioButtonFor(model => model.Gender, true, new { @checked = true, id = "Male" })&nbsp;&nbsp;&nbsp; @Resources.DisplayName_Male &nbsp;&nbsp;&nbsp;
+                                                @Html.RadioButtonFor(model => model.Gender, false, new { id = "Female" })&nbsp;&nbsp;&nbsp; @Resources.DisplayName_Female
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.DateOfBirth, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(m => m.DateOfBirth, new { Value = "", @readonly = "readonly", @class = "input-xlarge text-tip" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.DateOfBirth, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.ContactNumber, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(m => m.ContactNumber, new { @class = "input-xlarge text-tip", maxlength = "15", minlength = "3" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.ContactNumber, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.CenterCode, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+
+                                                    @Html.DropDownListFor(model => model.CenterCode, (SelectList)ViewBag.StudyCentreList, "--Select Study Centre --", new { @class = "input-xlarge text-tip", style = "font-Weight:Bold;" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.CenterCode, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.UniversityID, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.DropDownListFor(model => model.UniversityID, (SelectList)ViewBag.UniversityList, "--Select University--", new { @class = "input-xlarge", style = "font-Weight:Bold;" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(m => m.UniversityID, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.BranchDetailID, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.DropDownListFor(model => model.BranchDetailID, (SelectList)ViewBag.organisationBranchDetail, "--Select Branch--", new { @class = "input-xlarge", style = "font-Weight:Bold;" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(model => model.BranchDetailID, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                                                @Html.LabelFor(model => model.StandardNumber, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+                                                    @Html.DropDownListFor(model => model.StandardNumber, (SelectList)ViewBag.OrganisationStandardMaster, "--Select Standard--", new { @class = "input-xlarge", style = "font-Weight:Bold;" })
+                                                    <br />
+                                                    @Html.ValidationMessageFor(model => model.StandardNumber, null, new { style = "color: red" })
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                @Html.LabelFor(model => model.AdmissionPattern, new { style = "font-Weight:Bold;" })
+                                                <div class="controls">
+
+                                                    <select id="AdmissionPattern" class="input-xlarge text-tip" style="font-Weight: Bold;">
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-actions" style="border: 1px solid #e5e5e5; margin-right: 15%; text-align: right;">
+                                                <input type="button" id="CreateStudentSelfRegistrationRecord" value="Submit" class="btn btn-primary" />
+                                                <input name="" id="reset" type="submit" class="btn" value="Reset" />
+
+                                            </div>
+
+                                        </fieldset>
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                            <a href="/StudentLogin/Index" target="_parent">
+                                <h5>Go to Student Registration Login</h5>
+                            </a>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+                <!-- Middle Content End -->
+            </form>
+        </div>
+    </body>
+    </html>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            StudentSelfRegistration.Initialize();
+            AMSValidation.Initialize();
+        });
+
+        function checkPass() {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('Password');
+            var pass2 = document.getElementById('pass2');
+            //Store the Confimation Message Object ...
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            //Compare the values in the password field
+            //and the confirmation field
+            if (pass1.value == pass2.value) {
+                //The passwords match.
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password
+                pass2.style.backgroundColor = goodColor;
+                message.style.color = goodColor;
+                message.innerHTML = "Passwords Match!"
+            } else {
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                pass2.style.backgroundColor = badColor;
+                message.style.color = badColor;
+                message.innerHTML = "Passwords Do Not Match!"
+            }
+        }
+
+    </script>
+
+*@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+@model AMS.ViewModel.StudentSelfRegistrationViewModel
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Self Registration</title>
+
+    <!-- Start added from layout -->
+    <!-- Vendor CSS -->
+    <!-- fullcalendar -->
+    <!-- animate css -->
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/animate.css/animate.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- sweet alert css -->
+    @*<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css")" rel="stylesheet" type="text/css" />*@
+
+    <!-- font material -->
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" type="text/css" />
+    <!-- animate.css -->
+
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css")" rel="stylesheet" type="text/css" />
+    <!-- CSS -->
+    <!-- CSS -->
+
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.1.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/materialtheme/css/app.min.2.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/materialtheme/dist/css/style.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/plugins/Magnific-Popup-master/dist/magnific-popup.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/plugins/data-tables-1.10.11/media/css/dataTables.bootstrap.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/jquery/dist/jquery.min.js")" type="text/javascript"></script>
+
+    <!-- custom -->
+    @*<script src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>*@
+
+    @*<script src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>*@
+    <!--End added from layout -->
+
+    <link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+    <!--old script-->
+    <script src="@Url.Content("~/Scripts/jquery/jquery-2.1.1.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Student/StudentSelfRegistration.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Application/AMSValidation.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+    <!--old script-->
+
+</head>
+
+<body>
+
+    <style>
+        body {
+            font-size: 14px;
+        }
+    </style>
+    <div id="ViewData">
+        <header id="header" class="clearfix" data-current-skin="blue" style="text-align: center; font-size: x-large;color: #FFF; font-weight: BOLD; font-size: 28px;padding-top: 1%;">
+            @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Name")
+            {
+                @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+            }
+            else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Image")
+            {
+                <span>
+                    <img   src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" /></span>
+            }
+            else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LangingPage_Image_OR_Name_OR_Both"]) == "Both")
+            {
+                <span>
+                    <img   src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" /></span>
+                @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
+            }
+        </header>
+
+        <form id="FormCreateStudentSelfRegistration" method="post">
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <section id="main">
+                <div class="container">
+                    <div class="block-header">
+                        <h2></h2>
+                    </div>
+                    <div class="card bs-item z-depth-5">
+                        <div class="card-header ch-alt">
+                            <button class="btn btn-icon pull-right" type="button" style="margin-top: -1%;" onclick="location.href = '/StudentLogin/Index'" data-val="true" data-toggle="tooltip" data-palcement="top" title="Go to Student Registration Login">
+                                <i class="zmdi zmdi-long-arrow-return"></i>
+                            </button>
+                            @*<label> <h5>Go to Student Registration Login</h5> </label>*@
+                            <h2>@Resources.FormName_SelfRegistration <small></small></h2>
+                        </div>
+
+                        <div class="card-body card-padding">
+                            <div class="col-sm-12">
+                                <div class="col-sm-3">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line select">
+                                        @*@Html.LabelFor(model => model.Title, new { style = "font-Weight:Bold;" })*@
+                                        @Html.DropDownListFor(model => model.Title, (SelectList)ViewBag.GeneralTitleMasterList, "--Select Title --", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Title*" })
+
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Title)
+                                </div>
+
+
+
+
+                                <div class="col-sm-3">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line">
+                                        @*@Html.LabelFor(model => model.Name, new { style = "font-Weight:Bold;" })*@
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input-sm", placeholder = Resources.DisplayName_FirstName, maxlength = "20", minlength = "2", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "First Name*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.FirstName, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-3">
+
+                                    <div class="form-group  fg-line">
+                                        @*@Html.LabelFor(model => model.Name, new { style = "font-Weight:Bold;" })*@
+                                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control input-sm", placeholder = Resources.DisplayName_MiddleName, maxlength = "20", minlength = "2", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Middle Name" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.MiddleName, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line">
+                                        @*@Html.LabelFor(model => model.Name, new { style = "font-Weight:Bold;" })*@
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input-sm", placeholder = Resources.DisplayName_LastName, maxlength = "20", minlength = "2", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Last Name*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.LastName, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-6">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line">
+                                        @*@Html.LabelFor(model => model.EmailID, new { style = "font-Weight:Bold;" })*@
+                                        @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control input-sm", placeholder = "Email", maxlength = "80", minlength = "5", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Email*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.EmailID, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    @*       <span style="float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group" style="padding-top: 1%;">
+                                        @*  @Html.LabelFor(model => model.Gender, new { style = "" }) &nbsp;&nbsp;&nbsp;*@
+                                        <label class="radio radio-inline m-r-20">
+                                            @Html.RadioButtonFor(model => model.Gender, true, new { @checked = true, id = "Male" })&nbsp;@Resources.DisplayName_Male &nbsp;&nbsp;&nbsp;
+                                            <i class="input-helper"></i>
+                                        </label>
+
+                                        <label class="radio radio-inline m-r-20">
+                                            @Html.RadioButtonFor(model => model.Gender, false, new { id = "Female" })&nbsp;@Resources.DisplayName_Female
+                                            <i class="input-helper"></i>
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    @*@Html.LabelFor(model => model.DateOfBirth, new { style = "font-Weight:Bold;" })*@
+                                    <div class="form-group  fg-line dtp-container">
+
+                                        @Html.TextBoxFor(m => m.DateOfBirth, new { Value = "", @readonly = "readonly", placeholder = "Date of birth", @class = "form-control input-sm", @style = "background-color: #ffffff;", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Date of birth*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.DateOfBirth, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-6">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line">
+                                        @*@Html.LabelFor(model => model.ContactNumber, new { style = "" })*@
+                                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control input-sm", maxlength = "15", minlength = "3", placeholder = "Contact number", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Contact number*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.ContactNumber, null, new { style = "color: red" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line">
+                                        @*@Html.LabelFor(model => model.Password, new { style = "font-Weight:Bold;" })*@
+                                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control input-sm", type = "password", placeholder = "Password", maxlength = "30", minlength = "6", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Password*" })
+                                    </div>
+                                    <span id="result" style="font-size: 11px;color: #66cc66;"></span>
+                                    @Html.ValidationMessageFor(m => m.Password, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    @*<label for="input502" class="control-label"><b>Confirm Password </b></label>*@
+                                    <div class="form-group  fg-line">
+                                        <input name="pass2" class="form-control input-sm" id="pass2" onkeyup="checkPass(); return false;" data-val="true" data-toggle="tooltip" data-palcement="top" title="Confirm Password*" placeholder="Confirm Password" type="password">
+                                    </div>
+                                    <small id="confirmMessage" class="confirmMessage"></small>
+                                </div>
+
+
+                                <div class="col-sm-6">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line select">
+                                        @*@Html.LabelFor(model => model.CenterCode, new { style = "" })*@
+                                        @Html.DropDownListFor(model => model.CenterCode, (SelectList)ViewBag.StudyCentreList, "--Select Study Centre --", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Study Centre*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.CenterCode, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-6">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line select">
+                                        @*@Html.LabelFor(model => model.UniversityID, new { style = "font-Weight:Bold;" })*@
+                                        @Html.DropDownListFor(model => model.UniversityID, (SelectList)ViewBag.UniversityList, "--Select University--", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "University*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.UniversityID, null, new { style = "color: red" })
+                                </div>
+
+
+                                <div class="col-sm-6">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line select">
+                                        @*@Html.LabelFor(model => model.BranchDetailID, new { style = "font-Weight:Bold;" })*@
+                                        @Html.DropDownListFor(model => model.BranchDetailID, (SelectList)ViewBag.organisationBranchDetail, "--Select Branch--", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Branch*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.BranchDetailID, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    @*<span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>*@
+                                    <div class="form-group  fg-line select">
+                                        @*@Html.LabelFor(model => model.StandardNumber, new { style = "font-Weight:Bold;" })*@
+                                        @Html.DropDownListFor(model => model.StandardNumber, (SelectList)ViewBag.OrganisationStandardMaster, "--Select Standard--", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "Standard*" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.StandardNumber, null, new { style = "color: red" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    @*@Html.LabelFor(model => model.AdmissionPattern, new {  })*@
+                                    <div class="form-group  fg-line select">
+                                        <select id="AdmissionPattern" class="form-control input-sm" data-placeholder="Admission Pattern" data-val="true" data-toggle="tooltip" data-palcement="top" title="Admission pattern"></select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                </div>
+
+                            </div>
+
+
+
+
+                            @*<button class="btn btn-info">Submit</button>
+                <button class="btn btn-link">Cancel</button>*@
+
+                            <div class="form-group" style="padding-left: 3%;">
+                                <button type="button" id="CreateStudentSelfRegistrationRecord" value="Submit" class="btn btn-primary">Submit</button>
+                                <button name="" id="reset" type="button" class="btn btn-default" value="Reset">Reset</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    @*<div class="card">
+                            <div class="card-body card-padding">
+                                <button class="btn btn-warning btn-icon" type="button" onclick="location.href = '/StudentLogin/Index'" title="Go to Student Registration Login">
+                                    <i class="zmdi zmdi-arrow-back"></i>
+
+                                </button> <label> <h5>Go to Student Registration Login</h5> </label>
+                            </div>
+                        </div>*@
+
+                </div>
+            </section>
+        </form>
+    </div>
+
+
+
+</body>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/Waves/dist/waves.min.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bootstrap-growl/bootstrap-growl.min.js")" type="text/javascript"></script>
+
+@*<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js")" type="text/javascript"></script>*@
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js")" type="text/javascript"></script>
+
+<!-- Placeholder for IE9 -->
+<!--[if IE  9 ]>
+    <script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/jquery-placeholder/jquery.placeholder.min")" type="text/javascript"></script>
+<![endif]-->
+<script src="@Url.Content("~/Content/materialtheme/js/functions.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/js/demo.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>*@
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#DateOfBirth').attr("readonly", true);
+
+        $('#DateOfBirth').datetimepicker({
+            format: 'DD MMMM YYYY',
+            //minDate: moment({ yearRange: '1950:2013' }),
+            ignoreReadonly: true,
+
+        })
+
+        StudentSelfRegistration.Initialize();
+        AMSValidation.Initialize();
+    });
+
+    function checkPass() {
+        //Store the password field objects into variables ...
+        var pass1 = document.getElementById('Password');
+        var pass2 = document.getElementById('pass2');
+        //Store the Confimation Message Object ...
+        var message = document.getElementById('confirmMessage');
+        //Set the colors we will be using ...
+        var goodColor = "#fff";
+        var badColor = "#fff";
+
+        var textColorGreen = "#66cc66";
+        var textColorRed = "#ff6666";
+
+        //Compare the values in the password field
+        //and the confirmation field
+        if (pass1.value == pass2.value) {
+            //The passwords match.
+            //Set the color to the good color and inform
+            //the user that they have entered the correct password
+            pass2.style.backgroundColor = goodColor;
+            message.style.color = textColorGreen;
+            message.innerHTML = "Passwords Match!"
+        } else {
+            //The passwords do not match.
+            //Set the color to the bad color and
+            //notify the user.
+            pass2.style.backgroundColor = badColor;
+            message.style.color = textColorRed;
+            message.innerHTML = "Passwords Do Not Match!"
+        }
+    }
+
+</script>

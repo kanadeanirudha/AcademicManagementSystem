@@ -1,0 +1,113 @@
+﻿@model AMS.ViewModel.OnlineExamStudentQuePaperCheckDetailsViewModel
+
+<div class="card">
+
+   @* <div class="bootgrid-header container-fluid" id="data-table-command-header">*@
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="actions btn-group">
+                    <div class="dropdown btn-group">
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="Question Type">
+                                        Question<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+   @* </div>*@
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>Questions</th>
+                <th>Questions</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        debugger
+        var oTable;
+        OnlineExamStudentQuePaperCheckDetails.Initialize();
+        debugger
+        oTable = $('#myDataTable').DataTable({
+           
+            "bServerSide": true,
+            "sAjaxSource": "ViewQuestionListAjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "iDisplayLength":1,
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "OnlineExamIndStudentExamInfoID", "value": $("#OnlineExamIndStudentExamInfoID").val() });
+                aoData.push({ "name": "OnlineExamSubjectGroupScheduleID", "value": $("#OnlineExamSubjectGroupScheduleID").val() });
+            },
+            "columnDefs": [
+                              {
+                                  "visible": false, "targets": 0,
+                              },
+
+                               {
+                                   "targets": 1,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = "";
+                                       var Answer = data[5];
+                                       Answer = Answer.replace(/~/g, ',');
+                                       if (Answer != null && Answer != '') {
+                                         
+                                           result = "<p  style=' height:5px;'>" + Answer + "</p>";
+                                       }
+                                       if ((data[8] == 1 || data[8] == 2) && (data[6] != null && data[6] != "")) {
+                                           result = result + "<p  style=' height:5px;'><a href='/OnlineExam/DownloadAttachedDocument?AttachedDocument="+data[6]+"' target='_blank' id='linkForAttachedDocument'>Download Attachment</a></p>";
+                                       }
+                                       $('#OnlineExamIndQuestionPaperID').val(data[0]);
+                                       $('#MarkObtained').val(data[9]);
+                                       return result;
+                                   }
+                               },
+                             
+            ],
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                api.column(1, { page: 'current' }).data().each(function (group, i) {
+                    var array = String(group).split(',');
+                    if (last !== array[0]) {
+                        var question = array[1];
+                        question = question.replace(/~/g, ',');
+                        if (array[3] != null && array[3] != "") {
+                            question += '<br><img src="/Content/UploadedFiles/QuestionImage/' + array[3] + '" style="width: 60px;"/>';
+                        } 
+                        var paperData = '<tr class="group"><td colspan="2" style="font-weight:bold;font-size:12px;font-family: verdana;" >' + question + '<span class="btn btn-default waves-effect" style="float:right;margin-right: 5px;">' + array[7] + '&nbsp Marks</span></td></tr>';
+                        $(rows).eq(i).before(
+                           paperData
+                        );
+                        last = array[0]
+                    }
+                });
+            }
+        });
+        DataTableSettings(oTable, 'myDataTable', 'toggleTableColumn');
+    });
+
+</script>

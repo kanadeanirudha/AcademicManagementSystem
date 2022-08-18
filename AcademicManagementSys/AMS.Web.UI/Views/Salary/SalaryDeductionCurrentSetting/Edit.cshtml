@@ -1,0 +1,78 @@
+﻿@model AMS.ViewModel.SalaryDeductionCurrentSettingViewModel
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Edit Salary Deduction  Setting</h2>
+    </div>
+    <div class="card">
+        <div id="card-body card-padding">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormEditSalaryDeductionCurrentSetting">
+                @Html.HiddenFor(m => m.ID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6 ">
+                        <div class="form-group fg-line select">
+                            @Html.LabelFor(model => model.DeductionHeadName, new { })
+                            @Html.DropDownListFor(model => model.DeductionHeadName, (SelectList)ViewBag.SalaryDeductionMasterIDsList, "---Select Deduction Head Name ---", new { @class = "form-control input-sm" })
+
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.DeductionHeadName)*@
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.FixAmount, new { })
+                            @Html.TextBoxFor(model => model.FixAmount, new { maxlength = "25", @class = "form-control input-sm date-picker" })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.FixAmount)*@
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.Percentage, new { })
+                            @Html.TextBoxFor(model => model.Percentage, new { maxlength = "25", @class = "form-control input-sm date-picker" })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.Percentage)*@
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+
+                            @Html.LabelFor(model => model.AccountName, new { })
+                            @Html.DropDownListFor(model => model.AccountName, (SelectList)ViewBag.GeneralTypeOfAccountList, "---Select Account Name ---", new { @class = "form-control input-sm" })
+
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.AccountName)*@
+
+                    </div>
+
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line select">
+                            @Html.LabelFor(model => model.CalculateOn, new { })
+                            @Html.DropDownList("CalculateOn", ViewData["CalculateOn"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                        </div>
+                        @*@Html.ValidationMessageFor(model => model.CalculateOn)*@
+                    </div>
+                </div>
+                <div class="col-sm-12 m-t-30">
+                    <input class=" btn btn-primary btn-sm m-t-12 waves-effect" value="@Resources.ButtonAction_Submit" id="EditSalaryDeductionCurrentSettingRecord" type="button" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+       
+        SalaryDeductionCurrentSetting.Initialize();
+    })
+</script>

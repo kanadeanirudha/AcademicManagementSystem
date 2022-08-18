@@ -1,0 +1,111 @@
+﻿@*----------------------------------------------------------AuthoriseStudentSectionChangeRequest Form----------------------------------------------------------------------------*@
+
+@model AMS.ViewModel.StudentReadmissionViewModel
+<link href="@Url.Content("Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+<div id="admDetails">
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5> @Resources.Headers_StudentDetails</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <form class="form-horizontal white-box well ucase">
+                            <fieldset>
+
+                                <div class="control-group" style="margin-left:50px">
+                                    @Html.LabelFor(m => m.BranchDescription, new { @class = "control-label", style = "font-weight:bold;line-height: 5px" })
+                                    <div class="controls">
+                                        @Html.DisplayFor(m => m.BranchDescription)
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="margin-left:50px">
+                                    @Html.LabelFor(m => m.CourseYearDesc, new { @class = "control-label", style = "font-weight:bold;line-height: 5px" })
+                                    <div class="controls">
+                                        @Html.DisplayFor(m => m.CourseYearDesc)
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="margin-left:50px">
+                                    @Html.LabelFor(m => m.SectionDesc, new { @class = "control-label", style = "font-weight:bold;line-height: 5px" })
+                                    <div class="controls">
+                                        @Html.DisplayFor(m => m.SectionDesc)
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="margin-left:50px">
+                                    @Html.LabelFor(m => m.AcademicYear, new { @class = "control-label", style = "font-weight:bold;line-height: 5px" })
+                                    <div class="controls">
+                                        @Html.DisplayFor(m => m.AcademicYear)
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="margin-left:50px">
+                                    @Html.LabelFor(m => m.StudentCode, new { @class = "control-label", style = "font-weight:bold;line-height: 5px" })
+                                    <div class="controls">
+                                        @Html.DisplayFor(m => m.StudentCode)
+                                    </div>
+                                </div>
+
+
+                                @Html.HiddenFor(m => m.BranchId)
+                                @Html.HiddenFor(m => m.StudentId)
+                                @Html.HiddenFor(m => m.StuAdmissionDetailID)
+                                @Html.HiddenFor(m => m.AdmissionDate)
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="span6">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5>  Change Section</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <form class="form-horizontal white-box well ucase">
+                            <fieldset>
+
+                                <div class="control-group">
+                                    @Html.LabelFor(m => m.SectionDetailID, new { @class = "control-label", style = "font-weight:bold" })
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.SectionDetailID, (SelectList)ViewBag.SectionList)
+                                        <br />
+                                        @Html.ValidationMessageFor(m => m.SectionDetailID)
+                                    </div>
+                                </div>
+
+                                <div class="form-actions" style="text-align: right">
+
+                                    <input type="button" id="CreateAuthoriseStudentSectionChangeRequestRecord" value="Submit" class="btn btn-primary" />
+                                    <input name="" id="reset" type="button" class="btn btn-primary" value="@Resources.ButtonAction_Reset" />
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //In use.Also initialize on index page
+        //AuthoriseStudentSectionChangeRequest.Initialize();
+    });
+</script>
+
+
+
+
+

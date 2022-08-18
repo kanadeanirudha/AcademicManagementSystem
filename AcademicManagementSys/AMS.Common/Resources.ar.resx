@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abbrevation" xml:space="preserve">
+    <value>أدخل الإسم</value>
+  </data>
+  <data name="AcademicSession" xml:space="preserve">
+    <value>الدورة الأكاديمية</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>البريد الإلكتروني غير صحيحتسجيل دخولن بي</value>
+  </data>
+  <data name="ButtonAction_Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ButtonAction_Reset" xml:space="preserve">
+    <value>إعادة تعيين</value>
+  </data>
+  <data name="ButtonAction_Submit" xml:space="preserve">
+    <value>تسجيل دخول</value>
+  </data>
+  <data name="CasteName" xml:space="preserve">
+    <value>Caste Name</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+  <data name="ContryCode" xml:space="preserve">
+    <value>إضافة شخص</value>
+  </data>
+  <data name="CountryName" xml:space="preserve">
+    <value>إضافة شخص</value>
+  </data>
+  <data name="CreateAcademicSession" xml:space="preserve">
+    <value>خلق الدورة الأكاديمية</value>
+  </data>
+  <data name="CreateCountry" xml:space="preserve">
+    <value>أدخل العمر</value>
+  </data>
+  <data name="DefaultFlag" xml:space="preserve">
+    <value>السيرة</value>
+  </data>
+  <data name="DeleteCountry" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="DisplayName_Actions" xml:space="preserve">
+    <value>تطبيقات</value>
+  </data>
+  <data name="DisplayName_AddNew" xml:space="preserve">
+    <value>إضافة جديد</value>
+  </data>
+  <data name="DisplayName_AdminRoleCode" xml:space="preserve">
+    <value>Role Code</value>
+  </data>
+  <data name="DisplayName_CasteName" xml:space="preserve">
+    <value>اسم الطائفة</value>
+  </data>
+  <data name="DisplayName_CategoryCode" xml:space="preserve">
+    <value>فئة الرمز</value>
+  </data>
+  <data name="DisplayName_CategoryName" xml:space="preserve">
+    <value>اسم التصنيف</value>
+  </data>
+  <data name="DisplayName_CategoryType" xml:space="preserve">
+    <value>الفئة نوع</value>
+  </data>
+  <data name="DisplayName_CountryCode" xml:space="preserve">
+    <value>كود البلد</value>
+  </data>
+  <data name="DisplayName_CountryName" xml:space="preserve">
+    <value>اسم البلد</value>
+  </data>
+  <data name="DisplayName_CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="DisplayName_CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="DisplayName_CurrentFlag" xml:space="preserve">
+    <value>العلم الحالي</value>
+  </data>
+  <data name="DisplayName_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DisplayName_DeletedBy" xml:space="preserve">
+    <value>Deleted By</value>
+  </data>
+  <data name="DisplayName_DeletedDate" xml:space="preserve">
+    <value>Deleted Date</value>
+  </data>
+  <data name="DisplayName_Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="DisplayName_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DisplayName_IsActive" xml:space="preserve">
+    <value>Active?</value>
+  </data>
+  <data name="DisplayName_IsDeleted" xml:space="preserve">
+    <value>Deleted?</value>
+  </data>
+  <data name="DisplayName_MakeitDefault" xml:space="preserve">
+    <value>جعله افتراضي</value>
+  </data>
+  <data name="DisplayName_ModifiedBy" xml:space="preserve">
+    <value>Modified By</value>
+  </data>
+  <data name="DisplayName_ModifiedDate" xml:space="preserve">
+    <value>Modified Date</value>
+  </data>
+  <data name="DisplayName_OrgSemesterName" xml:space="preserve">
+    <value>اسم الفصل الدراسي</value>
+  </data>
+  <data name="DisplayName_RegionName" xml:space="preserve">
+    <value>اسم المنطقة</value>
+  </data>
+  <data name="DisplayName_SemesterCode" xml:space="preserve">
+    <value>الفصل الدراسي كود</value>
+  </data>
+  <data name="DisplayName_SemesterType" xml:space="preserve">
+    <value>دروس الفصل الدراسي</value>
+  </data>
+  <data name="DisplayName_SeqNo" xml:space="preserve">
+    <value>بعدها لا</value>
+  </data>
+  <data name="DisplayName_SessionFrom" xml:space="preserve">
+    <value>جلسة من</value>
+  </data>
+  <data name="DisplayName_SessionName" xml:space="preserve">
+    <value>اسم الدورة</value>
+  </data>
+  <data name="DisplayName_SessionOrder" xml:space="preserve">
+    <value>جلسة ترتيب</value>
+  </data>
+  <data name="DisplayName_SessionUpto" xml:space="preserve">
+    <value>الدورة لغاية</value>
+  </data>
+  <data name="EmailID" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="Error_NullReference" xml:space="preserve">
+    <value>Null Reference Exception</value>
+  </data>
+  <data name="FormCreate_AcademicSession" xml:space="preserve">
+    <value>خلق الدورة الأكاديمية</value>
+  </data>
+  <data name="FormCreate_CasteName" xml:space="preserve">
+    <value>خلق اسم الطبقات</value>
+  </data>
+  <data name="FormCreate_Category" xml:space="preserve">
+    <value>تكوين الفئة</value>
+  </data>
+  <data name="FormCreate_City" xml:space="preserve">
+    <value>خلق مدينة</value>
+  </data>
+  <data name="FormCreate_Country" xml:space="preserve">
+    <value>خلق البلد</value>
+  </data>
+  <data name="FormDelete_AcademicSession" xml:space="preserve">
+    <value>حذف الدورة الأكاديمية</value>
+  </data>
+  <data name="FormDelete_CasteName" xml:space="preserve">
+    <value>حذف اسم الطبقات</value>
+  </data>
+  <data name="FormDelete_Category" xml:space="preserve">
+    <value>حذف الفئة</value>
+  </data>
+  <data name="FormDelete_City" xml:space="preserve">
+    <value>حذف سيتي</value>
+  </data>
+  <data name="FormDelete_Country" xml:space="preserve">
+    <value>حذف البلد</value>
+  </data>
+  <data name="FormEdit_AcademicSession" xml:space="preserve">
+    <value>تحرير الدورة الأكاديمية</value>
+  </data>
+  <data name="FormEdit_Country" xml:space="preserve">
+    <value>تحرير البلد</value>
+  </data>
+  <data name="FormName_AcademicSession" xml:space="preserve">
+    <value>الدورة الأكاديمية</value>
+  </data>
+  <data name="FormName_Caste" xml:space="preserve">
+    <value>الطائفة</value>
+  </data>
+  <data name="FormName_Category" xml:space="preserve">
+    <value>فئة</value>
+  </data>
+  <data name="FormName_City" xml:space="preserve">
+    <value>مدينة</value>
+  </data>
+  <data name="FormName_Country" xml:space="preserve">
+    <value>ن أقل من  حرف</value>
+  </data>
+  <data name="FormUpdate_CasteName" xml:space="preserve">
+    <value>اسم التحديث الطبقات</value>
+  </data>
+  <data name="FormUpdate_Category" xml:space="preserve">
+    <value>تحديث الفئة</value>
+  </data>
+  <data name="FormUpdate_City" xml:space="preserve">
+    <value>تحديث سيتي</value>
+  </data>
+  <data name="GlobalProperties_Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="GlobalProperties_ShowRecords" xml:space="preserve">
+    <value>وتظهر السجلات</value>
+  </data>
+  <data name="InvalidArgumentsError" xml:space="preserve">
+    <value>InvalidArgumentsError</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل دخول</value>
+  </data>
+  <data name="Mainheading_GeneralParameters" xml:space="preserve">
+    <value>معلمات العام</value>
+  </data>
+  <data name="Makeitdefault" xml:space="preserve">
+    <value>جعله الافتراضي</value>
+  </data>
+  <data name="ManageAcademicSession" xml:space="preserve">
+    <value>إدارة الدورة الأكاديمية</value>
+  </data>
+  <data name="ManageSemester" xml:space="preserve">
+    <value>إدارة الفصل الدراسي</value>
+  </data>
+  <data name="Message_DeleteAll" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="Message_DeleteAllDataConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete all log histories for the current filter?</value>
+  </data>
+  <data name="Message_RecordAlreadyExists" xml:space="preserve">
+    <value>سجل بالفعل</value>
+  </data>
+  <data name="Message_RecordCreatedSuccessfully" xml:space="preserve">
+    <value>سجل إنشاؤها بنجاح</value>
+  </data>
+  <data name="Message_RecordDeletedSuccessfully" xml:space="preserve">
+    <value>حذف سجل بنجاح</value>
+  </data>
+  <data name="Message_RecordNotCreatedSuccessfully" xml:space="preserve">
+    <value>سجل لم يخلق بنجاح</value>
+  </data>
+  <data name="Message_RecordNotDeletedSuccessfully" xml:space="preserve">
+    <value>سجل يتم حذف بنجاح</value>
+  </data>
+  <data name="Message_RecordNotUpdatedSuccessfully" xml:space="preserve">
+    <value>سجل يتم تحديث بنجاح</value>
+  </data>
+  <data name="Message_RecordUpdatedSuccessfully" xml:space="preserve">
+    <value>سجل تحديثها بنجاح</value>
+  </data>
+  <data name="Null_Object_Exception" xml:space="preserve">
+    <value>Object is not found</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>أدخل الإسم</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>جب أأقل من رف ?</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>أدخل إسم العائلة</value>
+  </data>
+  <data name="Semester" xml:space="preserve">
+    <value>نصف السنة</value>
+  </data>
+  <data name="SemesterCode" xml:space="preserve">
+    <value>الفصل الدراسي كود</value>
+  </data>
+  <data name="SemesterType" xml:space="preserve">
+    <value>الفصل الدراسي النوع</value>
+  </data>
+  <data name="SeqNo" xml:space="preserve">
+    <value>أدخل البريد الإلكتروني</value>
+  </data>
+  <data name="Session" xml:space="preserve">
+    <value>جلسة</value>
+  </data>
+  <data name="SessionOrder" xml:space="preserve">
+    <value>جلسة ترتيب</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="Tableheaders_Abbrevation" xml:space="preserve">
+    <value>الاختصارات</value>
+  </data>
+  <data name="Tableheaders_Action" xml:space="preserve">
+    <value>أدخل </value>
+  </data>
+  <data name="Tableheaders_CasteName" xml:space="preserve">
+    <value>اسم الطائفة</value>
+  </data>
+  <data name="Tableheaders_Category" xml:space="preserve">
+    <value>فئة</value>
+  </data>
+  <data name="Tableheaders_CategoryCode" xml:space="preserve">
+    <value>فئة الرمز</value>
+  </data>
+  <data name="Tableheaders_CategoryName" xml:space="preserve">
+    <value>اسم التصنيف</value>
+  </data>
+  <data name="Tableheaders_CategoryType" xml:space="preserve">
+    <value>الفئة نوع</value>
+  </data>
+  <data name="Tableheaders_City" xml:space="preserve">
+    <value>مدينة</value>
+  </data>
+  <data name="Tableheaders_Country" xml:space="preserve">
+    <value>بلد</value>
+  </data>
+  <data name="Tableheaders_ManageAcademicSession" xml:space="preserve">
+    <value>إدارة الدورة الأكاديمية</value>
+  </data>
+  <data name="Tableheaders_ManageCaste" xml:space="preserve">
+    <value>الطائفة</value>
+  </data>
+  <data name="Tableheaders_ManageCategory" xml:space="preserve">
+    <value>إدارة الفئة</value>
+  </data>
+  <data name="Tableheaders_ManageCity" xml:space="preserve">
+    <value>إدارة مدينة</value>
+  </data>
+  <data name="Tableheaders_ManageCountry" xml:space="preserve">
+    <value>أدخل إسم</value>
+  </data>
+  <data name="Tableheaders_Region" xml:space="preserve">
+    <value>منطقة</value>
+  </data>
+  <data name="Tableheaders_Session" xml:space="preserve">
+    <value>جلسة</value>
+  </data>
+  <data name="Tableheaders_SessionOrder" xml:space="preserve">
+    <value>جلسة ترتيب</value>
+  </data>
+  <data name="Title_AdminRoleDetailIndex" xml:space="preserve">
+    <value>Manage Admin Role Details</value>
+  </data>
+  <data name="ToolTip_Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ToolTip_Edit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="UpdateAcademicSession" xml:space="preserve">
+    <value>تحديث الدورة الأكاديمية</value>
+  </data>
+  <data name="UpdateCountry" xml:space="preserve">
+    <value>أدخل إسم العائلة</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="ValidationMessage_CategoryCodeRequired" xml:space="preserve">
+    <value>لا ينبغي أن يكون فئة الرمز فارغة</value>
+  </data>
+  <data name="ValidationMessage_CategoryNameRequired" xml:space="preserve">
+    <value>فئة اسم مطلوب</value>
+  </data>
+  <data name="ValidationMessage_CategoryTypeRequired" xml:space="preserve">
+    <value>لا ينبغي أن يكون القسم النوع فارغة</value>
+  </data>
+  <data name="ValidationMessage_ContryCodeRequired" xml:space="preserve">
+    <value>أدخل البريد الإلكتروني</value>
+  </data>
+  <data name="ValidationMessage_CountryNameRequired" xml:space="preserve">
+    <value>يجب أن يكون بين  و </value>
+  </data>
+  <data name="ValidationMessage_DescriptionRequired" xml:space="preserve">
+    <value>وصف المطلوبة</value>
+  </data>
+  <data name="ValidationMessage_OrgSemesterNameRequired" xml:space="preserve">
+    <value>يجب فصل الدراسي وليس أن تكون فارغة</value>
+  </data>
+  <data name="ValidationMessage_RegionNameRequired" xml:space="preserve">
+    <value>المنطقة اسم لا ينبغي أن يكون فارغا</value>
+  </data>
+  <data name="ValidationMessage_SemesterCodeRequired" xml:space="preserve">
+    <value>لا ينبغي أن يكون كود فصل دراسي فارغ</value>
+  </data>
+  <data name="ValidationMessage_SemesterTypeRequired" xml:space="preserve">
+    <value>يجب الطبقات الفصل الدراسي لا تكون فارغة</value>
+  </data>
+  <data name="ValidationMessage_SeqNoRequired" xml:space="preserve">
+    <value>عدد تسلسل يجب أن لا تكون فارغة</value>
+  </data>
+  <data name="ValidationMessage_SessionFromRequired" xml:space="preserve">
+    <value>جلسة من المطلوب</value>
+  </data>
+  <data name="ValidationMessage_SessionNameRequired" xml:space="preserve">
+    <value>الدورة اسم مطلوب</value>
+  </data>
+  <data name="ValidationMessage_SessionOrderRequired" xml:space="preserve">
+    <value>يجب الدورة لكي لا يكون فارغا</value>
+  </data>
+  <data name="ValidationMessage_SessionUptoRequired" xml:space="preserve">
+    <value>الدورة لغاية المطلوبة</value>
+  </data>
+</root>

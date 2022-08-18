@@ -1,0 +1,286 @@
+﻿@*@model AMS.ViewModel.OrganisationSubjectGrpRuleViewModel
+<div style="position:relative;">
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.CourseYearSemesterID)
+    <div class="row">
+        <div class="span10">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.RuleName, new { @class = "",style = "font-weight:bold" })
+                </div>
+                <div class="span8">
+                    @Html.TextBoxFor(model => model.RuleName, new { style = "width:100%;", maxlength = "100" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.RuleName)
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span10">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.RuleCode, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span8">
+                    @Html.TextBoxFor(model => model.RuleCode, new { style = "width:100%;", maxlength = "100" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.RuleCode)
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.MaxCompulsorySubjects, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span3">
+                    @Html.TextBoxFor(m => m.MaxCompulsorySubjects, new { type = "number", min = "0" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.MaxCompulsorySubjects)
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.MaxGroups, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span3">
+                    @Html.TextBoxFor(m => m.MaxGroups, new { type = "number", min = "0" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.MaxGroups)
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="span5">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.MaxOptSubjects, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span3">
+                    @Html.TextBoxFor(m => m.MaxOptSubjects, new { type = "number", min = "0" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.MaxOptSubjects)
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.NoOfOptSubjects, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span3">
+                    @Html.TextBoxFor(m => m.NoOfOptSubjects, new { type = "number", min = "0" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.NoOfOptSubjects)
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="span5">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.TotalSubjects, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span3">
+                    @Html.TextBoxFor(m => m.TotalSubjects, new { type = "number", min = "0" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.TotalSubjects)
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="row">
+                <div class="span2">
+                    <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>  
+                    @Html.LabelFor(m => m.MaxNoOfCompulsoryGroups, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span3">
+                    @Html.TextBoxFor(m => m.MaxNoOfCompulsoryGroups, new { type = "number", min = "0" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.MaxNoOfCompulsoryGroups)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span5">
+            <div class="row">
+                <div class="span2" style="margin-left:35px">
+
+                    @Html.LabelFor(m => m.IsActive, new { @class = "", style = "font-weight:bold" })
+                </div>
+                <div class="span2">
+                    @Html.EditorFor(m => m.IsActive)
+                    <br />
+                    @Html.ValidationMessageFor(model => model.IsActive)
+                </div>
+            </div>
+        </div>
+    </div>
+   <div class="form-actions" style="border: 1px solid #e5e5e5; text-align: right">
+        <input id="CreateOrgMainRuleRecord" type="button" value="Submit Rule" class="btn btn-primary" style="width: 100px;" />
+        <input type="button" id="OrganisationSubjectGrpRuleNextbtn" value="@Resources.ButtonAction_Next" class="btn btn" />
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //  OrganisationSubjectGrpRule.Initialize();
+    });
+</script>*@
+
+@*-------new code-------*@
+
+@model AMS.ViewModel.OrganisationSubjectGrpRuleViewModel
+@*<div id="custom-content">*@
+    @*<div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;</h2>
+    </div>*@
+
+    @*<div class="card">*@
+        <div class="card-body card-padding" style="">
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            @*<form id="FormCreateCentrewiseSession" method="post">*@
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.CourseYearSemesterID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.RuleName, new { @class = "", style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.RuleName, new { @class = "form-control", style = "", maxlength = "100" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.RuleName)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.RuleCode, new { @class = "", style = "font-weight:bold" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(model => model.RuleCode, new { @class = "form-control", style = "", maxlength = "100" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.RuleCode)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.MaxCompulsorySubjects, new { @class = "", style = "" })
+                        <div class="form-group  fg-line">
+                            @Html.TextBoxFor(m => m.MaxCompulsorySubjects, new { @class = "form-control", type = "number", min = "0" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MaxCompulsorySubjects)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.MaxGroups, new { @class = "", style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.MaxGroups, new { @class = "form-control", type = "number", min = "0" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MaxGroups)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.MaxOptSubjects, new { @class = "", style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.MaxOptSubjects, new { @class = "form-control", type = "number", min = "0" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MaxOptSubjects)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.NoOfOptSubjects, new { @class = "", style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.NoOfOptSubjects, new { @class = "form-control", type = "number", min = "0" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.NoOfOptSubjects)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.TotalSubjects, new { @class = "", style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.TotalSubjects, new { @class = "form-control", type = "number", min = "0",style="background-color:#fff;" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.TotalSubjects)
+                    </div>
+
+                    <div class="col-sm-6">
+                        <span style="color: red; float: left; padding-left: 1px; font-weight: bold">*</span>
+                        @Html.LabelFor(m => m.MaxNoOfCompulsoryGroups, new { @class = "", style = "" })
+                        <div class="form-group fg-line">
+                            @Html.TextBoxFor(m => m.MaxNoOfCompulsoryGroups, new { @class = "form-control", type = "number", min = "0" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MaxNoOfCompulsoryGroups)
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            <div class="checkbox m-b-15" style="">
+                                <label style="">
+                                    <input type="checkbox" id="IsActive">
+                                    <i class="input-helper"></i>
+                                    @Html.LabelFor(m => m.IsActive, new { @class = "", style = "" })
+                                </label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.IsActive)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group" style="margin-left: 2%; ">
+                        <button type="button" id="CreateOrgMainRuleRecord" value="@Resources.ButtonAction_Submit" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                        <button type="button" id="OrganisationSubjectGrpRuleNextbtn" value="@Resources.ButtonAction_Next" class="btn btn-default">@Resources.ButtonAction_Next</button>
+                    </div>
+                </div>
+            @*</form>*@
+
+        </div>
+    @*</div>*@
+@*</div>*@
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //  OrganisationSubjectGrpRule.Initialize();
+    });
+</script>

@@ -1,0 +1,463 @@
+﻿@*@model AMS.ViewModel.EmployeeServiceDetailsViewModel
+@{
+    Layout = null;
+}
+
+
+<script src="~/Scripts/fnGetColumnData.js"></script>
+
+
+
+<form id="FormEditEmployeeServiceDetails" method="post" class="form-horizontal well">
+    @Html.HiddenFor(model => model.EmployeeID)
+
+    <div class="nonboxy-widget">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-block">
+                    <div style="display: none">@Html.ActionLink("Create New", "Create", new { id = 0 }, new { @class = "ajax", title = "Create" })</div>
+                    <div class="widget-head">
+
+                        <h5 id="hhFive"><i class="black-icons users"></i>&nbsp; @Resources.FormName_ServiceDetails</h5>
+                        <div class="pull-right" style="margin: -4.3% 40px 0px 5px;">
+                            <div class="input-append" id="" style="float: right;">
+                                <div style="display: none;">
+                                    <input type="hidden" name="_method" value="POST">
+                                </div>
+                                <div>
+                                    <select name="data[User][searchby]" class="" id="showrecordServiceDetails" tabindex="16">
+                                        <option value="10">@Resources.GlobalProperties_ShowRecords</option>
+                                        <option value="10">@Resources.GlobalProperties_10</option>
+                                        <option value="50">@Resources.GlobalProperties_50</option>
+                                        <option value="100">@Resources.GlobalProperties_100</option>
+                                    </select>
+                                    &nbsp;&nbsp;
+                                <input type="text" name="data[User][search]" class="search_query input-medium" placeholder="@Resources.GlobalProperties_Search..." size="16" autocomplete="off" id="UserSearchServiceDetails">
+                                    <button class="btn" type="button" id="searchBtnServiceDetails"><i class="icon-search"></i></button>
+                                </div>
+
+
+                                <div class="widget-control pull-right">
+                                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="ajax cboxElement" href="@Url.Action("EmployeeServiceDetailsCreate", "EmployeeInformation", new { EmployeeID = @Model.EmployeeID })">
+                                            <h6 style="color: #000;"><i class="icon-plus" style="padding-left: 7px;"></i>@Resources.DisplayName_AddNew</h6>
+                                        </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-box">
+                            <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+                                <div class="table_content">
+                                    <table id="myDataTableEmployeeServiceDetails" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th style="text-align: center; width: 250px">@Resources.TableHeaders_OrderNumber</th>
+                                                <th style="text-align: center; width: 300px">@Resources.TableHeaders_Department</th>
+                                                <th style="text-align: center; width: 150px">@Resources.TableHeaders_Designation</th>
+                                                <th style="text-align: center; width: 150px">@Resources.TableHeaders_PromotionDemotion</th>
+                                                <th style="text-align: center; width: 150px">@Resources.TableHeaders_Status</th>
+                                                <th style="text-align: center; width: 50px">@Resources.TableHeaders_Action</th>
+                                                <th style="display: none">EmployeeID</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="widget-bottom">
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</form>
+
+
+
+
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+        EmployeeInformation.Initialize();
+        debugger;
+        oTable = $('#myDataTableEmployeeServiceDetails').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "/EmployeeInformation/AjaxHandlerEmployeeServiceDetails",
+            "bProcessing": true,
+            //"pagingType": "full_numbers",
+            "scrollY": "300px",
+            "dom": "frtiS",
+            "deferRender": true,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "EmployeeID", "value": $('input[name=EmployeeID]').val() });
+                //aoData.push({ "name": "SelectedAccountType", "value": $('#AccountType').val() });
+            },
+            "columnDefs": [
+                              {
+                                  "targets": 0,
+                                  "bSearchable": true,
+                              },
+                             {
+                                 "targets": 1,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 2,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 3,
+
+                                 "data": null,
+                                 "render": function (data, type, full, meta) {
+                                     // var chkStatus = '';
+                                     if (data[3] == 'P') {
+                                         //   chkStatus = 'Bank';                                           
+                                         var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-warning">'+@Resources.DisplayName_Promotion+'</span>' + "</p>";
+                                     }
+                                     else if (data[3] == "D") {
+                                         // chkStatus = 'Cash';
+                                         var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-success">' +@Resources.DisplayName_Demotion +'</span>' + "</p>";
+                                     }
+                                     else if (data[3] == "T") {
+                                         // chkStatus = 'Cash';
+                                         var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-important">' + @Resources.DisplayName_Transfer + '</span>' + "</p>";
+                                     }
+                                     else {
+                                         var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label">New</span>' + "</p>";
+                                     }
+
+                                     return result;
+
+                                 }
+                             },
+                              {
+                                  "targets": 4,
+
+                                  "data": null,
+                                  "render": function (data, type, full, meta) {
+                                      // var chkStatus = '';
+
+                                      if (data[4] == "True") {
+                                          //   chkStatus = 'Bank';                                           
+                                          var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-success">' +@Resources.DisplayName_Current +'</span>' + "</p>";
+                                      }
+                                      else {
+                                          var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-important">' + @Resources.DisplayName_Previous + '</span>' + "</p>";
+                                      }
+
+                                      return result;
+                                  }
+                              },
+                            {
+                                "targets": 5,
+                                "bSortable": false,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    if (data[4] == "True") {
+                                        var result1 = '@Html.ActionLink("Edit1", "EmployeeServiceDetailsEdit", new { EmployeeID = '1' }, new { @class = "ajax  cboxElement" })';
+                                        result1 = result1.replace('1', data[6]);
+                                        result1 = result1.replace("Edit1", '<i class="icon-edit" title="@Resources.ToolTip_Edit"></i>');
+                                    }
+                                    else {
+                                        var result1 = '@Html.ActionLink("Details1", "EmployeeServiceDetailsInfo", new { ID = '1' }, new { @class = "ajax  cboxElement" })';
+                                        result1 = result1.replace('1', data[5]);
+                                        result1 = result1.replace("Details1", '<i class="icon-list-alt" title="@Resources.ToolTip_Details"></i>');
+                                    }
+
+                                    var result = "<p  style='text-align: center; height:5px;'>" + result1 + "</p>";
+                                    return result;
+
+                                }
+
+                            },
+                             {
+                                 "targets": 6,
+                                 "visible": false,
+                             },
+            ],
+            "order": [[0, 'asc']],
+
+        });
+    });
+
+
+</script>*@
+
+
+@model AMS.ViewModel.EmployeeServiceDetailsViewModel
+@{
+    Layout = null;
+}
+
+<form id="FormEditEmployeeServiceDetails" method="post" class="">
+    @Html.HiddenFor(model => model.EmployeeID)
+    @*<div class="container">*@
+
+
+    @*<div class="card">*@
+    <div class="card-header">
+        <div id="">
+            <ul class="actions">
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown" title="Add New">
+                        <i class="zmdi zmdi-more-vert"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a class="mfpAjaxModal" href="@Url.Action("EmployeeServiceDetailsCreate", "EmployeeInformation", new { EmployeeID = @Model.EmployeeID })">
+                                <i class="zmdi zmdi-plus-square"></i> &nbsp; @Resources.DisplayName_AddNew
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumnService" class="dropdown-menu pull-right">
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="OrderNumber">
+                                        @Resources.TableHeaders_OrderNumber<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="Department">
+                                        @Resources.TableHeaders_Department<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="2" name="Designation">
+                                        @Resources.TableHeaders_Designation<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="PromotionDemotion">
+                                        @Resources.TableHeaders_PromotionDemotion<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="4" name="Status">
+                                        @Resources.TableHeaders_Status<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="5" name="Action">
+                                        @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTableEmployeeServiceDetails" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>@Resources.TableHeaders_OrderNumber</th>
+                <th>@Resources.TableHeaders_Department</th>
+                <th>@Resources.TableHeaders_Designation</th>
+                <th>@Resources.TableHeaders_PromotionDemotion</th>
+                <th>@Resources.TableHeaders_Status</th>
+                <th>@Resources.TableHeaders_Action</th>
+                <th style="display: none">EmployeeID</th>
+
+            </tr>
+        </thead>
+    </table>
+
+    @*</div>*@
+    @*</div>*@
+</form>
+
+
+
+<script type="text/javascript">
+    var oTable;
+    $(document).ready(function () {
+        EmployeeInformation.Initialize();
+        debugger;
+        oTable = $('#myDataTableEmployeeServiceDetails').DataTable({
+            "bServerSide": true,
+            "sAjaxSource": "/EmployeeInformation/AjaxHandlerEmployeeServiceDetails",
+            "bProcessing": true,
+            //"pagingType": "full_numbers",
+            "scrollY": "300px",
+            "dom": "frtiS",
+            "deferRender": true,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "EmployeeID", "value": $('input[name=EmployeeID]').val() });
+                //aoData.push({ "name": "SelectedAccountType", "value": $('#AccountType').val() });
+            },
+            "columnDefs": [
+                              {
+                                  "targets": 0,
+                                  "bSearchable": true,
+                              },
+                             {
+                                 "targets": 1,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 2,
+                                 "bSearchable": true,
+                             },
+                             {
+                                 "targets": 3,
+
+                                 "data": null,
+                                 "render": function (data, type, full, meta) {
+                                     // var chkStatus = '';
+                                     if (data[3] == 'P') {
+                                         //   chkStatus = 'Bank';
+                                         //var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-warning">' +@Resources.DisplayName_Promotion +'</span>' + "</p>";
+                                         var result = "<p  style=''>" + ' <span style="text-align: center;" class="btn btn-xs btn-warning">' + @Resources.DisplayName_Promotion + '</span>' + "</p>";
+                                     }
+                                     else if (data[3] == "D") {
+                                         // chkStatus = 'Cash';
+                                         //var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-success">' +@Resources.DisplayName_Demotion +'</span>' + "</p>";
+                                         var result = "<p  style=''>" + ' <span style="text-align: center;" class="btn btn-xs btn-success">' + @Resources.DisplayName_Promotion + '</span>' + "</p>";
+                                     }
+                                     else if (data[3] == "T") {
+                                         // chkStatus = 'Cash';
+                                         //var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-important">' + @Resources.DisplayName_Transfer + '</span>' + "</p>";
+                                         var result = "<p  style=''>" + ' <span style="text-align: center;" class="btn btn-xs btn-primary">' + @Resources.DisplayName_Promotion + '</span>' + "</p>";
+                                     }
+                                     else {
+                                         //var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label">New</span>' + "</p>";
+                                         var result = "<p  style=''>" + ' <span style="text-align: center;" class="btn btn-xs btn-purple">New</span>' + "</p>";
+                                     }
+
+                                     return result;
+
+                                 }
+                             },
+                              {
+                                  "targets": 4,
+
+                                  "data": null,
+                                  "render": function (data, type, full, meta) {
+                                      // var chkStatus = '';
+
+                                      if (data[4] == "True") {
+                                          //   chkStatus = 'Bank';
+                                          //var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-success">' +@Resources.DisplayName_Current +'</span>' + "</p>";
+                                          var result = "<p  style=''>" + ' <span style="text-align: center;" class="btn btn-xs btn-success">' + 'Current' + '</span>' + "</p>";
+                                      }
+                                      else {
+                                          //var result = "<p  style='text-align: center; height:5px;'>" + ' <span style="text-align: center; height:5px;" class="label label-important">' + @Resources.DisplayName_Previous + '</span>' + "</p>";
+                                          var result = "<p  style=''>" + ' <span style="text-align: center;" class="btn btn-xs btn-primary">' + 'Previous' + '</span>' + "</p>";
+                                      }
+
+                                      return result;
+                                  }
+                              },
+                            {
+                                "targets": 5,
+                                "bSortable": false,
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                    if (data[4] == "True") {
+                                        var result1 = '@Html.ActionLink("Edit1", "EmployeeServiceDetailsEdit", new { EmployeeID = '1' }, new { @class = "mfpAjaxModal" })';
+                                        result1 = result1.replace('1', data[6]);
+                                        //result1 = result1.replace("Edit1", '<i class="icon-edit" title="@Resources.ToolTip_Edit"></i>');
+                                        result1 = result1.replace("Edit1", '<button title="@Resources.ToolTip_Edit" class="btn btn-default"><i class="zmdi zmdi-edit"></i></button>');
+                                    }
+                                    else {
+                                        var result1 = '@Html.ActionLink("Details1", "EmployeeServiceDetailsInfo", new { ID = '1' }, new { @class = "mfpAjaxModal" })';
+                                        result1 = result1.replace('1', data[5]);
+                                        //result1 = result1.replace("Details1", '<i class="icon-list-alt" title="@Resources.ToolTip_Details"></i>');
+                                        result1 = result1.replace("Details1", '<button title="@Resources.ToolTip_Details" class="btn btn-default"><i class="zmdi zmdi-plus"></i></button>');
+                                    }
+
+                                    var result = "<p  style=''>" + result1 + "</p>";
+                                    return result;
+
+                                }
+
+                            },
+                             {
+                                 "targets": 6,
+                                 "visible": false,
+                             },
+            ],
+            "order": [[0, 'asc']],
+
+        });
+
+        DataTableSettings(oTable, "myDataTableEmployeeServiceDetails", "toggleTableColumnService");
+    });
+
+
+</script>

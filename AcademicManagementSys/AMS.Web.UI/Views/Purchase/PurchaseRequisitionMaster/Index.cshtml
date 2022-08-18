@@ -1,0 +1,828 @@
+﻿@*
+    @model AMS.ViewModel.PurchaseRequisitionMasterViewModel
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <script src="@Url.Content("~/Scripts/AMS_Scripts/Purchase/PurchaseRequisitionMaster.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/jquery-ui.theme.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/admin/jquery-ui-1.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+
+
+    <style>
+        .ui-front {
+            z-index: 9999;
+        }
+
+        .ui-datepicker {
+            font-size: 9pt !important;
+        }
+    </style>
+
+
+
+    <div class="container-fluid" id="DivVoucherView">
+        @Html.HiddenFor(m => m.errorMessage, new { id = "ErrorMsg" })
+        <div id="SuccessMessage" style="display: none; color: #000;" class="alert"></div>
+
+        <div class="widget-block">
+            <div class="widget-head">
+                <div class="pull-left">
+                    <h5 id="hFive"><i class="black-icons users"></i>&nbsp; Create Purchase Requisition</h5>
+
+                </div>
+
+                <div class="pull-right">
+                    <div class="input-append" style="float: right;">
+                        <div class="widget-control pull-right">
+                            <a href="#" id="IconShowList" data-toggle="dropdown" class="btn dropdown-toggle" title="Purchase Requirement List"><i class="color-icons application_view_list_co"></i></a>
+                            <a href="~/PurchaseRequisitionMaster" id="IconShowPurchaseRequisition" style="display: none" class="btn dropdown-toggle" title="Create Purchase Requisition"><i class="icon-plus-sign"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content" id="divContent">
+                <div class="widget-box">
+
+                    <form id="FormCreatePurchaseRequisitionMaster" class="form-horizontal well">
+                        <fieldset>
+                            <div class="row">
+
+                                <div class="span11">
+                                </div>
+                            </div>
+
+                            <div class="widget-box">
+
+                                <ul class="breadcrumb">
+                                    @Html.HiddenFor(model => model.PolicyDefaultAnswer)
+                                    <li>
+                                        <span style="font-size: 12px; font-weight: bold;">Requisition Type&nbsp;:    &nbsp; &nbsp;&nbsp;</span>
+                                        @Html.DropDownList("PurchaseRequisitionType", ViewData["PurchaseRequisitionType"] as List<SelectListItem>, new { style = "width:200px;font-Weight:Bold;", @class = "dropdown1" })
+
+                                    </li>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <li id="VenderList">
+                                        <span style="font-size: 12px; font-weight: bold;">Vendor&nbsp;: &nbsp; &nbsp;&nbsp;</span>
+                                        @Html.HiddenFor(model => model.VendorID)
+                                        @Html.TextBoxFor(model => model.Vendor, new { @class = "txtbox", style = "font-weight:bold" })
+
+                                    </li>
+                                    <li style="float: right;"><span style="font-size: 12px; font-weight: bold">Date : &nbsp;@String.Format("{0: d-MMM-yyyy}", DateTime.Now)&nbsp;</span> </li>
+                                    <br />
+                                    <br />
+                                    <li>
+                                        <span style="font-size: 12px; font-weight: bold;">Requirement By&nbsp;: &nbsp;&nbsp;</span>
+                                    &nbsp; &nbsp;&nbsp;
+                                    <li id="checkboxlist">
+                                        <p id="e5_f">
+
+                                            <select id="checkboxlist1" class="w500" multiple="multiple" style="width: 200px; height: 200px;">
+                                                <option id="1" value="1">Purchase Requirement</option>
+                                                <option id="2" value="2">Below Stock safety Level</option>
+                                            </select>
+                                        </p>
+                                    </li>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <li>
+                                        <input type="button" value="Show List" style="margin-bottom: 0px" class="btn btn-primary" id="btnShowList" />
+                                    </li>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    @if (Model.PolicyDefaultAnswer == "1")
+                                    {
+                                        <li>
+                                            <input type="button" value="Manual Requisition" style="margin-bottom: 0px" class="btn btn-primary" id="ManualRequisitionList" />
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li style="display: none">
+                                            <input type="button" value="Manual Requisition" style="margin-bottom: 0px" class="btn btn-primary" id="ManualRequisitionList" />
+                                        </li>
+                                    }
+                                </ul>
+
+                            </div>
+                            <div id="ListViewModel">
+                            </div>
+
+                            <div id="msgDiv" style="display: none; color: #000; margin-left: -10px" class="alert span10"></div>
+                            <div class="row" id="PurchaseRequisationForManual" style="display: none">
+                                <div class="span11">
+                                    <div class="row control-group">
+                                        @Html.HiddenFor(model => model.ItemNumber)
+                                        @Html.HiddenFor(model => model.GeneralItemCodeID)
+                                        @Html.HiddenFor(model => model.BarCode)
+                                        @Html.HiddenFor(model => model.BaseUOMQuantity)
+                                        @Html.HiddenFor(model => model.BaseUOMCode)
+
+                                        <div class="span">
+                                            @Html.LabelFor(model => model.ItemName, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.ItemName, new { @class = "txtbox", style = "width:110px;font-weight:bold" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.Quantity, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.Quantity, new { maxlength = "8", @class = "txtbox", Style = "width:55px;text-align:right;font-weight:bold;margin-left: -26px" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.UnitCode, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.UnitCode, new { @class = "txtbox", style = "width:55px;text-align:right;font-weight:bold;margin-left: -31px;  -webkit-text-fill-color: rgba(0, 0, 0, 0.5);", disabled = "disabled" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.Rate, new { Style = "font-size: 100%;font-weight:bold;" })
+                                            @Html.TextBoxFor(model => model.Rate, new { maxlength = "8", @readonly = "readonly", @class = "txtbox abc", Style = "width:55px;text-align:right;font-weight:bold;margin-left: -26px" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.ExpectedDeliveryDate, new { Style = "font-size: 100%;font-weight:bold;margin-left: -10px" })
+                                            @Html.TextBoxFor(model => model.ExpectedDeliveryDate, new { @class = "txtbox", @readonly = "readonly", style = "width:90px;text-align:left;font-weight:bold;margin-left: -26px" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.PriorityFlag, new { Style = "font-size: 100%;font-weight:bold;margin-left: 6px" })
+                                            @Html.DropDownList("PriorityFlag", ViewData["PriorityFlag"] as List<SelectListItem>, new { style = "width:95px;font-Weight:Bold;margin-left: -26px", @class = "dropdown1" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.HiddenFor(m => m.taxpercentage)
+                                            @Html.HiddenFor(m => m.GenTaxGroupMasterID)
+
+                                            @Html.LabelFor(model => model.TaxRate, new { Style = "font-size: 100%;font-weight:bold ;margin-left: -10px;" })
+                                            @Html.TextBoxFor(model => model.TaxRate, new { @class = "txtbox", style = "width:50px;text-align:right;font-weight:bold; margin-left: -26px;  -webkit-text-fill-color: rgba(0, 0, 0, 0.5);", disabled = "disabled" })
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.LabelFor(model => model.StorageLocationID, new { Style = "font-size: 100%;font-weight:bold;margin-left: 6px" })
+                                            @Html.DropDownListFor(model => model.StorageLocationID, (SelectList)ViewBag.GeneralLocationList, "Select location", new { @class = "txtbox", style = "font-Weight:Bold;width:130px;margin-left: -26px" })
+                                        </div>
+                                        <div class="spanFullName" style="display: none">
+                                            @Html.LabelFor(model => model.IssueFromLocationID, new { Style = "font-size: 100%;font-weight:bold;margin-left: 6px" })
+                                            @Html.TextBoxFor(model => model.IssueFromLocationID, new { @class = "txtbox", value = "0", disabled = "disabled" })
+
+                                        </div>
+                                        <div class="spanFullName">
+                                            @Html.HiddenFor(model => model.DepartmentID)
+                                            @Html.LabelFor(model => model.DepartmentName, new { Style = "font-size: 100%;font-weight:bold;margin-left: -10px" })
+                                            @Html.TextBoxFor(model => model.DepartmentName, new { @class = "txtbox", style = "width:120px;text-align:left;font-weight:bold;margin-left: -25px" })
+
+
+                                        </div>
+                                        <div class="spanFullName" style="display: none">
+
+                                            @Html.LabelFor(model => model.Ammount, new { Style = "font-size: 100%;font-weight:bold ;" })
+                                            @Html.TextBoxFor(model => model.Ammount, new { maxlength = "12", @class = "txtbox", style = "width:60px;text-align:right;font-weight:bold; margin-left: -10px;  -webkit-text-fill-color: rgba(0, 0, 0, 0.5);", disabled = "disabled" })
+                                        </div>
+
+                                        <div class="spanFullName">
+                                            <label for="input01">&nbsp;</label>
+                                            <input type="button" id="addItem" class="btn btn-primary" style="height: 28px; margin-left: -25px;" value="Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="span11" style="display: none" id="abcd">
+
+                                    <div id="DivAddRowTable3" style="height: 200px; overflow: auto;">
+                                        <table id="tblData" class="table user-tbl " style="border: 1px solid #dddddd">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left; width: 22%">item</th>
+                                                    <th style="text-align: left; width: 10%">Quantity</th>
+                                                    <th style="text-align: left; width: 7%">Unit</th>
+                                                    <th style="text-align: left; width: 10%">Rate</th>
+                                                    <th style="text-align: left; width: 13%">Date</th>
+                                                    <th style="text-align: left; width: 9%">Priority</th>
+                                                    <th style="text-align: left; width: 11%">Tax</th>
+                                                    <th style="text-align: left; width: 8%">Amount</th>
+                                                    <th style="text-align: left; width: 10%">Location</th>
+                                                    <th style="text-align: left; width: 10%; display: none">From Loc</th>
+                                                    <th style="text-align: left; width: 15%">Department</th>
+                                                    <th style="text-align: left; width: 8%">Gross Amount</th>
+                                                    <th style="text-align: center; width: 5px;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="abc2"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="display: none" id="buttonId">
+                                <div class="span9">
+                                    <div class="form-actions " style="border: 1px solid #e5e5e5; text-align: right">
+                                        <span style="float: left; margin-left: -150px; font-weight: bold;">Total Item
+                                            <input type="text" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" disabled id="TotalItem" />
+                                        </span>
+                                        <span style="float: left; margin-left: 10px; font-weight: bold;">Total Tax:
+                                            <input type="text" style="width: 70px; font-weight: bold; height: 16px; text-align: right" disabled id="TotalTaxAmount" value="0" />
+                                        </span>
+                                        <span style="float: left; margin-left: 13px; font-weight: bold;">Purchase Amount:
+                                            <input type="text" style="width: 70px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.5);" disabled id="TotalBillAmount" value="0" />
+                                        </span>
+                                        <span style="float: left; margin-left: 4px; font-weight: bold;">Gross Amount :
+                                            <input type="text" style="width: 70px; font-weight: bold; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.5);" disabled id="TotalGrossAmmount" value="0" />
+                                        </span>
+                                        <input type="button" id="AddManual" value="Add Manual Requisation" class="btn btn-primary" width="125px" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Final Submit DIV -->
+
+
+                            <div class="row">
+                                <div class="span11" id="abcd1">
+
+                                    <div id="DivAddRowTable4" style="height: auto; overflow: auto;">
+                                        <table id="tblDataa" class="table user-tbl " style="border: 1px solid #dddddd">
+                                            <thead>
+                                                <tr>
+
+                                                    <th style="text-align: left; width: 25%">item</th>
+                                                    <th style="text-align: left; width: 16%">Quantity</th>
+                                                    <th style="text-align: left; width: 13%">Rate</th>
+                                                    <th style="text-align: left; width: 13%">Excepected date</th>
+                                                    <th style="text-align: left; width: 10%">Priority</th>
+                                                    <th style="text-align: left; width: 10%">Tax</th>
+                                                    <th style="text-align: left; width: 15%">Location</th>
+                                                    <th style="text-align: center; width: 5px;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="constantTbody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" id="buttonId">
+                                <div class="span9">
+                                    <div class="form-actions " style="border: 1px solid #e5e5e5; text-align: right">
+                                        <span style="float: left; display: none; margin-left: -150px; font-weight: bold;">Total Item
+                                            <input type="text" style="width: 50px; height: 16px; text-align: right; -webkit-text-fill-color: rgba(0, 0, 0, 0.6);" disabled id="TotalItem" />
+                                        </span>
+
+                                        <input type="button" id="CreatePurchaseRequisitionMaster" value="Submit" class="btn btn-primary" width="125px" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            PurchaseRequisitionMaster.Initialize();
+            if ($('#ErrorMsg').val() != "NoMessage") {
+                var splitedMsg = ($('#ErrorMsg').val()).split(',');
+                $('#SuccessMessage').html(splitedMsg[0]);
+                $('#SuccessMessage').delay(400).slideDown(400).delay(2000).slideUp(400).css('background-color', splitedMsg[1]);
+            }
+            $('#checkboxlist1').multipleSelect();
+            myfunction();
+
+            //  FOLLOWING FUNCTION IS SEARCHLIST OF item list
+            $("#ItemName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/PurchaseRequisitionMaster/GetItemSearchList",
+                        type: "POST",
+                        dataType: "json",
+                        data: { term: request.term, StorageLocationID: $("#StorageLocationID").val() },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.itemDescription, value: item.itemDescription, itemNumber: item.itemNumber, barCode: item.barCode, uomCode: item.uomCode, genTaxGroupMasterID: item.genTaxGroupMasterID, lastPurchasePrice: item.lastPurchasePrice, generalItemCodeID: item.generalItemCodeID, id: item.id, taxRate: item.taxRate, baseUOMQuantity: item.baseUOMQuantity, baseUOMCode: item.baseUOMCode };
+                            }))
+                        }
+                    })
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);                                             // display the selected text
+                    $("#ItemNumber").val(parseFloat(ui.item.itemNumber));
+                    $("#BarCode").val(ui.item.barCode);
+                    $("#UnitCode").val(ui.item.uomCode);
+                    $("#GenTaxGroupMasterID").val(ui.item.genTaxGroupMasterID);
+                    $("#Rate").val(parseFloat(ui.item.lastPurchasePrice).toFixed(2));
+                    $("#BaseUOMQuantity").val(ui.item.baseUOMQuantity);
+                    $("#BaseUOMCode").val(ui.item.baseUOMCode);
+                    $("#TaxRate").val(ui.item.taxRate);
+                    $("#taxpercentage").val(ui.item.taxRate);
+
+                    //$(this).val(ui.item.label);                                             // display the selected text
+                    //$("#ItemID").val(parseFloat(ui.item.id));
+                    //$("#UnitCode").val(ui.item.unitCode);
+                    //$("#UnitID").val(ui.item.unitID);
+                    //$("#IsExpiry").val(ui.item.IsExpiry);
+                    //$("#IsTaxInclusive").val(ui.item.IsTaxInclusive);
+                    //$("#GenTaxGroupMasterID").val(ui.item.GenTaxGroupMasterID);
+                    //$("#taxpercentage").val(ui.item.TaxRatePercentage);
+                    //$("#BatchNumber").val();
+                    //$("#ExpiryDate").val();
+                    ////$("#Rate").val(parseFloat(ui.item.rate).toFixed(2));
+                    //$(".abc").val(parseFloat(ui.item.rate).toFixed(2));
+                    //$("#Rate").val($(".abc").val());
+
+                    //if (ui.item.genTaxGroupMasterID == 0) {
+                    //    $("#TaxRate").prop("disabled", true);
+                    //    $("#TaxRate").val("");
+                    //  //  $("#taxpercentage").val(ui.item.TaxRatePercentage);
+
+                    //}
+                    //else {
+                    //    $("#TaxRate").prop("disabled", true);
+                    //    $("#TaxRate").val("");
+                    // //   $("#TaxRate").val(ui.item.TaxRatePercentage);
+                    //    //$("#IsRateInclusiveTax").prop("disabled", false);
+                    //}
+
+                }
+            });
+
+        });
+
+        $("#tblData tbody").on("click", "tr td i[class=icon-trash]", function () {
+            $(this).closest('tr').remove();
+            PurchaseRequisitionMaster.TotalItem();
+        });
+        function TotalItem() {
+            var length = $("#tblData tbody tr").length;
+            $("#TotalItem").val(length);
+        }
+
+        $("#tblDataa tbody").on("click", "tr td i[class=icon-trash]", function () {
+            $(this).closest('tr').remove();
+            PurchaseRequisitionMaster.TotalItem();
+        });
+        function myfunction() {
+            //validation for textbox to allow decimal only
+            $('input[id^=ApprovedQuantity]').on("keydown keyup keypress", function (e) {
+                AMSValidation.AllowNumbersWithDecimalOnly(e);
+                AMSValidation.NotAllowSpaces(e);
+                parseFloat($('input[id^=approvedDumpQty]').val()).toFixed(3);
+                var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+                if (inputKeyCode == 45 || inputKeyCode == 95) {
+                    return false;
+                }
+
+            });
+            $("#tblData tbody").on("keyup", "tr td input[type=text]", function () {
+                var ApprovedQuantity = $(this).closest('tr').find('td input[id=ApprovedQuantity]').val();
+                var Rate = $(this).closest('tr').find('td').eq(2).text();
+                var Ammount = (ApprovedQuantity * Rate).toFixed(2);
+                $(this).closest('tr').find('td input[id=Amount]').val(Ammount);
+
+            });
+
+        }
+    </script>
+
+*@
+
+@**@
+@model AMS.ViewModel.PurchaseRequisitionMasterViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<link href="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Purchase/PurchaseRequisitionMaster.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@Html.HiddenFor(m => m.errorMessage, new { id = "ErrorMsg" })
+
+<div class="container" id="DivVoucherView">
+    
+    <div class="block-header">
+        <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Purchase Requisition</h2>
+        @if (Model.ReplishmentCode == "ReplishmentCode")
+        { 
+            <ul class="actions">
+            <li class="dropdown">
+                <a href="@Url.Action("Index", "Replenishment", new { CentreCode = @Model.CenterCode, GeneralUnitsID = @Model.GeneralUnitsID })" title="Back">
+                    <i class="zmdi zmdi-long-arrow-return"></i>
+                </a>
+            </li>
+        </ul>
+        }
+    </div>
+    <div class="card">
+
+        <div class="lv-header-alt clearfix">
+            <ul class="lv-actions actions">
+                <li>
+                    <button id="IconShowList" class="btn bgm-lightblue waves-effect" title="Purchase Requisition List"><i class="zmdi zmdi-view-headline zmdi-hc-fw"></i></button>
+                    <a href="~/PurchaseRequisitionMaster" id="IconShowPurchaseRequisition" style="display: none; width:40px; height:32px;" class="btn bgm-lightblue waves-effect" title="Create Purchase Requirement"><i class="zmdi zmdi-plus" style="align-self:center"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="" id="divContent">
+            
+            <form id="FormCreatePurchaseRequisitionMaster">
+                @Html.HiddenFor(model => model.ReplishmentCode)
+                @Html.HiddenFor(model => model.GeneralUnitsID)
+                @Html.HiddenFor(model => model.CenterCode)
+                @Html.HiddenFor(model => model.PolicyDefaultAnswer)
+                @Html.HiddenFor(model => model.MinimumOrderquantity)
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                Requisition Type
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownListFor(model => model.PurchaseRequisitionType, ViewData["PurchaseRequisitionType"] as IEnumerable<SelectListItem>, new { style = "", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4" id="SelectedCentreCode">
+                                Store
+                                <div class="form-group fg-line select"> @*Replace centre by Store and Store by Location*@
+                                    @Html.DropDownListFor(m => m.SelectedCentreCode, Model.ListGetAdminRoleApplicableCentreItems, "--------Select Store-------", new { id = "SelectedCentreCode", @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = " Centre Name", style = "margin-top:12px;" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4" id="VenderList">
+                                Vendor
+                                @Html.HiddenFor(model => model.VendorID)
+                                <div class="form-group fg-line typeahead">
+                                    @Html.TextBoxFor(model => model.Vendor, new { @class = "form-control", style = "" })
+                                </div>
+                            </div>
+                         
+                            @*<div class="col-sm-4">
+                                Date
+                                <div class="form-group">
+                                    @String.Format("{0: d-MMM-yyyy}", DateTime.UtcNow)
+                                </div>
+                            </div>*@
+                        </div>
+
+                        
+
+                        <div class="col-sm-12">
+                            
+                            <div class="col-sm-4">
+                                <div id="checkboxlist" class="form-group">
+                                    <p id="e5_f">
+                                        <select id="checkboxlist1" class="form-group selectpicker">
+                                            <option id="3" value="3">Reorder Point</option>
+                                            <option id="1" value="1">Purchase Requirement</option>
+                                            @*<option id="2" value="2">Below Stock safety Level</option>*@
+                                        </select>
+                                    </p>
+                                </div>
+                            </div>
+                       
+
+                            <div class="col-sm-2" style="padding-top: 1%; margin-top: 5px;">
+                                <button type="button" value="Show List" class="btn btn-primary" id="btnShowList">Show List</button>
+                            </div>
+
+                            @if (Model.PolicyDefaultAnswer == "1")
+                            {
+                                <div class="col-sm-2" style="padding-top: 1%; padding-left: 0%; margin-top: 5px;">
+                                    <button type="button" value="Manual Requisition" class="btn btn-primary" id="ManualRequisitionList">Manual Requisition</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-2" style="padding-top: 1%; padding-left: 0%; margin-top: 5px;  display: none">
+                                    <button type="button" value="Manual Requisition" class="btn btn-primary" id="ManualRequisitionList">Manual Requisition</button>
+                                </div>
+                            }
+                            <div class="col-sm-2" style="margin-top:8px;">
+                                Date
+                                <div class="form-group">
+                                    @String.Format("{0: d-MMM-yyyy}", DateTime.UtcNow)
+                                </div>
+                            </div>
+                        </div>
+                       
+                            
+
+                        </div>
+
+                     
+                    <div id="ListViewModel">
+                        <hr />
+                    </div>
+                    <div class="row" id="PurchaseRequisationForManual" style="display: none">
+                        @Html.HiddenFor(model => model.ItemNumber)
+                        @Html.HiddenFor(model => model.GeneralItemCodeID)
+                        @Html.HiddenFor(model => model.BarCode)
+                        @Html.HiddenFor(model => model.BaseUOMQuantity)
+                        @Html.HiddenFor(model => model.BaseUOMCode)
+                        @Html.HiddenFor(model => model.BatchQuantity)
+                        @Html.HiddenFor(model => model.SerialAndBatchManagedBy)
+                        <!--Upto this ok-->
+                        <div class="row">
+                            
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.ItemName, new { Style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.ItemName, new { @class = "form-control", style = "" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.Quantity, new { Style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", style = "" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.Convertion, new { Style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.Convertion, new { @class = "form-control", style = "" })
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-sm-3" id="SRUnits">
+                                @Html.LabelFor(model => model.UnitCode, new { Style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.UnitCode, new { @class = "form-control", style = "", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3" id="STOUnits" style="display:none">
+                                @Html.LabelFor(model => model.UnitCode, new { Style = "" })
+                                <div class="form-group fg-line">
+                                    @*@Html.TextBoxFor(model => model.UnitCode, new { @class = "form-control", style = ""})*@
+                                    @Html.DropDownListFor(model => model.UnitCode, Enumerable.Empty<SelectListItem>(),new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.Rate, new { Style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.Rate, new { @class = "form-control abc", style = "", disabled = "disabled" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.ExpectedDeliveryDate, new { Style = "" })
+                                <div class="form-group fg-line dtp-container">
+                                    @Html.TextBoxFor(model => model.ExpectedDeliveryDate, new { @class = "form-control", @readonly = "readonly", style = "background-color:#fff;" })
+                                </div>
+                            </div>
+                           
+                             <div class="col-sm-3" id="divStdRequisitionLocation">
+                                @Html.LabelFor(model => model.StorageLocationID, new { Style = "" })
+                                <div class="form-group fg-line select">
+                                    @*@Html.DropDownListFor(model => model.StorageLocationID, (SelectList)ViewBag.GeneralUnitsStorageLocationList, "Select location", new { @class = "form-control", style = "", @Name = "SR" })*@
+                                    @Html.DropDownListFor(model => model.StorageLocationID, Enumerable.Empty<SelectListItem>(), "Select Sub Location", new { @class = "form-control", @Name = "SR" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3" id="STOForLocationID" style="display:none">
+                                @Html.LabelFor(model => model.StorageLocationID, new { Style = "" })
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownListFor(model => model.StorageLocationID, (SelectList)ViewBag.GeneralLocationList, "Select Sub location", new { @class = "form-control", style = "", @Name = "STO" })
+                                    @*@Html.TextBoxFor(model => model.IssueFromLocationID, new { @class = "form-control", style = "backgroun-color:#fff;", disabled = "disabled" })*@
+                                </div>
+                            </div>
+                            <div class="col-sm-3" id="divIssueFromLocationID" style="display:none">
+                                @Html.LabelFor(model => model.IssueFromLocationID, new { Style = "" })
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownListFor(model => model.IssueFromLocationID, (SelectList)ViewBag.GeneralLocationList, "Select Sub location", new { @class = "form-control", style = "" })
+                                    @*@Html.TextBoxFor(model => model.IssueFromLocationID, new { @class = "form-control", style = "backgroun-color:#fff;", disabled = "disabled" })*@
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="display:none">
+                                @Html.LabelFor(model => model.PriorityFlag, new { Style = "" })
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownList("PriorityFlag", ViewData["PriorityFlag"] as List<SelectListItem>, new { style = "", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" style="display:none">
+                                @Html.HiddenFor(m => m.taxpercentage)
+                                @Html.HiddenFor(m => m.GenTaxGroupMasterID)
+                                @Html.LabelFor(model => model.TaxRate, new { Style = "" })
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.TaxRate, new { @class = "form-control", style = "backgroun-color:#fff;", disabled = "disabled" })
+                                </div>
+                            </div>
+                      
+                           <br/><br />
+                            <div class="col-sm-3" style="display:none">
+                                @Html.LabelFor(model => model.StorageLocationID, new { Style = "" })
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownListFor(model => model.StorageLocationID, (SelectList)ViewBag.GeneralLocationList, "Select Sub location", new { @class = "form-control", style = "" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" id="divIssueFromLocationID" style="display:none">
+                                @Html.LabelFor(model => model.IssueFromLocationID, new { Style = "" })
+                                <div class="form-group fg-line select">
+                                    @Html.DropDownListFor(model => model.IssueFromLocationID, (SelectList)ViewBag.GeneralLocationList, "Select Sub location", new { @class = "form-control", style = "" })
+                                    @*@Html.TextBoxFor(model => model.IssueFromLocationID, new { @class = "form-control", style = "backgroun-color:#fff;", disabled = "disabled" })*@
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" style="display:none">
+                                @Html.HiddenFor(model => model.DepartmentID)
+                                @Html.LabelFor(model => model.DepartmentName, new { Style = "" })
+                                <div class="form-group fg-line typeahead">
+                                    @Html.TextBoxFor(model => model.DepartmentName, new { @class = "form-control", style = "" })
+                                </div>
+                            </div>
+                       
+                            <div class="col-sm-3" style="display: none">
+                                @Html.HiddenFor(model => model.Ammount)
+
+                                <div class="form-group fg-line">
+                                    @Html.TextBoxFor(model => model.Ammount, new { maxlength = "12", @class = "form-control", style = "backgroun-color:#fff;", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="padding-top:10px;">
+                                <button type="button" id="addItem" class="btn btn-primary" style="" value="Add">Add</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row" style="display: none" id="abcd">
+                        <hr />
+                        <div id="DivAddRowTable3">
+                            <div class="card-body table-responsive">
+                                <table id="tblData" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Unit</th>
+                                            <th>Rate</th>
+                                            <th>Date</th>
+                                            <th style="display:none">Priority</th>
+                                            <th style="display:none">Tax</th>
+                                            <th>Amount</th>
+                                            <th>Sub Location</th>  @*replace Location to sub location*@
+                                            <th style="display: none">From Loc</th>
+                                            <th style="display:none">Department</th>
+                                            <th>Gross Amount</th>
+                                            @*<th>Action</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody id="abc2"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="display: none" id="buttonId">
+                        <hr />
+                                <div class="col-sm-2">
+                                    Total Item
+                                    <div class="form-group fg-line">
+                                        <input class="form-control" type="text" style="" id="TotalItem" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    Total Tax
+                                    <div class="form-group fg-line">
+                                        <input class="form-control" type="text" style="" id="TotalTaxAmount" value="0" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    Purchase Amount
+                                    <div class="form-group fg-line">
+                                        <input class="form-control" type="text" style="" id="TotalBillAmount" value="0" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    Gross Amount
+                                    <div class="form-group fg-line">
+                                        <input class="form-control" type="text" style="" id="TotalGrossAmmount" value="0" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3" style="padding-top:3%;">
+                                    <button type="button" id="AddManual" value="Add Manual Requisation" class="btn btn-primary">Add Manual Requisition</button>
+                                </div>
+ 
+                    </div>
+                    <hr/><br/>
+                    <div class="row" id="abcd1">
+                        <div id="DivAddRowTable4">
+                            <div class="card-body table-responsive" style="max-height:300px;overflow-y:auto">
+                                <table id="tblDataa" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Rate</th>
+                                            <th>Expected date</th>
+                                            <th style="display:none">Priority</th>
+                                            <th style="display:none">Tax</th>
+                                            <th>Sub Location</th>
+                                            <th>@Resources.DisplayName_Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="constantTbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                                        
+
+                    <div class="row" id="buttonId">
+                        <div class="col-sm-12">
+                            <div class="col-sm-3 pull-left" style="display: none;">
+                                <div class="form-group fg-line">
+                                    Total Item
+                                    <input class="form-control" type="text" style="" disabled id="TotalItem" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3 pull-left" style="padding-top:5%;">
+                                <button type="button" id="CreatePurchaseRequisitionMaster" value="Submit" class="btn btn-primary">Submit</button>
+                                <button type="button" id="CreatePurchaseRequisitionMasterClear" value="Clear" class="btn btn-primary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+<script src="~/Content/materialtheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        PurchaseRequisitionMaster.Initialize();
+        if ($('#ErrorMsg').val() != "NoMessage") {
+            var splitedMsg = ($('#ErrorMsg').val()).split(',');
+            //$('#SuccessMessage').html(splitedMsg[0]);
+            //$('#SuccessMessage').delay(400).slideDown(400).delay(2000).slideUp(400).css('background-color', splitedMsg[1]);
+            //notify(splitedMsg[0],"danger");
+            notify(splitedMsg[0],  splitedMsg[1]);
+            
+        }
+        //$('#checkboxlist1').multipleSelect();
+        myfunction();
+
+    });
+    function TotalItem() {
+        var length = $("#tblData tbody tr").length;
+        $("#TotalItem").val(length);
+    }
+    $("#tblData tbody").on("click", "tr td i[class=icon-trash]", function () {
+       
+        $(this).closest('tr').remove();
+        PurchaseRequisitionMaster.TotalItem();
+    });
+   
+
+    $("#tblDataa tbody").on("click", "tr td i[class=icon-trash]", function () {
+        $(this).closest('tr').remove();
+        PurchaseRequisitionMaster.TotalItem();
+    });
+    function myfunction() {
+        //validation for textbox to allow decimal only
+        $('input[id^=ApprovedQuantity]').on("keydown keyup keypress", function (e) {
+            AMSValidation.AllowNumbersWithDecimalOnly(e);
+            AMSValidation.NotAllowSpaces(e);
+            parseFloat($('input[id^=approvedDumpQty]').val()).toFixed(3);
+            var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+            if (inputKeyCode == 45 || inputKeyCode == 95) {
+                return false;
+            }
+
+        });
+        $("#tblData tbody").on("keyup", "tr td input[type=text]", function () {
+            var ApprovedQuantity = $(this).closest('tr').find('td input[id=ApprovedQuantity]').val();
+            var Rate = $(this).closest('tr').find('td').eq(2).text();
+            var Ammount = (ApprovedQuantity * Rate).toFixed(2);
+            $(this).closest('tr').find('td input[id=Amount]').val(Ammount);
+
+        });
+
+    }
+</script>

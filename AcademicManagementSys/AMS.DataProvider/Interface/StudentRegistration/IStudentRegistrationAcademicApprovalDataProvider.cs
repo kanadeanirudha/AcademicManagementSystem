@@ -1,0 +1,21 @@
+﻿using AMS.Base.DTO;
+using AMS.DTO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace AMS.DataProvider
+{
+	public interface IStudentRegistrationAcademicApprovalDataProvider
+	{
+		IBaseEntityResponse<StudentRegistrationAcademicApproval> InsertStudentRegistrationAcademicApproval(StudentRegistrationAcademicApproval item);
+		IBaseEntityResponse<StudentRegistrationAcademicApproval> UpdateStudentRegistrationAcademicApproval(StudentRegistrationAcademicApproval item);
+		IBaseEntityResponse<StudentRegistrationAcademicApproval> DeleteStudentRegistrationAcademicApproval(StudentRegistrationAcademicApproval item);
+		IBaseEntityCollectionResponse<StudentRegistrationAcademicApproval> GetStudentRegistrationAcademicApprovalBySearch(StudentRegistrationAcademicApprovalSearchRequest searchRequest);
+		IBaseEntityResponse<StudentRegistrationAcademicApproval> GetStudentRegistrationAcademicApprovalByID(StudentRegistrationAcademicApproval item);
+        IBaseEntityCollectionResponse<StudentRegistrationAcademicApproval> GetByQualifyingExamSubjectList(StudentRegistrationAcademicApprovalSearchRequest searchRequest);
+        IBaseEntityCollectionResponse<StudentRegistrationAcademicApproval> GetByQualificationSubjectListByStudentRegistrationIDAndEducationType(StudentRegistrationAcademicApprovalSearchRequest searchRequest);
+        IBaseEntityCollectionResponse<PreviousWorkExperienceAcademicApproval> GetPreviousWorkExperienceAcademicApproval(PreviousWorkExperienceAcademicApprovalSearchRequest searchRequest); 
+    }
+}

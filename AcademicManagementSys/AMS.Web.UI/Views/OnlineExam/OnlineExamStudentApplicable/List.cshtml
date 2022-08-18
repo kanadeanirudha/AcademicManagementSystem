@@ -1,0 +1,181 @@
+﻿@model AMS.ViewModel.OnlineExamStudentApplicableViewModel
+
+<div class="card">
+    
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <button id="btnAddAllStudent" class="btn btn-success waves-effect" disabled="disabled">Add All</button>
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    @*   <button title="Refresh" type="button" class="btn btn-default">
+                            <span class="zmdi icon zmdi zmdi-refresh zmdi-hc-fw"></span>
+                        </button>*@
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                            @*<li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="-1">All</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            @*<li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="0" name="Question Type">
+                                        Ce<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>*@
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name=" Related With">
+                                        Students<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="Action">
+                                        @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th><input type="checkbox" class="checkall-student" name="checkbox12" disabled="disabled"></th>
+                <th>Students</th>
+                <th>@Resources.TableHeaders_Action</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var oTable;
+        OnlineExamStudentApplicable.Initialize();
+        OnlineExamStudentApplicable.CheckedAll();
+
+        var CourseYearID = $("#CourseYearID").val();
+        var CourseYearIDSplitData = CourseYearID.split("~");
+        var SubjectID = $("#SubjectID").val();
+        var SubjectIDSplitData = SubjectID.split("~");
+        oTable = $('#myDataTable').DataTable({
+
+            "bServerSide": true,
+            "sAjaxSource": "OnlineExamStudentApplicable/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "CentreCode", "value": $("#SelectedCentreCode").val() });
+                aoData.push({ "name": "OnlineExaminationMasterID", "value": $("#OnlineExaminationMasterID").val() });
+                aoData.push({ "name": "CourseYearID", "value": CourseYearIDSplitData[0] });
+                aoData.push({ "name": "SectionDetailID", "value": $("#SectionDetailID").val() });
+                aoData.push({ "name": "SubjectID", "value": SubjectIDSplitData[0] });
+            },
+            "columnDefs": [
+                              {
+                                  "targets": 0,
+                                  "bSortable": false,
+                                  "data": null,
+                                  "render": function (data, type, full, meta) {
+                                      var result = "<p  style='height:5px;margin-left: 15px;'><input type='checkbox' class='check-student' name='checkbox12' value='" + data[0] + "'></p>";
+                                      OnlineExamStudentApplicable.CheckedSingle();
+                                      $(".checkall-student").prop("disabled", false);
+                                      return result;
+                                  }
+                              },
+
+                               {
+                                   "targets": 1,
+                                   
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       if (data[1] != "") {
+                                       
+                                           var result = "<p  style=' height:5px;'>" + data[1] + "</p>";
+                                           return result;
+                                       }
+                                       else {
+                                           return null;
+                                       }
+                                   }
+                               },
+                              
+                               {
+                                   
+                                   "targets": 2,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                     //  var result = null;
+
+                                       result = '<a href="javascript:void(0)" data-toggle="tooltip" class="AddQuestionToExamPaper" onclick="AddStudentForExam(this)" title ="Add"><span class="btn btn-default waves-effect ">Add</span></a><input type="hidden" class="StudentDetail"  value="' + data[0] + '">';
+                                       
+                                       return result;
+
+                                   }
+                               }
+            ],
+        });
+        DataTableSettings(oTable, 'myDataTable', 'toggleTableColumn');
+    });
+
+    function AddStudentForExam(Student) {
+        var StudentDetail = $(Student).next('input.StudentDetail').val();
+        var ParameterXML = '<rows><row><ID>' + StudentDetail + '</ID></row></rows>';
+        var Data = {
+        };
+
+        Data.XMLString = ParameterXML;
+        var SubjectID = $("#SubjectID").val();
+        var SubjectIDSplitData = SubjectID.split("~");
+        Data.OnlineExamSubjectGroupScheduleID = SubjectIDSplitData[1];
+        Data.CenterwiseSessionID = $("#CenterwiseSessionID").val();
+
+        var OnlineExamStudentApplicableData = null;
+        OnlineExamStudentApplicableData = Data;
+
+        ajaxRequest.makeRequest("/OnlineExamStudentApplicable/AddStudentForExam", "POST", OnlineExamStudentApplicableData, OnlineExamStudentApplicable.Success);
+    }
+</script>
+
+

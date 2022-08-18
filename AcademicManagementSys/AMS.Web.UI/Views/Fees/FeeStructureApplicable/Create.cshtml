@@ -1,0 +1,182 @@
+﻿@model AMS.ViewModel.FeeStructureApplicableViewModel
+<style>
+    .table th, .table td {
+        border-top: 1px solid #dddddd;
+        line-height: 9px;
+        padding: 8px;
+        vertical-align: top;
+    }
+</style>
+<div id="">
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>  Allocate Fee Structure</h5>
+        </div>
+        <div id="msgDiv" style="display:none;color:#000;" class="alert"></div>
+        <div class="widget-content">
+            <div class="widget-box" style="height:400px">
+                <form class="form-horizontal well" id="FormCreateFeeStructureApplicable">
+                    @Html.HiddenFor(m => m.FeeStructureMasterID)
+                    <div class="nonboxy-widget ">
+                        <fieldset>
+                            <div class="row">
+                                <div class="span10">
+                                    <div class="row ">
+                                        <div class="span1">&nbsp;</div>
+                                        <div class="spanFullName ">
+                                            @Html.LabelFor(model => model.FeeCriteriaValueCombinationDescription, new { style = "font-weight:bold" })
+                                        </div>
+                                        <div class="span3">
+                                            <b>@Html.DisplayFor(model => model.FeeCriteriaValueCombinationDescription, new { style = "font-Weight:Bold;", @readonly = "readonly" })</b>
+                                        </div>
+                                        <div class="spanFullName span2">
+                                            @Html.LabelFor(model => model.ApplicableFromDate, new { style = "font-weight:bold" })
+                                        </div>
+                                        <div class="span2">
+                                            @Html.TextBoxFor(m => m.ApplicableFromDate, new { style = "font-weight:bold", Value = "", maxlength = "50" })
+                                            <br />
+                                            @Html.ValidationMessageFor(m => m.ApplicableFromDate)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="span5">
+                                    <h6>Fee Sub Type Details</h6>
+                                    <table id="tblData1" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left; width: 10%">#</th>
+                                                <th style="text-align: left; width: 60%">Fee Sub Type</th>
+                                                <th style="text-align: center; width: 20%">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style=" overflow: auto">
+                                            @for (int i = 0; i < Model.FeeStructureMasterList.Count; i++)
+                                            {
+
+                                                <tr style="height: 2px;">
+                                                    <td style="text-align: left; width: 10%">@Convert.ToInt32(i + 1) </td>
+                                                    <td style="text-align: left; width: 50%">@Model.FeeStructureMasterList[i].FeeSubTypeName</td>
+                                                    <td style="text-align: center; width: 40%">@Math.Round(Model.FeeStructureMasterList[i].FeeSubTypeAmount, 2)</td>
+                                                </tr>
+                                            }
+                                            <tr style="height: 2px;">
+                                                <td></td>
+                                                <td style="text-align: left;font-weight:bold; width: 40%">Total</td>
+                                                <td style="text-align: center; font-weight: bold; width: 40%">@Math.Round(Model.TotalFeeAmount, 2)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @if (@Model.FeeStructureInstallmentList.Count > 0)
+                                {
+                                    <div class="span5">
+                                        <h6>Installment Details</h6>
+                                        <table id="tblData2" class="table user-tbl " style="  border: 1px solid #dddddd">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left; width:   10%">Installments</th>
+                                                    <th style="text-align: center; width: 30%"> Amount</th>
+                                                    <th style="text-align: center; width: 30%">From</th>
+                                                    <th style="text-align: center; width: 30%">Upto</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style=" overflow: auto">
+                                                @for (int j = 0; j < Model.FeeStructureInstallmentList.Count; j++)
+                                                {
+
+                                                    <tr style="height: 2px;">
+                                                        <td style="text-align: center; width: 10%"><input type="hidden" value="@Model.FeeStructureInstallmentList[j].FeeStructureInstallmentMasterID" /> @Convert.ToInt32(j + 1) </td>
+                                                        <td style="text-align: center; width: 10%">@Math.Round(Model.FeeStructureMasterList[j].FeeSubTypeAmount, 2)</td>
+                                                        <td style="text-align: center; width: 40%"><input id="installmentFromDate~@j" class="mydateclass" type="text" style="height:15px;width:80px;"></td>
+                                                        <td style="text-align: center; width: 40%"><input id="installmentUptoDate~@j" class="mydateclass" type="text" style="height: 15px; width:80px; "></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="span10">
+                                    <div class="form-actions " style="border: 1px solid #e5e5e5;text-align:right">
+                                        <input type="button" id="CreateInventoryDumpAndShrink" value="@Resources.ButtonAction_Submit" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="span10">
+                                    <h6>Fee Structure Applicable To </h6>
+                                    <div id="tableDiv" style="height:50px">
+                                        <table id="tblData3" class="table user-tbl infinite-scroll" style="  border: 1px solid #dddddd">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: left; width: 10%">#</th>
+                                                    <th style="text-align: left; width: 60%">Fee Sub Type</th>
+                                                    <th style="text-align: center; width: 20%">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @Html.Partial("_StudentList", (Model.FeeStructureMasterList))
+                                            </tbody>
+                                          <tbody style=" overflow: auto">
+                                                @for (int i = 0; i < Model.FeeStructureMasterList.Count; i++)
+                                                {
+
+                                                    <tr style="height: 2px;">
+                                                        <td style="text-align: left; width: 10%">@Convert.ToInt32(i + 1) </td>
+                                                        <td style="text-align: left; width: 50%">@Model.FeeStructureMasterList[i].FeeSubTypeName</td>
+                                                        <td style="text-align: center; width: 40%">@Math.Round(Model.FeeStructureMasterList[i].FeeSubTypeAmount, 2)</td>
+                                                    </tr>
+                                                }
+                                                <tr style="height: 2px;">
+                                                    <td></td>
+                                                    <td style="text-align: left;font-weight:bold; width: 40%">Total</td>
+                                                    <td style="text-align: center; font-weight: bold; width: 40%">@Math.Round(Model.TotalFeeAmount, 2)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @Html.Partial("_Loading")
+                                </div>
+                            </div>
+
+                            
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/infiniteScroll.js"></script>
+<script>
+    $(document).ready(function () {
+        FeeStructureApplicable.Initialize();
+    })
+
+    @*$("#cboxContent").scroll(function () {
+        alert("scroll");
+        if ($("#cboxContent").scrollTop() == $(document).height() - $(window).height()) {
+           
+            GetRecords();
+        }
+    });
+    $(window).scroll(function () {
+        alert("asdf");
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            alert("bottom!");
+        }
+    });
+    
+    $(function () {
+        $("div#loading").hide();
+    });
+    var moreRowsUrl = '@Url.RouteUrl("StudentList")';
+    $(window).scroll(scrollHandler);*@
+</script>
+

@@ -1,0 +1,126 @@
+﻿@model AMS.ViewModel.OnlineExamAllocateSupportStaffViewModel
+<script src="@Url.Content("~/Scripts/AMS_Scripts/OnlineEXam/OnlineExamAllocateSupportStaff.js")" type="text/javascript"></script>
+@Html.HiddenFor(model => model.EmployeeFullName)
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp; &nbsp;Allocate Support Staff</h2>
+         </div>
+             <div class="card">
+              <div class="card-body card-padding">
+                  <div id="displayErrorMessage" role="alert" hidden class="alert">
+                      <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                      <p id="messageContent"></p>
+                       </div>
+                         <form id="FormCreateOnlineExamAllocateSupportStaff" role="form" class="row">
+                      @Html.HiddenFor(m => m.EmployeeID)
+                      @Html.HiddenFor(m => m.AcademicSessionID)
+                      @Html.HiddenFor(m => m.OnlineExamAllocateSupportStaffID)
+                      @Html.HiddenFor(m => m.JobAllotedForCentreCode)
+                      @Html.HiddenFor(m => m.OnlineExamExaminationMasterID)
+                      <div class="form-group col-sm-12">
+                              @Html.LabelFor(m => m.EmployeeFullName, new { })
+                              <span style="color:red">*</span>
+                              <div class="form-group  fg-line typeahead">
+                                  @Html.TextBoxFor(model => model.EmployeeFullName, new { maxlength = "12", @class = "form-control input-sm typeahead", disabled = "disabled" })
+                              </div>
+                              @Html.ValidationMessageFor(model => model.EmployeeFullName)
+                          </div>
+                      <div class="form-group col-sm-6">
+                              <div class="form-group fg-line">
+                               @Html.LabelFor(model => model.AllotedJobName, new { })
+                               <span style="color:red">*</span> 
+                               @Html.TextBoxFor(model => model.AllotedJobName, new { @class = "form-control input-sm ", maxlength = "20" })
+                               </div>                                
+                               @Html.ValidationMessageFor(model => model.AllotedJobName)
+                      </div>
+                        <div class="form-group col-sm-6">
+                           <div class="form-group fg-line select">                                
+                                @Html.LabelFor(model => model.AllotedJobCode, new { })
+                               <span style="color:red">*</span> 
+                                @Html.DropDownList("AllotedJobCode", ViewData["AllotedJobCode"] as List<SelectListItem>, "---Select Alloted Job Code ---", new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "AllotedJobCode*" })
+                            </div>                                      
+                                @Html.ValidationMessageFor(model => model.AllotedJobCode)
+                        </div>
+                        <div class="form-group col-sm-6">
+                              <div class="form-group fg-line">
+                                   @Html.LabelFor(model => model.JobStartDate, new { })
+                                   @Html.TextBoxFor(model => model.JobStartDate, new { @class = "form-control input-sm"})
+                                </div>
+                            @Html.ValidationMessageFor(model => model.JobStartDate)
+                      </div>
+                    <div class="form-group col-sm-6">
+                             <div class="form-group fg-line">
+                           
+                              @Html.LabelFor(model => model.JobEndDate, new { })
+                              @Html.TextBoxFor(model => model.JobEndDate, new { @class = "form-control input-sm"})
+                        </div>
+                      @Html.ValidationMessageFor(model => model.JobEndDate)
+                    </div>
+                     <div class="form-group col-sm-6">
+                             <div class="form-group fg-line select">
+                                   <span style="color:red">*</span> 
+                              @Html.LabelFor(model => model.SubjectGroupId, new { })
+                              @Html.DropDownListFor(model => model.SubjectGroupId, (SelectList)ViewBag.OrganisationSubjectGroupDetailsListt, "---Select Subject---", new { @class = "form-control input-sm" })
+                           </div>
+                          @Html.ValidationMessageFor(model => model.SubjectGroupId)
+                      </div>
+
+                      <div class="form-group col-sm-6">
+                                 <div class="form-group fg-line">
+                                 <span style="color:red">*</span> 
+                                  @Html.LabelFor(model => model.Session, new { })
+                                @Html.DropDownListFor(model => model.Session, (SelectList)ViewBag.GeneralSessionMasteListt, "----Select Session---", new { @class = "form-control input-sm" })
+                              </div>
+                          @Html.ValidationMessageFor(model => model.Session)
+                      </div>
+                      <div class="form-group col-sm-6">
+                                <div class="checkbox m-b-15" style="padding-top:10%;">
+                                  <label>
+                                  <input type="checkbox" id="IsNotificationNeedToSentCompulsory">
+                                  <i class="input-helper"></i>
+                                  @Html.LabelFor(model => model.IsNotificationNeedToSentCompulsory)
+                              </label>
+                          </div>
+                      </div>
+                      <div class="form-group col-sm-12">
+                          <input class="btn btn-primary" style="margin-left:1%" value="@Resources.ButtonAction_Submit" id="CreateOnlineExamAllocateSupportStaffRecord" type="button" />
+                      </div>
+                 </form>
+              </div>
+         </div>
+    </div>
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate-1.15.0.js") " type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/moment/min/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/materialtheme/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/Scripts/AMS_Scripts/OnlineExam/OnlineExamAllocateSupportStaff.js")" type="text/javascript"></script>*@
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $('#JobStartDate').datetimepicker({
+            format: 'DD MMMM YYYY',
+            //ignoreReadonly: true,
+            minDate: moment()
+        });
+        $('#JobEndDate').datetimepicker({
+            format: 'DD MMMM YYYY',
+            // ignoreReadonly: true,
+            //maxDate: moment()
+        });
+
+        $('#JobStartDate').on('dp.hide', function (e) {
+            var minDate = new Date(e.date.valueOf());
+            minDate.setDate(minDate.getDate());
+            $("#JobEndDate").data("DateTimePicker").minDate(minDate);
+
+       
+        });
+        OnlineExamAllocateSupportStaff.Initialize();
+          
+      });
+   
+</script>
+

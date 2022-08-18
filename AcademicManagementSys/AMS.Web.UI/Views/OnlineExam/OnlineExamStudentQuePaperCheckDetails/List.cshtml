@@ -1,0 +1,206 @@
+﻿@model AMS.ViewModel.OnlineExamStudentQuePaperCheckDetailsViewModel
+<div class="block-header">
+    <h2 style="text-transform: none;"><i class="zmdi zmdi-view-toc"></i>&nbsp;Question Paper</h2>
+</div>
+<div class="card">
+    <div class="card-header">
+        <ul class="actions" style="display:none;">
+            <li class="dropdown">
+                <a href="" data-toggle="dropdown">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="mfpAjaxModal" title="Add New" href="@Url.Action("Create","OnlineExamSubjectGroupSchedule")">
+                            <i class="zmdi zmdi-plus-square"></i>&nbsp;Add New
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="bootgrid-header container-fluid" id="data-table-command-header">
+        <div class="row">
+            <div class="col-sm-12 actionBar">
+                <div class="search form-group">
+                    <div class="input-group">
+                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                        <input type="text" id="UserSearch" placeholder="Search" class="search-field form-control">
+                    </div>
+                </div>
+                <div class="actions btn-group">
+                    @*   <button title="Refresh" type="button" class="btn btn-default">
+                            <span class="zmdi icon zmdi zmdi-refresh zmdi-hc-fw"></span>
+                        </button>*@
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle">
+                            <span class="dropdown-text" id="tblDisplayRowLength">@Resources.GlobalProperties_10</span> <span class="caret"></span>
+                        </button>
+                        <ul role="menu" style="cursor: pointer" id="showrecords" class="dropdown-menu pull-right">
+                            <li class="active" aria-selected="true">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_10">@Resources.GlobalProperties_10</a>
+                            </li>
+                            <li aria-selected="false">
+                                <a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_25">@Resources.GlobalProperties_25</a>
+                            </li>
+                            <li aria-selected="false"><a class="dropdown-item dropdown-item-button" data-action="@Resources.GlobalProperties_50">@Resources.GlobalProperties_50</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group">
+                        <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                <span class="zmdi icon zmdi-view-module"></span>
+                            </span><span class="caret"></span>
+                        </button>
+                        <ul role="menu" id="toggleTableColumn" class="dropdown-menu pull-right">
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="1" name="Question Type">
+                                        Subject<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label class="dropdown-item" aria-disabled="false">
+                                        <input type="checkbox" checked="checked" class="dropdown-item-checkbox" value="3" name="Action">
+                                        @Resources.TableHeaders_Action<i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="myDataTable" class="table table-striped table-vmiddle table-responsive ">
+        <thead>
+            <tr>
+                <th>Examination Name</th>
+                <th>Subject</th>
+                <th style="text-align:center;" >@Resources.TableHeaders_Action</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var oTable;
+        OnlineExamStudentQuePaperCheckDetails.Initialize();
+
+        oTable = $('#myDataTable').DataTable({
+
+            "bServerSide": true,
+            "sAjaxSource": "OnlineExamStudentQuePaperCheckDetails/AjaxHandler",
+            "bJQueryUI": true,
+            "sScrollY": false,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sInfoEmpty": "No entries to show",
+            },
+            
+            "columnDefs": [
+                              {
+                                  "visible": false, "targets": 0,
+                              },
+
+                               {
+                                   "targets": 1,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = "<p  style=' height:5px;'>" + data[4] + "</p>";
+                                       return result;
+                                   }
+                               },
+
+                               {
+                                   "targets": 2,
+                                   "bSortable": false,
+                                   "data": null,
+                                   "render": function (data, type, full, meta) {
+                                       var result = null;
+                                       result2 = '@Html.ActionLink("ViewDetails1", "StudentList", new { OnlineExamSubjectGroupScheduleID = "ID1", OnlineExamQuestionPaperCheckerID = "ID2"}, new { @class = "btn btn-default waves-effect" })';
+                                       result2 = result2.replace('ID1', data[5]);
+                                       result2 = result2.replace('ID2', data[0]);
+                                       result2 = result2.replace("ViewDetails1", '<span class=\"zmdi zmdi-view-toc\" title =\"@Resources.ToolTip_View\"></span>');
+                                       if (data[6] == "True") {
+                                           result1 = '<a href="javascript:void(0)" data-toggle="tooltip" class="IsAllChecked" title ="Completed"><span class="btn btn-default waves-effect ">Completed</span></a>';
+                                       }
+                                       else {
+                                           result1 = '<a href="javascript:void(0)" data-toggle="tooltip" class="IsAllChecked" onclick="IsAllChecked(this)" title ="Check All"><span class="btn btn-default waves-effect ">Check All</span></a><input type="hidden" class="IsAllChecked" value="' +  data[0] + "~" + data[5] + '">';
+                                       }
+                                       var result = "<p  style='text-align: center; height:5px;'>" + result2 + "&nbsp;" + result1 + "</p>";
+                                       return result;
+                                   }
+                               }
+            ],
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+                var table = $('#myDataTable').dataTable();
+                api.column(1, { page: 'current' }).data().each(function (group, i) {
+                    var array = String(group).split(',');
+                    if (last !== array[3]) {
+                        var paperData = '<tr class="group"><td colspan="3"  style="font-weight:bold;font-size:12px;font-family: verdana;" >' + array[3] + '</td></tr>'
+                        $(rows).eq(i).before(
+                           paperData
+                        );
+                        last = array[3];
+                    }
+                });
+            }
+        });
+        DataTableSettings(oTable, 'myDataTable', 'toggleTableColumn');
+    });
+
+  
+    function IsAllChecked(CheckAll) {
+        debugger
+        swal({
+            title: "All Checked Question Paper",
+            text: "Once Question Paper get Complete ,it can not be changed ",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: true,
+            confirmButtonClass: "btn-warning",
+            confirmButtonText: "Submit"
+        },
+   function (isConfirm) {
+       if (isConfirm) {
+           debugger
+           var result = $(CheckAll).next().val();
+           var result1 = result.split('~');
+           var OnlineExamSubjectGroupScheduleID = result1[1];
+           var OnlineExamQuestionPaperCheckerID = result1[0];
+           $.ajax(
+               {
+                   cache: false,
+                   type: "POST",
+                   dataType: "json",
+                   data: { "OnlineExamQuestionPaperCheckerID": OnlineExamQuestionPaperCheckerID, "OnlineExamSubjectGroupScheduleID": OnlineExamSubjectGroupScheduleID },
+                   url: '/OnlineExamStudentQuePaperCheckDetails/OnlineExamIsAllCheckedQuestion',
+                   success: function (data) {
+                       debugger
+                       var splitData = data.split(',');
+                       notify(splitData[0], splitData[1]);
+                       OnlineExamStudentQuePaperCheckDetails.LoadList();
+                   }
+               });
+            }
+           });
+        }
+    
+
+  
+</script>
+
+

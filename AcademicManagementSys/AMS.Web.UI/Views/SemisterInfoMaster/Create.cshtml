@@ -1,0 +1,105 @@
+﻿@model AMS.Web.UI.Models.SemisterInfoMaster.SemisterInfoMaster
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<div id='dlgLogin'>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="panel panel-default bootstrap-admin-no-table-panel">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">Semister Master</div>
+                </div>
+                <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+                    <form class="form-horizontal">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <legend>Create</legend>
+                                    <div class="form-group">
+                                <div class="editor-label col-lg-2 control-label">
+                                    @Html.LabelFor(model => model.SemisterName)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.SemisterName)
+                                    @Html.ValidationMessageFor(model => model.SemisterName)
+                                </div>
+                                        </div>
+                          <div class="form-group">
+                                <div class="editor-label col-lg-2 control-label">
+                                    @Html.LabelFor(model => model.SemisterCode)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.SemisterCode)
+                                    @Html.ValidationMessageFor(model => model.SemisterCode)
+                                </div>
+                                        </div>
+
+                                <div class="form-group">
+                                <div class="editor-label  col-lg-2 control-label">
+                                    @Html.LabelFor(model => model.SemisterType)
+                                </div>
+                                <div class="editor-field">
+                                 @Html.EditorFor(model => model.SemisterType)
+                                    @Html.ValidationMessageFor(model => model.SemisterType)
+
+                                </div>
+                                    </div>
+
+                                <div class="form-group" >
+                  <div class="editor-label col-lg-2 control-label"></div>
+                               
+                                <p>
+                                    <input type="submit" class="btn btn-sm btn-primary" value="Save"/>
+                                </p>  
+
+                                </div>
+                            </fieldset>
+                          
+                        }
+                      
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*script for popup*@
+<script type="text/javascript">
+    $(function () {
+        $("#dlgLogin").dialog({
+            modal: true,
+            autoOpen: true,
+            resizable: false,
+            buttons: {
+                Create: function () {
+                    // perform login
+                    $.post("@Url.Action("Login", "NationalityMaster")",
+				    {
+				        DivisionName: $('#NationalityName').val(),
+				        DivisionPrintCode: $('#Default').val()
+				    },
+				    function (data, status, xhr) {
+				        if (data.Success) {
+				            alert('great'); // do something
+				            $('#dlgLogin').dialog("close");
+				            $('#divLoginButton').load("@Url.Action("GetLoginButton", "NationalitynMaster")");
+                        } else {
+				            // do something else
+                        }
+				    });
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+</script>
+
+@* End othe Script*@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

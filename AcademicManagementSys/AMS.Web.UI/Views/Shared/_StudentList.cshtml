@@ -1,0 +1,25 @@
+﻿@model List<AMS.DTO.FeeStructureMasterAndDetails>
+           @{
+               Layout = null;
+            }
+@*<style>
+    .table th, .table td {
+        border-top: 1px solid #dddddd;
+        line-height: 9px;
+        padding: 8px;
+        vertical-align: top;
+    }
+</style>*@
+
+
+    @for (int i = 0; i < 20; i++)
+    {
+
+        <tr style="height: 2px;">
+            <td style="text-align: left; width: 10%">@Convert.ToInt32(i + 1) </td>
+            <td style="text-align: left; width: 50%">Admission Fees</td>
+            <td style="text-align: center; width: 40%">@Math.Round(200.325, 2 )</td>
+        </tr>
+    }
+   
+

@@ -1,0 +1,272 @@
+﻿@model AMS.ViewModel.GeneralSupplierMasterViewModel
+
+<form id="FormCreateGeneralSupplierMaster" method="post">
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js") " type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="update-message" class="error invisible"></div>
+
+    <div class="widget-block">
+        <div class="widget-head">
+            <h5>Create Supplier</h5>
+        </div>
+        <div class="widget-content">
+             <div style="width: 800px">
+                <div style="width: 150px; float: left">&nbsp;</div>
+            </div>
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 800px; float: left">
+                    <div style="width: 150px; float: left">Vendor</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: left">
+                        @Html.EditorFor(model => model.Vender)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.Vender)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">First Name</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.FirstName)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Middle Name</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.MiddleName)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.MiddleName)
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Last Name</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.LastName)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Sex</div>
+                    <div style="width: 250px; float: right">
+                        <div style="width: 100px; float: left">
+                            <label for="male">@Html.RadioButtonFor(model => model.Sex, "M", new { id = "male" }) <span>male</span></label>
+                            @*@Html.RadioButtonFor(model => model.Sex, "false", new { id = "male", style = "margin-left: 20px;margin-top: 0px;" }) <span style="margin-left:20px;">male</span>*@
+                            <label for="female">@Html.RadioButtonFor(model => model.Sex, "F", new { id = "female" }) <span>female</span></label>
+                            @*@Html.RadioButtonFor(model => model.Sex, "true", new { id = "female", style = "margin-left: -35px;margin-top: 0px;" }) <span style="margin-left:20px;">female</span>*@
+                        </div>
+                    </div>
+                    @* <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        <label for="male">@Html.RadioButtonFor(model => model.Sex, "false", new { id = "male" }) <span>male</span></label>
+                        <label for="female">@Html.RadioButtonFor(model => model.Sex, "true", new { id = "female" }) <span>female</span></label>
+                    </div>*@
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Address First</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.AddressFirst)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.AddressFirst)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Address Second</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.AddressSecond)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.AddressSecond)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Plot Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.PlotNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.PlotNumber)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Street Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.StreetNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.StreetNumber)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Tahsil ID</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.TahsilID)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.TahsilID)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Pin Code</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.PinCode)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.PinCode)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Phone Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.PhoneNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Residence Phone Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.ResiPhoneNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.ResiPhoneNumber)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Cell Phone Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.CellPhoneNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.CellPhoneNumber)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Fax Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.FaxNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.FaxNumber)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Email</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.Email)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">WebUrl</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.WebUrl)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.WebUrl)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">VenderDescription</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.VenderDescription)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.VenderDescription)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">CategoryId</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.CategoryId)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.CategoryId)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">VAT</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.VAT)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.VAT)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">CST</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.CST)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.CST)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 400px; float: left">
+                    <div style="width: 150px; float: left">Excise</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.Excise)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.Excise)
+                    </div>
+                </div>
+                <div class="control-group control-label" style="width: 400px; float: right">
+                    <div style="width: 150px; float: left">Stablishment Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: right">
+                        @Html.EditorFor(model => model.StablishmentNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.StablishmentNumber)
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 800px; float: left">
+                    <div style="width: 150px; float: left">Reference Number</div>
+                    <div class="controls input-xlarge text-tip" style="width: 250px; float: left">
+                        @Html.EditorFor(model => model.RefNumber)
+                        <br />
+                        @Html.ValidationMessageFor(model => model.RefNumber)
+                    </div>
+                </div>
+            </div>
+            <div style="width: 800px">
+                <div class="control-group control-label" style="width: 800px; float: left">
+                    <div class="form-actions" style="border: 1px solid #e5e5e5;">
+                        <input type="button" id="CreateGeneralSupplierMasterRecord" value="Create" class="btn btn-primary" />
+                    </div>        
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GeneralSupplierMaster.Initialize();
+    });
+</script>

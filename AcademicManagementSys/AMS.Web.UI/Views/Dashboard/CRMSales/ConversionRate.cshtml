@@ -1,0 +1,19 @@
+﻿@model AMS.ViewModel.CRMSaleReportViewModel
+@Html.HiddenFor(m => m.ReportList, new { @id = "ReportListConversionRate" })  
+<div class="col-sm-6 col-md-3">
+    <div class="mini-charts-item bgm-pink">
+        <div class="clearfix">
+            <div class="chart myBarClassConversionRate col-sm-6 text-center"></div>
+            <div class="count text-center">
+                <small>Conversion Rate</small>
+                <h2>@Html.DisplayFor(m => m.ReportCount) %</h2>
+                <small>&nbsp;</small>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        sparklineBar('myBarClassConversionRate', $("#ReportListConversionRate").val().split(','), '45px', 3, '#fff', 2);
+    });
+</script>

@@ -1,0 +1,42 @@
+﻿@*@model IEnumerable<AMS.ViewModel.UserModuleMasterViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/Vendors")
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Admin/UserModuleMaster.js")" type="text/javascript"></script>
+
+<div id="ListViewModel">
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        UserModuleMaster.LoadList();
+    });
+</script>*@
+
+@*------new code--------*@
+
+@model IEnumerable<AMS.ViewModel.UserModuleMasterViewModel>
+@{
+ViewBag.Title = "Index";
+Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+@*@Styles.Render("~/Content/Vendors")*@
+<style type="text/css">
+.mfp-content {
+width: 60%;
+}
+</style>
+
+<script src="@Url.Content("~/Scripts/AMS_Scripts/Admin/UserModuleMaster.js")" type="text/javascript"></script>
+
+<div id="ListViewModel" class="container">
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+UserModuleMaster.LoadList();
+});
+</script>
